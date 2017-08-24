@@ -19,10 +19,11 @@ export default class MessageList extends Component {
   constructor(props) {
     super(props);
     this._onMsgClick = this._onMsgClick.bind(this);
-    this._onMsgLongClick = this._onMsgLongClick.bind(this);
+    this._onMsgOpenUrlClick = this._onMsgOpenUrlClick.bind(this);
+    this._onDealWithMenuClick = this._onDealWithMenuClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onStatusViewClick = this._onStatusViewClick.bind(this);
-    this._onPullToRefresh = this._onPullToRefresh(this);
+
   }
 
   _onMsgClick(event: Event) {
@@ -32,11 +33,18 @@ export default class MessageList extends Component {
     this.props.onMsgClick(event.nativeEvent.message);
   }
 
-  _onMsgLongClick(event: Event) {
-    if (!this.props.onMsgLongClick) {
+  _onMsgOpenUrlClick(event: Event) {
+    if (!this.props.onMsgOpenUrlClick) {
       return;
     }
-    this.props.onMsgLongClick(event.nativeEvent.message);
+    this.props.onMsgOpenUrlClick(event.nativeEvent.url);
+  }
+
+  _onDealWithMenuClick(event: Event) {
+    if (!this.props.onDealWithMenuClick) {
+      return;
+    }
+    this.props.onDealWithMenuClick(event.nativeEvent.message,event.nativeEvent.strMenu);
   }
 
   _onAvatarClick(event: Event) {
@@ -60,13 +68,12 @@ export default class MessageList extends Component {
     this.props.onBeginDragMessageList();
   }
 
-  _onPullToRefresh(event: Event) {
-    console.log("huangmin888")
-    if (!this.props.onPullToRefresh) {
-      return;
+    _onClickLoadMessages(event: Event) {
+        if (!this.props.onClickLoadMessages) {
+            return;
+        }
+        this.props.onClickLoadMessages();
     }
-    this.props.onPullToRefresh();
-  }
 
   render() {
     return (
@@ -74,8 +81,10 @@ export default class MessageList extends Component {
           {...this.props} 
           onMsgClick={this._onMsgClick}
           onAvatarClick={this._onAvatarClick}
-          onMsgLongClick={this._onMsgLongClick}
+          onMsgOpenUrlClick ={this._onMsgOpenUrlClick}
+          onDealWithMenuClick={this._onDealWithMenuClick}
           onStatusViewClick={this._onStatusViewClick}
+          onClickLoadMessages={this._onClickLoadMessages.bind(this)}
       />
     );
   }
@@ -84,10 +93,12 @@ export default class MessageList extends Component {
 
 MessageList.propTypes = {
   onMsgClick: PropTypes.func,
+  onMsgOpenUrlClick: PropTypes.func,
+  onDealWithMenuClick: PropTypes.func,
   onAvatarClick: PropTypes.func,
   onStatusViewClick: PropTypes.func,
   onBeginDragMessageList: PropTypes.func,
-  onPullToRefresh: PropTypes.func,
+    onClickLoadMessages:PropTypes.func,
   sendBubble: PropTypes.string,
   receiveBubble: PropTypes.string,
   sendBubble: PropTypes.object,

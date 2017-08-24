@@ -1,160 +1,76 @@
-'use strict';
-
-import React from 'react';
-import ReactNative from 'react-native';
-
-var {
-  PropTypes,
-  Component,
-} = React;
-
-var {
-  StyleSheet,
-  View,
-  requireNativeComponent,
-} = ReactNative;
+import React, {Component, PropTypes} from 'react';
+import {View, requireNativeComponent,NativeModules} from 'react-native';
 
 export default class ChatInput extends Component {
-
-  constructor(props) {
-    super(props);
-    this._onSendText = this._onSendText.bind(this);
-    this._onSendFiles = this._onSendFiles.bind(this);
-    this._takePicture = this._takePicture.bind(this);
-    this._startVideoRecord = this._startVideoRecord.bind(this);
-    this._finishVideoRecord = this._finishVideoRecord.bind(this);
-    this._onStartRecordVoice = this._onStartRecordVoice.bind(this);
-    this._onFinishRecordVoice = this._onFinishRecordVoice.bind(this);
-    this._onCancelRecordVoice = this._onCancelRecordVoice.bind(this);
-    this._onSwitchToMicrophoneMode = this._onSwitchToMicrophoneMode.bind(this);
-    this._onSwitchGalleryMode = this._onSwitchGalleryMode.bind(this);
-    this._onSwitchToCameraMode = this._onSwitchToCameraMode.bind(this);
-    this._onShowKeyboard = this._onShowKeyboard.bind(this);
-  }
-
-  _onSendText(event: Event) {
-    if (!this.props.onSendText) {
-      return;
+    constructor(props){
+        super(props);
+        this._onFeatureView = this._onFeatureView.bind(this);
+        this._onShowKeyboard = this._onShowKeyboard.bind(this);
+        this._onChangeBarHeight = this._onChangeBarHeight.bind(this);
+        this._onSendTextMessage = this._onSendTextMessage.bind(this);
+        this._onSendRecordMessage = this._onSendRecordMessage.bind(this);
+        this._onClickMention = this._onClickMention.bind(this);
     }
-    this.props.onSendText(event.nativeEvent.text);
-  }
-
-  _onSendFiles(event: Event) {
-    if (!this.props.onSendGalleryFiles) {
-      return;
+    _onFeatureView(event: Event){
+        if (!this.props.onFeatureView) {
+            return;
+        }
+        this.props.onFeatureView(event.nativeEvent.inputHeight,event.nativeEvent.showType);
     }
-    this.props.onSendGalleryFiles(event.nativeEvent.mediaFiles);
-  }
-
-  _takePicture(event: Event) {
-    if (!this.props.onTakePicture) {
-      return;
+    _onShowKeyboard(event: Event){
+        if (!this.props.onShowKeyboard) {
+            return;
+        }
+        this.props.onShowKeyboard(event.nativeEvent.inputHeight,event.nativeEvent.showType);
     }
-    this.props.onTakePicture(event.nativeEvent.mediaPath);
-  }
-
-  _startVideoRecord() {
-    if (!this.props.onStartRecordVideo) {
-      return;
+    _onChangeBarHeight(event: Event){
+        if (!this.props.onChangeBarHeight) {
+            return;
+        }
+        this.props.onChangeBarHeight(event.nativeEvent.inputHeight,event.nativeEvent.marginTop);
     }
-    this.props.onStartRecordVideo();
-  }
-
-  _finishVideoRecord(event: Event) {
-    if (!this.props.onFinishRecordVideo) {
-      return;
+    _onSendTextMessage(event: Event){
+        if (!this.props.onSendTextMessage) {
+            return;
+        }
+        this.props.onSendTextMessage(event.nativeEvent.text,event.nativeEvent.IDArr);
     }
-    this.props.onFinishRecordVideo(event.nativeEvent.mediaPath);
-  }
-
-  _onStartRecordVoice() {
-    if (!this.props.onStartRecordVoice) {
-      return;
+    _onSendRecordMessage(event: Event){
+        if(!this.props.onSendRecordMessage){
+            return;
+        }
+        this.props.onSendRecordMessage(event.nativeEvent.Path);
     }
-    this.props.onStartRecordVoice();
-  }
-
-  _onFinishRecordVoice(event: Event) {
-    if (!this.props.onFinishRecordVoice) {
-      return;
-    }
-    this.props.onFinishRecordVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
-  }
-
-  _onCancelRecordVoice() {
-    if (!this.props.onCancelRecordVoice) {
-      return;
-    }
-    this.props.onCancelRecordVoice();
-  }
-
-  _onSwitchToMicrophoneMode() {
-    if (!this.props.onSwitchToMicrophoneMode) {
-      return;
-    }
-    this.props.onSwitchToMicrophoneMode();
-  }
-
-  _onSwitchGalleryMode() {
-    if (!this.props.onSwitchToGalleryMode) {
-      return;
-    }
-    this.props.onSwitchToGalleryMode();
-  }
-
-  _onSwitchToCameraMode() {
-    if (!this.props.onSwitchToCameraMode) {
-      return;
-    }
-    this.props.onSwitchToCameraMode();
-  }
-
-  _onShowKeyboard(event: Event) {
-    if (!this.props.onShowKeyboard) {
-      return;
+    _onClickMention(){
+        if(!this.props.onClickMention){
+            return;
+        }
+        this.props.onClickMention();
     }
 
-    this.props.onShowKeyboard(event.nativeEvent.keyboard_height);
-  }
-
-
-  render() {
-    return (
-      <RCTChatInput 
-          {...this.props} 
-          onSendText={this._onSendText}
-          onSendGalleryFiles={this._onSendFiles}
-          onTakePicture={this._takePicture}
-          onStartRecordVideo={this._startVideoRecord}
-          onFinishRecordVideo={this._finishVideoRecord}
-          onStartRecordVoice={this._onStartRecordVoice}
-          onFinishRecordVoice={this._onFinishRecordVoice}
-          onCancelRecordVoice={this._onCancelRecordVoice}
-          onSwitchToMicrophoneMode={this._onSwitchToMicrophoneMode}
-          onSwitchToGalleryMode={this._onSwitchGalleryMode}
-          onSwitchToCameraMode={this._onSwitchToCameraMode}
-          onShowKeyboard={this._onShowKeyboard}
-      />
-    );
-  }
-
+    render() {
+        return (
+            <RNCustomInputViewApi
+                {...this.props}
+                onFeatureView = {this._onFeatureView}
+                onShowKeyboard = {this._onShowKeyboard}
+                onChangeBarHeight = {this._onChangeBarHeight}
+                onSendTextMessage = {this._onSendTextMessage}
+                onSendRecordMessage = {this._onSendRecordMessage}
+                onClickMention = {this._onClickMention}
+                />
+            );
+    }
 }
-
 ChatInput.propTypes = {
-  menuContainerHeight: PropTypes.number,
-  onSendText: PropTypes.func,
-  onSendGalleryFiles: PropTypes.func,
-  onTakePicture: PropTypes.func,
-  onStartRecordVideo: PropTypes.func,
-  onFinishRecordVideo: PropTypes.func,
-  onStartRecordVoice: PropTypes.func,
-  onFinishRecordVoice: PropTypes.func,
-  onCancelRecordVoice: PropTypes.func,
-  onSwitchToMicrophoneMode: PropTypes.func,
-  onSwitchToGalleryMode: PropTypes.func,
-  onSwitchToCameraMode: PropTypes.func,
-  onShowKeyboard: PropTypes.func,
-  ...View.propTypes
+    ...View.propTypes,
+    menuViewH:PropTypes.number,
+    DefaultToolHeight:PropTypes.number,
+    onFeatureView:PropTypes.func,
+    onShowKeyboard:PropTypes.func,
+    onChangeBarHeight:PropTypes.func,
+    onSendTextMessage:PropTypes.func,
+    onSendRecordMessage:PropTypes.func,
+    onClickMention:PropTypes.func,
 };
-
-var RCTChatInput = requireNativeComponent('RCTInputView', ChatInput);
+const RNCustomInputViewApi = requireNativeComponent('RNCustomInputView', ChatInput);
