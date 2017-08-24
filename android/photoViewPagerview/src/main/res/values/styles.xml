@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ImageDialog" parent="android:style/Theme.Dialog">
+        <!-- 背景颜色及透明程度  -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--  是否有标题  -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 隐藏状态栏 -->
+        <item name="android:windowFullscreen">true</item>
+        <!--  是否浮现在activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊  -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

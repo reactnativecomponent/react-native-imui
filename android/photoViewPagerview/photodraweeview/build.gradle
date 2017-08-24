@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+version = "1.1.2"
+def int version_code = 112
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        //targetSdkVersion 23
+        versionCode version_code
+        versionName version
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+   compile 'com.facebook.fresco:fresco:0.8.1'
+}
+
+//apply from: "upload-jcenter.gradle"
+
