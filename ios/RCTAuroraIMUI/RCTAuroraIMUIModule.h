@@ -20,7 +20,6 @@
 #define kInsertMessagesToTop @"kInsertMessagesToTop"
 #define kUpdateMessge @"kUpdateMessge"
 #define kScrollToBottom @"kScrollToBottom"
-#define kScrollToBottom @"kScrollToBottom"
 #define kHidenFeatureView @"kHidenFeatureView"
 #define kRecordChangeNotification @"RecordChangeNotification"
 #define kRecordLevelNotification @"RecordLevelNotification"

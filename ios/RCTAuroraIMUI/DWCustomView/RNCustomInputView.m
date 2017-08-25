@@ -23,7 +23,7 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(menuViewH, CGFloat);
-RCT_EXPORT_VIEW_PROPERTY(DefaultToolHeight, CGFloat);
+RCT_EXPORT_VIEW_PROPERTY(defaultToolHeight, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(onFeatureView, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onShowKeyboard, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onChangeBarHeight, RCTBubblingEventBlock)
@@ -97,10 +97,10 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     inpuntBar.expressionView.hidden = YES;
     if (inpuntBar.showRecordeBtn.selected) {
         [inpuntBar.inputGrowView endEditing:YES];
-        inpuntBar.height = inpuntBar.DefaultToolHeight;
+        inpuntBar.height = inpuntBar.defaultToolHeight;
         inpuntBar.recordBtn.hidden = NO;
         inpuntBar.inputGrowView.hidden = YES;
-        inpuntBar.toolH = inpuntBar.DefaultToolHeight;
+        inpuntBar.toolH = inpuntBar.defaultToolHeight;
     }else{
         inpuntBar.recordBtn.hidden = YES;
         inpuntBar.inputGrowView.hidden = NO;

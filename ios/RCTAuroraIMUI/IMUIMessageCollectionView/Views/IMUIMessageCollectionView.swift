@@ -109,7 +109,7 @@ open class IMUIMessageCollectionView: UIView {
   open func appendMessage(with message: IMUIMessageModel) {
     self.chatDataManager.appendMessage(with: message)
     self.messageCollectionView.reloadData()
-    self.scrollToBottom(with: true)
+//    self.scrollToBottom(with: true)
   }
     
     open func fristAppendMessage(with message: IMUIMessageModel) {

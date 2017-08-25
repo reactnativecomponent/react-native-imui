@@ -19,8 +19,8 @@
 /// Tells the delegate that user tap message cell
 - (void)messageCollectionView:(UICollectionView * _Nonnull)_ forItemAt:(NSIndexPath * _Nonnull)forItemAt model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 /// Tells the delegate that user tap message bubble
-- (void)messageCollectionViewWithDidTapMessageBubbleInCell:(UICollectionViewCell * _Nonnull)didTapMessageBubbleInCell model:(id <IMUIMessageModelProtocol> _Nonnull)model;
-
+- (void)messageCollectionViewWithTapCellView:(UICollectionViewCell * _Nonnull)tapCellView;
+- (void)messageCollectionViewWithDidTapMessageBubbleInCell:(UICollectionViewCell * _Nonnull)didTapMessageBubbleInCell;
 
 - (void)messageCollectionViewWithOpenMessageBubbleUrl:(NSString *)url;
 
@@ -63,6 +63,7 @@ RCT_EXPORT_MODULE()
   
   _messageList = [[bundle loadNibNamed:@"RCTMessageListView" owner:self options: nil] objectAtIndex:0];
   _messageList.messageList.delegate = self;
+    
   _messageList.delegate = self;
   
   
@@ -112,7 +113,6 @@ RCT_CUSTOM_VIEW_PROPERTY(sendBubbleTextColor, NSString, RCTMessageListView) {
   if (color != nil) {
     IMUITextMessageCell.outGoingTextColor = color;
   }
-  
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(receiveBubbleTextColor, NSString, RCTMessageListView) {
@@ -188,7 +188,7 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
   MyMessageCellLayout.incommingPadding = UIEdgeInsetsMake([top floatValue], [left floatValue], [bottom floatValue], [right floatValue]);
 }
 
-- (RCTMessageModel *)convertMessageDicToModel:(NSDictionary *)message {
+- (RCTMessageModel *)convertMessageDicToModel:(NSMutableDictionary *)message {
   return [[RCTMessageModel alloc] initWithMessageDic: message];
 }
 
@@ -222,6 +222,10 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onMsgClick((@{@"message": messageDic}));
 }
 
+- (void)messageCollectionViewWithTapCellView:(UICollectionViewCell *)tapCellView{//隐藏键盘
+    if(!_messageList.onBeginDragMessageList) { return; }
+    _messageList.onBeginDragMessageList(@{});
+}
 
 - (void)messageCollectionViewWithOpenMessageBubbleUrl:(NSString *)url{
     if(!_messageList.onMsgOpenUrlClick) { return; }

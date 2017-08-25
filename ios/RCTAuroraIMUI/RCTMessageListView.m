@@ -43,7 +43,6 @@
   return self;
 }
 
-
 - (RCTMessageModel *)convertMessageDicToModel:(NSMutableDictionary *)message {
   return [[RCTMessageModel alloc] initWithMessageDic: message];
 }
