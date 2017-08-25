@@ -26,11 +26,13 @@ export default class ChatInput extends Component {
     this._cancelVideoRecord = this._cancelVideoRecord.bind(this);
     this._onStartRecordVoice = this._onStartRecordVoice.bind(this);
     this._onFinishRecordVoice = this._onFinishRecordVoice.bind(this);
+    this._onRecordingVoice = this._onRecordingVoice.bind(this);
     this._onCancelRecordVoice = this._onCancelRecordVoice.bind(this);
     this._onSwitchToMicrophoneMode = this._onSwitchToMicrophoneMode.bind(this);
-    this._onSwitchGalleryMode = this._onSwitchGalleryMode.bind(this);
-    this._onSwitchToCameraMode = this._onSwitchToCameraMode.bind(this);
+    this._onSwitchToActionMode = this._onSwitchToActionMode.bind(this);
+    this._onSwitchToEmojiMode = this._onSwitchToEmojiMode.bind(this);
     this._onTouchEditText = this._onTouchEditText.bind(this);
+    this._onEditTextChange = this._onEditTextChange.bind(this);
   }
 
   _onSendText(event: Event) {
@@ -88,6 +90,12 @@ export default class ChatInput extends Component {
     }
     this.props.onFinishRecordVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
   }
+  _onRecordingVoice(event: Event) {
+    if (!this.props.onRecordingVoice) {
+      return;
+    }
+    this.props.onRecordingVoice(event.nativeEvent);
+  }
 
   _onCancelRecordVoice() {
     if (!this.props.onCancelRecordVoice) {
@@ -103,18 +111,18 @@ export default class ChatInput extends Component {
     this.props.onSwitchToMicrophoneMode();
   }
 
-  _onSwitchGalleryMode() {
-    if (!this.props.onSwitchToGalleryMode) {
+  _onSwitchToActionMode() {
+    if (!this.props.onSwitchToActionMode) {
       return;
     }
-    this.props.onSwitchToGalleryMode();
+    this.props.onSwitchToActionMode();
   }
 
-  _onSwitchToCameraMode() {
-    if (!this.props.onSwitchToCameraMode) {
+  _onSwitchToEmojiMode() {
+    if (!this.props.onSwitchToEmojiMode) {
       return;
     }
-    this.props.onSwitchToCameraMode();
+    this.props.onSwitchToEmojiMode();
   }
 
   _onTouchEditText() {
@@ -122,6 +130,12 @@ export default class ChatInput extends Component {
       return;
     }
     this.props.onTouchEditText();
+  }
+  _onEditTextChange(event: Event) {
+    if (!this.props.onEditTextChange) {
+      return;
+    }
+    this.props.onEditTextChange(event.nativeEvent.text);
   }
 
   render() {
@@ -136,11 +150,13 @@ export default class ChatInput extends Component {
           onCancelRecordVideo={this._cancelVideoRecord}
           onStartRecordVoice={this._onStartRecordVoice}
           onFinishRecordVoice={this._onFinishRecordVoice}
+          onRecordingVoice={this._onRecordingVoice}
           onCancelRecordVoice={this._onCancelRecordVoice}
           onSwitchToMicrophoneMode={this._onSwitchToMicrophoneMode}
-          onSwitchToGalleryMode={this._onSwitchGalleryMode}
-          onSwitchToCameraMode={this._onSwitchToCameraMode}
+          onSwitchToActionMode={this._onSwitchToActionMode}
+          onSwitchToEmojiMode={this._onSwitchToEmojiMode}
           onTouchEditText={this._onTouchEditText}
+          onEditTextChange={this._onEditTextChange}
       />
     );
   }
@@ -158,11 +174,13 @@ ChatInput.propTypes = {
   onCancelRecordVideo: PropTypes.func,
   onStartRecordVoice: PropTypes.func,
   onFinishRecordVoice: PropTypes.func,
+  onRecordingVoice: PropTypes.func,
   onCancelRecordVoice: PropTypes.func,
   onSwitchToMicrophoneMode: PropTypes.func,
-  onSwitchToGalleryMode: PropTypes.func,
-  onSwitchToCameraMode: PropTypes.func,
+  onSwitchToActionMode: PropTypes.func,
+  onSwitchToEmojiMode: PropTypes.func,
   onTouchEditText: PropTypes.func,
+  onEditTextChange: PropTypes.func,
   ...View.propTypes
 };
 

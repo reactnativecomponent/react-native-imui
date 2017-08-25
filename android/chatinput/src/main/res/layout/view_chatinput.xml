@@ -1,0 +1,160 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/aurora_bg_input_default"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/aurora_ll_input_container"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <android.support.v4.widget.Space
+            android:id="@+id/aurora_input_margin_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/aurora_framelayout_menuitem_voice"
+            android:layout_width="48dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/aurora_menuitem_ib_voice"
+                style="@style/ChatInputIcon"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:src="@drawable/nim_message_button_bottom_audio_selector" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/aurora_et_chat_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/aurora_edittext_bg"
+                android:cursorVisible="true"
+                android:inputType="textMultiLine"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@drawable/aurora_edittext_cursor_bg"
+                android:textSize="18sp" />
+
+            <Button
+                android:background="@drawable/voice_bg"
+                android:id="@+id/aurora_et_chat_voice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="按住 说话"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/imui_layout_emoji"
+            android:layout_width="48dp"
+            android:layout_height="48dp">
+
+            <ImageButton
+                android:id="@+id/imui_item_emoji"
+                style="@style/ChatInputIcon"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:src="@drawable/nim_message_button_bottom_emoji_selector" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="48dp"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/imui_layout_send"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+
+                <ImageButton
+                    android:id="@+id/imui_item_send"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:clickable="false"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/aurora_menuitem_send"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/aurora_menuitem_tv_send_count"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/aurora_menuitem_send_count_bg"
+                    android:elevation="4dp"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:maxLines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    tools:text="11" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/imui_layout_action"
+                android:layout_width="48dp"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/imui_item_action"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/nim_message_button_bottom_add_selector"
+                    android:scaleType="fitCenter" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <android.support.v4.widget.Space
+            android:id="@+id/aurora_input_margin_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/aurora_fl_menu_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+
+        <dowin.com.emoji.emoji.EmoticonPickerView
+            android:id="@+id/emoticon_picker_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/aurora_view_action_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

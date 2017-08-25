@@ -18,6 +18,7 @@ export default class MessageList extends Component {
 
   constructor(props) {
     super(props);
+    this._onLinkClick = this._onLinkClick.bind(this);
     this._onMsgClick = this._onMsgClick.bind(this);
     this._onMsgLongClick = this._onMsgLongClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
@@ -31,6 +32,12 @@ export default class MessageList extends Component {
       return;
     }
     this.props.onMsgClick(event.nativeEvent.message);
+  }
+  _onLinkClick(event: Event) {
+    if (!this.props.onLinkClick) {
+      return;
+    }
+    this.props.onLinkClick(event.nativeEvent.message);
   }
 
   _onMsgLongClick(event: Event) {
@@ -71,7 +78,8 @@ export default class MessageList extends Component {
   render() {
     return (
       <RCTMessageList 
-          {...this.props} 
+          {...this.props}
+          onLinkClick={this._onLinkClick}
           onMsgClick={this._onMsgClick}
           onAvatarClick={this._onAvatarClick}
           onMsgLongClick={this._onMsgLongClick}
@@ -85,6 +93,7 @@ export default class MessageList extends Component {
 }
 
 MessageList.propTypes = {
+  onLinkClick: PropTypes.func,
   onMsgClick: PropTypes.func,
   onMsgLongClick: PropTypes.func,
   onAvatarClick: PropTypes.func,
