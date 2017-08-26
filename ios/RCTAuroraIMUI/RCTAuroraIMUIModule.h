@@ -30,7 +30,6 @@
 #define kClickLongTouchShowMenu @"kClickLongTouchShowMenuNotification"
 #define kStopPlayVoice @"kStopPlayVoice"
 
-
 @interface RCTAuroraIMUIModule : NSObject <RCTBridgeModule>
 
 @end

@@ -23,10 +23,10 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         contentLable.textColor = UIColor.white
         contentLable.font = UIFont.systemFont(ofSize: (screenW * 16 / 375))
         tipsLabel.textColor = UIColor.white
-        tipsLabel.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
+        tipsLabel.font = UIFont.systemFont(ofSize: (screenW * 12 / 375))
         tipsLabel.text = "领取红包"
         titleLable.textColor = UIColor.gray
-        titleLable.font = UIFont.systemFont(ofSize: (screenW * 16 / 375))
+        titleLable.font = UIFont.systemFont(ofSize: (screenW * 12 / 375))
         titleLable.text = "红包"
         titleLable.textAlignment = NSTextAlignment.center
         

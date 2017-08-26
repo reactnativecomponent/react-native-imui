@@ -55,12 +55,12 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         CGFloat inputH = inpuntBar.inputViewHeight + inpuntBar.menuViewH;
         inpuntBar.height = inputH;
         showType = 1;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
     }else{
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
 }
 //显示ExpressionView
 - (void)changExpressionView{
@@ -79,15 +79,15 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.expressionView.hidden = NO;
         CGFloat inputH = inpuntBar.inputViewHeight + expressionViewH;
         inpuntBar.height = inputH;
-        showType = 2;
-
+        showType = 0;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
     }else{
         inpuntBar.expressionView.hidden = YES;
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
+
 }
 
 - (void)changeRecordView{
@@ -101,6 +101,8 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.recordBtn.hidden = NO;
         inpuntBar.inputGrowView.hidden = YES;
         inpuntBar.toolH = inpuntBar.defaultToolHeight;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(0)});
     }else{
         inpuntBar.recordBtn.hidden = YES;
         inpuntBar.inputGrowView.hidden = NO;
@@ -108,14 +110,13 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(0)});
+
 }
 
 #pragma mark -- DWIputBarDelegate
 //点击按钮
 - (void)inputBarClickBtn:(UIButton *)btn{
-    NSLog(@"%zd",btn.tag);
+    NSLog(@"~inputBarClickBtn:%zd",btn.tag);
     switch (btn.tag) {
         case DWInputBarControlBtnTypeRecord:
         {

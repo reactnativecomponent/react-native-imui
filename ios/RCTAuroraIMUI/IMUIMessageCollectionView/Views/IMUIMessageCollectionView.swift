@@ -10,11 +10,12 @@ import UIKit
 
 
 open class IMUIMessageCollectionView: UIView {
-
+    
   @IBOutlet var view: UIView!
   @IBOutlet open weak var messageCollectionView: UICollectionView!
     var isPull = false
   var viewCache = IMUIReuseViewCache()
+    var headView = IMUIBaseMessageHeadCell()
   
   // React Native Property ---->
   var action: Array<Any> {
@@ -44,8 +45,9 @@ open class IMUIMessageCollectionView: UIView {
     view.frame = self.bounds
     self.chatDataManager = IMUIChatDataManager()
     self.setupMessageCollectionView()
+    
   }
-  
+    
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
@@ -80,8 +82,11 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUIRedPacketMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketMessageCell.self.description())
     self.messageCollectionView.register(IMUITransferMessageCell.self, forCellWithReuseIdentifier: IMUITransferMessageCell.self.description())
     self.messageCollectionView.register(IMUIRedPacketOpenMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketOpenMessageCell.self.description())
+    self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
     
     self.messageCollectionView.isScrollEnabled = true
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(clickStopPlayActivity(notification:)), name: NSNotification.Name(rawValue: "StopPlayActivity"), object: nil)
   }
   
   open subscript(index: Int) -> IMUIMessageModelProtocol {
@@ -138,13 +143,15 @@ open class IMUIMessageCollectionView: UIView {
   }
   
   open func insertMessages(with messages:[IMUIMessageModel]) {
+
     self.chatDataManager.insertMessages(with: messages)
     self.messageCollectionView.reloadData()
-    var scrollIndex = messages.count
-    if scrollIndex>1 {
-        scrollIndex = scrollIndex - 1
-    }
+    let scrollIndex = messages.count
+//    if scrollIndex>1 {
+//        scrollIndex = scrollIndex
+//    }
     self.scrollTo(index: scrollIndex)
+
   }
   
   open func updateMessage(with message:IMUIMessageModel) {
@@ -154,6 +161,16 @@ open class IMUIMessageCollectionView: UIView {
       self.messageCollectionView.reloadItems(at: [indexPath])
     }
   }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //通知方法
+    func clickStopPlayActivity(notification: Notification){
+        DispatchQueue.main.async(execute: {
+            self.headView.stopActView()
+        })
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -247,8 +264,18 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
         self.delegate?.messageCollectionView?(collectionView, didEndDisplaying: didEndDisplaying, forItemAt: forItemAt, model: messageModel)
     }
   }
-}
+    
+    public   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 30)
+    }
 
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView", for: indexPath) as! IMUIBaseMessageHeadCell
+        self.headView = headCell
+        return headCell
+    }
+    
+}
 
 
 extension IMUIMessageCollectionView: UIScrollViewDelegate {
@@ -256,11 +283,19 @@ extension IMUIMessageCollectionView: UIScrollViewDelegate {
     self.delegate?.messageCollectionView?(self.messageCollectionView)
   }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async(execute: {
+            self.headView.playActView()
+        })
         if scrollView.contentOffset.y < -30 {
             isPull = true
         }else if scrollView.contentOffset.y == 0 && isPull{
+
             isPull = false
             self.delegate?.messageCollectionView?(reloadMoreData:"")
+        }else{
+            DispatchQueue.main.async(execute: {
+                self.headView.stopActView()
+            })
         }
     }
     
