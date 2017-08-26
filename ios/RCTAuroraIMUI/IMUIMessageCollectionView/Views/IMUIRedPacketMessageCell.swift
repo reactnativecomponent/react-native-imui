@@ -21,7 +21,7 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         backgroundImg.image = UIImage.init(named: "redPacket")
         backgroundImg.contentMode = UIViewContentMode.scaleToFill
         contentLable.textColor = UIColor.white
-        contentLable.font = UIFont.systemFont(ofSize: (screenW * 16 / 375))
+        contentLable.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
         tipsLabel.textColor = UIColor.white
         tipsLabel.font = UIFont.systemFont(ofSize: (screenW * 12 / 375))
         tipsLabel.text = "领取红包"
@@ -58,10 +58,11 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         let contentH = layout.bubbleFrame.size.height * 0.74
         let titleLableH = layout.bubbleFrame.size.height * 0.26
         let tmpSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 16 / 375)), fixedWidth: contentW, text: "恭喜发财")
-        let contentY = (contentH - 2*tmpSize.height - 5)*0.5
+        let tipsSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 12 / 375)), fixedWidth: contentW, text: "领取红包")
+        let contentY = (contentH - tmpSize.height - tipsSize.height - 5)*0.5
         contentLable.frame = CGRect(origin: CGPoint(x: contentX, y: contentY), size: CGSize(width: contentW, height: tmpSize.height))
-        let tipsY = contentY + tmpSize.height + 5
-        tipsLabel.frame = CGRect(origin: CGPoint(x: contentX, y: tipsY), size: CGSize(width: contentW, height: tmpSize.height))
+        let tipsY = contentY + tipsSize.height + 5
+        tipsLabel.frame = CGRect(origin: CGPoint(x: contentX, y: tipsY), size: CGSize(width: contentW, height: tipsSize.height))
         let titleX = layout.bubbleFrame.size.width * 0.067
         let titleW = layout.bubbleFrame.size.width * 0.143
         self.titleLable.frame = CGRect(origin: CGPoint(x: CGFloat(titleX), y: contentH), size: CGSize(width: titleW, height: titleLableH))
