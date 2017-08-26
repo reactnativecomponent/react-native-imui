@@ -58,9 +58,11 @@ open class IMUIMessageCollectionView: UIView {
     self.setupMessageCollectionView()
   }
   
+    
   override open func layoutSubviews() {
     super.layoutSubviews()
-    IMUIMessageCellLayout.cellWidth = self.imui_width
+//    IMUIMessageCellLayout.cellWidth = self.imui_width
+    IMUIMessageCellLayout.cellWidth = UIScreen.main.bounds.size.width
   }
   
   func setupMessageCollectionView() {
@@ -112,10 +114,12 @@ open class IMUIMessageCollectionView: UIView {
 //    self.scrollToBottom(with: true)
   }
     
+    
     open func fristAppendMessage(with message: IMUIMessageModel) {
         self.chatDataManager.appendMessage(with: message)
         self.messageCollectionView.reloadData()
-        self.scrollToBottom(with: false)
+        scrollToBottom(with: false)
+
     }
     
     open func deleteMessage(with messageId: String) {
@@ -168,6 +172,7 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+//    return CGSize(width: messageCollectionView.imui_width, height: chatDataManager[indexPath.item].layout.cellHeight)
     return CGSize(width: messageCollectionView.imui_width, height: chatDataManager[indexPath.item].layout.cellHeight)
   }
   

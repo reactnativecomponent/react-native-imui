@@ -45,14 +45,18 @@
 #pragma mark -- 监听键盘
 - (void)clickKeyBoardChange:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
-    NSLog(@"clickKeyBoardChange:%@",userInfo);
+//    NSLog(@"clickKeyBoardChange:%@",userInfo);
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
-    if(!self.onShowKeyboard) { return; }
-//    [UIView animateWithDuration:0.5 animations:<#^(void)animations#>]
+//    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
+    NSLog(@"----height:%f",self.height);
+    CGFloat tmpH = screenH - endFrame.origin.y+self.inputViewHeight;
+    CGFloat keyboardY = screenH - 20;
+    if (!(self.showExpressionBtn.selected || self.showMenuBtn.selected) || (keyboardY > endFrame.origin.y)) {
+        if(!self.onShowKeyboard) { return; }
+        self.onShowKeyboard(@{@"inputHeight":@(tmpH),@"showType":@(0)});
+    }
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeMessageListHeightNotification" object:@{@"listViewHeight":@(screenH - 60 - tmpH)}];
     
-    self.onShowKeyboard(@{@"inputHeight":@(self.height),@"showType":@(0)});
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeMessageListHeightNotification" object:@{@"listViewHeight":@(screenH - 60 - self.height)}];
 
 }
 
@@ -60,16 +64,20 @@
     __weak typeof(self)weakSelf = self;
     dispatch_sync(dispatch_get_main_queue(), ^{
         [weakSelf.inputGrowView endEditing:YES];
-        weakSelf.expressionView.hidden = YES;
-        if (weakSelf.showMenuBtn.selected && (weakSelf.height > self.menuViewH )) {
-            weakSelf.showMenuBtn.selected = NO;
-            weakSelf.height = weakSelf.height - self.menuViewH;
-            weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
-        }else if(weakSelf.showExpressionBtn.selected && (weakSelf.height > expressionViewH )){
-            weakSelf.showExpressionBtn.selected = NO;
-            weakSelf.height = weakSelf.height - expressionViewH;
-            weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
-        }
+        [UIView animateWithDuration:1.0 animations:^{
+            if (weakSelf.showMenuBtn.selected && (weakSelf.height > self.menuViewH )) {
+                weakSelf.showMenuBtn.selected = NO;
+                weakSelf.height = weakSelf.height - self.menuViewH;
+                weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
+            }else if(weakSelf.showExpressionBtn.selected && (weakSelf.height > expressionViewH )){
+                weakSelf.showExpressionBtn.selected = NO;
+                weakSelf.height = weakSelf.height - expressionViewH;
+                weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
+            }
+        } completion:^(BOOL finished) {
+            weakSelf.expressionView.hidden = YES;
+        }];
+
     });
     
 }

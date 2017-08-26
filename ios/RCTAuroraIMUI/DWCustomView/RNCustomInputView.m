@@ -58,7 +58,6 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     }else{
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
-        showType = 0;
     }
     if(!inpuntBar.onFeatureView) { return; }
     inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
@@ -66,7 +65,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
 //显示ExpressionView
 - (void)changExpressionView{
     int showType = 0;
-    [inpuntBar.inputGrowView endEditing:YES];
+//    [inpuntBar.inputGrowView endEditing:YES];
     if (inpuntBar.showRecordeBtn.selected) {
         inpuntBar.showRecordeBtn.selected = NO;
         inpuntBar.recordBtn.hidden = YES;
@@ -80,6 +79,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.expressionView.hidden = NO;
         CGFloat inputH = inpuntBar.inputViewHeight + expressionViewH;
         inpuntBar.height = inputH;
+        showType = 2;
 
     }else{
         inpuntBar.expressionView.hidden = YES;
