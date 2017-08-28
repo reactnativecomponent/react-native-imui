@@ -84,4 +84,8 @@ RCT_EXPORT_METHOD(stopPlayVoice) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kStopPlayVoice object: nil];
 }
 
+RCT_EXPORT_METHOD(stopPlayActivity) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"StopPlayActivity" object: nil];
+}
+
 @end

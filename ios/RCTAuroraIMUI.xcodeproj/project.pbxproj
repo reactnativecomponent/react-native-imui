@@ -57,6 +57,7 @@
 		4E49AE2D1F3476E500B50439 /* NIMInputEmoticonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */; };
 		4E49AE311F3476F800B50439 /* NSString+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */; };
+		4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */; };
 		4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */; };
 		4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */; };
 		4E77A3A51F30840000098CAF /* IMUIAudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */; };
@@ -189,6 +190,7 @@
 		4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonDefine.h; sourceTree = "<group>"; };
 		4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NIMKit.h"; sourceTree = "<group>"; };
 		4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NIMKit.m"; sourceTree = "<group>"; };
+		4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageHeadCell.swift; sourceTree = "<group>"; };
 		4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILocationMessageCell.swift; sourceTree = "<group>"; };
 		4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketMessageCell.swift; sourceTree = "<group>"; };
 		4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIAudioPlayerHelper.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				4E77A38C1F30840000098CAF /* IMUIBaseMessageCell.swift */,
+				4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */,
 				4E77A38D1F30840000098CAF /* IMUIImageMessageCell.swift */,
 				4E77A38E1F30840000098CAF /* IMUILiveVideoMessageCell.swift */,
 				4E77A38F1F30840000098CAF /* IMUIMessageBubbleView.swift */,
@@ -783,6 +786,7 @@
 				4E77A3B61F30840000098CAF /* IMUIMessageModel.swift in Sources */,
 				4E77A3BE1F30840000098CAF /* IMUIUserProtocol.swift in Sources */,
 				4E49AE231F34764100B50439 /* NIMInputEmoticonTabView.m in Sources */,
+				4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */,
 				4E466F941F3ADECF0014451B /* M80AttributedLabelAttachment.m in Sources */,
 				4E77A3BC1F30840000098CAF /* IMUIMessageModelProtocol.swift in Sources */,
 				4E77A3C31F30840000098CAF /* IMUIMessageBubbleView.swift in Sources */,
@@ -831,7 +835,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				DEVELOPMENT_TEAM = RL64Y54S9V;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -844,7 +848,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				DEVELOPMENT_TEAM = RL64Y54S9V;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";

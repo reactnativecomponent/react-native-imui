@@ -25,6 +25,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   
   weak var delegate: IMUIMessageMessageCollectionViewDelegate?
   var message: IMUIMessageModelProtocol?
+    var cellGesture = UITapGestureRecognizer.init()
    var bubbleGesture = UITapGestureRecognizer.init()
    var longPress = UILongPressGestureRecognizer.init()
   override init(frame: CGRect) {
@@ -40,12 +41,14 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.contentView.addSubview(self.isPlayedView)
 //    self.bubbleGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBubbleView))
 //    let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapBubbleView(sender:)))
+    self.cellGesture.addTarget(self, action: #selector(self.tapCellView))
     self.bubbleGesture.addTarget(self, action: #selector(self.tapBubbleView))
     self.longPress.addTarget(self, action: #selector(self.longTapBubbleView(sender:)))
     self.bubbleView.isUserInteractionEnabled = true
     self.bubbleView.addGestureRecognizer(self.bubbleGesture)
     self.bubbleView.addGestureRecognizer(self.longPress)
     self.bubbleGesture.numberOfTapsRequired = 1
+    self.addGestureRecognizer(self.cellGesture)
     
     let avatarGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapHeaderImage))
     avatarGesture.numberOfTapsRequired = 1
@@ -145,6 +148,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.isPlayedView.isHidden = true
     
     let statusView = self.statusView as! IMUIMessageStatusViewProtocal
+    self.statusView?.isHidden = false
     switch message.messageStatus {
       case .sending:
         statusView.layoutSendingStatus()
@@ -154,6 +158,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         break
       case .success:
         statusView.layoutSuccessStatus()
+        self.statusView?.isHidden = true
         if message.type == .voice{//录音
             self.durationLabel.isHidden = false
             let tmpDict = message.customDict
@@ -201,8 +206,16 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
   
   func tapBubbleView() {
-    self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
+    if self.message?.type == .text {
+        self.delegate?.messageCollectionView?(tapCellView: self)
+    }else{
+        self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
+    }
   }
+    
+    func tapCellView(){//点击整个cell，隐藏键盘
+        self.delegate?.messageCollectionView?(tapCellView: self)
+    }
     
   func longTapBubbleView(sender : UILongPressGestureRecognizer) {
     if sender.state == UIGestureRecognizerState.began{
@@ -244,7 +257,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
   
   func tapSatusView() {
-    self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
+        self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
+    
   }
   
   func didDisAppearCell() {
@@ -255,9 +269,11 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         if strTouch == "begin" {
             self.bubbleView.removeGestureRecognizer(self.bubbleGesture)
             self.bubbleView.removeGestureRecognizer(self.longPress)
+            self.removeGestureRecognizer(self.cellGesture)
         }else{
             self.bubbleView.addGestureRecognizer(bubbleGesture)
             self.bubbleView.addGestureRecognizer(longPress)
+            self.addGestureRecognizer(self.cellGesture)
         }
     }
     
@@ -265,6 +281,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         NotificationCenter.default.removeObserver(self)
         self.bubbleView.removeGestureRecognizer(self.bubbleGesture)
         self.bubbleView.removeGestureRecognizer(self.longPress)
+        self.removeGestureRecognizer(self.cellGesture)
     }
     
 

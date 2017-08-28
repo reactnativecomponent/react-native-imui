@@ -23,7 +23,7 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(menuViewH, CGFloat);
-RCT_EXPORT_VIEW_PROPERTY(DefaultToolHeight, CGFloat);
+RCT_EXPORT_VIEW_PROPERTY(defaultToolHeight, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(onFeatureView, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onShowKeyboard, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onChangeBarHeight, RCTBubblingEventBlock)
@@ -55,18 +55,17 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         CGFloat inputH = inpuntBar.inputViewHeight + inpuntBar.menuViewH;
         inpuntBar.height = inputH;
         showType = 1;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
     }else{
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
-        showType = 0;
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
 }
 //显示ExpressionView
 - (void)changExpressionView{
     int showType = 0;
-    [inpuntBar.inputGrowView endEditing:YES];
+//    [inpuntBar.inputGrowView endEditing:YES];
     if (inpuntBar.showRecordeBtn.selected) {
         inpuntBar.showRecordeBtn.selected = NO;
         inpuntBar.recordBtn.hidden = YES;
@@ -80,14 +79,15 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.expressionView.hidden = NO;
         CGFloat inputH = inpuntBar.inputViewHeight + expressionViewH;
         inpuntBar.height = inputH;
-
+        showType = 0;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
     }else{
         inpuntBar.expressionView.hidden = YES;
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
+
 }
 
 - (void)changeRecordView{
@@ -97,10 +97,12 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     inpuntBar.expressionView.hidden = YES;
     if (inpuntBar.showRecordeBtn.selected) {
         [inpuntBar.inputGrowView endEditing:YES];
-        inpuntBar.height = inpuntBar.DefaultToolHeight;
+        inpuntBar.height = inpuntBar.defaultToolHeight;
         inpuntBar.recordBtn.hidden = NO;
         inpuntBar.inputGrowView.hidden = YES;
-        inpuntBar.toolH = inpuntBar.DefaultToolHeight;
+        inpuntBar.toolH = inpuntBar.defaultToolHeight;
+        if(!inpuntBar.onFeatureView) { return; }
+        inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(0)});
     }else{
         inpuntBar.recordBtn.hidden = YES;
         inpuntBar.inputGrowView.hidden = NO;
@@ -108,14 +110,13 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
-    if(!inpuntBar.onFeatureView) { return; }
-    inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(0)});
+
 }
 
 #pragma mark -- DWIputBarDelegate
 //点击按钮
 - (void)inputBarClickBtn:(UIButton *)btn{
-    NSLog(@"%zd",btn.tag);
+    NSLog(@"~inputBarClickBtn:%zd",btn.tag);
     switch (btn.tag) {
         case DWInputBarControlBtnTypeRecord:
         {

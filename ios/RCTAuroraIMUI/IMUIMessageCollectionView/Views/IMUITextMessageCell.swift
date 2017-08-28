@@ -39,9 +39,6 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-    override open func tapBubbleView() {
-        
-    }
     
   override open func layoutSubviews() {
     super.layoutSubviews()
@@ -83,6 +80,7 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
   }
     
     func clickOpenLink(notification: Notification){
+        print("clickOpenLink")
         let dict = notification.object as! NSDictionary
         let tmpLabel = dict.object(forKey: "label") as! M80AttributedLabel
         if tmpLabel == self.textMessageLable {

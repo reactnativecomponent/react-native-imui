@@ -45,29 +45,39 @@
 #pragma mark -- 监听键盘
 - (void)clickKeyBoardChange:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
-    NSLog(@"clickKeyBoardChange:%@",userInfo);
+//    NSLog(@"clickKeyBoardChange:%@",userInfo);
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
-    if(!self.onShowKeyboard) { return; }
-    self.onShowKeyboard(@{@"inputHeight":@(self.height),@"showType":@(0)});
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeMessageListHeightNotification" object:@{@"listViewHeight":@(screenH - 60 - self.height)}];
+//    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
+    NSLog(@"----height:%f",self.height);
+    CGFloat tmpH = screenH - endFrame.origin.y+self.inputViewHeight;
+    CGFloat keyboardY = screenH - 20;
+    if (!(self.showExpressionBtn.selected || self.showMenuBtn.selected) || (keyboardY > endFrame.origin.y)) {
+        if(!self.onShowKeyboard) { return; }
+        self.onShowKeyboard(@{@"inputHeight":@(tmpH),@"showType":@(0)});
+    }
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeMessageListHeightNotification" object:@{@"listViewHeight":@(screenH - 60 - tmpH)}];
+    
 
 }
 
 - (void)hidenFeatureView{
     __weak typeof(self)weakSelf = self;
     dispatch_sync(dispatch_get_main_queue(), ^{
-        weakSelf.showMenuBtn.selected = NO;
-        weakSelf.showExpressionBtn.selected = NO;
-        weakSelf.expressionView.hidden = YES;
-        if (weakSelf.showMenuBtn.selected && (weakSelf.height > self.menuViewH )) {
-            weakSelf.showMenuBtn.selected = NO;
-            weakSelf.height = weakSelf.height - self.menuViewH;
-            weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
-        }else if(weakSelf.showExpressionBtn.selected && (weakSelf.height > expressionViewH )){
-            weakSelf.height = weakSelf.height - expressionViewH;
-            weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
-        }
+        [weakSelf.inputGrowView endEditing:YES];
+        [UIView animateWithDuration:1.0 animations:^{
+            if (weakSelf.showMenuBtn.selected && (weakSelf.height > self.menuViewH )) {
+                weakSelf.showMenuBtn.selected = NO;
+                weakSelf.height = weakSelf.height - self.menuViewH;
+                weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
+            }else if(weakSelf.showExpressionBtn.selected && (weakSelf.height > expressionViewH )){
+                weakSelf.showExpressionBtn.selected = NO;
+                weakSelf.height = weakSelf.height - expressionViewH;
+                weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
+            }
+        } completion:^(BOOL finished) {
+            weakSelf.expressionView.hidden = YES;
+        }];
+
     });
     
 }
@@ -112,14 +122,14 @@
 }
 
 
-- (void)setDefaultToolHeight:(CGFloat)DefaultToolHeight{
-    if (DefaultToolHeight) {
-        _DefaultToolHeight = DefaultToolHeight;
+- (void)setDefaultToolHeight:(CGFloat)defaultToolHeight{
+    if (defaultToolHeight) {
+        _defaultToolHeight = defaultToolHeight;
     }else{
-        _DefaultToolHeight = DESIGN_SIZE_750(90);
+        _defaultToolHeight = DESIGN_SIZE_750(90);
     }
-    _toolH = _DefaultToolHeight;
-    _inputViewHeight = _DefaultToolHeight;
+    _toolH = _defaultToolHeight;
+    _inputViewHeight = _defaultToolHeight;
     [self creatUI];
 }
 //发送录音message
@@ -204,8 +214,8 @@
 
 - (void)creatUI{
     line.frame = CGRectMake(0, 0, screenW, 1);
-    CGFloat _margin = _DefaultToolHeight*0.1;
-    CGFloat btnWH = _DefaultToolHeight - 3*_margin;
+    CGFloat _margin = _defaultToolHeight*0.1;
+    CGFloat btnWH = _defaultToolHeight - 3*_margin;
     _toolView.frame = CGRectMake(0, 0, screenW, _toolH);
 
     CGFloat btnY = _toolH - 1.5*_margin - btnWH;

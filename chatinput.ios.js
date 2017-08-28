@@ -65,7 +65,7 @@ export default class ChatInput extends Component {
 ChatInput.propTypes = {
     ...View.propTypes,
     menuViewH:PropTypes.number,
-    DefaultToolHeight:PropTypes.number,
+    defaultToolHeight:PropTypes.number,
     onFeatureView:PropTypes.func,
     onShowKeyboard:PropTypes.func,
     onChangeBarHeight:PropTypes.func,

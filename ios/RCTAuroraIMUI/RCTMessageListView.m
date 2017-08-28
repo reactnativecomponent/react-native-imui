@@ -11,7 +11,7 @@
 #import <RCTAuroraIMUI/RCTAuroraIMUI-Swift.h>
 #import "RCTAuroraIMUIModule.h"
 #import "RNRecordTipsView.h"
-
+#import "UIView+Extend.h"
 
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
@@ -42,7 +42,6 @@
   self = [super init];
   return self;
 }
-
 
 - (RCTMessageModel *)convertMessageDicToModel:(NSMutableDictionary *)message {
   return [[RCTMessageModel alloc] initWithMessageDic: message];
@@ -277,10 +276,15 @@
 
 - (void)clickChangeHeight:(NSNotification *)noti{
     NSDictionary *dict = noti.object;
-    CGFloat height = [[dict objectForKey:@"listViewHeight"] floatValue];
-    CGRect rect = self.frame;
-    rect.size.height = height;
-    self.frame = rect;
+    CGFloat height = [[dict objectForKey:@"listViewHeight"] floatValue] ;
+    CGFloat tmpH = height - self.height;
+    [UIView animateWithDuration:3 animations:^{
+        self.height += tmpH;
+    } completion:^(BOOL finished) {
+         self.height = height;
+    }];
+    
+   
 }
 
 - (void)clickLongTouchShowMenu:(NSNotification *)noti{
