@@ -45,13 +45,14 @@
 #pragma mark -- 监听键盘
 - (void)clickKeyBoardChange:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
-//    NSLog(@"clickKeyBoardChange:%@",userInfo);
+    NSLog(@"clickKeyBoardChange:%@",userInfo);
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 //    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
-    NSLog(@"----height:%f",self.height);
+    NSLog(@"----height:%f    ----y:%f",self.height,endFrame.origin.y);
     CGFloat tmpH = screenH - endFrame.origin.y+self.inputViewHeight;
     CGFloat keyboardY = screenH - 20;
     if (!(self.showExpressionBtn.selected || self.showMenuBtn.selected) || (keyboardY > endFrame.origin.y)) {
+        NSLog(@"进来了~~~~~");
         if(!self.onShowKeyboard) { return; }
         self.onShowKeyboard(@{@"inputHeight":@(tmpH),@"showType":@(0)});
     }

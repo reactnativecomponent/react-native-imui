@@ -14,8 +14,8 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
   open static var inComingTextColor = UIColor.white
   open static let screenW = UIScreen.main.bounds.size.width
   
-  open static var outGoingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
-  open static var inComingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
+  open static var outGoingTextFont = UIFont.systemFont(ofSize: (screenW * 14 / 375))
+  open static var inComingTextFont = UIFont.systemFont(ofSize: (screenW * 14 / 375))
   
 //  var textMessageLable = IMUITextView()
     var textMessageLable = M80AttributedLabel()
@@ -30,7 +30,7 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     textMessageLable.backgroundColor = UIColor.clear
     textMessageLable.underLineForLink = true
     textMessageLable.autoDetectLinks = true
-    textMessageLable.font = UIFont.systemFont(ofSize: (IMUITextMessageCell.screenW * 16 / 375))
+    textMessageLable.font = IMUITextMessageCell.inComingTextFont
     NotificationCenter.default.addObserver(self, selector: #selector(clickOpenLink(notification:)), name: NSNotification.Name(rawValue: "OpenUrlNotification"), object: nil)
 
   }
@@ -55,8 +55,8 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
         tmpContentInset.right =  message.isOutGoing ? 10 : 5
         self.textMessageLable.textAlignment = CTTextAlignment.left
     }else{
-        tmpContentInset.left = message.isOutGoing ? 0 : 10
-        tmpContentInset.right = message.isOutGoing ? 10 : 5
+        tmpContentInset.left = message.isOutGoing ? 0 : 5
+        tmpContentInset.right = message.isOutGoing ? 5 : 0
         self.textMessageLable.textAlignment = CTTextAlignment.center
     }
     tmpContentInset.top = 8

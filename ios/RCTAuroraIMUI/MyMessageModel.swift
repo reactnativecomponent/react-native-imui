@@ -43,15 +43,7 @@ open class RCTMessageModel: IMUIMessageModel {
   static let kUserKeyUerId = "_id"
   static let kUserKeyDisplayName = "name"
   static let kUserAvatarPath = "avatar"
-    static let kMsgKeyNotiObj = "notiObj"
-    static let kMsgKeyImgObj = "imgObj"
-    static let kMsgKeyVoiceObj = "voiceObj"
-    static let kMsgKeyLocationObj = "locationObj"
-    static let kMsgKeyRedPacketObj = "redPacketObj"
-    static let kMsgKeyBankTransferObj = "bankTransferObj"
-    static let kMsgKeyUrlObj = "urlObj"
-    static let kMsgKeyAccountNoticeObj = "accountNoticeObj"
-    static let kMsgKeyRedpacketOpenObj = "redpacketOpenObj"
+    static let kMsgKeyExtend = "extend"
   
   static let ktimeString = "timeString"
     static let kisShowTime = "isShowTime"
@@ -172,12 +164,12 @@ open class RCTMessageModel: IMUIMessageModel {
     let isOutgoing = messageDic.object(forKey: RCTMessageModel.kMsgKeyisOutgoing) as? Bool
     let timeString = messageDic.object(forKey: RCTMessageModel.ktimeString) as? String
     let timeStamp = messageDic.object(forKey: RCTMessageModel.ktimeString) as? String
-//    let isShowTime = messageDic.object(forKey: RCTMessageModel.kisShowTime) as? Bool
-    let isShowTime = true
+    let isShowTime = messageDic.object(forKey: RCTMessageModel.kisShowTime) as? Bool
+//    let isShowTime = true
     let needShowTime = isShowTime
     var strTime = ""
     var customDict: NSMutableDictionary = NSMutableDictionary()
-    if isShowTime{
+    if needShowTime!{
         if let timeString = timeString {
             if timeString != "" {
                 strTime = RCTMessageModel.timeStampToString(timeStamp:timeString)
@@ -210,19 +202,19 @@ open class RCTMessageModel: IMUIMessageModel {
       if typeString == RCTMessageModel.kMsgTypeText {
         msgType = .text
         textLayout = MyMessageCellLayout(isOutGoingMessage: isOutgoing!,
-                                       isNeedShowTime: needShowTime,
+                                       isNeedShowTime: needShowTime!,
                                        bubbleContentSize: RCTMessageModel.calculateTextContentSize(text: text!, isOutGoing: isOutgoing!), bubbleContentInsets: UIEdgeInsets.zero, showAvatar:true)
       }
       
       if typeString == RCTMessageModel.kMsgTypeImage {
         msgType = .image
-        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyImgObj) as! NSMutableDictionary
+        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }
       
       if typeString == RCTMessageModel.kMsgTypeVoice {
         
         msgType = .voice
-        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyVoiceObj) as! NSMutableDictionary
+        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }
       
       if typeString == RCTMessageModel.kMsgTypeVideo {
@@ -230,23 +222,23 @@ open class RCTMessageModel: IMUIMessageModel {
       }
       if typeString == RCTMessageModel.kMsgTypeLocation {
             msgType = .location
-            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyLocationObj) as! NSMutableDictionary
+            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
         }
         if typeString == RCTMessageModel.kMsgTypeNotification {
             msgType = .notification
-            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyNotiObj) as! NSMutableDictionary
+            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
         }
       if typeString == RCTMessageModel.kMsgTypeRedpacket {
             msgType = .redpacket
-            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyRedPacketObj) as! NSMutableDictionary
+            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
         }
       if typeString == RCTMessageModel.kMsgTypeTransfer {
             msgType = .transfer
-            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyBankTransferObj) as! NSMutableDictionary
+            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
         }
         if typeString == RCTMessageModel.kMsgTypeRedpacketOpen {
             msgType = .redpacketOpen
-            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyRedpacketOpenObj) as! NSMutableDictionary
+            customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
         }
     }
     
@@ -332,13 +324,13 @@ open class RCTMessageModel: IMUIMessageModel {
       case .image:
         messageDic.setValue(RCTMessageModel.kMsgTypeImage, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.mediaPath, forKey: RCTMessageModel.kMsgKeyMediaFilePath)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyImgObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .voice:
         messageDic.setValue(RCTMessageModel.kMsgTypeVoice, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.mediaPath, forKey: RCTMessageModel.kMsgKeyMediaFilePath)
         messageDic.setValue(self.duration, forKey: RCTMessageModel.kMsgKeyDuration)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyVoiceObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .video:
         messageDic.setValue(RCTMessageModel.kMsgTypeVideo, forKey: RCTMessageModel.kMsgKeyMsgType)
@@ -347,31 +339,31 @@ open class RCTMessageModel: IMUIMessageModel {
         break
       case .location:
         messageDic.setValue(RCTMessageModel.kMsgTypeLocation, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyLocationObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .notification:
         messageDic.setValue(RCTMessageModel.kMsgTypeNotification, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyNotiObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .redpacket:
         messageDic.setValue(RCTMessageModel.kMsgTypeRedpacket, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyRedPacketObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .transfer:
         messageDic.setValue(RCTMessageModel.kMsgTypeTransfer, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyBankTransferObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .url:
         messageDic.setValue(RCTMessageModel.kMsgTypeUrl, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyUrlObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .account_notice:
         messageDic.setValue(RCTMessageModel.kMsgTypeAccountNotifce, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyAccountNoticeObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .redpacketOpen:
         messageDic.setValue(RCTMessageModel.kMsgTypeRedpacketOpen, forKey: RCTMessageModel.kMsgKeyMsgType)
-        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyRedpacketOpenObj)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .custom:
         break

@@ -14,6 +14,9 @@ open class IMUIMessageCollectionView: UIView {
   @IBOutlet var view: UIView!
   @IBOutlet open weak var messageCollectionView: UICollectionView!
     var isPull = false
+    var isAutoScroll = true //自动刷新
+    var isInsert = false //是不是插入数据
+    var cellGesture = UITapGestureRecognizer.init() //点击collectionView隐藏
   var viewCache = IMUIReuseViewCache()
     var headView = IMUIBaseMessageHeadCell()
   
@@ -85,10 +88,15 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
     
     self.messageCollectionView.isScrollEnabled = true
-    
     NotificationCenter.default.addObserver(self, selector: #selector(clickStopPlayActivity(notification:)), name: NSNotification.Name(rawValue: "StopPlayActivity"), object: nil)
+    self.cellGesture.addTarget(self, action: #selector(self.tapCollectionView))
+    self.messageCollectionView.addGestureRecognizer(self.cellGesture)
   }
   
+    func tapCollectionView(){//点击整个cell，隐藏键盘
+        self.delegate?.messageCollectionView?(tapCellView: "")
+    }
+    
   open subscript(index: Int) -> IMUIMessageModelProtocol {
     return chatDataManager[index]
   }
@@ -139,6 +147,7 @@ open class IMUIMessageCollectionView: UIView {
   
   open func insertMessage(with message: IMUIMessageModel) {
     self.chatDataManager.insertMessage(with: message)
+    isInsert = true
     self.messageCollectionView.reloadData()
   }
   
@@ -150,6 +159,7 @@ open class IMUIMessageCollectionView: UIView {
 //    if scrollIndex>1 {
 //        scrollIndex = scrollIndex
 //    }
+    isInsert = true
     self.scrollTo(index: scrollIndex)
 
   }
@@ -296,6 +306,18 @@ extension IMUIMessageCollectionView: UIScrollViewDelegate {
             DispatchQueue.main.async(execute: {
                 self.headView.stopActView()
             })
+        }
+        let tmpH = scrollView.contentSize.height - scrollView.contentOffset.y
+        if ((tmpH > 800) && isAutoScroll){
+            isAutoScroll = false
+            self.delegate?.messageCollectionView?(changeAutoScroll:isAutoScroll)
+        }else if ((tmpH < 800) && !isAutoScroll ){
+            if isInsert {
+                isInsert = false
+            }else{
+                isAutoScroll = true
+                self.delegate?.messageCollectionView?(changeAutoScroll:isAutoScroll)
+            }
         }
     }
     
