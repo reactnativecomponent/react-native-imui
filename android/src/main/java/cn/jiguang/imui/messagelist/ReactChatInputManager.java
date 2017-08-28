@@ -6,25 +6,19 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
-import java.util.List;
 import java.util.Map;
 
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
-import cn.jiguang.imui.chatinput.model.FileItem;
-import cn.jiguang.imui.chatinput.model.VideoItem;
 
 /**
  * Created by caiyaoguan on 2017/5/22.
@@ -36,7 +30,6 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private static final String TAG = "RCTChatInput";
 
     private static final String ON_SEND_TEXT_EVENT = "onSendText";
-    private static final String ON_SEND_FILES_EVENT = "onSendGalleryFiles";
     private static final String SWITCH_TO_MIC_EVENT = "onSwitchToMicrophoneMode";
     private static final String SWITCH_TO_ACTION_EVENT = "onSwitchToActionMode";
     private static final String SWITCH_TO_EMOJI_EVENT = "onSwitchToEmojiMode";
@@ -89,28 +82,6 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                 event.putString("text", input.toString());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_SEND_TEXT_EVENT, event);
                 return true;
-            }
-
-            @Override
-            public void onSendFiles(List<FileItem> list) {
-                if (list == null || list.isEmpty()) {
-                    return;
-                }
-                WritableMap event = Arguments.createMap();
-                WritableArray array = new WritableNativeArray();
-                for (FileItem fileItem : list) {
-                    WritableMap map = new WritableNativeMap();
-                    if (fileItem.getType().ordinal() == 0) {
-                        map.putString("mediaType", "image");
-                    } else {
-                        map.putString("mediaType", "video");
-                        map.putInt("duration", (int) ((VideoItem) fileItem).getDuration());
-                    }
-                    map.putString("mediaPath", fileItem.getFilePath());
-                    array.pushMap(map);
-                }
-                event.putArray("mediaFiles", array);
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_SEND_FILES_EVENT, event);
             }
 
             @Override
@@ -216,7 +187,6 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.<String, Object>builder()
                 .put(ON_SEND_TEXT_EVENT, MapBuilder.of("registrationName", ON_SEND_TEXT_EVENT))
-                .put(ON_SEND_FILES_EVENT, MapBuilder.of("registrationName", ON_SEND_FILES_EVENT))
                 .put(SWITCH_TO_MIC_EVENT, MapBuilder.of("registrationName", SWITCH_TO_MIC_EVENT))
                 .put(SWITCH_TO_ACTION_EVENT, MapBuilder.of("registrationName", SWITCH_TO_ACTION_EVENT))
                 .put(SWITCH_TO_EMOJI_EVENT, MapBuilder.of("registrationName", SWITCH_TO_EMOJI_EVENT))

@@ -19,12 +19,12 @@
             android:layout_height="match_parent" />
 
         <FrameLayout
-            android:id="@+id/aurora_framelayout_menuitem_voice"
+            android:id="@+id/imui_layout_voice"
             android:layout_width="48dp"
             android:layout_height="48dp">
 
             <ImageButton
-                android:id="@+id/aurora_menuitem_ib_voice"
+                android:id="@+id/imui_item_voice"
                 style="@style/ChatInputIcon"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
@@ -39,7 +39,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/aurora_et_chat_input"
+                android:id="@+id/imui_chat_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/aurora_edittext_bg"
@@ -53,7 +53,7 @@
 
             <Button
                 android:background="@drawable/voice_bg"
-                android:id="@+id/aurora_et_chat_voice"
+                android:id="@+id/imui_chat_voice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="按住 说话"
@@ -96,7 +96,7 @@
                     android:scaleType="fitCenter" />
 
                 <TextView
-                    android:id="@+id/aurora_menuitem_tv_send_count"
+                    android:id="@+id/imui_receive_count"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_gravity="bottom|right"
@@ -136,7 +136,7 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <FrameLayout
+    <cn.jiguang.imui.chatinput.record.ActionLayout
         android:id="@+id/aurora_fl_menu_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,9 +152,8 @@
             android:id="@+id/aurora_view_action_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
         </LinearLayout>
-    </FrameLayout>
+    </cn.jiguang.imui.chatinput.record.ActionLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 package dowin.com.emoji.emoji;
 
+import android.graphics.Color;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
@@ -17,7 +18,7 @@ public class LinkClick extends ClickableSpan {
     OnLinkClickListener linkClickListener;
 
     private final String url;
-    private int color = 0xFF000000;
+    private int color = Color.WHITE;
     public LinkClick(String url) {
         this.url = url;
     }
@@ -42,7 +43,8 @@ public class LinkClick extends ClickableSpan {
 
     @Override
     public void updateDrawState(TextPaint ds) {
-        ds.setColor(color);
-        ds.setUnderlineText(true);
+//        ds.setColor(color);
+//        ds.linkColor = color;
+//        ds.setUnderlineText(true);
     }
 }

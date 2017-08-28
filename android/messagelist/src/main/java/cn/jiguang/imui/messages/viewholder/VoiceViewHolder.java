@@ -55,6 +55,11 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     public void onBind(final MESSAGE message) {
         super.onBind(message);
 
+        if(message.getMessageStatus()== IMessage.MessageStatus.READED){
+            mUnreadStatusIv.setVisibility(View.INVISIBLE);
+        }else {
+            mUnreadStatusIv.setVisibility(View.VISIBLE);
+        }
         final IMediaFile extend = getExtend(message);
         if (extend == null) {
             return;

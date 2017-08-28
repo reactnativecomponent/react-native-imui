@@ -1,7 +1,5 @@
 package cn.jiguang.imui.messages.viewholder;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -12,7 +10,6 @@ import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,10 +47,10 @@ public class RedPacketOpenViewHolder<MESSAGE extends IMessage>
             String mText = "icon" + extend.getTipMsg();
             Matcher m = pattern.matcher(mText);
             SpannableString spann = new SpannableString(mText);
-            if (imageSpan == null) {
-                Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.icon_packet);
-                imageSpan = new ImageSpan(mContext, b);
-            }
+//            if (imageSpan == null) {
+//                Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.icon_packet);
+//                imageSpan = new ImageSpan(mContext, b);
+//            }
 //        spann.setSpan(imageSpan, 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             while (m.find()) {
                 int start = m.start();
@@ -82,7 +79,6 @@ public class RedPacketOpenViewHolder<MESSAGE extends IMessage>
             if (mMsgClickListener != null) {
                 mMsgClickListener.onMessageClick(message);
             }
-            Toast.makeText(mContext, "红包！！", Toast.LENGTH_SHORT).show();
         }
 
         @Override

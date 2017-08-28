@@ -39,6 +39,7 @@ import cn.jiguang.imui.messages.viewholder.TxtViewHolder;
 import cn.jiguang.imui.messages.viewholder.VideoViewHolder;
 import cn.jiguang.imui.messages.viewholder.VoiceViewHolder;
 
+
 public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapter<ViewHolder>
         implements ScrollMoreListener.OnLoadMoreListener {
 
@@ -382,10 +383,17 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         }
         updateShowTimeItem(messages, first, true);
         notifyItemRangeInserted(0, messages.size());
-        if (mLayoutManager != null && scrollToBottom) {
+        if (mLayoutManager != null && isToBottom()) {
             mLayoutManager.scrollToPosition(0);
             mLayoutManager.requestLayout();
         }
+    }
+
+    boolean isToBottom() {
+        int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+        Log.w(getClass().getName(), firstVisibleItemPosition + "");
+        return firstVisibleItemPosition <= 0;
+
     }
 
     /**

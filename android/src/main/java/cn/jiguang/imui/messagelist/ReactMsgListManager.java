@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.Target;
 import com.dialog.CustomAlertDialog;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
@@ -47,6 +48,7 @@ import cn.jiguang.imui.messages.MessageList;
 import cn.jiguang.imui.messages.MsgListAdapter;
 import cn.jiguang.imui.utils.SessorUtil;
 
+import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 import static com.bumptech.glide.Glide.with;
 
 /**
@@ -147,7 +149,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onMessageClick(RCTMessage message) {
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_CLICK_EVENT, event);
             }
         });
@@ -157,7 +159,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             public void onMessageLongClick(RCTMessage message) {
                 showMenu(reactContext, message);
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_LONG_CLICK_EVENT, event);
             }
         });
@@ -167,7 +169,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             public void onAvatarClick(View view, RCTMessage message) {
 //                initPopuptWindow(reactContext.getCurrentActivity(), view, "", 1);
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_AVATAR_CLICK_EVENT, event);
             }
         });
@@ -184,7 +186,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onMessageResend(RCTMessage message) {
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 event.putString("opt", "resend");
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_STATUS_VIEW_CLICK_EVENT, event);
             }
@@ -235,7 +237,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onClick() {
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 event.putString("opt", "delete");
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                         ON_STATUS_VIEW_CLICK_EVENT, null);
@@ -245,7 +247,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onClick() {
                 WritableMap event = Arguments.createMap();
-                event.putString("message", message.toString());
+                event.putMap("message", message.toWritableMap());
                 event.putString("opt", "revoke");
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                         ON_STATUS_VIEW_CLICK_EVENT, null);
@@ -290,6 +292,17 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         return moreMenuItems;
     }
 
+    @ReactProp(name = "initList")
+    public void setInitList(MessageList messageList, ReadableArray messages){
+        if(messages!=null&&messages.size()>0) {
+            final List<RCTMessage> list = new ArrayList<>();
+            for (int i = 0; i < messages.size(); i++) {
+                RCTMessage rctMessage = configMessage(messages.getMap(i));
+                list.add(rctMessage);
+            }
+            mAdapter.addToStart(list,true);
+        }
+    }
     @ReactProp(name = "sendBubble")
     public void setSendBubble(MessageList messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
