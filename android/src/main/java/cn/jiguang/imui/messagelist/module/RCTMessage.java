@@ -1,5 +1,7 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,6 +29,18 @@ public class RCTMessage implements IMessage {
     public static final String FROM_USER = "fromUser";
     public static final String EXTEND = "extend";
 
+
+//    case text
+//  case image
+//  case voice
+//  case video
+//  case location
+//  case notification
+//  case redpacket
+//  case transfer
+//  case url
+//  case account_notice
+//  case redpacketOpen
     final static String TEXT = "text";
     final static String VOICE = "voice";
     final static String IMAGE = "image";
@@ -79,6 +93,8 @@ public class RCTMessage implements IMessage {
                 return MessageStatus.SEND_GOING;
             case "download_failed":
                 return MessageStatus.RECEIVE_FAILED;
+            case "3":
+                return MessageStatus.READED;
             default:
                 return MessageStatus.SEND_SUCCEED;
         }
@@ -285,6 +301,15 @@ public class RCTMessage implements IMessage {
         return json;
     }
 
+    public WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MSG_ID,msgId);
+        writableMap.putString(STATUS, statusStr);
+        writableMap.putString(MSG_TYPE, msgTypeStr);
+        writableMap.putString(PROGRESS, progress);
+        writableMap.putMap(EXTEND, extend.toWritableMap());
+        return writableMap;
+    }
 
     @Override
     public String toString() {

@@ -70,6 +70,11 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
     @Override
     public void applyStyle(MessageListStyle style) {
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
+        if (mIsSender) {
+            mMsgTv.setLinkTextColor(style.getReceiveBubbleTextColor());
+        } else {
+            mMsgTv.setLinkTextColor(style.getSendBubbleTextColor());
+        }
 
     }
 

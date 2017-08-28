@@ -1,5 +1,7 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
@@ -15,6 +17,10 @@ public abstract class RCTExtend implements IExtend {
 
     abstract JsonElement toJSON();
 
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        return writableMap;
+    }
     @Override
     public String toString() {
         return sGSON.toJson(toJSON());

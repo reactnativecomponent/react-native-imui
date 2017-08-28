@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.widget.Space;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -34,26 +35,27 @@ import java.lang.reflect.Field;
 import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
-import cn.jiguang.imui.chatinput.record.RecordHelper;
+import cn.jiguang.imui.chatinput.record.OnChatVoiceTouch;
 import cn.jiguang.imui.chatinput.utils.StringUtil;
 import dowin.com.emoji.emoji.EmoticonPickerView;
 import dowin.com.emoji.emoji.IEmoticonSelectedListener;
 import dowin.com.emoji.emoji.MoonUtil;
 
-public class ChatInputView extends LinearLayout implements TextWatcher {
+/**
+ * Created by dowin on 2017/8/25.
+ */
+
+public class ChatInputView extends LinearLayout implements View.OnClickListener {
 
     public static final byte KEYBOARD_STATE_SHOW = -3;
     public static final byte KEYBOARD_STATE_HIDE = -2;
     public static final byte KEYBOARD_STATE_INIT = -1;
 
-    public static final int REQUEST_CODE_TAKE_PHOTO = 0x0001;
-    public static final int REQUEST_CODE_SELECT_PHOTO = 0x0002;
-
+    private TextView mReceiveCount;
     private EditText mChatInput;
     private Button mChatVoice;
-    private RecordHelper recordHelper;
+    private OnChatVoiceTouch onChatVoiceTouch;
 
-    private TextView mSendCountTv;
     private CharSequence mInput;
     private Space mInputMarginLeft;
     private Space mInputMarginRight;
@@ -67,15 +69,15 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
     private LinearLayout mChatInputContainer;
     private FrameLayout mMenuContainer;
 
-    EmoticonPickerView emoticonPickerView;
-    LinearLayout actionLayout;
+    private EmoticonPickerView emoticonPickerView;
+    private LinearLayout actionLayout;
 
     private OnMenuClickListener mListener;
     private OnClickEditTextListener mEditTextListener;
 
     private ChatInputStyle mStyle;
 
-    private InputMethodManager mImm;
+    private InputMethodManager inputMethodManager;
     private Window mWindow;
     private int mLastClickId = 0;
 
@@ -104,19 +106,19 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
 
     private void init(Context context) {
         mContext = context;
-        recordHelper = new RecordHelper(context);
+
 
         setOrientation(VERTICAL);
         inflate(context, R.layout.view_chatinput, this);
 
         // menu buttons
-        mChatInput = (EditText) findViewById(R.id.aurora_et_chat_input);
-        mChatVoice = (Button) findViewById(R.id.aurora_et_chat_voice);
-        mVoiceBtn = (ImageButton) findViewById(R.id.aurora_menuitem_ib_voice);
+        mChatInput = (EditText) findViewById(R.id.imui_chat_input);
+        mChatVoice = (Button) findViewById(R.id.imui_chat_voice);
+        mVoiceBtn = (ImageButton) findViewById(R.id.imui_item_voice);
         mEmojiBtn = (ImageButton) findViewById(R.id.imui_item_emoji);
         mSendBtn = (ImageButton) findViewById(R.id.imui_item_send);
 
-        View voiceBtnContainer = findViewById(R.id.aurora_framelayout_menuitem_voice);
+        View voiceBtnContainer = findViewById(R.id.imui_layout_voice);
         View emojiBtnContainer = findViewById(R.id.imui_layout_emoji);
         mSendLayout = findViewById(R.id.imui_layout_send);
         mActionLayout = findViewById(R.id.imui_layout_action);
@@ -125,7 +127,7 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         mSendLayout.setOnClickListener(onMenuItemClickListener);
         mActionLayout.setOnClickListener(onMenuItemClickListener);
 
-        mSendCountTv = (TextView) findViewById(R.id.aurora_menuitem_tv_send_count);
+        mReceiveCount = (TextView) findViewById(R.id.imui_receive_count);
         mInputMarginLeft = (Space) findViewById(R.id.aurora_input_margin_left);
         mInputMarginRight = (Space) findViewById(R.id.aurora_input_margin_right);
         mChatInputContainer = (LinearLayout) findViewById(R.id.aurora_ll_input_container);
@@ -135,31 +137,20 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         actionLayout = (LinearLayout) findViewById(R.id.aurora_view_action_layout);
 
         mMenuContainer.setVisibility(GONE);
+        actionLayout.setVisibility(GONE);
 
-        mChatInput.addTextChangedListener(this);
+        mChatInput.addTextChangedListener(textWatcher);
 
-        mChatVoice.setOnTouchListener(new OnChatVoiceTouch(mChatVoice));
+        onChatVoiceTouch = new OnChatVoiceTouch(context, mChatVoice);
+        mChatVoice.setOnTouchListener(onChatVoiceTouch);
 
-        mImm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         mWindow = ((Activity) context).getWindow();
         DisplayMetrics dm = getResources().getDisplayMetrics();
         mWidth = dm.widthPixels;
         mHeight = dm.heightPixels;
 
-        mChatInput.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (mEditTextListener != null) {
-                    mEditTextListener.onTouchEditText();
-                }
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !mShowSoftInput) {
-                    mShowSoftInput = true;
-                    invisibleMenuLayout();
-                    mChatInput.requestFocus();
-                }
-                return false;
-            }
-        });
+        mChatInput.setOnTouchListener(inputTouchListener);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -181,194 +172,66 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         mEmojiBtn.setImageResource(mStyle.getPhotoBtnIcon());
         mSendBtn.setBackground(mStyle.getSendBtnBg());
         mSendBtn.setImageResource(mStyle.getSendBtnIcon());
-        mSendCountTv.setBackground(mStyle.getSendCountBg());
     }
 
     public void addActionView(View view, int index) {
         actionLayout.addView(view, index);
     }
 
-    private void setCursor(Drawable drawable) {
-        try {
-            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
-            f.setAccessible(true);
-            f.set(mChatInput, drawable);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void onClick(View v) {
+
     }
 
-    enum UpdateStatus {
-        Start, Canceled, Move, Continue, Complete
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
     }
 
-    class OnChatVoiceTouch implements OnTouchListener {
-        final String[] text = new String[]{"按住 说话", "松开 结束", "松开 取消"};
-        UpdateStatus updateStatus;
+    @Override
+    public void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+    }
 
-        private Button button;
+    /**********************************************************************************************************/
 
-        public OnChatVoiceTouch(Button button) {
-            this.button = button;
-        }
-
-
-        void updateStatus(UpdateStatus status) {
-            if (updateStatus == status) {
-                return;
-            }
-        }
-
-        private void onStartAudioRecord() {
-            button.setText(text[1]);
-            button.setSelected(false);
-            recordHelper.startRecording();
-        }
-
-        private void onEndAudioRecord(boolean cancel) {
-            button.setText(text[0]);
-            button.setSelected(false);
-
-
-            if (cancel) {
-                recordHelper.cancelRecord();
-            } else {
-                recordHelper.finishRecord();
-            }
-        }
-
-        /**
-         * 取消语音录制
-         *
-         * @param cancel
-         */
-        private void cancelAudioRecord(boolean cancel) {
-            button.setSelected(true);
-            updateTimerTip(cancel);
-            recordHelper.setCancelAble(cancel);
-        }
-
-        private void updateTimerTip(boolean cancel) {
-            button.setText(cancel ? text[2] : text[1]);
-        }
-
-        private boolean isCancelled(View view, MotionEvent event) {
-            int[] location = new int[2];
-            view.getLocationOnScreen(location);
-
-            if (event.getRawX() < location[0] || event.getRawX() > location[0] + view.getWidth()
-                    || event.getRawY() < location[1] - 40) {
-                return true;
-            }
-
-            return false;
-        }
-
+    private OnTouchListener inputTouchListener = new OnTouchListener() {
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    touched = true;
-//                    initAudioRecord();
-                onStartAudioRecord();
-                updateStatus(UpdateStatus.Start);
-            } else if (event.getAction() == MotionEvent.ACTION_CANCEL
-                    || event.getAction() == MotionEvent.ACTION_UP) {
-//                    touched = false;
-                onEndAudioRecord(isCancelled(v, event));
-                updateStatus(isCancelled(v, event) ? UpdateStatus.Canceled : UpdateStatus.Complete);
-            } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//                    touched = true;
-                cancelAudioRecord(isCancelled(v, event));
-                updateStatus(isCancelled(v, event) ? UpdateStatus.Move : UpdateStatus.Continue);
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (mEditTextListener != null) {
+                mEditTextListener.onTouchEditText();
+            }
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !mShowSoftInput) {
+                mShowSoftInput = true;
+                invisibleMenuLayout();
+                mChatInput.requestFocus();
             }
             return false;
         }
-    }
-
-    public void setRecordVoiceListener(RecordVoiceListener listener) {
-        recordHelper.setListener(listener);
-    }
-
-    public void setMenuClickListener(OnMenuClickListener listener) {
-        mListener = listener;
-    }
-
-    public void setOnClickEditTextListener(OnClickEditTextListener listener) {
-        mEditTextListener = listener;
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        mInput = s;
-        this.start = start;
-        this.count = count;
-
-        if (mEditTextListener != null && count > 0) {
-
-            final int startIndex = start <= 0 ? 0 : start;
-            int endIndex = startIndex + count;
-            endIndex = endIndex > s.length() ? s.length() : endIndex;
-            mEditTextListener.onTextChanged(s.subSequence(startIndex, endIndex).toString());
-        }
-        if (s.length() >= 1 && start == 0 && before == 0) { // Starting input
-            triggerSendButtonAnimation(mSendBtn, true);
-        } else if (s.length() == 0 && before >= 1) { // Clear content
-            triggerSendButtonAnimation(mSendBtn, false);
-        }
-    }
-
-    private int start;
-    private int count;
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-        MoonUtil.replaceEmoticons(getContext(), s, start, count);
-
-        int editEnd = mChatInput.getSelectionEnd();
-        mChatInput.removeTextChangedListener(this);
-        while (StringUtil.counterChars(s.toString()) > 5000 && editEnd > 0) {
-            s.delete(editEnd - 1, editEnd);
-            editEnd--;
-        }
-        mChatInput.setSelection(editEnd);
-        mChatInput.addTextChangedListener(this);
-    }
-
-    public EditText getInputView() {
-        return mChatInput;
-    }
-
-    private OnClickListener onMenuItemClickListener = new OnClickListener() {
+    };
+    private View.OnClickListener onMenuItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
             if (view.getId() == R.id.imui_layout_send) {
-                // Allow send text and photos at the same time.
                 if (onSubmit()) {
                     mChatInput.setText("");
                 }
-                mSendLayout.setVisibility(INVISIBLE);
-                mActionLayout.setVisibility(VISIBLE);
-//                mSendCountTv.setVisibility(View.INVISIBLE);
-                dismissMenuLayout();
+                changeSendToAction(true);
 
-            } else if (view.getId() == R.id.aurora_framelayout_menuitem_voice) {
+            } else if (view.getId() == R.id.imui_layout_voice) {
                 if (mListener != null) {
                     mListener.switchToMicrophoneMode();
                 }
-                showRecordVoiceLayout();
-
+                switchVoiceOrInput();
             } else {
                 if (mMenuContainer.getVisibility() != VISIBLE) {
                     dismissSoftInputAndShowMenu();
                 } else if (view.getId() == mLastClickId) {
                     dismissMenuAndResetSoftMode();
+                    if (mListener != null) {
+                        mListener.switchToMicrophoneMode();
+                    }
                     return;
                 }
 
@@ -376,6 +239,7 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
                     if (mListener != null) {
                         mListener.switchToActionMode();
                     }
+
                     actionLayout.setVisibility(VISIBLE);
                     emoticonPickerView.setVisibility(GONE);
 
@@ -389,10 +253,10 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
                 }
 
                 mLastClickId = view.getId();
+                requestLayout();
             }
         }
     };
-
     private IEmoticonSelectedListener emoticonSelectedListener = new IEmoticonSelectedListener() {
 
         /**
@@ -418,39 +282,90 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         }
     };
 
-    public void dismissMenuLayout() {
-        mMenuContainer.setVisibility(GONE);
-    }
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
 
-    public void invisibleMenuLayout() {
-        mMenuContainer.setVisibility(INVISIBLE);
-    }
-
-    public void showMenuLayout() {
-        mMenuContainer.setVisibility(VISIBLE);
-    }
-
-    public void showRecordVoiceLayout() {
-
-        if (mChatInput.getVisibility() == VISIBLE) {
-            mChatInput.setVisibility(INVISIBLE);
-            mChatVoice.setVisibility(VISIBLE);
-            hideInputMethod();
-            mVoiceBtn.setImageResource(R.drawable.nim_message_button_bottom_audio_selector);
-        } else {
-            mChatInput.setVisibility(VISIBLE);
-            mChatVoice.setVisibility(INVISIBLE);
-            showInputMethod();
-            mVoiceBtn.setImageResource(R.drawable.nim_message_button_bottom_text_selector);
         }
-//        mSelectPhotoView.setVisibility(GONE);
-        actionLayout.setVisibility(GONE);
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mInput = s;
+            this.start = start;
+            this.count = count;
+
+            if (mEditTextListener != null && count > 0) {
+
+                final int startIndex = start <= 0 ? 0 : start;
+                int endIndex = startIndex + count;
+                endIndex = endIndex > s.length() ? s.length() : endIndex;
+                mEditTextListener.onTextChanged(s.subSequence(startIndex, endIndex).toString());
+            }
+            if (s.length() >= 1 && start == 0 && before == 0) { // Starting input
+                changeSendToAction(false);
+            } else if (s.length() == 0 && before >= 1) { // Clear content
+                changeSendToAction(true);
+            }
+        }
+
+        private int start;
+        private int count;
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            MoonUtil.replaceEmoticons(getContext(), s, start, count);
+
+            int editEnd = mChatInput.getSelectionEnd();
+            mChatInput.removeTextChangedListener(this);
+            while (StringUtil.counterChars(s.toString()) > 5000 && editEnd > 0) {
+                s.delete(editEnd - 1, editEnd);
+                editEnd--;
+            }
+            mChatInput.setSelection(editEnd);
+            mChatInput.addTextChangedListener(this);
+        }
+    };
+
+    private boolean onSubmit() {
+        return mListener != null && mListener.onSendTextMessage(mInput);
+    }
+
+    void changeSendToAction(boolean action) {
+        mSendLayout.setVisibility(action ? INVISIBLE : VISIBLE);
+        mActionLayout.setVisibility(action ? VISIBLE : INVISIBLE);
+
+    }
+
+    void changeVoiceToInput(boolean input) {
+        mChatInput.setVisibility(input ? VISIBLE : INVISIBLE);
+        mChatVoice.setVisibility(input ? INVISIBLE : VISIBLE);
+        mVoiceBtn.setImageResource(input ? R.drawable.nim_message_button_bottom_text_selector : R.drawable.nim_message_button_bottom_audio_selector);
+    }
+
+    void switchVoiceOrInput() {
+        boolean empty = TextUtils.isEmpty(mInput);
+        if (mChatInput.getVisibility() == VISIBLE) {
+            changeVoiceToInput(false);
+            if (!empty) {
+                changeSendToAction(true);
+            }
+
+            hideInputMethod();
+        } else {
+            changeVoiceToInput(true);
+            if (!empty) {
+                changeSendToAction(false);
+            }
+            showInputMethod();
+            dismissMenuAndResetSoftMode();
+        }
     }
 
     private void hideInputMethod() {
 //        isKeyboardShowed = false;
 //        uiHandler.removeCallbacks(showTextRunnable);
-        mImm.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
         mChatInput.clearFocus();
     }
 
@@ -462,9 +377,50 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
 //            editTextMessage.setSelection(editTextMessage.getText().length());
 //            isKeyboardShowed = true;
 //        }
-        mImm.showSoftInput(mChatInput, 0);
+        inputMethodManager.showSoftInput(mChatInput, 0);
     }
 
+    public void dismissMenuAndResetSoftMode() {
+        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        dismissMenuLayout();
+        setMenuContainerHeight(1);
+        mChatInput.requestFocus();
+    }
+
+    public void dismissSoftInputAndShowMenu() {
+        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        showMenuLayout();
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
+        }
+        setMenuContainerHeight(sMenuHeight);
+        mShowSoftInput = false;
+    }
+    public void dismissMenuLayout() {
+        mMenuContainer.setVisibility(GONE);
+    }
+
+    public void invisibleMenuLayout() {
+        mMenuContainer.setVisibility(GONE);
+    }
+
+    public void showMenuLayout() {
+        mMenuContainer.setVisibility(VISIBLE);
+    }
+    /**********************************************************************************************************/
 
     /**
      * Set menu container's height, invoke this method once the menu was initialized.
@@ -479,8 +435,31 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         }
     }
 
-    private boolean onSubmit() {
-        return mListener != null && mListener.onSendTextMessage(mInput);
+    private void setCursor(Drawable drawable) {
+        try {
+            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
+            f.setAccessible(true);
+            f.set(mChatInput, drawable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setRecordVoiceListener(RecordVoiceListener listener) {
+        onChatVoiceTouch.setListener(listener);
+    }
+
+    public void setMenuClickListener(OnMenuClickListener listener) {
+        mListener = listener;
+    }
+
+    public void setOnClickEditTextListener(OnClickEditTextListener listener) {
+        mEditTextListener = listener;
+    }
+
+
+    public EditText getInputView() {
+        return mChatInput;
     }
 
     public boolean getSoftInputState() {
@@ -522,13 +501,13 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                mSendCountTv.bringToFront();
+                mReceiveCount.bringToFront();
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                     requestLayout();
                     invalidate();
                 }
                 if (hasContent) {
-//                    mSendCountTv.setVisibility(View.VISIBLE);
+//                    mReceiveCount.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -547,19 +526,13 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
             @Override
             public void onAnimationStart(Animator animator) {
                 if (!hasContent) {
-//                    mSendCountTv.setVisibility(View.INVISIBLE);
+//                    mReceiveCount.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                if (hasContent) {
-                    mSendLayout.setVisibility(VISIBLE);
-                    mActionLayout.setVisibility(INVISIBLE);
-                } else {
-                    mSendLayout.setVisibility(INVISIBLE);
-                    mActionLayout.setVisibility(VISIBLE);
-                }
+
                 restoreAnimatorSet.start();
             }
 
@@ -585,46 +558,4 @@ public class ChatInputView extends LinearLayout implements TextWatcher {
         }
         return SystemClock.elapsedRealtime() - longTime;
     }
-
-    public void dismissMenuAndResetSoftMode() {
-        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        dismissMenuLayout();
-        mChatInput.requestFocus();
-        mChatInput.requestLayout();
-    }
-
-    public void dismissSoftInputAndShowMenu() {
-        // dismiss soft input
-        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        showMenuLayout();
-        if (mImm != null) {
-            mImm.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
-        }
-        setMenuContainerHeight(sMenuHeight);
-        mShowSoftInput = false;
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-    }
-
-    @Override
-    public void onWindowVisibilityChanged(int visibility) {
-        super.onWindowVisibilityChanged(visibility);
-    }
-
 }

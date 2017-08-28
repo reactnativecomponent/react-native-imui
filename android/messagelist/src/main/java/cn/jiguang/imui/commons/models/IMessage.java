@@ -88,6 +88,7 @@ public interface IMessage {
      * Status of message, enum.
      */
     enum MessageStatus {
+        READED,
         CREATED,
         SEND_GOING,
         SEND_SUCCEED,

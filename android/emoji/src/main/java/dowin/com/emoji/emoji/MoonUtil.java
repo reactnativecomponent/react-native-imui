@@ -59,7 +59,7 @@ public class MoonUtil {
     public static void identifyFaceExpression(Context context,
                                               View textView, String value, int align, float scale, LinkClick.OnLinkClickListener listener) {
         SpannableString ss = replaceEmoticons(context, value, scale, align);
-        Linkify.addLinks(ss, Linkify.WEB_URLS);
+        Linkify.addLinks(ss, Linkify.WEB_URLS|Linkify.PHONE_NUMBERS|Linkify.EMAIL_ADDRESSES);
         URLSpan[] old = ss.getSpans(0, ss.length(), URLSpan.class);
         if (old != null && old.length > 0) {
             for (int i = old.length - 1; i >= 0; i--) {
