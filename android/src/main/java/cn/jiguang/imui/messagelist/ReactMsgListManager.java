@@ -51,9 +51,6 @@ import cn.jiguang.imui.utils.SessorUtil;
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 import static com.bumptech.glide.Glide.with;
 
-/**
- * Created by caiyaoguan on 2017/5/22.
- */
 
 public class ReactMsgListManager extends ViewGroupManager<MessageList> {
 

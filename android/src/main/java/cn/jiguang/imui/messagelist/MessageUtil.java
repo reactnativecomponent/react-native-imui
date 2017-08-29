@@ -3,6 +3,10 @@ package cn.jiguang.imui.messagelist;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.jiguang.imui.messagelist.module.RCTAccountNotice;
 import cn.jiguang.imui.messagelist.module.RCTBankTransfer;
@@ -16,34 +20,29 @@ import cn.jiguang.imui.messagelist.module.RCTRedPacketOpen;
 import cn.jiguang.imui.messagelist.module.RCTUser;
 import cn.jiguang.imui.utils.TimeUtil;
 
-/**
- * Created by dowin on 2017/8/26.
- */
 
 public class MessageUtil {
 
-    private static final String MSG_ID = "_id";
-    private static final String STATUS = "status";
-    private static final String MSG_TYPE = "msgType";
-    private static final String IS_OUTGOING = "direct";
-    private static final String TIME_STRING = "createdAt";
-    private static final String TIME = "time";
-    private static final String TEXT = "content";
-    private static final String MEDIA_FILE_PATH = "mediaPath";
-    private static final String DURATION = "duration";
-    private static final String PROGRESS = "status";
-    private static final String FROM_USER = "user";
-    private static final String EXTEND = "extend";
 
-    private static final String USER_ID = "_id";
-    private static final String DISPLAY_NAME = "name";
-    private static final String AVATAR_PATH = "avatar";
+    static Map<String, String> getMap(ReadableMap ext, String key) {
+        ReadableMap map = ext.getMap(key);
+        Map<String, String> reslut = null;
+        if (map != null) {
+            reslut = new HashMap<>();
+            ReadableMapKeySetIterator iterator = map.keySetIterator();
+            while (iterator.hasNextKey()) {
+                String aKey = iterator.nextKey();
+                reslut.put(aKey, map.getString(aKey));
+            }
+        }
+        return reslut;
+    }
 
     public static RCTMessage configMessage(ReadableMap message) {
         Log.d("AuroraIMUIModule", "configure message: " + message);
-        RCTMessage rctMsg = new RCTMessage(message.getString(MSG_ID),
-                message.getString(STATUS), message.getString(MSG_TYPE),
-                "0".equals(message.getString(IS_OUTGOING)));
+        RCTMessage rctMsg = new RCTMessage(message.getString(MessageConstant.Message.MSG_ID),
+                message.getString(MessageConstant.Message.STATUS), message.getString(MessageConstant.Message.MSG_TYPE),
+                "0".equals(message.getString(MessageConstant.Message.IS_OUTGOING)));
         RCTExtend extend = null;
         ReadableMap ext;
         switch (rctMsg.getType()) {
@@ -55,69 +54,76 @@ public class MessageUtil {
             case RECEIVE_FILE:
             case SEND_IMAGE:
             case RECEIVE_IMAGE:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    RCTMediaFile e = new RCTMediaFile(ext.getString("thumbPath"), ext.getString("path"), ext.getString("url"));
-                    if (ext.hasKey("displayName")) {
-                        e.setDisplayName(ext.getString("displayName"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    RCTMediaFile e = new RCTMediaFile(ext.getString(MessageConstant.MediaFile.THUMB_PATH), ext.getString(MessageConstant.MediaFile.PATH),
+                            ext.getString(MessageConstant.MediaFile.URL));
+                    if (ext.hasKey(MessageConstant.MediaFile.DISPLAY_NAME)) {
+                        e.setDisplayName(ext.getString(MessageConstant.MediaFile.DISPLAY_NAME));
                     }
-                    if (ext.hasKey("duration")) {
+                    if (ext.hasKey(MessageConstant.MediaFile.DURATION)) {
                         try {
-                            e.setDuration(Long.parseLong(ext.getString("duration")));
+                            e.setDuration(Long.parseLong(ext.getString(MessageConstant.MediaFile.DURATION)));
                         } catch (NumberFormatException e1) {
                             e1.printStackTrace();
                         }
                     }
-                    if (ext.hasKey("height")) {
-                        e.setHeight(ext.getString("height"));
+                    if (ext.hasKey(MessageConstant.MediaFile.HEIGHT)) {
+                        e.setHeight(ext.getString(MessageConstant.MediaFile.HEIGHT));
                     }
-                    if (ext.hasKey("width")) {
-                        e.setWidth(ext.getString("width"));
+                    if (ext.hasKey(MessageConstant.MediaFile.WIDTH)) {
+                        e.setWidth(ext.getString(MessageConstant.MediaFile.WIDTH));
                     }
                     extend = e;
                 }
                 break;
             case SEND_LOCATION:
             case RECEIVE_LOCATION:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTLocation(ext.getString("latitude"), ext.getString("longitude"), ext.getString("address"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTLocation(ext.getString(MessageConstant.Location.LATITUDE), ext.getString(MessageConstant.Location.LONGITUDE),
+                            ext.getString(MessageConstant.Location.ADDRESS));
                 }
                 break;
             case SEND_BANK_TRANSFER:
             case RECEIVE_BANK_TRANSFER:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTBankTransfer(ext.getString("amount"), ext.getString("serialNo"), ext.getString("comments"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTBankTransfer(ext.getString(MessageConstant.BankTransfer.AMOUNT), ext.getString(MessageConstant.BankTransfer.SERIA_NO),
+                            ext.getString(MessageConstant.BankTransfer.COMMENTS));
                 }
                 break;
             case SEND_ACCOUNT_NOTICE:
             case RECEIVE_ACCOUNT_NOTICE:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTAccountNotice(ext.getString("title"), ext.getString("time"), ext.getString("date"),
-                            ext.getString("amount"), ext.getString("body"), ext.getString("serialNo"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTAccountNotice(ext.getString(MessageConstant.AccountNotice.TITLE), ext.getString(MessageConstant.AccountNotice.TIME),
+                            ext.getString(MessageConstant.AccountNotice.DATE), ext.getString(MessageConstant.AccountNotice.AMOUNT),
+                            getMap(ext, MessageConstant.AccountNotice.BODY), ext.getString(MessageConstant.AccountNotice.SERIA_NO));
                 }
                 break;
             case SEND_RED_PACKET:
             case RECEIVE_RED_PACKET:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTRedPacket(ext.getString("type"), ext.getString("comments"), ext.getString("serialNo"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTRedPacket(ext.getString(MessageConstant.RedPacket.TYPE), ext.getString(MessageConstant.RedPacket.COMMENTS),
+                            ext.getString(MessageConstant.RedPacket.SERIA_NO));
                 }
                 break;
             case SEND_LINK:
             case RECEIVE_LINK:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTLink(ext.getString("title"), ext.getString("describe"), ext.getString("image"), ext.getString("linkUrl"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTLink(ext.getString(MessageConstant.Link.TITLE), ext.getString(MessageConstant.Link.DESCRIBE),
+                            ext.getString(MessageConstant.Link.IMAGE), ext.getString(MessageConstant.Link.LINK_URL));
                 }
                 break;
             case RED_PACKET_OPEN:
-                if (message.hasKey(EXTEND)) {
-                    ext = message.getMap(EXTEND);
-                    extend = new RCTRedPacketOpen(ext.getString("hasRedPacket"), ext.getString("serialNo"), ext.getString("tipMsg"),
-                            ext.getString("sendId"), ext.getString("openId"));
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTRedPacketOpen(ext.getString(MessageConstant.RedPacketOpen.HAS_RED_PACKET),
+                            ext.getString(MessageConstant.RedPacketOpen.SERIA_NO), ext.getString(MessageConstant.RedPacketOpen.TIP_MSG),
+                            ext.getString(MessageConstant.RedPacketOpen.SEND_ID), ext.getString(MessageConstant.RedPacketOpen.OPEN_ID));
                 }
                 break;
             case SEND_CUSTOM:
@@ -128,19 +134,19 @@ public class MessageUtil {
 
             case SEND_TEXT:
             case RECEIVE_TEXT:
-                rctMsg.setText(message.getString(TEXT));
+                rctMsg.setText(message.getString(MessageConstant.Message.MSG_TEXT));
                 break;
             default:
-                rctMsg.setText(message.getString(TEXT));
+                rctMsg.setText(message.getString(MessageConstant.Message.MSG_TEXT));
         }
         rctMsg.setExtend(extend);
-        ReadableMap user = message.getMap(FROM_USER);
-        RCTUser rctUser = new RCTUser(user.getString(USER_ID), user.getString(DISPLAY_NAME),
-                user.getString(AVATAR_PATH));
+        ReadableMap user = message.getMap(MessageConstant.Message.FROM_USER);
+        RCTUser rctUser = new RCTUser(user.getString(MessageConstant.User.USER_ID), user.getString(MessageConstant.User.DISPLAY_NAME),
+                user.getString(MessageConstant.User.AVATAR_PATH));
         Log.d("AuroraIMUIModule", "fromUser: " + rctUser);
         rctMsg.setFromUser(rctUser);
-        if (message.hasKey(TIME_STRING)) {
-            String timeString = message.getString(TIME_STRING);
+        if (message.hasKey(MessageConstant.Message.TIME_STRING)) {
+            String timeString = message.getString(MessageConstant.Message.TIME_STRING);
             if (timeString != null) {
 
                 try {
@@ -154,8 +160,8 @@ public class MessageUtil {
             }
 
         }
-        if (message.hasKey(PROGRESS)) {
-            String progress = message.getString(PROGRESS);
+        if (message.hasKey(MessageConstant.Message.STATUS)) {
+            String progress = message.getString(MessageConstant.Message.STATUS);
             if (progress != null) {
                 rctMsg.setProgress(progress);
             }

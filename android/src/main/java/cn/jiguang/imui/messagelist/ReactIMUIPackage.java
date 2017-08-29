@@ -13,9 +13,6 @@ import java.util.List;
 
 import dowin.com.emoji.EmojiUtil;
 
-/**
- * Created by caiyaoguan on 2017/5/24.
- */
 
 public class ReactIMUIPackage implements ReactPackage {
 
@@ -26,7 +23,6 @@ public class ReactIMUIPackage implements ReactPackage {
         return nativeModules;
     }
 
-    @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }

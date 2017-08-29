@@ -10,9 +10,6 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by caiyaoguan on 2017/6/2.
- */
 
 public class InterfaceAdapter<T> implements JsonSerializer, JsonDeserializer<T> {
     @Override

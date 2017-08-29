@@ -240,6 +240,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
                         mListener.switchToActionMode();
                     }
 
+                    changeVoiceToInput(true);
                     actionLayout.setVisibility(VISIBLE);
                     emoticonPickerView.setVisibility(GONE);
 
@@ -247,13 +248,14 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
                     if (mListener != null) {
                         mListener.switchToEmojiMode();
                     }
+                    changeVoiceToInput(true);
                     emoticonPickerView.setVisibility(VISIBLE);
                     emoticonPickerView.show(emoticonSelectedListener);
                     actionLayout.setVisibility(GONE);
                 }
 
                 mLastClickId = view.getId();
-                requestLayout();
+//                mMenuContainer.requestLayout();
             }
         }
     };
@@ -390,7 +392,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
         }
 
         dismissMenuLayout();
-        setMenuContainerHeight(1);
+//        setMenuContainerHeight(1);
         mChatInput.requestFocus();
     }
 

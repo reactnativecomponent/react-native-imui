@@ -1,23 +1,17 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import cn.jiguang.imui.commons.models.IMediaFile;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by dowin on 2017/8/18.
- */
 
 public class RCTMediaFile extends RCTExtend implements IMediaFile{
 
-    public final static String HEIGHT = "height";
-    public final static String WIDTH = "width";
-    public final static String DISPLAY_NAME = "displayName";
-    public final static String DURATION = "duration";
-    public final static String THUMB_PATH = "thumbPath";
-    public final static String PATH = "path";
-    public final static String URL = "url";
+
 
     private String height;
     private String width;
@@ -32,17 +26,28 @@ public class RCTMediaFile extends RCTExtend implements IMediaFile{
         this.path = path;
         this.url = url;
     }
-
+    @Override
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.MediaFile.HEIGHT, height);
+        writableMap.putString(MessageConstant.MediaFile.WIDTH, width);
+        writableMap.putString(MessageConstant.MediaFile.DISPLAY_NAME, displayName);
+        writableMap.putString(MessageConstant.MediaFile.DURATION, Long.toString(duration));
+        writableMap.putString(MessageConstant.MediaFile.THUMB_PATH, thumbPath);
+        writableMap.putString(MessageConstant.MediaFile.PATH, path);
+        writableMap.putString(MessageConstant.MediaFile.URL, url);
+        return writableMap;
+    }
     @Override
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(HEIGHT, height);
-        json.addProperty(WIDTH, width);
-        json.addProperty(DISPLAY_NAME, displayName);
-        json.addProperty(DURATION, duration);
-        json.addProperty(THUMB_PATH, thumbPath);
-        json.addProperty(PATH, path);
-        json.addProperty(URL, url);
+        json.addProperty(MessageConstant.MediaFile.HEIGHT, height);
+        json.addProperty(MessageConstant.MediaFile.WIDTH, width);
+        json.addProperty(MessageConstant.MediaFile.DISPLAY_NAME, displayName);
+        json.addProperty(MessageConstant.MediaFile.DURATION, duration);
+        json.addProperty(MessageConstant.MediaFile.THUMB_PATH, thumbPath);
+        json.addProperty(MessageConstant.MediaFile.PATH, path);
+        json.addProperty(MessageConstant.MediaFile.URL, url);
         return json;
     }
 

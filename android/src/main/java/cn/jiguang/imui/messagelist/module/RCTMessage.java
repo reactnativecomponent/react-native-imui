@@ -9,53 +9,11 @@ import com.google.gson.JsonObject;
 import cn.jiguang.imui.commons.models.IExtend;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.commons.models.IUser;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by caiyaoguan on 2017/5/24.
- */
+
 
 public class RCTMessage implements IMessage {
-
-    public static final String MSG_ID = "msgId";
-    public static final String STATUS = "status";
-    public static final String MSG_TYPE = "msgType";
-    public static final String IS_OUTGOING = "isOutgoing";
-    public static final String TIME_STRING = "timeString";
-    public static final String TIME = "time";
-    public static final String MSG_TEXT = "text";
-    public static final String MEDIA_FILE_PATH = "mediaPath";
-    public static final String DURATION = "duration";
-    public static final String PROGRESS = "progress";
-    public static final String FROM_USER = "fromUser";
-    public static final String EXTEND = "extend";
-
-
-//    case text
-//  case image
-//  case voice
-//  case video
-//  case location
-//  case notification
-//  case redpacket
-//  case transfer
-//  case url
-//  case account_notice
-//  case redpacketOpen
-    final static String TEXT = "text";
-    final static String VOICE = "voice";
-    final static String IMAGE = "image";
-    final static String VIDEO = "video";
-    final static String FILE = "file";
-    final static String ROBOT = "robot";
-    final static String BANK_TRANSFER = "bank_transfer";
-    final static String ACCOUNT_NOTICE = "account_notice";
-    final static String EVENT = "event";
-    final static String LOCATION = "location";
-    final static String NOTIFICATION = "notification";
-    final static String TIP = "tip";
-    final static String RED_PACKET = "red_packet";
-    final static String RED_PACKET_OPEN = "red_packet_open";
-    final static String LINK = "link";
 
     private final String msgId;
     private final String statusStr;
@@ -68,9 +26,7 @@ public class RCTMessage implements IMessage {
     private long time;
     private String text;
     private RCTExtend extend;
-    private String mediaFilePath;
     private String thumb;
-    private long duration = -1;
     private String progress;
     private RCTUser rctUser;
     private static Gson sGSON = new Gson();
@@ -87,14 +43,16 @@ public class RCTMessage implements IMessage {
 
     MessageStatus getStatus(String status) {
         switch (status) {
-            case "send_failed":
+            case MessageConstant.MsgStatus.SEND_FAILED:
                 return MessageStatus.SEND_FAILED;
-            case "send_going":
+            case MessageConstant.MsgStatus.SEND_GOING:
                 return MessageStatus.SEND_GOING;
-            case "download_failed":
+            case MessageConstant.MsgStatus.RECEIVE_FAILED:
                 return MessageStatus.RECEIVE_FAILED;
-            case "3":
+            case MessageConstant.MsgStatus.RECEIVE_READED:
                 return MessageStatus.READED;
+            case MessageConstant.MsgStatus.RECEIVE_SUCCESS:
+                return MessageStatus.SEND_SUCCEED;
             default:
                 return MessageStatus.SEND_SUCCEED;
         }
@@ -103,62 +61,62 @@ public class RCTMessage implements IMessage {
     MessageType getType(String msgType, boolean isOutgoing) {
         if (isOutgoing) {
             switch (msgType) {
-                case TEXT:
+                case MessageConstant.MsgType.TEXT:
                     return MessageType.SEND_TEXT;
-                case VOICE:
+                case MessageConstant.MsgType.VOICE:
                     return MessageType.SEND_VOICE;
-                case IMAGE:
+                case MessageConstant.MsgType.IMAGE:
                     return MessageType.SEND_IMAGE;
-                case VIDEO:
+                case MessageConstant.MsgType.VIDEO:
                     return MessageType.SEND_VIDEO;
-                case TIP:
+                case MessageConstant.MsgType.TIP:
                     return MessageType.TIP;
-                case EVENT:
+                case MessageConstant.MsgType.EVENT:
                     return MessageType.EVENT;
-                case NOTIFICATION:
+                case MessageConstant.MsgType.NOTIFICATION:
                     return MessageType.NOTIFICATION;
-                case RED_PACKET_OPEN:
+                case MessageConstant.MsgType.RED_PACKET_OPEN:
                     return MessageType.RED_PACKET_OPEN;
-                case RED_PACKET:
+                case MessageConstant.MsgType.RED_PACKET:
                     return MessageType.SEND_RED_PACKET;
-                case BANK_TRANSFER:
+                case MessageConstant.MsgType.BANK_TRANSFER:
                     return MessageType.SEND_BANK_TRANSFER;
-                case ACCOUNT_NOTICE:
+                case MessageConstant.MsgType.ACCOUNT_NOTICE:
                     return MessageType.SEND_ACCOUNT_NOTICE;
-                case LOCATION:
+                case MessageConstant.MsgType.LOCATION:
                     return MessageType.SEND_LOCATION;
-                case LINK:
+                case MessageConstant.MsgType.LINK:
                     return MessageType.SEND_LINK;
                 default:
                     return MessageType.SEND_CUSTOM;
             }
         } else {
             switch (msgType) {
-                case TEXT:
+                case MessageConstant.MsgType.TEXT:
                     return MessageType.RECEIVE_TEXT;
-                case VOICE:
+                case MessageConstant.MsgType.VOICE:
                     return MessageType.RECEIVE_VOICE;
-                case IMAGE:
+                case MessageConstant.MsgType.IMAGE:
                     return MessageType.RECEIVE_IMAGE;
-                case VIDEO:
+                case MessageConstant.MsgType.VIDEO:
                     return MessageType.RECEIVE_VIDEO;
-                case TIP:
+                case MessageConstant.MsgType.TIP:
                     return MessageType.TIP;
-                case EVENT:
+                case MessageConstant.MsgType.EVENT:
                     return MessageType.EVENT;
-                case NOTIFICATION:
+                case MessageConstant.MsgType.NOTIFICATION:
                     return MessageType.NOTIFICATION;
-                case RED_PACKET_OPEN:
+                case MessageConstant.MsgType.RED_PACKET_OPEN:
                     return MessageType.RED_PACKET_OPEN;
-                case RED_PACKET:
+                case MessageConstant.MsgType.RED_PACKET:
                     return MessageType.RECEIVE_RED_PACKET;
-                case BANK_TRANSFER:
+                case MessageConstant.MsgType.BANK_TRANSFER:
                     return MessageType.RECEIVE_BANK_TRANSFER;
-                case ACCOUNT_NOTICE:
+                case MessageConstant.MsgType.ACCOUNT_NOTICE:
                     return MessageType.RECEIVE_ACCOUNT_NOTICE;
-                case LOCATION:
+                case MessageConstant.MsgType.LOCATION:
                     return MessageType.RECEIVE_LOCATION;
-                case LINK:
+                case MessageConstant.MsgType.LINK:
                     return MessageType.RECEIVE_LINK;
                 default:
                     return MessageType.RECEIVE_CUSTOM;
@@ -235,25 +193,6 @@ public class RCTMessage implements IMessage {
     public IExtend getExtend() {
         return extend;
     }
-
-    public void setMediaFilePath(String path) {
-        this.mediaFilePath = path;
-    }
-
-    @Override
-    public String getMediaFilePath() {
-        return this.mediaFilePath;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
-
-    @Override
-    public long getDuration() {
-        return this.duration;
-    }
-
     public void setProgress(String progress) {
         this.progress = progress;
     }
@@ -266,48 +205,47 @@ public class RCTMessage implements IMessage {
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
         if (msgId != null) {
-            json.addProperty(MSG_ID, msgId);
+            json.addProperty(MessageConstant.Message.MSG_ID, msgId);
         }
         if (status != null) {
-            json.addProperty(STATUS, statusStr);
+            json.addProperty(MessageConstant.Message.STATUS, statusStr);
         }
         if (msgType != null) {
-            json.addProperty(MSG_TYPE, msgTypeStr);
+            json.addProperty(MessageConstant.Message.MSG_TYPE, msgTypeStr);
         }
-        json.addProperty(IS_OUTGOING, isOutgoing);
+        json.addProperty(MessageConstant.Message.IS_OUTGOING, isOutgoing);
         if (timeString != null) {
-            json.addProperty(TIME_STRING, timeString);
+            json.addProperty(MessageConstant.Message.TIME_STRING, timeString);
         }
         if (time != 0L) {
-            json.addProperty(TIME, time);
+            json.addProperty(MessageConstant.Message.TIME, time);
         }
         if (text != null) {
-            json.addProperty(MSG_TEXT, text);
-        }
-        if (mediaFilePath != null) {
-            json.addProperty(MEDIA_FILE_PATH, mediaFilePath);
-        }
-        if (duration != -1) {
-            json.addProperty(DURATION, duration);
+            json.addProperty(MessageConstant.Message.MSG_TEXT, text);
         }
         if (progress != null) {
-            json.addProperty(PROGRESS, progress);
+            json.addProperty(MessageConstant.Message.STATUS, progress);
         }
         if (extend != null) {
-            json.add(EXTEND, extend.toJSON());
+            json.add(MessageConstant.Message.EXTEND, extend.toJSON());
         }
-        json.add(FROM_USER, rctUser.toJSON());
+        json.add(MessageConstant.Message.FROM_USER, rctUser.toJSON());
 
         return json;
     }
 
-    public WritableMap toWritableMap(){
+    public WritableMap toWritableMap() {
         WritableMap writableMap = Arguments.createMap();
-        writableMap.putString(MSG_ID,msgId);
-        writableMap.putString(STATUS, statusStr);
-        writableMap.putString(MSG_TYPE, msgTypeStr);
-        writableMap.putString(PROGRESS, progress);
-        writableMap.putMap(EXTEND, extend.toWritableMap());
+        writableMap.putString(MessageConstant.Message.MSG_ID, msgId);
+        writableMap.putString(MessageConstant.Message.STATUS, statusStr);
+        writableMap.putString(MessageConstant.Message.MSG_TYPE, msgTypeStr);
+        writableMap.putString(MessageConstant.Message.STATUS, progress);
+        if (rctUser != null) {
+            writableMap.putMap(MessageConstant.Message.FROM_USER, rctUser.toWritableMap());
+        }
+        if (extend != null) {
+            writableMap.putMap(MessageConstant.Message.EXTEND, extend.toWritableMap());
+        }
         return writableMap;
     }
 

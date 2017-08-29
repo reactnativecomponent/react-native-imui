@@ -1,19 +1,18 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import cn.jiguang.imui.commons.models.ILocation;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by dowin on 2017/8/18.
- */
+
 
 public class RCTLocation extends RCTExtend implements ILocation {
 
-    public final static String LATITUDE = "latitude";
-    public final static String LONGITUDE = "longitude";
-    public final static String ADDRESS = "address";
+
 
     private String latitude;
     private String longitude;
@@ -24,13 +23,20 @@ public class RCTLocation extends RCTExtend implements ILocation {
         this.longitude = longitude;
         this.address = address;
     }
-
+    @Override
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.Location.LATITUDE, latitude);
+        writableMap.putString(MessageConstant.Location.LONGITUDE, longitude);
+        writableMap.putString(MessageConstant.Location.ADDRESS, address);
+        return writableMap;
+    }
     @Override
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(LATITUDE, latitude);
-        json.addProperty(LONGITUDE, longitude);
-        json.addProperty(ADDRESS, address);
+        json.addProperty(MessageConstant.Location.LATITUDE, latitude);
+        json.addProperty(MessageConstant.Location.LONGITUDE, longitude);
+        json.addProperty(MessageConstant.Location.ADDRESS, address);
         return json;
     }
 

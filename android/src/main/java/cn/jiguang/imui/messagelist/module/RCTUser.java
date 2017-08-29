@@ -1,20 +1,19 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import cn.jiguang.imui.commons.models.IUser;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by caiyaoguan on 2017/5/25.
- */
+
 
 public class RCTUser implements IUser {
 
-    public static final String USER_ID = "userId";
-    public static final String DISPLAY_NAME = "displayName";
-    public static final String AVATAR_PATH = "avatarPath";
+
 
     private String userId;
     private String displayName;
@@ -29,9 +28,9 @@ public class RCTUser implements IUser {
 
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(USER_ID, userId);
-        json.addProperty(DISPLAY_NAME, displayName);
-        json.addProperty(AVATAR_PATH, avatarPath);
+        json.addProperty(MessageConstant.User.USER_ID, userId);
+        json.addProperty(MessageConstant.User.DISPLAY_NAME, displayName);
+        json.addProperty(MessageConstant.User.AVATAR_PATH, avatarPath);
         return json;
     }
     @Override
@@ -49,7 +48,13 @@ public class RCTUser implements IUser {
         return this.avatarPath;
     }
 
-
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.User.USER_ID, userId);
+        writableMap.putString(MessageConstant.User.DISPLAY_NAME, displayName);
+        writableMap.putString(MessageConstant.User.AVATAR_PATH, avatarPath);
+        return writableMap;
+    }
     @Override
     public String toString() {
         return sGSON.toJson(toJSON());

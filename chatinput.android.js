@@ -19,15 +19,8 @@ export default class ChatInput extends Component {
   constructor(props) {
     super(props);
     this._onSendText = this._onSendText.bind(this);
-    this._onSendFiles = this._onSendFiles.bind(this);
-    this._takePicture = this._takePicture.bind(this);
-    this._startVideoRecord = this._startVideoRecord.bind(this);
-    this._finishVideoRecord = this._finishVideoRecord.bind(this);
-    this._cancelVideoRecord = this._cancelVideoRecord.bind(this);
-    this._onStartRecordVoice = this._onStartRecordVoice.bind(this);
-    this._onFinishRecordVoice = this._onFinishRecordVoice.bind(this);
-    this._onRecordingVoice = this._onRecordingVoice.bind(this);
-    this._onCancelRecordVoice = this._onCancelRecordVoice.bind(this);
+    this._onSendVideo = this._onSendVideo.bind(this);
+    this._onSendVoice = this._onSendVoice.bind(this);
     this._onSwitchToMicrophoneMode = this._onSwitchToMicrophoneMode.bind(this);
     this._onSwitchToActionMode = this._onSwitchToActionMode.bind(this);
     this._onSwitchToEmojiMode = this._onSwitchToEmojiMode.bind(this);
@@ -42,68 +35,19 @@ export default class ChatInput extends Component {
     this.props.onSendText(event.nativeEvent.text);
   }
 
-  _onSendFiles(event: Event) {
-    if (!this.props.onSendGalleryFiles) {
+  _onSendVideo(event: Event) {
+    if (!this.props.onSendVideo) {
       return;
     }
-    this.props.onSendGalleryFiles(event.nativeEvent.mediaFiles);
+    this.props.onSendVideo(event.nativeEvent.mediaPath);
   }
 
-  _takePicture(event: Event) {
-    if (!this.props.onTakePicture) {
+  _onSendVoice(event: Event) {
+    if (!this.props.onSendVoice) {
       return;
     }
-    this.props.onTakePicture(event.nativeEvent.mediaPath);
+    this.props.onSendVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
   }
-
-  _startVideoRecord() {
-    if (!this.props.onStartRecordVideo) {
-      return;
-    }
-    this.props.onStartRecordVideo();
-  }
-
-  _finishVideoRecord(event: Event) {
-    if (!this.props.onFinishRecordVideo) {
-      return;
-    }
-    this.props.onFinishRecordVideo(event.nativeEvent.mediaPath);
-  }
-
-  _cancelVideoRecord() {
-    if (!this.props.onCancelRecordVideo) {
-      return;
-    }
-    this.props.onCancelRecordVideo();
-  }
-
-  _onStartRecordVoice() {
-    if (!this.props.onStartRecordVoice) {
-      return;
-    }
-    this.props.onStartRecordVoice();
-  }
-
-  _onFinishRecordVoice(event: Event) {
-    if (!this.props.onFinishRecordVoice) {
-      return;
-    }
-    this.props.onFinishRecordVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
-  }
-  _onRecordingVoice(event: Event) {
-    if (!this.props.onRecordingVoice) {
-      return;
-    }
-    this.props.onRecordingVoice(event.nativeEvent);
-  }
-
-  _onCancelRecordVoice() {
-    if (!this.props.onCancelRecordVoice) {
-      return;
-    }
-    this.props.onCancelRecordVoice();
-  }
-
   _onSwitchToMicrophoneMode() {
     if (!this.props.onSwitchToMicrophoneMode) {
       return;
@@ -143,15 +87,8 @@ export default class ChatInput extends Component {
       <RCTChatInput 
           {...this.props} 
           onSendText={this._onSendText}
-          onSendGalleryFiles={this._onSendFiles}
-          onTakePicture={this._takePicture}
-          onStartRecordVideo={this._startVideoRecord}
-          onFinishRecordVideo={this._finishVideoRecord}
-          onCancelRecordVideo={this._cancelVideoRecord}
-          onStartRecordVoice={this._onStartRecordVoice}
-          onFinishRecordVoice={this._onFinishRecordVoice}
-          onRecordingVoice={this._onRecordingVoice}
-          onCancelRecordVoice={this._onCancelRecordVoice}
+          onSendVideo={this._onSendVideo}
+          onSendVoice={this._onSendVoice}
           onSwitchToMicrophoneMode={this._onSwitchToMicrophoneMode}
           onSwitchToActionMode={this._onSwitchToActionMode}
           onSwitchToEmojiMode={this._onSwitchToEmojiMode}
@@ -166,16 +103,8 @@ export default class ChatInput extends Component {
 ChatInput.propTypes = {
   menuContainerHeight: PropTypes.number,
   isDismissMenuContainer: PropTypes.bool,
-  onSendText: PropTypes.func,
-  onSendGalleryFiles: PropTypes.func,
-  onTakePicture: PropTypes.func,
-  onStartRecordVideo: PropTypes.func,
-  onFinishRecordVideo: PropTypes.func,
-  onCancelRecordVideo: PropTypes.func,
-  onStartRecordVoice: PropTypes.func,
-  onFinishRecordVoice: PropTypes.func,
-  onRecordingVoice: PropTypes.func,
-  onCancelRecordVoice: PropTypes.func,
+  onSendVideo: PropTypes.func,
+  onSendVoice: PropTypes.func,
   onSwitchToMicrophoneMode: PropTypes.func,
   onSwitchToActionMode: PropTypes.func,
   onSwitchToEmojiMode: PropTypes.func,

@@ -1,20 +1,18 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import cn.jiguang.imui.commons.models.ILink;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by dowin on 2017/8/18.
- */
+
 
 public class RCTLink extends RCTExtend implements ILink {
 
-    public final static String TITLE = "title";
-    public final static String DESCRIBE = "describe";
-    public final static String IMAGE = "image";
-    public final static String LINK_URL = "linkUrl";
+
 
     private String title;
     private String describe;
@@ -29,12 +27,21 @@ public class RCTLink extends RCTExtend implements ILink {
     }
 
     @Override
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.Link.TITLE, title);
+        writableMap.putString(MessageConstant.Link.DESCRIBE, describe);
+        writableMap.putString(MessageConstant.Link.IMAGE, image);
+        writableMap.putString(MessageConstant.Link.LINK_URL, linkUrl);
+        return writableMap;
+    }
+    @Override
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(TITLE, title);
-        json.addProperty(DESCRIBE, describe);
-        json.addProperty(IMAGE, image);
-        json.addProperty(LINK_URL, linkUrl);
+        json.addProperty(MessageConstant.Link.TITLE, title);
+        json.addProperty(MessageConstant.Link.DESCRIBE, describe);
+        json.addProperty(MessageConstant.Link.IMAGE, image);
+        json.addProperty(MessageConstant.Link.LINK_URL, linkUrl);
         return json;
     }
 
