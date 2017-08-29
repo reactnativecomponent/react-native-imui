@@ -19,7 +19,7 @@
 /// Tells the delegate that user tap message cell
 - (void)messageCollectionView:(UICollectionView * _Nonnull)_ forItemAt:(NSIndexPath * _Nonnull)forItemAt model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 /// Tells the delegate that user tap message bubble
-- (void)messageCollectionViewWithTapCellView:(UICollectionViewCell * _Nonnull)tapCellView;
+- (void)messageCollectionViewWithTapCellView:(NSString * )tapCellView;
 - (void)messageCollectionViewWithDidTapMessageBubbleInCell:(UICollectionViewCell * _Nonnull)didTapMessageBubbleInCell;
 
 - (void)messageCollectionViewWithOpenMessageBubbleUrl:(NSString *)url;
@@ -27,6 +27,8 @@
 
 - (void)messageCollectionViewWithDidShowMenuStr:(NSString *)strMenu model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 - (void)messageCollectionViewWithReloadMoreData:(NSString *)data;
+- (void)messageCollectionViewWithChangeAutoScroll:(BOOL *)isAutoScroll;
+
 
 /// Tells the delegate that user tap header image in message cell
 - (void)messageCollectionViewWithDidTapHeaderImageInCell:(UICollectionViewCell * _Nonnull)didTapHeaderImageInCell model:(id <IMUIMessageModelProtocol> _Nonnull)model;
@@ -52,6 +54,7 @@ RCT_EXPORT_VIEW_PROPERTY(onStatusViewClick, RCTBubblingEventBlock)
 
 RCT_EXPORT_VIEW_PROPERTY(onBeginDragMessageList, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLoadMessages, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onClickChangeAutoScroll, RCTBubblingEventBlock)
 
 
 RCT_EXPORT_MODULE()
@@ -222,7 +225,7 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onMsgClick((@{@"message": messageDic}));
 }
 
-- (void)messageCollectionViewWithTapCellView:(UICollectionViewCell *)tapCellView{//隐藏键盘
+- (void)messageCollectionViewWithTapCellView:(NSString *)tapCellView{//隐藏键盘
     if(!_messageList.onBeginDragMessageList) { return; }
     _messageList.onBeginDragMessageList(@{});
 }
@@ -277,12 +280,16 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
   _messageList.onBeginDragMessageList(@{});
 }
 
-- (void)messageCollectionViewWithReloadMoreData:(NSString *)data{
-    NSLog(@"刷新数据");
+- (void)messageCollectionViewWithReloadMoreData:(NSString *)data{//刷新数据
     if(!_messageList.onClickLoadMessages) { return; }
     
     _messageList.onClickLoadMessages(@{});
 
+}
+
+- (void)messageCollectionViewWithChangeAutoScroll:(BOOL *)isAutoScroll{//改变自动滚动状态
+    if(!_messageList.onClickChangeAutoScroll) { return; }
+    _messageList.onClickChangeAutoScroll(@{ @"isAutoScroll": [NSNumber numberWithBool:isAutoScroll]});
 }
 
 

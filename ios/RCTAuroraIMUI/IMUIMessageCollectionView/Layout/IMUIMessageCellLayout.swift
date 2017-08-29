@@ -18,15 +18,15 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
 
   public static var avatarSize: CGSize = CGSize(width: 40, height: 40)
   
-  public static var avatarOffsetToCell: UIOffset = UIOffset(horizontal: 5, vertical: 10)
+  public static var avatarOffsetToCell: UIOffset = UIOffset(horizontal: 0, vertical: 10)
   
   public static var timeLabelFrame: CGRect = CGRect.zero
   
   public static var nameLabelSize: CGSize = CGSize(width: 200, height: 18)
   
-  public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 8 , vertical: 0)
+  public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
   
-  public static var bubbleOffsetToAvatar: UIOffset = UIOffset(horizontal: 8 , vertical: 0)
+  public static var bubbleOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
   
   public static var cellWidth: CGFloat = 0
   

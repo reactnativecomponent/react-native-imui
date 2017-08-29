@@ -18,7 +18,6 @@
 }
 @property (nonatomic, strong) NIMInputAtCache *atCache;
 @property (copy, nonatomic) NSString *strRecordPath;
-
 @end
 
 @implementation DWInputBarControl
@@ -48,7 +47,6 @@
 //    NSLog(@"clickKeyBoardChange:%@",userInfo);
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 //    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
-    NSLog(@"----height:%f",self.height);
     CGFloat tmpH = screenH - endFrame.origin.y+self.inputViewHeight;
     CGFloat keyboardY = screenH - 20;
     if (!(self.showExpressionBtn.selected || self.showMenuBtn.selected) || (keyboardY > endFrame.origin.y)) {
@@ -189,7 +187,6 @@
     [_toolView addSubview:_showMenuBtn];
     
     _expressionView = [[NIMInputEmoticonContainerView alloc]initWithFrame:CGRectMake(0, 0, screenW, expressionViewH)];
-//    _expressionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _expressionView.delegate = self;
     [self addSubview:_expressionView];
     _expressionView.hidden = YES;

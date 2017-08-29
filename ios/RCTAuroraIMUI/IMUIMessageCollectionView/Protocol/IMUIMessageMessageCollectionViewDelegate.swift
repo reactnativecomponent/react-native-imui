@@ -27,7 +27,9 @@ import UIKit
     @objc optional func messageCollectionView(didShowMenuStr: String, model: IMUIMessageModelProtocol)
     @objc optional func messageCollectionView(openMessageBubbleUrl: String)
     @objc optional func messageCollectionView(reloadMoreData:String)
-    @objc optional func messageCollectionView(tapCellView:UICollectionViewCell)
+    @objc optional func messageCollectionView(tapCellView:String)
+    @objc optional func messageCollectionView(changeAutoScroll:Bool)
+    
     
   
   /**

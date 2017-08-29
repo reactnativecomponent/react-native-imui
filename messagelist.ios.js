@@ -75,6 +75,13 @@ export default class MessageList extends Component {
         this.props.onClickLoadMessages();
     }
 
+    _onClickChangeAutoScroll(event:Event){
+    	if(!this.props.onClickChangeAutoScroll){
+    		return;
+    	}
+    	this.props.onClickChangeAutoScroll(event.nativeEvent.isAutoScroll);
+    }
+
   render() {
     return (
       <RCTMessageList 
@@ -85,6 +92,7 @@ export default class MessageList extends Component {
           onDealWithMenuClick={this._onDealWithMenuClick}
           onStatusViewClick={this._onStatusViewClick}
           onClickLoadMessages={this._onClickLoadMessages.bind(this)}
+          onClickChangeAutoScroll={this._onClickChangeAutoScroll.bind(this)}
       />
     );
   }
@@ -99,6 +107,7 @@ MessageList.propTypes = {
   onStatusViewClick: PropTypes.func,
   onBeginDragMessageList: PropTypes.func,
     onClickLoadMessages:PropTypes.func,
+    onClickChangeAutoScroll:PropTypes.func,
   sendBubble: PropTypes.string,
   receiveBubble: PropTypes.string,
   sendBubble: PropTypes.object,

@@ -55,6 +55,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
+    self.frame = CGRectMake(0, 0, screenW, screenH-60-50);//60为导航栏高度，50为输入栏默认高度
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appendMessages:)
                                                  name:kAppendMessages object:nil];
@@ -78,7 +79,7 @@
                                                  name:kScrollToBottom object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickLongTouchShowMenu:) name:kClickLongTouchShowMenu object:nil];
     
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordNotification:) name:kRecordChangeNotification object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordNotification:) name:RecordChangeNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLevelNotification:) name:kRecordLevelNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];

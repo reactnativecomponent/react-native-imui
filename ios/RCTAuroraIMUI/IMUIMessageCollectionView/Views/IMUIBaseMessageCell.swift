@@ -207,14 +207,14 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   
   func tapBubbleView() {
     if self.message?.type == .text {
-        self.delegate?.messageCollectionView?(tapCellView: self)
+        self.delegate?.messageCollectionView?(tapCellView: "")
     }else{
         self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
     }
   }
     
     func tapCellView(){//点击整个cell，隐藏键盘
-        self.delegate?.messageCollectionView?(tapCellView: self)
+        self.delegate?.messageCollectionView?(tapCellView: "")
     }
     
   func longTapBubbleView(sender : UILongPressGestureRecognizer) {

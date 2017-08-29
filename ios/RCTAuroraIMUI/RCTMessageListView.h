@@ -29,6 +29,7 @@
 
 @property(nonatomic, copy) RCTBubblingEventBlock onBeginDragMessageList;
 @property (nonatomic, copy) RCTBubblingEventBlock onClickLoadMessages;
+@property (nonatomic, copy) RCTBubblingEventBlock onClickChangeAutoScroll;
 
 // custom layout
 @property(strong, nonatomic) NSDictionary *sendBubble;
