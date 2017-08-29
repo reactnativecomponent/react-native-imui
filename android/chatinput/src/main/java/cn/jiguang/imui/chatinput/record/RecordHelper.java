@@ -56,8 +56,8 @@ public class RecordHelper {
             }
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setMaxDuration(MAX_INTERVAL_TIME);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setMaxDuration(MAX_INTERVAL_TIME * 1000);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 //            recorder.setAudioEncodingBitRate();
 //            recorder.setAudioSamplingRate();
