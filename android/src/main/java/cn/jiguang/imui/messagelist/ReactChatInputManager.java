@@ -134,7 +134,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
             @Override
             public void onRecording(boolean cancelAble, int dbSize, int time) {
-                view.updateStatus(dbSize, cancelAble ? 1 : 0, "" + time);
+                view.updateStatus(dbSize, cancelAble ? 1 : 0, time);
             }
 
             void hideDialog() {

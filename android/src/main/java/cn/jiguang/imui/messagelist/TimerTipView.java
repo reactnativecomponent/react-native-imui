@@ -29,7 +29,7 @@ public class TimerTipView extends FrameLayout {
     private int timerStatus = 0;
     private String[] timerTip = {"手指上滑，取消发送", "松开手指，取消发送", "录音时间太短", "录音时间过长"};
     GradientDrawable bgDrawable;
-    private String time;
+    private String timeStr;
 
     public TimerTipView(@NonNull Context context) {
         this(context, null);
@@ -63,11 +63,13 @@ public class TimerTipView extends FrameLayout {
         bgDrawable.setColor(TIP_COLOR);
     }
 
-    public void updateStatus(int level,int status,String time){
+    public void updateStatus(int level, int status, int time) {
 
 
-        if (timerStatus == 0 && !TextUtils.isEmpty(time)) {
-            timerTipText.setText(String.format(LAST_TIME, time));
+        if (time > 0 && time <= 10) {
+            timeStr = "" + time;
+        } else {
+            timeStr = null;
         }
         updateTextStatus(status);
         updateImageStatus(status);
@@ -98,8 +100,8 @@ public class TimerTipView extends FrameLayout {
         if (status < 0 || status > 3) {
             updateS = 0;
         }
-        if (updateS == 0 && !TextUtils.isEmpty(time)) {
-            timerTipText.setText(String.format(LAST_TIME, time));
+        if (updateS == 0 && !TextUtils.isEmpty(timeStr)) {
+            timerTipText.setText(String.format(LAST_TIME, timeStr));
         } else {
             timerTipText.setText(timerTip[updateS]);
         }

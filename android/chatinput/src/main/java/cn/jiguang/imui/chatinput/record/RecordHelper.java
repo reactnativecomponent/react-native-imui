@@ -244,7 +244,7 @@ public class RecordHelper {
                         finishRecord();
                     } else {
                         if (mListener != null) {
-                            mListener.onRecording(cancelAble, db, (int) intervalTime);
+                            mListener.onRecording(cancelAble, db, MAX_INTERVAL_TIME - (int) intervalTime);
                         }
                     }
                     break;
