@@ -65,14 +65,15 @@ public class TimerTipView extends FrameLayout {
 
     public void updateStatus(int level,int status,String time){
 
-        if (status == 0) {
-            imageView.getDrawable().setLevel(3700 + 6300 * level / 100);
-        }
+
         if (timerStatus == 0 && !TextUtils.isEmpty(time)) {
             timerTipText.setText(String.format(LAST_TIME, time));
         }
         updateTextStatus(status);
         updateImageStatus(status);
+        if (status == 0) {
+            imageView.getDrawable().setLevel(3700 + 6300 * level / 100);
+        }
     }
 
     void updateImageStatus(int status) {

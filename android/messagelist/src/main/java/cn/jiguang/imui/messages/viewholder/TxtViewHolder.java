@@ -1,5 +1,6 @@
 package cn.jiguang.imui.messages.viewholder;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
@@ -70,11 +71,8 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
     @Override
     public void applyStyle(MessageListStyle style) {
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
-        if (mIsSender) {
-            mMsgTv.setLinkTextColor(style.getReceiveBubbleTextColor());
-        } else {
-            mMsgTv.setLinkTextColor(style.getSendBubbleTextColor());
-        }
+        mMsgTv.setTextSize(17);
+        mMsgTv.setLinkTextColor(Color.rgb(173,0,151));
 
     }
 

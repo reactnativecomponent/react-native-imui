@@ -164,8 +164,8 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
         mChatInput.setTextColor(mStyle.getInputTextColor());
         mChatInput.setHintTextColor(mStyle.getInputHintColor());
         mChatInput.setBackgroundResource(mStyle.getInputEditTextBg());
-        mInputMarginLeft.getLayoutParams().width = mStyle.getInputMarginLeft();
-        mInputMarginRight.getLayoutParams().width = mStyle.getInputMarginRight();
+//        mInputMarginLeft.getLayoutParams().width = mStyle.getInputMarginLeft();
+//        mInputMarginRight.getLayoutParams().width = mStyle.getInputMarginRight();
         mVoiceBtn.setImageResource(mStyle.getVoiceBtnIcon());
         mVoiceBtn.setBackground(mStyle.getVoiceBtnBg());
         mEmojiBtn.setBackground(mStyle.getPhotoBtnBg());
