@@ -73,8 +73,13 @@ RCT_EXPORT_METHOD(clickRecordTime:(NSInteger )time) {
 }
 
 RCT_EXPORT_METHOD(clickGetAtPerson:(NSDictionary *)person) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGetAtPersonNotification object:person];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GetAtPersonNotification object:person];
 }
+
+RCT_EXPORT_METHOD(clickLoadEmotionPages) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:LoadPagesNotification object:nil];
+}
+
 
 RCT_EXPORT_METHOD(tapVoiceBubbleView:(NSString *)messageID) {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"tapVoiceBubbleViewNotification" object:messageID];

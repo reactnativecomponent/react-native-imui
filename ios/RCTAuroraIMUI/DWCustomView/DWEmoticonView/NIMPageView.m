@@ -12,6 +12,7 @@
 {
     NSInteger   _currentPage;
     NSInteger   _currentPageForRotation;
+    BOOL _isLoaded;
 }
 
 @property (nonatomic,strong)    NSMutableArray  *pages;
@@ -33,7 +34,18 @@
     {
         [self setupControls];
     }
+    _isLoaded = NO;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickLoadPages) name:@"LoadPagesNotification" object:nil];
     return self;
+}
+
+- (void)clickLoadPages{
+    if (!_isLoaded) {
+        _isLoaded = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reloadData];
+        });
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -56,6 +68,7 @@
 - (void)dealloc
 {
     _scrollView.delegate = nil;
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)layoutSubviews
@@ -106,7 +119,7 @@
     if (_currentPage != page || page == 0)
     {
         _currentPage = page;
-        [self reloadData];
+//        [self reloadData];
     }
     
 }
@@ -195,7 +208,6 @@
         }
     }
 }
-
 
 - (void)calculatePageNumbers
 {

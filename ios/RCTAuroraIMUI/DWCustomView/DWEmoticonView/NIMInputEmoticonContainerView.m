@@ -17,6 +17,8 @@
 #import "UIImage+NIM.h"
 //#import "NIMKitUIConfig.h"
 
+#define sreenW [UIScreen mainScreen].bounds.size.width
+
 NSInteger NIMCustomPageControlHeight = 36;
 NSInteger NIMCustomPageViewHeight    = 159;
 
@@ -34,6 +36,7 @@ NSInteger NIMCustomPageViewHeight    = 159;
     if (self = [super initWithFrame:frame]) {
         [self loadConfig];
     }
+    
     return self;
 }
 
@@ -55,7 +58,7 @@ NSInteger NIMCustomPageViewHeight    = 159;
     _emoticonPageView.pageViewDelegate = self;
     [self addSubview:_emoticonPageView];
     
-    _emotPageController = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, self.width, NIMCustomPageControlHeight)];
+    _emotPageController = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, sreenW, NIMCustomPageControlHeight)];
 //    _emotPageController.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _emotPageController.pageIndicatorTintColor = [UIColor lightGrayColor];
     _emotPageController.currentPageIndicatorTintColor = [UIColor grayColor];
@@ -204,7 +207,7 @@ NSInteger NIMCustomPageViewHeight    = 159;
 {
     NIMInputEmoticonCatalog *emoticonCatalog = [[NIMInputEmoticonManager sharedManager] emoticonCatalog:NIMKit_EmojiCatalog];
     if (emoticonCatalog) {
-        NIMInputEmoticonLayout *layout = [[NIMInputEmoticonLayout alloc] initEmojiLayout:self.width];
+        NIMInputEmoticonLayout *layout = [[NIMInputEmoticonLayout alloc] initEmojiLayout:sreenW];
         emoticonCatalog.layout = layout;
         emoticonCatalog.pagesCount = [self numberOfPagesWithEmoticon:emoticonCatalog];
     }
@@ -215,7 +218,7 @@ NSInteger NIMCustomPageViewHeight    = 159;
 - (NSArray *)loadChartlet{
     NSArray *chatlets = [[NIMInputEmoticonManager sharedManager] loadChartletEmoticonCatalog];
     for (NIMInputEmoticonCatalog *item in chatlets) {
-        NIMInputEmoticonLayout *layout = [[NIMInputEmoticonLayout alloc] initCharletLayout:self.width];
+        NIMInputEmoticonLayout *layout = [[NIMInputEmoticonLayout alloc] initCharletLayout:sreenW];
         item.layout = layout;
         item.pagesCount = [self numberOfPagesWithEmoticon:item];
     }
@@ -323,7 +326,7 @@ NSInteger NIMCustomPageViewHeight    = 159;
 - (NIMInputEmoticonTabView *)tabView
 {
     if (!_tabView) {
-        _tabView = [[NIMInputEmoticonTabView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
+        _tabView = [[NIMInputEmoticonTabView alloc] initWithFrame:CGRectMake(0, 0, sreenW, 0)];
 //        _tabView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _tabView.delegate = self;
         [_tabView.sendButton addTarget:self action:@selector(didPressSend:) forControlEvents:UIControlEventTouchUpInside];

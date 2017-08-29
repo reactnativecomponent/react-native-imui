@@ -18,7 +18,6 @@
 }
 @property (nonatomic, strong) NIMInputAtCache *atCache;
 @property (copy, nonatomic) NSString *strRecordPath;
-
 @end
 
 @implementation DWInputBarControl
@@ -45,14 +44,12 @@
 #pragma mark -- 监听键盘
 - (void)clickKeyBoardChange:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
-    NSLog(@"clickKeyBoardChange:%@",userInfo);
+//    NSLog(@"clickKeyBoardChange:%@",userInfo);
     CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 //    self.height = screenH - endFrame.origin.y+self.inputViewHeight;
-    NSLog(@"----height:%f    ----y:%f",self.height,endFrame.origin.y);
     CGFloat tmpH = screenH - endFrame.origin.y+self.inputViewHeight;
     CGFloat keyboardY = screenH - 20;
     if (!(self.showExpressionBtn.selected || self.showMenuBtn.selected) || (keyboardY > endFrame.origin.y)) {
-        NSLog(@"进来了~~~~~");
         if(!self.onShowKeyboard) { return; }
         self.onShowKeyboard(@{@"inputHeight":@(tmpH),@"showType":@(0)});
     }
@@ -190,7 +187,6 @@
     [_toolView addSubview:_showMenuBtn];
     
     _expressionView = [[NIMInputEmoticonContainerView alloc]initWithFrame:CGRectMake(0, 0, screenW, expressionViewH)];
-//    _expressionView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _expressionView.delegate = self;
     [self addSubview:_expressionView];
     _expressionView.hidden = YES;
