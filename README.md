@@ -12,8 +12,14 @@ react-native link
 If link Android failed, you need modify `settings.gradle`:
 
 ```
-include ':app', ':react-native-imui'
+include ':react-native-imui'
 project(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')
+include ':react-native-imui:chatinput'
+include ':react-native-imui:messagelist'
+include ':react-native-imui:popuptool'
+include ':react-native-imui:emoji'
+include ':react-native-imui:photoViewPagerview'
+include ':react-native-imui:photoViewPagerview:photodraweeview'
 ```
 
 And add dependency in your app's `build.gradle`:
