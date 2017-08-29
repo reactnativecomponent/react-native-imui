@@ -6,26 +6,26 @@
 ## 安装
 
 ```
-npm install aurora-imui-react-native --save
+npm install react-native-imui --save
 react-native link
 ```
 
 如果 link 安卓失败，需要手动修改一下 `settings.gradle` 中的引用路径：
 
 ```
-include ':app', ':aurora-imui-react-native'
-project(':aurora-imui-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/aurora-imui-react-native/ReactNative/android')
+include ':app', ':react-native-imui'
+project(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')
 ```
 
 然后在 app 的 `build.gradle`中引用：
 
 ```
 dependencies {
-    compile project(':aurora-imui-react-native')
+    compile project(':react-native-imui')
 }
 ```
 
-**注意事项（Android）：我们使用了 support v4, v7 25.3.1 版本，因此需要将你的 build.gradle 中 buildToolsVersion 及 compiledSdkVersion 改为 25 以上。可以参考 sample 的配置。**
+**注意事项（Android）：我们使用了 support v4, v7 25.3.1 版本，因此需要将你的 build.gradle 中 buildToolsVersion 及 compiledSdkVersion 改为 25 以上。可以参考 demo 的配置。**
 
 ## 配置
 
@@ -54,10 +54,8 @@ dependencies {
 
 
 - ### iOS
-
   - PROJECT -> TARGETS -> Build Settings -> Enable Bitcode Set to No
   - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
-  - 构建你的项目之前，你需要构建 RCTAuroraIMUI.framework
 
 ## 数据格式
 
