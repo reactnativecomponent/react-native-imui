@@ -22,6 +22,7 @@
             android:layout_toRightOf="@id/aurora_iv_msgitem_avatar" />
 
         <cn.jiguang.imui.view.ShapeImageView
+            android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:id="@+id/aurora_iv_msgitem_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -13,6 +13,7 @@
     <dimen name="aurora_width_msg_avatar">42dp</dimen>
     <dimen name="aurora_height_msg_avatar">42dp</dimen>
     <dimen name="aurora_avatar_padding">6dp</dimen>
+    <dimen name="aurora_message_padding_top">4dp</dimen>
     <dimen name="aurora_size_receive_text">14sp</dimen>
     <dimen name="aurora_padding_receive_text_left">15dp</dimen>
     <dimen name="aurora_padding_receive_text_top">2dp</dimen>

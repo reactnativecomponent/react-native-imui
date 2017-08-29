@@ -28,8 +28,8 @@
     </style>
     
     <style name="ChatInputIcon">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_width">@dimen/imui_chat_width</item>
+        <item name="android:layout_height">@dimen/imui_chat_width</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
 </resources>

@@ -23,6 +23,7 @@
             android:layout_toRightOf="@id/aurora_iv_msgitem_avatar" />
 
         <LinearLayout
+            android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:id="@+id/item_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

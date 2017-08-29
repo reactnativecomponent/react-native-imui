@@ -26,7 +26,7 @@ public class RecordHelper {
 
     private static final int MIN_INTERVAL_TIME = 1000;// 1s
 
-    private static final int MAX_INTERVAL_TIME = 120000;// 1s
+    private static final int MAX_INTERVAL_TIME = 120;// 1s
 
     private MediaRecorder recorder;
     private RecordVoiceListener mListener;
@@ -166,10 +166,11 @@ public class RecordHelper {
             return 0;
         }
         try {
-            int x = recorder.getMaxAmplitude();
-            if (x != 0) {
-                int f = (int) (10 * Math.log(x) / Math.log(10));
-                return f;
+            int db = recorder.getMaxAmplitude() / 1;
+            if (db > 1) {
+//                int f = (int) (10 * Math.log(x) / Math.log(10));
+                db = (int) (20 * Math.log10(db));
+                return db;
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -237,6 +238,8 @@ public class RecordHelper {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case START_RECORD:
+
+                    Log.w(getClass().getName(), cancelAble + "" + db + "" + intervalTime);
                     if (intervalTime >= MAX_INTERVAL_TIME) {
                         finishRecord();
                     } else {

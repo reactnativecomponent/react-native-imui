@@ -9,7 +9,7 @@
     <item>
         <shape >
             <corners android:radius="@dimen/aurora_radius_btn_default"/>
-            <solid android:color="@color/aurora_jpush_blue"/>
+            <solid android:color="@color/aurora_send_blue"/>
         </shape>
     </item>
 

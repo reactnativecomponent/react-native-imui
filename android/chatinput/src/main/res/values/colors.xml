@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="line_bg">#a9a3a3</color>
 
     <!-->chat input<-->
     <color name="aurora_bg_input_default">#f3f3f3</color>
@@ -8,7 +9,7 @@
     <color name="aurora_bg_edittext_default">#e5e5e5</color>
     <color name="aurora_bg_edittext_focus">#3f80dc</color>
     <color name="aurora_cursor_color_default">#8db4eb</color>
-    <color name="aurora_jpush_blue">#3f80dc</color>
+    <color name="aurora_send_blue">#3f80dc</color>
     <color name="aurora_bg_voice_btn_default">#3f80dc</color>
     <color name="aurora_bg_voice_btn_pressed">#3773cb</color>
     <color name="aurora_text_color_input">#000000</color>

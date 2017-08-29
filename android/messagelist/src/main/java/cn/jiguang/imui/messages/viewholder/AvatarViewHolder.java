@@ -1,5 +1,6 @@
 package cn.jiguang.imui.messages.viewholder;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,7 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
         mSendingPb = (ProgressBar) itemView.findViewById(R.id.aurora_pb_msgitem_sending);
 
         layout = itemView.findViewById(R.id.item_layout);
+
     }
 
 
@@ -63,6 +65,7 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
         }
         if (!mIsSender) {
             if (mDisplayNameTv.getVisibility() == View.VISIBLE) {
+                mDisplayNameTv.setMaxEms(8);
                 mDisplayNameTv.setText(message.getFromUser().getDisplayName());
             }
         } else {
@@ -132,6 +135,12 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
     public void applyStyle(MessageListStyle style) {
         if (layout != null && mAvatarIv.getVisibility() == View.VISIBLE) {
             layout.getLayoutParams().width = (int) (style.getWindowWidth() * style.getBubbleMaxWidth());
+        }
+        if (!mIsSender) {
+            if (mDisplayNameTv.getVisibility() == View.VISIBLE) {
+                mDisplayNameTv.setMaxEms(8);
+                mDisplayNameTv.setTextColor(Color.rgb(157,157,158));
+            }
         }
     }
 

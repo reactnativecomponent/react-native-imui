@@ -23,6 +23,7 @@
             android:text="123" />
 
         <LinearLayout
+            android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:id="@+id/item_layout"
             android:clickable="false"
             android:layout_marginLeft="@dimen/aurora_avatar_padding"

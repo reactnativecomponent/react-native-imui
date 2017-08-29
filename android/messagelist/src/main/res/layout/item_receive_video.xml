@@ -22,6 +22,7 @@
             android:layout_toRightOf="@id/aurora_iv_msgitem_avatar" />
 
         <FrameLayout
+            android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:layout_marginLeft="@dimen/aurora_avatar_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
