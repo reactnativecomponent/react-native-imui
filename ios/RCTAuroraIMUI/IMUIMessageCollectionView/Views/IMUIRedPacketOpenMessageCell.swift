@@ -28,7 +28,7 @@ class IMUIRedPacketOpenMessageCell: IMUIBaseMessageCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         titleLable.textColor = UIColor.white
-        titleLable.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
+        titleLable.font = UIFont.systemFont(ofSize: (screenW * 14 / 375))
         titleLable.textAlignment = NSTextAlignment.center
         self.redGesture.addTarget(self, action: #selector(self.clickTapRedView))
         tapRedView.isUserInteractionEnabled = true
@@ -74,7 +74,7 @@ class IMUIRedPacketOpenMessageCell: IMUIBaseMessageCell {
         }
         
         self.titleLable.attributedText = attString
-        let titleW = widthWithFont(font: UIFont.systemFont(ofSize: (screenW * 13 / 375)), text: strTitle, maxWidth: layout.bubbleFrame.size.width*0.9)
+        let titleW = widthWithFont(font: UIFont.systemFont(ofSize: (screenW * 14 / 375)), text: strTitle, maxWidth: layout.bubbleFrame.size.width*0.9)
         let contentX = (layout.bubbleFrame.size.width - titleW - 20)*0.5
         let contentY = (layout.bubbleFrame.size.height - 24)*0.4
         redImg.frame = CGRect(origin: CGPoint(x:6, y:3), size: CGSize(width:14, height:18))

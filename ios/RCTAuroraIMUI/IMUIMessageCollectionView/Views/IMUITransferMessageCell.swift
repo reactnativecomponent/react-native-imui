@@ -23,9 +23,9 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
         contentLable.textColor = UIColor.white
         contentLable.font = UIFont.systemFont(ofSize: (screenW * 16 / 375))
         amountLabel.textColor = UIColor.white
-        amountLabel.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
+        amountLabel.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
         titleLable.textColor = UIColor.gray
-        titleLable.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
+        titleLable.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
         titleLable.text = "转账"
         
         bubbleView.addSubview(backgroundImg)
@@ -64,9 +64,10 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
         let contentH = layout.bubbleFrame.size.height * 0.74
         let titleLableH = layout.bubbleFrame.size.height * 0.26
         let tmpSize = self.heightWithFont(font: UIFont.systemFont(ofSize: 16), fixedWidth: contentW, text: "飞马转账")
-        let contentY = (contentH - 2*tmpSize.height - 5)*0.5
+        let amountSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 13 / 375)), fixedWidth: contentW, text: "转账")
+        let contentY = (contentH - tmpSize.height - amountSize.height )*0.5
         contentLable.frame = CGRect(origin: CGPoint(x: contentX, y: contentY), size: CGSize(width: contentW, height: tmpSize.height))
-        let tipsY = contentY + tmpSize.height + 5
+        let tipsY = contentY + tmpSize.height
         amountLabel.frame = CGRect(origin: CGPoint(x: contentX, y: tipsY), size: CGSize(width: contentW, height: tmpSize.height))
         let titleX = layout.bubbleFrame.size.width * 0.067
         let titleW = layout.bubbleFrame.size.width * 0.143

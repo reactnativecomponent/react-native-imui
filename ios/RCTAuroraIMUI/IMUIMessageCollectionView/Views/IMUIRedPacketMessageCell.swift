@@ -23,10 +23,10 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         contentLable.textColor = UIColor.white
         contentLable.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
         tipsLabel.textColor = UIColor.white
-        tipsLabel.font = UIFont.systemFont(ofSize: (screenW * 12 / 375))
+        tipsLabel.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
         tipsLabel.text = "领取红包"
         titleLable.textColor = UIColor.gray
-        titleLable.font = UIFont.systemFont(ofSize: (screenW * 12 / 375))
+        titleLable.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
         titleLable.text = "红包"
         titleLable.textAlignment = NSTextAlignment.center
         
@@ -58,10 +58,10 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         let contentH = layout.bubbleFrame.size.height * 0.74
         let titleLableH = layout.bubbleFrame.size.height * 0.26
         let tmpSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 16 / 375)), fixedWidth: contentW, text: "恭喜发财")
-        let tipsSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 12 / 375)), fixedWidth: contentW, text: "领取红包")
-        let contentY = (contentH - tmpSize.height - tipsSize.height - 5)*0.5
+        let tipsSize = self.heightWithFont(font: UIFont.systemFont(ofSize: (screenW * 13 / 375)), fixedWidth: contentW, text: "领取红包")
+        let contentY = (contentH - tmpSize.height - tipsSize.height - 3)*0.5
         contentLable.frame = CGRect(origin: CGPoint(x: contentX, y: contentY), size: CGSize(width: contentW, height: tmpSize.height))
-        let tipsY = contentY + tipsSize.height + 5
+        let tipsY = contentY + tmpSize.height + 3
         tipsLabel.frame = CGRect(origin: CGPoint(x: contentX, y: tipsY), size: CGSize(width: contentW, height: tipsSize.height))
         let titleX = layout.bubbleFrame.size.width * 0.067
         let titleW = layout.bubbleFrame.size.width * 0.143

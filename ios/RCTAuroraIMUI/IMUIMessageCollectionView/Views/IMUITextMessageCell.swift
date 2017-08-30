@@ -59,7 +59,7 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
         tmpContentInset.right = message.isOutGoing ? 5 : 0
         self.textMessageLable.textAlignment = CTTextAlignment.center
     }
-    tmpContentInset.top = 8
+    tmpContentInset.top = 6
     tmpContentInset.bottom = 0
     self.textMessageLable.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), tmpContentInset)
     self.layoutToText(with: message.text(), isOutGoing: message.isOutGoing)
