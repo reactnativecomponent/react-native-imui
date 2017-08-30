@@ -14,8 +14,8 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
   open static var inComingTextColor = UIColor.white
   open static let screenW = UIScreen.main.bounds.size.width
   
-  open static var outGoingTextFont = UIFont.systemFont(ofSize: (screenW * 15 / 375))
-  open static var inComingTextFont = UIFont.systemFont(ofSize: (screenW * 15 / 375))
+  open static var outGoingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
+  open static var inComingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
   
 //  var textMessageLable = IMUITextView()
     var textMessageLable = M80AttributedLabel()

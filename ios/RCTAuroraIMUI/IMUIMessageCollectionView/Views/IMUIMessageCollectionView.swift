@@ -90,7 +90,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.isScrollEnabled = true
     NotificationCenter.default.addObserver(self, selector: #selector(clickStopPlayActivity(notification:)), name: NSNotification.Name(rawValue: "StopPlayActivity"), object: nil)
     self.cellGesture.addTarget(self, action: #selector(self.tapCollectionView))
-    self.messageCollectionView.addGestureRecognizer(self.cellGesture)
+//    self.messageCollectionView.addGestureRecognizer(self.cellGesture)
   }
   
     func tapCollectionView(){//点击整个cell，隐藏键盘

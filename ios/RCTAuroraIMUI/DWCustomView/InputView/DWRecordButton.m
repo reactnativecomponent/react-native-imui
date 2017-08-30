@@ -7,8 +7,16 @@
 //
 
 #import "DWRecordButton.h"
+#import <AVFoundation/AVFoundation.h>
 
 #define kGetColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+
+@interface DWRecordButton (){
+    BOOL isAuthorized;//录音权限
+}
+
+@end
+
 
 @implementation DWRecordButton
 
@@ -70,10 +78,45 @@
     [self setTitle:strCancel forState:UIControlStateNormal];
 }
 
+//判断录音权限
+- (BOOL)canRecord
+{
+    isAuthorized = NO;
+    AVAuthorizationStatus AVstatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];//麦克风权限
+    switch (AVstatus) {
+            //允许状态
+        case AVAuthorizationStatusAuthorized:
+            isAuthorized = YES;
+            NSLog(@"Authorized");
+            break;
+            //不允许状态，可以弹出一个alertview提示用户在隐私设置中开启权限
+        case AVAuthorizationStatusDenied:
+            NSLog(@"Denied");
+            break;
+            //未知，第一次申请权限
+        case AVAuthorizationStatusNotDetermined:
+            NSLog(@"not Determined");
+            //此应用程序没有被授权访问,可能是家长控制权限
+        case AVAuthorizationStatusRestricted:{
+            NSLog(@"Restricted");
+            NSString *tips = @"请在iPhone的”设置-隐私-照片“选项中，允许App访问你的麦克风";
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:tips delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+        }
+            break;
+        default:
+             NSLog(@"default");
+            break;
+    }
+    return isAuthorized;
+}
+
+
 #pragma mark -- 事件方法回调
 - (void)recordTouchDown
 {
-    if ([self.delegate respondsToSelector:@selector(recordTouchDownAction:)]) {
+//    [self canRecord];
+    if ([self.delegate respondsToSelector:@selector(recordTouchDownAction:)] ) {
         [self.delegate recordTouchDownAction:self];
     }
 }
@@ -87,14 +130,14 @@
 
 - (void)recordTouchUpInside
 {
-    if ([self.delegate respondsToSelector:@selector(recordTouchUpInsideAction:)]) {
+    if ([self.delegate respondsToSelector:@selector(recordTouchUpInsideAction:)] ) {
         [self.delegate recordTouchUpInsideAction:self];
     }
 }
 
 - (void)recordTouchDragEnter
 {
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragEnterAction:)]) {
+    if ([self.delegate respondsToSelector:@selector(recordTouchDragEnterAction:)] ) {
         [self.delegate recordTouchDragEnterAction:self];
     }
 }
@@ -108,7 +151,7 @@
 
 - (void)recordTouchDragOutside
 {
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragOutsideAction:)]) {
+    if ([self.delegate respondsToSelector:@selector(recordTouchDragOutsideAction:)] ) {
         [self.delegate recordTouchDragOutsideAction:self];
     }
 }
