@@ -97,6 +97,8 @@
 		4E77A3C81F30840000098CAF /* IMUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3941F30840000098CAF /* IMUITextView.swift */; };
 		4E77A3C91F30840000098CAF /* IMUIVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */; };
 		4E77A3CA1F30840000098CAF /* IMUIVoiceMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */; };
+		4E7F98881F56ABB500C9075D /* DWOrigImgView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7F98861F56ABB500C9075D /* DWOrigImgView.h */; };
+		4E7F98891F56ABB500C9075D /* DWOrigImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F98871F56ABB500C9075D /* DWOrigImgView.m */; };
 		4EC4F96D1F46F0B1000C5CA6 /* MenuPopOverView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EC4F96E1F46F0B1000C5CA6 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */; };
 		623EA9A21EE55D0800EC43AE /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */; };
@@ -230,6 +232,8 @@
 		4E77A3941F30840000098CAF /* IMUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextView.swift; sourceTree = "<group>"; };
 		4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoMessageCell.swift; sourceTree = "<group>"; };
 		4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVoiceMessageCell.swift; sourceTree = "<group>"; };
+		4E7F98861F56ABB500C9075D /* DWOrigImgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImgView.h; sourceTree = "<group>"; };
+		4E7F98871F56ABB500C9075D /* DWOrigImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImgView.m; sourceTree = "<group>"; };
 		4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopOverView.h; sourceTree = "<group>"; };
 		4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopOverView.m; sourceTree = "<group>"; };
 		6239E6641EDDB1F700B9AC9C /* libAuroraIMUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAuroraIMUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +355,8 @@
 		4E49ADE71F346B7500B50439 /* DWEmoticonView */ = {
 			isa = PBXGroup;
 			children = (
+				4E7F98861F56ABB500C9075D /* DWOrigImgView.h */,
+				4E7F98871F56ABB500C9075D /* DWOrigImgView.m */,
 				4EC4F96A1F46F0B1000C5CA6 /* MenuPopOverView */,
 				4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */,
 				4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */,
@@ -593,6 +599,7 @@
 				4E466FA21F3AE5480014451B /* NIMInputEmoticonParser.h in Headers */,
 				4E49AD851F34176100B50439 /* RNCustomInputView.h in Headers */,
 				4E49AE1A1F34760500B50439 /* NIMPageView.h in Headers */,
+				4E7F98881F56ABB500C9075D /* DWOrigImgView.h in Headers */,
 				4E49AD951F34178000B50439 /* DWInputBarControl.h in Headers */,
 				4E49AD9B1F34178000B50439 /* HPTextViewInternal.h in Headers */,
 			);
@@ -762,6 +769,7 @@
 				4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */,
 				4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */,
 				4E77A3B31F30840000098CAF /* UIImageMessageListExtension.swift in Sources */,
+				4E7F98891F56ABB500C9075D /* DWOrigImgView.m in Sources */,
 				4E77A3C01F30840000098CAF /* IMUIBaseMessageCell.swift in Sources */,
 				4E77A3AA1F30840000098CAF /* StringExtension.swift in Sources */,
 				4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */,

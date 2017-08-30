@@ -990,6 +990,7 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
             if (url)
             {
 //                [[UIApplication sharedApplication] openURL:url];
+                NSLog(@"-----------");
                 NSString *strUrl = [NSString stringWithFormat:@"%@",url];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenUrlNotification" object:@{@"url":strUrl,@"label":self}];
             }

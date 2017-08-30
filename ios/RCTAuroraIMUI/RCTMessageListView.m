@@ -12,7 +12,7 @@
 #import "RCTAuroraIMUIModule.h"
 #import "RNRecordTipsView.h"
 #import "UIView+Extend.h"
-
+#import "DWOrigImgView.h"
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
@@ -55,7 +55,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
-    self.frame = CGRectMake(0, 0, screenW, screenH-60-50);//60为导航栏高度，50为输入栏默认高度
+//    self.frame = CGRectMake(0, 0, screenW, screenH-60-50);//60为导航栏高度，50为输入栏默认高度
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appendMessages:)
                                                  name:kAppendMessages object:nil];
@@ -83,6 +83,7 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLevelNotification:) name:kRecordLevelNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
     
@@ -97,6 +98,7 @@
   }
   return self;
 }
+
 
 - (void)addCoverView{
     coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenW, screenH)];
@@ -113,6 +115,7 @@
     [self addSubview:coverView];
 
 }
+
 
 
 //- (void)refresh:(UIRefreshControl *)refreshControl
@@ -301,6 +304,23 @@
         }
         [_tmpMessageArr removeAllObjects];
     }
+}
+
+
+- (void)clickShowOrigImgView:(NSNotification *)noti{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary *dict = noti.object;
+        DWOrigImgView *origImg = [DWOrigImgView origImgViewWithDict:dict];
+        origImg = [DWOrigImgView origImgViewWithDict:dict];
+        origImg.frame = CGRectMake(0, 0, screenW, screenH);
+        origImg.alpha = 0;
+        [[UIApplication sharedApplication].keyWindow addSubview:origImg];
+        [UIView animateWithDuration:0.2 animations:^{
+            origImg.alpha += 1;
+        } completion:^(BOOL finished) {
+            origImg.alpha = 1;
+        }];
+    });
 }
 
 

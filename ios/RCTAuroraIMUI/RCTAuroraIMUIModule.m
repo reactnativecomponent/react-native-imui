@@ -93,4 +93,8 @@ RCT_EXPORT_METHOD(stopPlayActivity) {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"StopPlayActivity" object: nil];
 }
 
+RCT_EXPORT_METHOD(showOrigImage:(NSDictionary *)dict) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: dict];
+}
+
 @end

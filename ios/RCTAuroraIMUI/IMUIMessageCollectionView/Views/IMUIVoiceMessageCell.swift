@@ -35,6 +35,7 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
         if isMediaActivity {
           do {
             self.isMediaActivity = false
+            UIDevice.current.isProximityMonitoringEnabled = true
             IMUIAudioPlayerHelper.sharedInstance.stopAudio()
             let voiceData = try Data(contentsOf: URL(fileURLWithPath: (self.mediaFilePath)))
             var imgTime = 0.0
@@ -59,6 +60,7 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
           }
           
         } else {
+            UIDevice.current.isProximityMonitoringEnabled = false
            IMUIAudioPlayerHelper.sharedInstance.stopAudio()
             self.isMediaActivity = true
             self.layoutToVoice(isOutGoing:isOutGoing)
@@ -66,6 +68,7 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
   }
     
     func clickStopVoice(notification: NSNotification){
+        UIDevice.current.isProximityMonitoringEnabled = false
         IMUIAudioPlayerHelper.sharedInstance.stopAudio()
     }
   
