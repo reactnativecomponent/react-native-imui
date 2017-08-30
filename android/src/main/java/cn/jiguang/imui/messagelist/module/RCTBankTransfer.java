@@ -1,20 +1,18 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import cn.jiguang.imui.commons.models.IBankTransfer;
+import cn.jiguang.imui.messagelist.MessageConstant;
 
-/**
- * Created by dowin on 2017/8/18.
- */
 
 public class RCTBankTransfer extends RCTExtend implements IBankTransfer {
 
-    public final static String AMOUNT = "amount";
-    public final static String SERIA_NO = "serialNo";
-    public final static String COMMENTS = "comments";
+
 
     private String amount;
     private String serialNo;
@@ -28,11 +26,19 @@ public class RCTBankTransfer extends RCTExtend implements IBankTransfer {
     }
 
     @Override
+    WritableMap toWritableMap(){
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.BankTransfer.AMOUNT, amount);
+        writableMap.putString(MessageConstant.BankTransfer.SERIA_NO, serialNo);
+        writableMap.putString(MessageConstant.BankTransfer.COMMENTS, comments);
+        return writableMap;
+    }
+    @Override
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(AMOUNT,amount);
-        json.addProperty(SERIA_NO,serialNo);
-        json.addProperty(COMMENTS,comments);
+        json.addProperty(MessageConstant.BankTransfer.AMOUNT,amount);
+        json.addProperty(MessageConstant.BankTransfer.SERIA_NO,serialNo);
+        json.addProperty(MessageConstant.BankTransfer.COMMENTS,comments);
         return json;
     }
 

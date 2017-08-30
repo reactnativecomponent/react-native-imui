@@ -1,22 +1,23 @@
-## IMUI for React Native
+# ReactNative IMUI
+项目fork自 jpush 的 [Aurora IMUI](https://github.com/jpush/aurora-imui/tree/master/ReactNative)
 
-[中文文档](./README_zh.md)
-
-## InstallREADME_zh.md
+## 使用
+参考[demo](https://github.com/reactnativecomponent/react-native-chat-demo)
+## 安装
 
 ```
 npm install react-native-imui --save
 react-native link
 ```
 
-If link Android failed, you need modify `settings.gradle`:
+如果 link 安卓失败，需要手动修改一下 `settings.gradle` 中的引用路径：
 
 ```
 include ':app', ':react-native-imui'
 project(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')
 ```
 
-And add dependency in your app's `build.gradle`:
+然后在 app 的 `build.gradle`中引用：
 
 ```
 dependencies {
@@ -24,17 +25,20 @@ dependencies {
 }
 ```
 
+**注意事项（Android）：我们使用了 support v4, v7 25.3.1 版本，因此需要将你的 build.gradle 中 buildToolsVersion 及 compiledSdkVersion 改为 25 以上。可以参考 demo 的配置。**
 
-
-## Configuration
+## 配置
 
 - ### Android
 
-  - Add Package:
+  - 引入 Package:
 
   > MainApplication.java
 
   ```
+  import cn.jiguang.imui.messagelist.ReactIMUIPackage;
+  ...
+
   @Override
   protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
@@ -44,33 +48,22 @@ dependencies {
   }
   ```
 
-  - import IMUI from 'react-native-imui';
+
+
+
 
 
 - ### iOS
-
   - PROJECT -> TARGETS -> Build Settings -> Enable Bitcode Set to No
-  - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RNTAuroraIMUI.framework
-  - Before build you project ,you should build RNTAuroraIMUI.framework
+  - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
 
-## Usage
-```
-  import IMUI from 'react-native-imui';
-  var MessageList = IMUI.MessageList;
-  var ChatInput = IMUI.ChatInput;
-  const AuroraIMUIModule = NativeModules.AuroraIMUIModule;
-```
-Refer to iOS,Android example
-> [iOS Example usage](./sample/index.ios.js)
-> [Android Example usage](./sample/react-native-android/pages/chat_activity.js)
-## Data format
+## 数据格式
 
-By using MessageList, you need define `message` object and `fromUser` object.
+使用 MessageList，你需要定义 `message` 对象和 `fromUser` 对象。
 
-- message object format:
+- `message` 对象格式:
 
-** status must be one of the four values: "send_succeed", "send_failed", "send_going", "download_failed", 
-if you haven't define this property, default value is "send_succeed".**
+**status 必须为以下四个值之一: "send_succeed", "send_failed", "send_going", "download_failed"，如果没有定义这个属性， 默认值是 "send_succeed".**
 
  ```
   message = {  // text message
@@ -96,7 +89,7 @@ message = {  // voice message
     msgId: "msgid",
     msgType: "voice",
     isOutGoing: true,
-    duration: number
+    duration: number, // 注意这个值有用户自己设置时长，单位秒
     mediaPath: "voice path"
     fromUser: {}
 }
@@ -110,9 +103,15 @@ message = {  // video message
     mediaPath: "voice path"
     fromUser: {}
 }
+
+message = {  // event message
+    msgId: "msgid",
+    msgType: "event",
+    text: "the event text"
+}
  ```
 
--    fromUser object format:
+-    `fromUser` 对象格式:
 
   ```
   fromUser = {
@@ -121,168 +120,4 @@ message = {  // video message
     avatarPath: "avatar image path"
   }
   ```
-
-
-  ## Event Handling
-
-  ### MessageList Event
-- onAvatarClick {message: {message json}} :Fires when click avatar
-
-- onMsgClick {message: {message json} : Fires when click message bubble
-
-- onStatusViewClick {message: {message json}}  Fires when click status view
-
-- onPullToRefresh  Fires when pull MessageList to top, example usage: please refer sample's onPullToRefresh method.
-
-
-- onBeginDragMessageList (iOS only)
-
-  ### MessageList append/update/insert message event:
-
-  For append/update/insert message to MessageList, you will use `MsgListModule`(Native Module) to send event to native.
-
-- appendMessages([message])
-
- example:
-
-```
-var messages = [{
-	msgId: "1",
-	status: "send_going",
-	msgType: "text",
-	text: "Hello world",
-	isOutgoing: true,
-	fromUser: {
-		userId: "1",
-		displayName: "Ken",
-		avatarPath: "ironman"
-	},
-	timeString: "10:00",
-}];
-AuroraIMUIModule.appendMessages(messages);
-```
-
-- updateMessage(message)
-
-example:
-
-```
-var message = {
-	msgId: "1",
-	status: "send_going",
-	msgType: "text",
-	text: text,
-	isOutgoing: true,
-	fromUser: {
-		userId: "1",
-		displayName: "Ken",
-		avatarPath: "ironman"
-	},
-	timeString: "10:00",
-};
-AuroraIMUIModule.updateMessage(message);
-```
-
-- insertMessagesToTop([message])
-
-  **Notice that the order of message array must be sorted in chronological order**
-
-example:
-
-```
-var messages = [{
-    msgId: "1",
-    status: "send_succeed",
-    msgType: "text",
-    text: "This",
-    isOutgoing: true,
-    fromUser: {
-	  userId: "1",
-	  displayName: "Ken",
-	  avatarPath: "ironman"
-    },
-    timeString: "10:00",
-  },{
-    msgId: "2",
-	status: "send_succeed",
-	msgType: "text",
-	text: "is",
-	isOutgoing: true,
-	fromUser: {
-		userId: "1",
-		displayName: "Ken",
-		avatarPath: "ironman"
-    },
-    timeString: "10:10",
-},{
-    msgId: "3",
-	status: "send_succeed",
-	msgType: "text",
-	text: "example",
-	isOutgoing: true,
-	fromUser: {
-		userId: "1",
-		displayName: "Ken",
-		avatarPath: "ironman"
-    },
-    timeString: "10:20",
-}];
-AuroraIMUIModule.insertMessagesToTop(messages);
-```
-
-## Style 
-
-### MessageList custom style
-
-**In android, if your want to define your chatting bubble, you need to put a drawable file in drawable folder, and that image file must be [nine patch drawable file](https://developer.android.com/reference/android/graphics/drawable/NinePatchDrawable.html), see our example for detail.**
-
-
-
-**In iOS, if your want to define your chatting bubble,you need to put a image file to you xcode,and specifies ` sendBubble.imageName` or `receiveBubble.imageName` to image name. if you need to set the default avatar, you need put you default avatar image to you xcode,and adjust the image name to `defoult_header`,see our example for detail.**
-
-- sendBubble: PropTypes.object :
-```
-// eg:
-	{ 
-		imageName:"inComing_bubble",
-		padding:{left:10,top:10,right:15,bottom:10}
-	}
-```
-
-- receiveBubble: PropTypes.object,
-
-- sendBubbleTextColor: PropTypes.string,
-
-- receiveBubbleTextColor: PropTypes.string,
-
-- sendBubbleTextSize: PropTypes.number,
-
-- receiveBubbleTextSize: PropTypes.number,
-
-
-This Padding object includes four properties: left, top, right, bottom. 
-```
- // eg:
- {
- 	left: 5, 
- 	top: 5, 
- 	right: 15, 
- 	bottom: 5
- }
-```
-- sendBubblePadding: PropTypes.object
-
-- receiveBubblePadding: PropTypes.object
-
-- dateTextSize: PropTypes.number,
-
-- dateTextColor: PropTypes.string,
-
-- datePadding: PropTypes.number -- This is a number property, means padding left/top/right/bottom value is same.
-
-Size object include width and height properties.
-
-- avatarSize: PropTypes.object -- Example: avatarSize = {width: 50, height: 50}
-
-- showDisplayName: PropTypes.bool, 
 

@@ -19,6 +19,9 @@
     <dimen name="aurora_textsize_chronometer">20sp</dimen>
     <dimen name="aurora_size_record_button">70dp</dimen>
     <dimen name="aurora_size_album_button">60dp</dimen>
+
     <!-- chat input end -->
+    <dimen name="imui_chat_space">8dp</dimen>
+    <dimen name="imui_chat_width">36dp</dimen>
 
 </resources>

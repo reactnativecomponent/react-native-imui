@@ -1,5 +1,6 @@
 package cn.jiguang.imui.messages.viewholder;
 
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -55,10 +56,12 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     public void onBind(final MESSAGE message) {
         super.onBind(message);
 
-        if(message.getMessageStatus()== IMessage.MessageStatus.READED){
-            mUnreadStatusIv.setVisibility(View.INVISIBLE);
-        }else {
-            mUnreadStatusIv.setVisibility(View.VISIBLE);
+        if(!mIsSender) {
+            if (message.getMessageStatus() == IMessage.MessageStatus.READED) {
+                mUnreadStatusIv.setVisibility(View.INVISIBLE);
+            } else {
+                mUnreadStatusIv.setVisibility(View.VISIBLE);
+            }
         }
         final IMediaFile extend = getExtend(message);
         if (extend == null) {
@@ -220,6 +223,8 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         layoutParams.width = style.getAvatarWidth();
         layoutParams.height = style.getAvatarHeight();
         mAvatarIv.setLayoutParams(layoutParams);
+
+        mLengthTv.setTextColor(Color.rgb(157,157,158));
     }
 
 

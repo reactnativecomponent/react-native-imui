@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/aurora_tv_msgitem_display_name"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/aurora_avatar_padding"
+            android:layout_marginRight="@dimen/aurora_width_msg_avatar"
             android:layout_toRightOf="@id/aurora_iv_msgitem_avatar"
             android:clickable="false"
             android:orientation="vertical">

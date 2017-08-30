@@ -2,6 +2,7 @@ package cn.jiguang.imui.messagelist;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.util.Log;
 import android.view.View;
 
@@ -20,29 +21,19 @@ import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 
-/**
- * Created by caiyaoguan on 2017/5/22.
- */
 
 public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
     private static final String REACT_CHAT_INPUT = "RCTChatInput";
     private static final String TAG = "RCTChatInput";
 
-    private static final String ON_SEND_TEXT_EVENT = "onSendText";
     private static final String SWITCH_TO_MIC_EVENT = "onSwitchToMicrophoneMode";
     private static final String SWITCH_TO_ACTION_EVENT = "onSwitchToActionMode";
     private static final String SWITCH_TO_EMOJI_EVENT = "onSwitchToEmojiMode";
-    private static final String TAKE_PICTURE_EVENT = "onTakePicture";
 
-    private static final String START_RECORD_VIDEO_EVENT = "onStartRecordVideo";
-    private static final String FINISH_RECORD_VIDEO_EVENT = "onFinishRecordVideo";
-    private static final String CANCEL_RECORD_VIDEO_EVENT = "onCancelRecordVideo";
-
-    private static final String START_RECORD_VOICE_EVENT = "onStartRecordVoice";
-    private static final String FINISH_RECORD_VOICE_EVENT = "onFinishRecordVoice";
-    private static final String RECORD_VOICE_EVENT = "onRecordingVoice";
-    private static final String CANCEL_RECORD_VOICE_EVENT = "onCancelRecordVoice";
+    private static final String ON_SEND_TEXT_EVENT = "onSendText";
+    private static final String ON_SEND_VIDEO = "onSendVideo";
+    private static final String ON_SEND_VOICE = "onSendVoice";
 
     private static final String ON_TOUCH_EDIT_TEXT_EVENT = "onTouchEditText";
     private static final String ON_EDIT_TEXT_CHANGE_EVENT = "onEditTextChange";
@@ -118,35 +109,46 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         });
 
         chatInput.setRecordVoiceListener(new RecordVoiceListener() {
+            Dialog dialog;
+            TimerTipView view;
+
             @Override
             public void onStartRecord() {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        START_RECORD_VOICE_EVENT, null);
+                showDialog();
             }
 
             @Override
             public void onFinishRecord(String voiceFile, int duration) {
+                hideDialog();
                 WritableMap event = Arguments.createMap();
                 event.putString("mediaPath", voiceFile);
                 event.putString("duration", Integer.toString(duration));
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        FINISH_RECORD_VOICE_EVENT, event);
+                        ON_SEND_VOICE, event);
             }
 
             @Override
             public void onCancelRecord() {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        CANCEL_RECORD_VOICE_EVENT, null);
+                hideDialog();
             }
 
             @Override
             public void onRecording(boolean cancelAble, int dbSize, int time) {
-                WritableMap event = Arguments.createMap();
-                event.putString("status", cancelAble ? "1" : "0");
-                event.putString("db", Integer.toString(dbSize));
-                event.putString("time", Integer.toString(time));
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        RECORD_VOICE_EVENT, event);
+                view.updateStatus(dbSize, cancelAble ? 1 : 0, time);
+            }
+
+            void hideDialog() {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    dialog = null;
+                }
+            }
+
+            void showDialog() {
+                dialog = new Dialog(reactContext.getCurrentActivity(), R.style.Theme_audioDialog);
+                view = new TimerTipView(reactContext);
+                dialog.setContentView(view);
+                dialog.show();
             }
         });
 
@@ -190,14 +192,8 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                 .put(SWITCH_TO_MIC_EVENT, MapBuilder.of("registrationName", SWITCH_TO_MIC_EVENT))
                 .put(SWITCH_TO_ACTION_EVENT, MapBuilder.of("registrationName", SWITCH_TO_ACTION_EVENT))
                 .put(SWITCH_TO_EMOJI_EVENT, MapBuilder.of("registrationName", SWITCH_TO_EMOJI_EVENT))
-                .put(TAKE_PICTURE_EVENT, MapBuilder.of("registrationName", TAKE_PICTURE_EVENT))
-                .put(START_RECORD_VIDEO_EVENT, MapBuilder.of("registrationName", START_RECORD_VIDEO_EVENT))
-                .put(FINISH_RECORD_VIDEO_EVENT, MapBuilder.of("registrationName", FINISH_RECORD_VIDEO_EVENT))
-                .put(CANCEL_RECORD_VIDEO_EVENT, MapBuilder.of("registrationName", CANCEL_RECORD_VIDEO_EVENT))
-                .put(START_RECORD_VOICE_EVENT, MapBuilder.of("registrationName", START_RECORD_VOICE_EVENT))
-                .put(FINISH_RECORD_VOICE_EVENT, MapBuilder.of("registrationName", FINISH_RECORD_VOICE_EVENT))
-                .put(RECORD_VOICE_EVENT, MapBuilder.of("registrationName", RECORD_VOICE_EVENT))
-                .put(CANCEL_RECORD_VOICE_EVENT, MapBuilder.of("registrationName", CANCEL_RECORD_VOICE_EVENT))
+                .put(ON_SEND_VIDEO, MapBuilder.of("registrationName", ON_SEND_VIDEO))
+                .put(ON_SEND_VOICE, MapBuilder.of("registrationName", ON_SEND_VOICE))
                 .put(ON_TOUCH_EDIT_TEXT_EVENT, MapBuilder.of("registrationName", ON_TOUCH_EDIT_TEXT_EVENT))
                 .put(ON_EDIT_TEXT_CHANGE_EVENT, MapBuilder.of("registrationName", ON_EDIT_TEXT_CHANGE_EVENT))
                 .build();

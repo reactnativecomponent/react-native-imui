@@ -1,5 +1,6 @@
 package cn.jiguang.imui.messages.viewholder;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -30,7 +31,8 @@ public class NotificationViewHolder<MESSAGE extends IMessage>
 
     @Override
     public void applyStyle(MessageListStyle style) {
-        mEvent.setTextColor(style.getEventTextColor());
+
+        mEvent.setTextColor(Color.rgb(157, 157, 158));
         mEvent.setTextSize(style.getEventTextSize());
         mEvent.setPadding(style.getEventPadding(), style.getEventPadding(), style.getEventPadding(), style.getEventPadding());
     }

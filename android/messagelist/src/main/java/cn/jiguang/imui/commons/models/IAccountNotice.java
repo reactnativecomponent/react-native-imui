@@ -1,5 +1,7 @@
 package cn.jiguang.imui.commons.models;
 
+import java.util.Map;
+
 /**
  * Created by dowin on 2017/8/18.
  */
@@ -14,7 +16,7 @@ public interface IAccountNotice extends IExtend {
 
     String getAmount();
 
-    String getBody();
+    Map<String,String> getBody();
 
     String getSeriaNo();
 }

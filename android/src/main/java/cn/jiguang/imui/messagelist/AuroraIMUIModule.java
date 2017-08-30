@@ -15,9 +15,6 @@ import cn.jiguang.imui.messagelist.module.RCTMessage;
 
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 
-/**
- * Created by caiyaoguan on 2017/6/2.
- */
 
 public class AuroraIMUIModule extends ReactContextBaseJavaModule {
 

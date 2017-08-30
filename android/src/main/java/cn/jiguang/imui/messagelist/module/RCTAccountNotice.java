@@ -1,31 +1,26 @@
 package cn.jiguang.imui.messagelist.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import cn.jiguang.imui.commons.models.IAccountNotice;
+import java.util.Map;
 
-/**
- * Created by dowin on 2017/8/18.
- */
+import cn.jiguang.imui.commons.models.IAccountNotice;
+import cn.jiguang.imui.messagelist.MessageConstant;
+
 
 public class RCTAccountNotice extends RCTExtend implements IAccountNotice {
-
-    public final static String TITLE = "title";
-    public final static String TIME = "time";
-    public final static String DATE = "date";
-    public final static String AMOUNT = "amount";
-    public final static String BODY = "body";
-    public final static String SERIA_NO = "serialNo";
 
     private String title;
     private String time;
     private String date;
     private String amount;
-    private String body;
+    private Map<String, String> body;
     private String serialNo;
 
-    public RCTAccountNotice(String title, String time, String date, String amount,String body, String serialNo) {
+    public RCTAccountNotice(String title, String time, String date, String amount, Map<String, String> body, String serialNo) {
         this.title = title;
         this.time = time;
         this.date = date;
@@ -35,14 +30,36 @@ public class RCTAccountNotice extends RCTExtend implements IAccountNotice {
     }
 
     @Override
+    WritableMap toWritableMap() {
+        WritableMap writableMap = Arguments.createMap();
+        writableMap.putString(MessageConstant.AccountNotice.TITLE, title);
+        writableMap.putString(MessageConstant.AccountNotice.TIME, time);
+        writableMap.putString(MessageConstant.AccountNotice.DATE, date);
+        writableMap.putString(MessageConstant.AccountNotice.AMOUNT, amount);
+//        if (body != null && body.size() > 0) {
+//        writableMap.putMap(MessageConstant.AccountNotice.BODY, body);
+//        }
+        writableMap.putString(MessageConstant.AccountNotice.SERIA_NO, serialNo);
+        return writableMap;
+    }
+
+    @Override
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
-        json.addProperty(TITLE, title);
-        json.addProperty(TIME, time);
-        json.addProperty(DATE, date);
-        json.addProperty(AMOUNT, amount);
-        json.addProperty(BODY, body);
-        json.addProperty(SERIA_NO, serialNo);
+        json.addProperty(MessageConstant.AccountNotice.TITLE, title);
+        json.addProperty(MessageConstant.AccountNotice.TIME, time);
+        json.addProperty(MessageConstant.AccountNotice.DATE, date);
+        json.addProperty(MessageConstant.AccountNotice.AMOUNT, amount);
+
+        if (body != null && body.size() > 0) {
+            JsonObject eBody = new JsonObject();
+            for (Map.Entry<String, String> entry : body.entrySet()) {
+                eBody.addProperty(entry.getKey(),entry.getValue());
+            }
+            json.add(MessageConstant.AccountNotice.BODY, eBody);
+        }
+
+        json.addProperty(MessageConstant.AccountNotice.SERIA_NO, serialNo);
         return json;
     }
 
@@ -66,8 +83,8 @@ public class RCTAccountNotice extends RCTExtend implements IAccountNotice {
         return amount;
     }
 
- @Override
-    public String getBody() {
+    @Override
+    public Map<String, String> getBody() {
         return body;
     }
 

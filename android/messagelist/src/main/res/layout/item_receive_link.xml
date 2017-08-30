@@ -22,10 +22,10 @@
             style="@style/aurora_msgitem_display_name_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/aurora_iv_msgitem_avatar"
-            android:visibility="gone" />
+            android:layout_toRightOf="@id/aurora_iv_msgitem_avatar" />
 
         <LinearLayout
+            android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:id="@+id/item_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

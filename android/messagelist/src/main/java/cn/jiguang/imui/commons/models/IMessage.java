@@ -104,8 +104,6 @@ public interface IMessage {
 
     IExtend getExtend();
 
-//    Map<String, String> getExtend();
-
     /**
      * Text of message.
      *
@@ -113,22 +111,7 @@ public interface IMessage {
      */
     String getText();
 
-    /**
-     * If message type is photo, voice, video or file,
-     * get file path through this method.
-     *
-     * @return file path
-     */
-    String getMediaFilePath();
-
     String getThumb();
-
-    /**
-     * If message type is voice or video, get duration through this method.
-     *
-     * @return duration of audio or video
-     */
-    long getDuration();
 
     String getProgress();
 }

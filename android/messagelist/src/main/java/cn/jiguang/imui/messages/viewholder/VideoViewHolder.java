@@ -1,8 +1,5 @@
 package cn.jiguang.imui.messages.viewholder;
 
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +9,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import cn.jiguang.imui.R;
+import cn.jiguang.imui.commons.models.IMediaFile;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageListStyle;
 
@@ -33,9 +31,11 @@ public class VideoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     public void onBind(final MESSAGE message) {
         super.onBind(message);
 
-        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(message.getMediaFilePath(),
-                MediaStore.Images.Thumbnails.MINI_KIND);
-        mImageCover.setImageBitmap(thumb);
+        IMediaFile ext = getExtend(message);
+        if(ext==null){
+            return;
+        }
+        mImageLoader.loadImage(mImageCover,ext.getThumbPath());
         mImageCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +52,8 @@ public class VideoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         });
 
         String durationStr = String.format(Locale.CHINA, "%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(message.getDuration()),
-                TimeUnit.MILLISECONDS.toSeconds(message.getDuration()));
+                TimeUnit.MILLISECONDS.toMinutes(ext.getDuration()),
+                TimeUnit.MILLISECONDS.toSeconds(ext.getDuration()));
         mTvDuration.setText(durationStr);
     }
 

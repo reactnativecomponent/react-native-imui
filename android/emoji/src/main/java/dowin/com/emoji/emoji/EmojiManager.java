@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.LruCache;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Xml;
 
 import org.xml.sax.Attributes;
@@ -39,8 +40,14 @@ public class EmojiManager {
     private static final Map<String, Entry> text2entry = new HashMap<String, Entry>();
     // asset bitmap cache, key: asset path
     private static LruCache<String, Bitmap> drawableCache;
+    private static boolean init = false;
 
     public static void init(Context context) {
+        Log.w(EMOT_DIR,"EmojiManager.init");
+        if(init){
+            return;
+        }
+        init = true;
         load(context, EMOT_DIR + "emoji.xml");
 
         pattern = makePattern();
