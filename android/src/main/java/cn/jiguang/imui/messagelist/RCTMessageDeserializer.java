@@ -73,9 +73,9 @@ public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
         if (jsonObject.has(MessageConstant.Message.TIME)) {
             rctMessage.setTime(jsonObject.get(MessageConstant.Message.TIME).getAsLong());
         }
-        if (jsonObject.has(MessageConstant.Message.STATUS)) {
-            rctMessage.setProgress(getGsonString(jsonObject, MessageConstant.Message.STATUS));
-        }
+//        if (jsonObject.has(MessageConstant.Message.STATUS)) {
+//            rctMessage.setProgress(getGsonString(jsonObject, MessageConstant.Message.STATUS));
+//        }
         if (jsonObject.has(MessageConstant.Message.EXTEND)) {
             JsonObject ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
 //            Map<String,String> extend = new HashMap<>();

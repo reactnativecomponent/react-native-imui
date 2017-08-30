@@ -68,8 +68,8 @@
     </style>
 
     <style name="aurora_msgitem_msg_txt_style">
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>

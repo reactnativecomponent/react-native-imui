@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.jiguang.imui.commons.ImageLoader;
+import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
 import cn.jiguang.imui.messages.MessageList;
 import cn.jiguang.imui.messages.MsgListAdapter;
@@ -223,13 +224,15 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
 
     void showMenu(final ReactContext reactContext, final RCTMessage message) {
         CustomAlertDialog dialog = new CustomAlertDialog(reactContext.getCurrentActivity());
-        dialog.addItem("复制", new CustomAlertDialog.onSeparateItemClickListener() {
-            @Override
-            public void onClick() {
-                ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
-                cm.setText(message.getText());
-            }
-        });
+        if(message.getType()== IMessage.MessageType.RECEIVE_TEXT||message.getType()== IMessage.MessageType.SEND_TEXT) {
+            dialog.addItem("复制", new CustomAlertDialog.onSeparateItemClickListener() {
+                @Override
+                public void onClick() {
+                    ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                    cm.setText(message.getText());
+                }
+            });
+        }
         dialog.addItem("删除", new CustomAlertDialog.onSeparateItemClickListener() {
             @Override
             public void onClick() {
@@ -240,16 +243,20 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                         ON_STATUS_VIEW_CLICK_EVENT, null);
             }
         });
-        dialog.addItem("撤回", new CustomAlertDialog.onSeparateItemClickListener() {
-            @Override
-            public void onClick() {
-                WritableMap event = Arguments.createMap();
-                event.putMap("message", message.toWritableMap());
-                event.putString("opt", "revoke");
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                        ON_STATUS_VIEW_CLICK_EVENT, null);
-            }
-        });
+        if(message.isOutgoing()
+                &&(message.getType()!= IMessage.MessageType.SEND_RED_PACKET
+                ||message.getType()!= IMessage.MessageType.SEND_BANK_TRANSFER)) {
+            dialog.addItem("撤回", new CustomAlertDialog.onSeparateItemClickListener() {
+                @Override
+                public void onClick() {
+                    WritableMap event = Arguments.createMap();
+                    event.putMap("message", message.toWritableMap());
+                    event.putString("opt", "revoke");
+                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                            ON_STATUS_VIEW_CLICK_EVENT, null);
+                }
+            });
+        }
         dialog.show();
     }
 

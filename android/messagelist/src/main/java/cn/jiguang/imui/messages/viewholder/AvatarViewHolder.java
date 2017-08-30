@@ -70,12 +70,12 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
             }
         } else {
             switch (message.getMessageStatus()) {
-                case SEND_GOING:
+                case SEND_SENDING:
                     mSendingPb.setVisibility(View.VISIBLE);
                     mResendIb.setVisibility(View.INVISIBLE);
                     Log.i("TxtViewHolder", "sending message");
                     break;
-                case SEND_FAILED:
+                case SEND_FAILE:
                     mSendingPb.setVisibility(View.GONE);
                     Log.i("TxtViewHolder", "send message failed");
                     mResendIb.setVisibility(View.VISIBLE);
@@ -89,9 +89,15 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
                     });
                     break;
                 case SEND_SUCCEED:
+                case RECEIVE_READ:
+                case RECEIVE_UNREAD:
                     mSendingPb.setVisibility(View.GONE);
                     mResendIb.setVisibility(View.INVISIBLE);
                     Log.i("TxtViewHolder", "send message succeed");
+                    break;
+                default:
+                    mSendingPb.setVisibility(View.GONE);
+                    mResendIb.setVisibility(View.INVISIBLE);
                     break;
             }
         }

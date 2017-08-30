@@ -32,10 +32,10 @@ public class VideoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         super.onBind(message);
 
         IMediaFile ext = getExtend(message);
-        if(ext==null){
+        if (ext == null) {
             return;
         }
-        mImageLoader.loadImage(mImageCover,ext.getThumbPath());
+        mImageLoader.loadImage(mImageCover, ext.getThumbPath());
         mImageCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

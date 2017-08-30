@@ -56,8 +56,8 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     public void onBind(final MESSAGE message) {
         super.onBind(message);
 
-        if(!mIsSender) {
-            if (message.getMessageStatus() == IMessage.MessageStatus.READED) {
+        if (!mIsSender) {
+            if (message.getMessageStatus() == IMessage.MessageStatus.RECEIVE_READ) {
                 mUnreadStatusIv.setVisibility(View.INVISIBLE);
             } else {
                 mUnreadStatusIv.setVisibility(View.VISIBLE);
@@ -86,10 +86,13 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         mMsgTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mMsgClickListener != null) {
-                    mMsgClickListener.onMessageClick(message);
+                if (!mIsSender && message.getMessageStatus() != IMessage.MessageStatus.RECEIVE_READ) {
+                    mUnreadStatusIv.setVisibility(View.INVISIBLE);
+                    message.setMessageStatus(IMessage.MessageStatus.RECEIVE_READ);
+                    if (mMsgClickListener != null) {
+                        mMsgClickListener.onMessageClick(message);
+                    }
                 }
-
                 // stop animation whatever this time is play or pause audio
 //                if (mVoiceAnimation != null) {
 //                    mVoiceAnimation.stop();
@@ -224,7 +227,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         layoutParams.height = style.getAvatarHeight();
         mAvatarIv.setLayoutParams(layoutParams);
 
-        mLengthTv.setTextColor(Color.rgb(157,157,158));
+        mLengthTv.setTextColor(Color.rgb(157, 157, 158));
     }
 
 

@@ -39,7 +39,7 @@ public class MessageUtil {
     }
 
     public static RCTMessage configMessage(ReadableMap message) {
-        Log.d("AuroraIMUIModule", "configure message: " + message);
+//        Log.d("AuroraIMUIModule", "configure message: " + message);
         RCTMessage rctMsg = new RCTMessage(message.getString(MessageConstant.Message.MSG_ID),
                 message.getString(MessageConstant.Message.STATUS), message.getString(MessageConstant.Message.MSG_TYPE),
                 "0".equals(message.getString(MessageConstant.Message.IS_OUTGOING)));
@@ -160,12 +160,12 @@ public class MessageUtil {
             }
 
         }
-        if (message.hasKey(MessageConstant.Message.STATUS)) {
-            String progress = message.getString(MessageConstant.Message.STATUS);
-            if (progress != null) {
-                rctMsg.setProgress(progress);
-            }
-        }
+//        if (message.hasKey(MessageConstant.Message.STATUS)) {
+//            String progress = message.getString(MessageConstant.Message.STATUS);
+//            if (progress != null) {
+//                rctMsg.setProgress(progress);
+//            }
+//        }
         return rctMsg;
     }
 }

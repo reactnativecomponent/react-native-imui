@@ -9,4 +9,4 @@
     app:placeholderImageScaleType="centerCrop"
     app:progressBarAutoRotateInterval="1000"
     app:progressBarImage="@drawable/ic_loading"
-    app:progressBarImageScaleType="centerInside"/>
+    app:progressBarImageScaleType="centerInside" />
