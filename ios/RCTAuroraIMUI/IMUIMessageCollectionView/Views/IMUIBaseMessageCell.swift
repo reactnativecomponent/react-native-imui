@@ -129,7 +129,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   
   func setupData(with message: IMUIMessageModelProtocol) {
 //    self.avatarImage.image = message.fromUser.Avatar()
-    self.avatarImage.setImageURL(message.fromUser.Avatar())
+    self.avatarImage.setImageURL(message.fromUser.Avatar(), placeholderImage: "defaultHead")
     self.bubbleView.backgroundColor = UIColor.clear
     self.timeLabel.text = message.timeString
     let timeW = widthWithFont(font: IMUIMessageCellLayout.timeStringFont, text: message.timeString)

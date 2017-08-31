@@ -140,6 +140,7 @@
 {
     timeCount = timeCount + 0.05;
     NSLog(@"timeCount:%f",timeCount);
+     [self.audioRecorder currentTime];
     if (timeCount < maxRecordTime) {
         if (timeCount > 49) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordLongNotification" object:@(maxRecordTime - timeCount)];
@@ -162,6 +163,7 @@
 /// 停止录音
 - (void)audioRecorderStop
 {
+    NSLog(@"----timeCount:%f",timeCount);
     // 释放计时器
     [self.audioRecorderTimer invalidate];
     self.audioRecorderTimer = nil;
@@ -172,6 +174,7 @@
             // 获取录音时长
             self.audioRecorderTime = [self.audioRecorder currentTime];
             [self.audioRecorder stop];
+            NSLog(@"----audioRecorderTime:%f",self.audioRecorderTime);
             // 停止录音后释放掉
             self.audioRecorder = nil;
             if (self.audioRecorderTime < 2) {//时间小于2秒
