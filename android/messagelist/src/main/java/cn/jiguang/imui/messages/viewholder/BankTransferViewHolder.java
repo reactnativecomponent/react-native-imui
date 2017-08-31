@@ -2,11 +2,13 @@ package cn.jiguang.imui.messages.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import cn.jiguang.imui.BuildConfig;
 import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IBankTransfer;
 import cn.jiguang.imui.commons.models.IMessage;
@@ -47,6 +49,19 @@ public class BankTransferViewHolder<MESSAGE extends IMessage> extends AvatarView
                 if (mMsgClickListener != null) {
                     mMsgClickListener.onMessageClick(message);
                 }
+            }
+        });
+        layoutTop.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mMsgLongClickListener != null) {
+                    mMsgLongClickListener.onMessageLongClick(message);
+                } else {
+                    if (BuildConfig.DEBUG) {
+                        Log.w("MsgListAdapter", "Didn't set long click listener! Drop event.");
+                    }
+                }
+                return true;
             }
         });
     }

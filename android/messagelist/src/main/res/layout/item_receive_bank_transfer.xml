@@ -40,6 +40,7 @@
                 android:background="@drawable/red_packet_top">
 
                 <ImageView
+                    android:padding="3dp"
                     android:id="@+id/icon"
                     android:layout_margin="@dimen/red_packet_image_margin"
                     android:src="@drawable/transfer"

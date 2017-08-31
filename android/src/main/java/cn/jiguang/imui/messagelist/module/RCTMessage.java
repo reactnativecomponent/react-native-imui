@@ -227,7 +227,7 @@ public class RCTMessage implements IMessage {
         if (msgType != null) {
             json.addProperty(MessageConstant.Message.MSG_TYPE, msgTypeStr);
         }
-        json.addProperty(MessageConstant.Message.IS_OUTGOING, isOutgoing);
+        json.addProperty(MessageConstant.Message.IS_OUTGOING, isOutgoing );
         if (timeString != null) {
             json.addProperty(MessageConstant.Message.TIME_STRING, timeString);
         }
@@ -253,6 +253,8 @@ public class RCTMessage implements IMessage {
         writableMap.putString(MessageConstant.Message.MSG_ID, msgId);
         writableMap.putString(MessageConstant.Message.STATUS, statusStr);
         writableMap.putString(MessageConstant.Message.MSG_TYPE, msgTypeStr);
+        writableMap.putString(MessageConstant.Message.MSG_TEXT, text);
+        writableMap.putString(MessageConstant.Message.IS_OUTGOING, isOutgoing? "0" : "1");
 //        writableMap.putString(MessageConstant.Message.STATUS, progress);
         if (rctUser != null) {
             writableMap.putMap(MessageConstant.Message.FROM_USER, rctUser.toWritableMap());
