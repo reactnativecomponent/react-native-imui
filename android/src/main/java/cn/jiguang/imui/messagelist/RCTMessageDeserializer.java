@@ -133,7 +133,7 @@ public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
                         ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
                         extend = new RCTAccountNotice(getGsonString(ext, MessageConstant.AccountNotice.TITLE), getGsonString(ext, MessageConstant.AccountNotice.TIME),
                                 getGsonString(ext, MessageConstant.AccountNotice.DATE), getGsonString(ext, MessageConstant.AccountNotice.AMOUNT),
-                                getGsonMap(ext, MessageConstant.AccountNotice.BODY), getGsonString(ext, MessageConstant.AccountNotice.SERIA_NO));
+                                getGsonMap(ext, MessageConstant.AccountNotice.BODY), getGsonString(ext, MessageConstant.AccountNotice.SERIAL_NO));
                     }
                     break;
                 case SEND_RED_PACKET:
@@ -141,7 +141,7 @@ public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
                     if (jsonObject.has(MessageConstant.Message.EXTEND)) {
                         ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
                         extend = new RCTRedPacket(getGsonString(ext, MessageConstant.RedPacket.TYPE), getGsonString(ext, MessageConstant.RedPacket.COMMENTS),
-                                getGsonString(ext, MessageConstant.RedPacket.SERIA_NO));
+                                getGsonString(ext, MessageConstant.RedPacket.SERIAL_NO));
                     }
                     break;
                 case SEND_LINK:
@@ -155,7 +155,7 @@ public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
                 case RED_PACKET_OPEN:
                     if (jsonObject.has(MessageConstant.Message.EXTEND)) {
                         ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
-                        extend = new RCTRedPacketOpen(getGsonString(ext, MessageConstant.RedPacketOpen.HAS_RED_PACKET), getGsonString(ext, MessageConstant.RedPacketOpen.SERIA_NO),
+                        extend = new RCTRedPacketOpen(getGsonString(ext, MessageConstant.RedPacketOpen.HAS_RED_PACKET), getGsonString(ext, MessageConstant.RedPacketOpen.SERIAL_NO),
                                 getGsonString(ext, MessageConstant.RedPacketOpen.TIP_MSG), getGsonString(ext, MessageConstant.RedPacketOpen.SEND_ID), getGsonString(ext, MessageConstant.RedPacketOpen.OPEN_ID));
                     }
                     break;

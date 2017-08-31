@@ -71,6 +71,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                 }
                 WritableMap event = Arguments.createMap();
                 event.putString("text", input.toString());
+//                event.putString("ids", input.toString());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_SEND_TEXT_EVENT, event);
                 return true;
             }

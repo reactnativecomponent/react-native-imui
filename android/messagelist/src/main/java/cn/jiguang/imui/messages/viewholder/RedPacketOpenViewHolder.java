@@ -44,7 +44,7 @@ public class RedPacketOpenViewHolder<MESSAGE extends IMessage>
 
         IRedPacketOpen extend = getExtend(message);
         if (extend != null) {
-            String mText = "icon" + extend.getTipMsg();
+            String mText = extend.getTipMsg();
             Matcher m = pattern.matcher(mText);
             SpannableString spann = new SpannableString(mText);
 //            if (imageSpan == null) {

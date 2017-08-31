@@ -77,7 +77,16 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void deleteMessage(ReadableMap message) {
+    public void deleteMessage(ReadableArray messages) {
+        String[] rctMessages = new String[messages.size()];
+        for (int i = 0; i < messages.size(); i++) {
+            RCTMessage rctMessage = configMessage(messages.getMap(i));
+            rctMessages[i] = rctMessage.toString();
+        }
+        Intent intent = new Intent();
+        intent.setAction(ReactMsgListManager.RCT_DELETE_MESSAGES_ACTION);
+        intent.putExtra("messages", rctMessages);
+        getReactApplicationContext().sendBroadcast(intent);
     }
 
 

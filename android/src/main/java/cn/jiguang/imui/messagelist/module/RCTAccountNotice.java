@@ -39,7 +39,7 @@ public class RCTAccountNotice extends RCTExtend implements IAccountNotice {
 //        if (body != null && body.size() > 0) {
 //        writableMap.putMap(MessageConstant.AccountNotice.BODY, body);
 //        }
-        writableMap.putString(MessageConstant.AccountNotice.SERIA_NO, serialNo);
+        writableMap.putString(MessageConstant.AccountNotice.SERIAL_NO, serialNo);
         return writableMap;
     }
 
@@ -59,7 +59,7 @@ public class RCTAccountNotice extends RCTExtend implements IAccountNotice {
             json.add(MessageConstant.AccountNotice.BODY, eBody);
         }
 
-        json.addProperty(MessageConstant.AccountNotice.SERIA_NO, serialNo);
+        json.addProperty(MessageConstant.AccountNotice.SERIAL_NO, serialNo);
         return json;
     }
 

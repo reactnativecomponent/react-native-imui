@@ -31,7 +31,7 @@ public class RCTRedPacketOpen extends RCTExtend implements IRedPacketOpen {
     WritableMap toWritableMap(){
         WritableMap writableMap = Arguments.createMap();
         writableMap.putString(MessageConstant.RedPacketOpen.HAS_RED_PACKET, hasRedPacket);
-        writableMap.putString(MessageConstant.RedPacketOpen.SERIA_NO, seriaNo);
+        writableMap.putString(MessageConstant.RedPacketOpen.SERIAL_NO, seriaNo);
         writableMap.putString(MessageConstant.RedPacketOpen.TIP_MSG, tipMsg);
         writableMap.putString(MessageConstant.RedPacketOpen.SEND_ID, sendId);
         writableMap.putString(MessageConstant.RedPacketOpen.OPEN_ID, openId);
@@ -41,7 +41,7 @@ public class RCTRedPacketOpen extends RCTExtend implements IRedPacketOpen {
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
         json.addProperty(MessageConstant.RedPacketOpen.HAS_RED_PACKET, hasRedPacket);
-        json.addProperty(MessageConstant.RedPacketOpen.SERIA_NO, seriaNo);
+        json.addProperty(MessageConstant.RedPacketOpen.SERIAL_NO, seriaNo);
         json.addProperty(MessageConstant.RedPacketOpen.TIP_MSG, tipMsg);
         json.addProperty(MessageConstant.RedPacketOpen.SEND_ID, sendId);
         json.addProperty(MessageConstant.RedPacketOpen.OPEN_ID, openId);

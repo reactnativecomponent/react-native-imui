@@ -73,6 +73,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     public static final String RCT_APPEND_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.appendMessages";
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
     public static final String RCT_INSERT_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.insertMessages";
+    public static final String RCT_DELETE_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.deleteMessages";
+
     public static final String RCT_SCROLL_TO_BOTTOM_ACTION = "cn.jiguang.imui.messagelist.intent.scrollToBottom";
 
     private MsgListAdapter mAdapter;
@@ -93,6 +95,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         intentFilter.addAction(RCT_APPEND_MESSAGES_ACTION);
         intentFilter.addAction(RCT_UPDATE_MESSAGE_ACTION);
         intentFilter.addAction(RCT_INSERT_MESSAGES_ACTION);
+        intentFilter.addAction(RCT_DELETE_MESSAGES_ACTION);
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
@@ -224,12 +227,17 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
 
     void showMenu(final ReactContext reactContext, final RCTMessage message) {
         CustomAlertDialog dialog = new CustomAlertDialog(reactContext.getCurrentActivity());
-        if(message.getType()== IMessage.MessageType.RECEIVE_TEXT||message.getType()== IMessage.MessageType.SEND_TEXT) {
+        if (message.getType() == IMessage.MessageType.RECEIVE_TEXT || message.getType() == IMessage.MessageType.SEND_TEXT) {
             dialog.addItem("复制", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
                     ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
                     cm.setText(message.getText());
+                    WritableMap event = Arguments.createMap();
+                    event.putMap("message", message.toWritableMap());
+                    event.putString("opt", "copy");
+                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                            ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
         }
@@ -240,12 +248,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 event.putMap("message", message.toWritableMap());
                 event.putString("opt", "delete");
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                        ON_STATUS_VIEW_CLICK_EVENT, null);
+                        ON_STATUS_VIEW_CLICK_EVENT, event);
             }
         });
-        if(message.isOutgoing()
-                &&(message.getType()!= IMessage.MessageType.SEND_RED_PACKET
-                ||message.getType()!= IMessage.MessageType.SEND_BANK_TRANSFER)) {
+        if (message.isOutgoing()
+                && (message.getType() != IMessage.MessageType.SEND_RED_PACKET
+                || message.getType() != IMessage.MessageType.SEND_BANK_TRANSFER)) {
             dialog.addItem("撤回", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
@@ -253,7 +261,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "revoke");
                     reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                            ON_STATUS_VIEW_CLICK_EVENT, null);
+                            ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
         }
@@ -297,16 +305,17 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     }
 
     @ReactProp(name = "initList")
-    public void setInitList(MessageList messageList, ReadableArray messages){
-        if(messages!=null&&messages.size()>0) {
+    public void setInitList(MessageList messageList, ReadableArray messages) {
+        if (messages != null && messages.size() > 0) {
             final List<RCTMessage> list = new ArrayList<>();
             for (int i = 0; i < messages.size(); i++) {
                 RCTMessage rctMessage = configMessage(messages.getMap(i));
                 list.add(rctMessage);
             }
-            mAdapter.addToStart(list,true);
+            mAdapter.addToStart(list, true);
         }
     }
+
     @ReactProp(name = "sendBubble")
     public void setSendBubble(MessageList messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
@@ -437,8 +446,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             } else if (intent.getAction().equals(RCT_INSERT_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 List<RCTMessage> list = new ArrayList<>();
-//                for (int i = messages.length - 1; i > -1; i--) {
-                for (int i = 0; i < messages.length; i++) {
+                for (int i = messages.length - 1; i > -1; i--) {
+//                for (int i = 0; i < messages.length; i++) {
                     final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
                     list.add(rctMessage);
                 }
@@ -448,6 +457,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 Log.i("RCTMessageListManager", "Scroll to bottom");
                 mAdapter.getLayoutManager().scrollToPosition(0);
                 mAdapter.getLayoutManager().requestLayout();
+            } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
+                String[] messages = intent.getStringArrayExtra("messages");
+                for (int i = 0; i < messages.length; i++) {
+                    final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
+                    mAdapter.delete(rctMessage);
+                }
             }
         }
     };

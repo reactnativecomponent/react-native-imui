@@ -26,7 +26,7 @@ public class RecordHelper {
 
     private static final int MIN_INTERVAL_TIME = 1000;// 1s
 
-    private static final int MAX_INTERVAL_TIME = 120;// 1s
+    private static final int MAX_INTERVAL_TIME = 60;// 1s
 
     private MediaRecorder recorder;
     private RecordVoiceListener mListener;

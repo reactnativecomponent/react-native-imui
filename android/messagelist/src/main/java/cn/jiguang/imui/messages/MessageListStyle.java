@@ -143,7 +143,7 @@ public class MessageListStyle extends Style {
                 R.drawable.aurora_anim_receive_voice);
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        style.bubbleMaxWidth = typedArray.getFloat(R.styleable.MessageList_bubbleMaxWidth, 0.7f);
+        style.bubbleMaxWidth = typedArray.getFloat(R.styleable.MessageList_bubbleMaxWidth, 0.65f);
         style.windowWidth =  wm.getDefaultDisplay().getWidth();
 
         style.sendPhotoMsgBg = typedArray.getDrawable(R.styleable.MessageList_sendPhotoMsgBg);

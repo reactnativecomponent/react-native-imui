@@ -58,7 +58,7 @@ export default class MessageList extends Component {
     if (!this.props.onStatusViewClick) {
       return;
     }
-    this.props.onStatusViewClick(event.nativeEvent.message);
+    this.props.onStatusViewClick(event.nativeEvent.message,event.nativeEvent.opt);
   }
 
   _onTouchMsgList() {
