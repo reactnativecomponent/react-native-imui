@@ -42,8 +42,11 @@ class IMUIChatDataManager: NSObject {
   }
     
   open func appendMessage(with message: IMUIMessageModelProtocol) {
-    self.allMsgidArr.append(message.msgId)
-    self.allMessageDic[message.msgId] = message
+    if self.allMessageDic[message.msgId] == nil{
+        self.allMsgidArr.append(message.msgId)
+        self.allMessageDic[message.msgId] = message
+    }
+    
   }
     
     open func deleteMessage(with msgID: String) {
