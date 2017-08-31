@@ -88,18 +88,18 @@ public interface IMessage {
      * Status of message, enum.
      */
     enum MessageStatus {
-        READED,
-        CREATED,
-        SEND_GOING,
+        RECEIVE_UNREAD,
+        RECEIVE_READ,
+        SEND_SENDING,
         SEND_SUCCEED,
-        SEND_FAILED,
+        SEND_FAILE,
         SEND_DRAFT,
-        RECEIVE_GOING,
-        RECEIVE_SUCCEED,
-        RECEIVE_FAILED;
+        SEND_SUCCESS;
     }
 
     MessageStatus getMessageStatus();
+
+    void setMessageStatus(MessageStatus status);
 
 
     IExtend getExtend();
@@ -113,5 +113,5 @@ public interface IMessage {
 
     String getThumb();
 
-    String getProgress();
+//    String getProgress();
 }

@@ -26,7 +26,6 @@
             android:id="@+id/aurora_tv_msgitem_message"
             style="@style/aurora_msgitem_msg_txt_style"
             android:autoLink="all"
-            android:text="暂不支持该消息类型"
             android:textColor="@color/white"
             android:textIsSelectable="true"
             android:layout_width="wrap_content"

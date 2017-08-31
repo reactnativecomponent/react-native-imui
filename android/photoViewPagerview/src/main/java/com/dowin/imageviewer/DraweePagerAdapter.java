@@ -17,7 +17,6 @@ import me.relex.photodraweeview.PhotoDraweeView;
  */
 
 public class DraweePagerAdapter<T> extends PagerAdapter {
-
     private View.OnClickListener listener = null;
     private ImageLoader imageLoader;
 
@@ -46,8 +45,11 @@ public class DraweePagerAdapter<T> extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup viewGroup, int position) {
+
+        final T item = mDrawables.get(position);
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.item_photo_view, null);
+
         final PhotoDraweeView photoDraweeView = (PhotoDraweeView) view.findViewById(R.id.photo_drawee_view);
         if (listener != null) {
             photoDraweeView.setOnPhotoTapListener(new OnPhotoTapListener() {
@@ -64,7 +66,7 @@ public class DraweePagerAdapter<T> extends PagerAdapter {
             });
         }
 //        photoDraweeView.getHierarchy();
-        imageLoader.load(photoDraweeView, mDrawables.get(position));
+        imageLoader.load(photoDraweeView, item);
         try {
             viewGroup.addView(photoDraweeView, ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);

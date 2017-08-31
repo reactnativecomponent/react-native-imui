@@ -63,6 +63,7 @@ public class PhotoViewPagerViewUtil {
             }
         });
 //        CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
+
         final MultiTouchViewPager viewPager = (MultiTouchViewPager) view.findViewById(R.id.view_pager);
         viewPager.setBackgroundColor(Color.BLACK);
         final DraweePagerAdapter adapter = new DraweePagerAdapter(urlArray, new View.OnClickListener() {
@@ -73,6 +74,9 @@ public class PhotoViewPagerViewUtil {
         }, imageLoader);
         viewPager.setAdapter(adapter);
         final TextView indexText = (TextView) view.findViewById(R.id.pager_index);
+        if (urlArray.size() == 1) {
+            indexText.setVisibility(View.GONE);
+        }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

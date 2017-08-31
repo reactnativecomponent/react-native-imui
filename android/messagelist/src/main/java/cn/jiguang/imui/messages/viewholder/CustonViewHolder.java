@@ -1,5 +1,6 @@
 package cn.jiguang.imui.messages.viewholder;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,7 @@ public class CustonViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder
 //        mMsgTv.setText(message.getText());
         String mText = message.getText();
 
-        mMsgTv.setText(mText);
+        mMsgTv.setText("暂不支持该消息类型");
 
         mMsgTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,39 +58,8 @@ public class CustonViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder
     @Override
     public void applyStyle(MessageListStyle style) {
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
-        if (mIsSender) {
-            mMsgTv.setBackground(style.getSendBubbleDrawable());
-            mMsgTv.setTextColor(style.getSendBubbleTextColor());
-            mMsgTv.setTextSize(style.getSendBubbleTextSize());
-            mMsgTv.setPadding(style.getSendBubblePaddingLeft(),
-                    style.getSendBubblePaddingTop(),
-                    style.getSendBubblePaddingRight(),
-                    style.getSendBubblePaddingBottom());
-            if (style.getSendingProgressDrawable() != null) {
-                mSendingPb.setProgressDrawable(style.getSendingProgressDrawable());
-            }
-            if (style.getSendingIndeterminateDrawable() != null) {
-                mSendingPb.setIndeterminateDrawable(style.getSendingIndeterminateDrawable());
-            }
-        } else {
-            mMsgTv.setBackground(style.getReceiveBubbleDrawable());
-            mMsgTv.setTextColor(style.getReceiveBubbleTextColor());
-            mMsgTv.setTextSize(style.getReceiveBubbleTextSize());
-            mMsgTv.setPadding(style.getReceiveBubblePaddingLeft(),
-                    style.getReceiveBubblePaddingTop(),
-                    style.getReceiveBubblePaddingRight(),
-                    style.getReceiveBubblePaddingBottom());
-            if (style.getShowDisplayName() == 1) {
-                mDisplayNameTv.setVisibility(View.VISIBLE);
-            }
-        }
-        mDateTv.setTextSize(style.getDateTextSize());
-        mDateTv.setTextColor(style.getDateTextColor());
-
-        android.view.ViewGroup.LayoutParams layoutParams = mAvatarIv.getLayoutParams();
-        layoutParams.width = style.getAvatarWidth();
-        layoutParams.height = style.getAvatarHeight();
-        mAvatarIv.setLayoutParams(layoutParams);
+        mMsgTv.setTextSize(17);
+        mMsgTv.setLinkTextColor(Color.rgb(173,0,151));
     }
 
 

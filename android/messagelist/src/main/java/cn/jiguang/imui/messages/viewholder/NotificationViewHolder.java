@@ -32,7 +32,7 @@ public class NotificationViewHolder<MESSAGE extends IMessage>
     @Override
     public void applyStyle(MessageListStyle style) {
 
-        mEvent.setTextColor(Color.rgb(157, 157, 158));
+        mEvent.setTextColor(Color.WHITE);
         mEvent.setTextSize(style.getEventTextSize());
         mEvent.setPadding(style.getEventPadding(), style.getEventPadding(), style.getEventPadding(), style.getEventPadding());
     }

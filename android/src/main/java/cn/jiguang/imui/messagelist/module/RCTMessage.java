@@ -12,12 +12,11 @@ import cn.jiguang.imui.commons.models.IUser;
 import cn.jiguang.imui.messagelist.MessageConstant;
 
 
-
 public class RCTMessage implements IMessage {
 
     private final String msgId;
     private final String statusStr;
-    private final MessageStatus status;
+    private MessageStatus status;
     private final String msgTypeStr;
     private final MessageType msgType;
     private final boolean isOutgoing;
@@ -27,7 +26,7 @@ public class RCTMessage implements IMessage {
     private String text;
     private RCTExtend extend;
     private String thumb;
-    private String progress;
+    //    private String progress;
     private RCTUser rctUser;
     private static Gson sGSON = new Gson();
 
@@ -42,19 +41,20 @@ public class RCTMessage implements IMessage {
     }
 
     MessageStatus getStatus(String status) {
-        switch (status) {
-            case MessageConstant.MsgStatus.SEND_FAILED:
-                return MessageStatus.SEND_FAILED;
-            case MessageConstant.MsgStatus.SEND_GOING:
-                return MessageStatus.SEND_GOING;
-            case MessageConstant.MsgStatus.RECEIVE_FAILED:
-                return MessageStatus.RECEIVE_FAILED;
-            case MessageConstant.MsgStatus.RECEIVE_READED:
-                return MessageStatus.READED;
-            case MessageConstant.MsgStatus.RECEIVE_SUCCESS:
-                return MessageStatus.SEND_SUCCEED;
-            default:
-                return MessageStatus.SEND_SUCCEED;
+        if (MessageConstant.MsgStatus.SEND_DRAFT.equals(status)) {
+            return MessageStatus.SEND_DRAFT;
+        } else if (MessageConstant.MsgStatus.SEND_FAILE.equals(status)) {
+            return MessageStatus.SEND_FAILE;
+        } else if (MessageConstant.MsgStatus.SEND_SENDING.equals(status)) {
+            return MessageStatus.SEND_SENDING;
+        } else if (MessageConstant.MsgStatus.SEND_SUCCESS.equals(status)) {
+            return MessageStatus.SEND_SUCCESS;
+        } else if (MessageConstant.MsgStatus.RECEIVE_READ.equals(status)) {
+            return MessageStatus.RECEIVE_READ;
+        } else if (MessageConstant.MsgStatus.RECEIVE_UNREAD.equals(status)) {
+            return MessageStatus.RECEIVE_UNREAD;
+        } else {
+            return MessageStatus.SEND_DRAFT;
         }
     }
 
@@ -87,6 +87,8 @@ public class RCTMessage implements IMessage {
                     return MessageType.SEND_LOCATION;
                 case MessageConstant.MsgType.LINK:
                     return MessageType.SEND_LINK;
+                case MessageConstant.MsgType.CUSTON:
+                    return MessageType.SEND_CUSTOM;
                 default:
                     return MessageType.SEND_CUSTOM;
             }
@@ -118,10 +120,16 @@ public class RCTMessage implements IMessage {
                     return MessageType.RECEIVE_LOCATION;
                 case MessageConstant.MsgType.LINK:
                     return MessageType.RECEIVE_LINK;
+                case MessageConstant.MsgType.CUSTON:
+                    return MessageType.RECEIVE_CUSTOM;
                 default:
                     return MessageType.RECEIVE_CUSTOM;
             }
         }
+    }
+
+    public boolean isOutgoing() {
+        return isOutgoing;
     }
 
     @Override
@@ -167,6 +175,11 @@ public class RCTMessage implements IMessage {
         return status;
     }
 
+    @Override
+    public void setMessageStatus(MessageStatus status) {
+        this.status = status;
+    }
+
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
@@ -193,21 +206,22 @@ public class RCTMessage implements IMessage {
     public IExtend getExtend() {
         return extend;
     }
-    public void setProgress(String progress) {
-        this.progress = progress;
-    }
 
-    @Override
-    public String getProgress() {
-        return this.progress;
-    }
+//    public void setProgress(String progress) {
+//        this.progress = progress;
+//    }
+
+//    @Override
+//    public String getProgress() {
+//        return this.progress;
+//    }
 
     public JsonElement toJSON() {
         JsonObject json = new JsonObject();
         if (msgId != null) {
             json.addProperty(MessageConstant.Message.MSG_ID, msgId);
         }
-        if (status != null) {
+        if (statusStr != null) {
             json.addProperty(MessageConstant.Message.STATUS, statusStr);
         }
         if (msgType != null) {
@@ -223,9 +237,9 @@ public class RCTMessage implements IMessage {
         if (text != null) {
             json.addProperty(MessageConstant.Message.MSG_TEXT, text);
         }
-        if (progress != null) {
-            json.addProperty(MessageConstant.Message.STATUS, progress);
-        }
+//        if (progress != null) {
+//            json.addProperty(MessageConstant.Message.STATUS, progress);
+//        }
         if (extend != null) {
             json.add(MessageConstant.Message.EXTEND, extend.toJSON());
         }
@@ -239,7 +253,7 @@ public class RCTMessage implements IMessage {
         writableMap.putString(MessageConstant.Message.MSG_ID, msgId);
         writableMap.putString(MessageConstant.Message.STATUS, statusStr);
         writableMap.putString(MessageConstant.Message.MSG_TYPE, msgTypeStr);
-        writableMap.putString(MessageConstant.Message.STATUS, progress);
+//        writableMap.putString(MessageConstant.Message.STATUS, progress);
         if (rctUser != null) {
             writableMap.putMap(MessageConstant.Message.FROM_USER, rctUser.toWritableMap());
         }
