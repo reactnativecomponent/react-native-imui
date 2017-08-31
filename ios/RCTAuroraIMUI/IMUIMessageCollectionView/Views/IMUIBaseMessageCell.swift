@@ -17,6 +17,7 @@ enum IMUIMessageCellType {
 open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,MenuPopOverViewDelegate {
   var bubbleView: IMUIMessageBubbleView
   lazy var avatarImage = MyCacheImageView()
+    lazy var timeBackView = UIView()
   lazy var timeLabel = UILabel()
   lazy var nameLabel = UILabel()
     lazy var durationLabel = UILabel()
@@ -35,7 +36,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     
     self.contentView.addSubview(self.bubbleView)
     self.contentView.addSubview(self.avatarImage)
-    self.contentView.addSubview(self.timeLabel)
+    self.contentView.addSubview(self.timeBackView)
+    self.timeBackView.addSubview(self.timeLabel)
     self.contentView.addSubview(self.nameLabel)
     self.contentView.addSubview(self.durationLabel)
     self.contentView.addSubview(self.isPlayedView)
@@ -72,9 +74,9 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     timeLabel.textAlignment = .center
     timeLabel.textColor = UIColor.white
     timeLabel.font = IMUIMessageCellLayout.timeStringFont
-    timeLabel.backgroundColor = UIColor.init(red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1)
-    timeLabel.layer.cornerRadius = 5
-    timeLabel.clipsToBounds = true
+    timeBackView.backgroundColor = UIColor.init(red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1)
+    timeBackView.layer.cornerRadius = 5
+    timeBackView.clipsToBounds = true
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -82,7 +84,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
   
   func layoutCell(with layout: IMUIMessageCellLayoutProtocal, viewCache: IMUIReuseViewCache) {
-    self.timeLabel.frame = layout.timeLabelFrame
+    self.timeBackView.frame = layout.timeLabelFrame
+    self.timeLabel.frame = self.timeBackView.bounds
     self.avatarImage.frame = layout.avatarFrame
     self.avatarImage.layer.cornerRadius = 5.0;
     self.avatarImage.layer.masksToBounds = true;
@@ -127,14 +130,15 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   func setupData(with message: IMUIMessageModelProtocol) {
 //    self.avatarImage.image = message.fromUser.Avatar()
     self.avatarImage.setImageURL(message.fromUser.Avatar())
-    self.bubbleView.backgroundColor = UIColor.init(netHex: 0xE7EBEF)
+    self.bubbleView.backgroundColor = UIColor.clear
     self.timeLabel.text = message.timeString
     let timeW = widthWithFont(font: IMUIMessageCellLayout.timeStringFont, text: message.timeString)
     let timeX = (UIScreen.main.bounds.size.width - timeW)*0.5
-    var timeRect = self.timeLabel.frame;
+    var timeRect = self.timeBackView.frame;
     timeRect.size.width = timeW
     timeRect.origin.x = timeX
-    self.timeLabel.frame = timeRect
+    self.timeBackView.frame = timeRect
+    self.timeLabel.frame = self.timeBackView.bounds
     self.nameLabel.text = message.fromUser.displayName()
     
     self.message = message

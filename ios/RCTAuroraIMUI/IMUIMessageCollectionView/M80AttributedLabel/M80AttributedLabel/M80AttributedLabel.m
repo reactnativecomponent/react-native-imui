@@ -652,9 +652,8 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
     CGFloat tmpH = fitSize.height;
     if (tmpW < 30) {
         tmpW = 30;
-    }
-    if (tmpH < 30) {
-        tmpH = 15;
+    }else{
+        tmpW = tmpW + 3;
     }
     return CGSizeMake(tmpW, tmpH );
 }

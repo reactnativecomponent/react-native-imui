@@ -83,7 +83,6 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
     let bubbleHeight = bubbleContentSize.height +
       bubbleContentInset.top +
       bubbleContentInset.bottom
-    
     return CGSize(width: bubbleWidth, height: bubbleHeight)
   }
   

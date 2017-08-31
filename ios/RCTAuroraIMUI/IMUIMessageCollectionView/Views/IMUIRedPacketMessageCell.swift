@@ -19,7 +19,7 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundImg.image = UIImage.init(named: "redPacket")
-        backgroundImg.contentMode = UIViewContentMode.scaleToFill
+        backgroundImg.contentMode = UIViewContentMode.scaleAspectFill
         contentLable.textColor = UIColor.white
         contentLable.font = UIFont.systemFont(ofSize: (screenW * 15 / 375))
         tipsLabel.textColor = UIColor.white
@@ -52,7 +52,7 @@ class IMUIRedPacketMessageCell: IMUIBaseMessageCell {
         let strTitle = tmpDict.object(forKey: "comments") as! String
         contentLable.text = strTitle
         
-        self.backgroundImg.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), layout.bubbleContentInset)
+        self.backgroundImg.frame = CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size)
         let contentX = layout.bubbleFrame.size.width * 0.26
         let contentW = layout.bubbleFrame.size.width * 0.7
         let contentH = layout.bubbleFrame.size.height * 0.74

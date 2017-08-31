@@ -12,6 +12,7 @@ import UIKit
 class IMUINotificationMessageCell: IMUIBaseMessageCell {
     
     var titleLable = UILabel()
+    var backView = UIView()
     let screenW = UIScreen.main.bounds.size.width
     
     override init(frame: CGRect) {
@@ -19,10 +20,11 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
         titleLable.textColor = UIColor.white
         titleLable.font = UIFont.systemFont(ofSize: 12)
         titleLable.textAlignment = NSTextAlignment.center
-        titleLable.backgroundColor = UIColor.init(red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1)
-        titleLable.layer.cornerRadius = 5
-        titleLable.clipsToBounds = true
-        bubbleView.addSubview(titleLable)
+        backView.backgroundColor = UIColor.init(red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1)
+        backView.layer.cornerRadius = 5
+        backView.clipsToBounds = true
+        backView.addSubview(titleLable)
+        bubbleView.addSubview(backView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +44,8 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
         let titleSize = sizeWithFont(font: UIFont.systemFont(ofSize: 12), text: strTitle, maxWidth: layout.bubbleFrame.size.width*0.8)
         let titleX = (layout.bubbleFrame.size.width - titleSize.width - 10) * 0.5
         let titleY = (layout.bubbleFrame.size.height - titleSize.height - 10) * 0.3
-        self.titleLable.frame = CGRect(origin: CGPoint(x:titleX, y:titleY), size: CGSize(width:titleSize.width+10, height:titleSize.height+10))
+        self.backView.frame = CGRect(origin: CGPoint(x:titleX, y:titleY), size: CGSize(width:titleSize.width+10, height:titleSize.height+10));
+        self.titleLable.frame = self.backView.bounds
 
     }
     func sizeWithFont(font : UIFont,  text : String, maxWidth: CGFloat) -> CGSize {

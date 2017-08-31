@@ -14,8 +14,8 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
   open static var inComingTextColor = UIColor.white
   open static let screenW = UIScreen.main.bounds.size.width
   
-  open static var outGoingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
-  open static var inComingTextFont = UIFont.systemFont(ofSize: (screenW * 16 / 375))
+    open static var outGoingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
+  open static var inComingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
   
 //  var textMessageLable = IMUITextView()
     var textMessageLable = M80AttributedLabel()
@@ -48,21 +48,17 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
 
     let layout = message.layout
-
-    var tmpContentInset = layout.bubbleContentInset
-    if layout.bubbleFrame.size.height > 50 {
-        tmpContentInset.left =  message.isOutGoing ? 5 : 15
-        tmpContentInset.right =  message.isOutGoing ? 10 : 5
+    self.layoutToText(with: message.text(), isOutGoing: message.isOutGoing)
+    if (layout.bubbleFrame.size.height/21) > 1 {
         self.textMessageLable.textAlignment = CTTextAlignment.left
     }else{
-        tmpContentInset.left = message.isOutGoing ? 0 : 5
-        tmpContentInset.right = message.isOutGoing ? 5 : 0
         self.textMessageLable.textAlignment = CTTextAlignment.center
     }
-    tmpContentInset.top = 6
-    tmpContentInset.bottom = 0
-    self.textMessageLable.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), tmpContentInset)
-    self.layoutToText(with: message.text(), isOutGoing: message.isOutGoing)
+    let textX = layout.bubbleContentInset.left
+    let textY = layout.bubbleContentInset.top
+    let textSize = self.textMessageLable.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
+    self.textMessageLable.frame = CGRect(origin: CGPoint(x:textX, y:textY), size: textSize)
+    
   }
   
 
