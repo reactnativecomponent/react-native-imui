@@ -26,18 +26,26 @@ public class RedPacketViewHolder<MESSAGE extends IMessage> extends AvatarViewHol
     }
 
     @Override
-    public void onBind(MESSAGE message) {
+    public void onBind(final MESSAGE message) {
         super.onBind(message);
         IRedPacket extend = getExtend(message);
         if (extend != null) {
             comments.setText(extend.getComments());
         }
-
+        layoutTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mMsgClickListener != null) {
+                    mMsgClickListener.onMessageClick(message);
+                }
+            }
+        });
     }
 
     @Override
     public void applyStyle(MessageListStyle style) {
         super.applyStyle(style);
+//        layout.getLayoutParams().width = (int) (style.getWindowWidth() * 0.65);
         layoutTop.setBackground(style.getRedPacketTopDrawable());
     }
 }

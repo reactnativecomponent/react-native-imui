@@ -99,7 +99,7 @@ public class MessageUtil {
                     ext = message.getMap(MessageConstant.Message.EXTEND);
                     extend = new RCTAccountNotice(ext.getString(MessageConstant.AccountNotice.TITLE), ext.getString(MessageConstant.AccountNotice.TIME),
                             ext.getString(MessageConstant.AccountNotice.DATE), ext.getString(MessageConstant.AccountNotice.AMOUNT),
-                            getMap(ext, MessageConstant.AccountNotice.BODY), ext.getString(MessageConstant.AccountNotice.SERIA_NO));
+                            getMap(ext, MessageConstant.AccountNotice.BODY), ext.getString(MessageConstant.AccountNotice.SERIAL_NO));
                 }
                 break;
             case SEND_RED_PACKET:
@@ -107,7 +107,7 @@ public class MessageUtil {
                 if (message.hasKey(MessageConstant.Message.EXTEND)) {
                     ext = message.getMap(MessageConstant.Message.EXTEND);
                     extend = new RCTRedPacket(ext.getString(MessageConstant.RedPacket.TYPE), ext.getString(MessageConstant.RedPacket.COMMENTS),
-                            ext.getString(MessageConstant.RedPacket.SERIA_NO));
+                            ext.getString(MessageConstant.RedPacket.SERIAL_NO));
                 }
                 break;
             case SEND_LINK:
@@ -122,7 +122,7 @@ public class MessageUtil {
                 if (message.hasKey(MessageConstant.Message.EXTEND)) {
                     ext = message.getMap(MessageConstant.Message.EXTEND);
                     extend = new RCTRedPacketOpen(ext.getString(MessageConstant.RedPacketOpen.HAS_RED_PACKET),
-                            ext.getString(MessageConstant.RedPacketOpen.SERIA_NO), ext.getString(MessageConstant.RedPacketOpen.TIP_MSG),
+                            ext.getString(MessageConstant.RedPacketOpen.SERIAL_NO), ext.getString(MessageConstant.RedPacketOpen.TIP_MSG),
                             ext.getString(MessageConstant.RedPacketOpen.SEND_ID), ext.getString(MessageConstant.RedPacketOpen.OPEN_ID));
                 }
                 break;

@@ -230,6 +230,11 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 public void onClick() {
                     ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
                     cm.setText(message.getText());
+                    WritableMap event = Arguments.createMap();
+                    event.putMap("message", message.toWritableMap());
+                    event.putString("opt", "copy");
+                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                            ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
         }
@@ -240,7 +245,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 event.putMap("message", message.toWritableMap());
                 event.putString("opt", "delete");
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                        ON_STATUS_VIEW_CLICK_EVENT, null);
+                        ON_STATUS_VIEW_CLICK_EVENT, event);
             }
         });
         if(message.isOutgoing()
@@ -253,7 +258,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "revoke");
                     reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                            ON_STATUS_VIEW_CLICK_EVENT, null);
+                            ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
         }
@@ -437,8 +442,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             } else if (intent.getAction().equals(RCT_INSERT_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 List<RCTMessage> list = new ArrayList<>();
-//                for (int i = messages.length - 1; i > -1; i--) {
-                for (int i = 0; i < messages.length; i++) {
+                for (int i = messages.length - 1; i > -1; i--) {
+//                for (int i = 0; i < messages.length; i++) {
                     final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
                     list.add(rctMessage);
                 }

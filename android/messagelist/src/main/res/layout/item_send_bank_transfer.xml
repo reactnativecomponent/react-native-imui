@@ -50,6 +50,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/layout_top"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/red_packet_top">
@@ -59,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/red_packet_image_margin"
-                    android:src="@drawable/icon_packet" />
+                    android:src="@drawable/transfer" />
 
                 <TextView
                     android:id="@+id/bank_transfer_value"

@@ -28,7 +28,7 @@ public class RCTRedPacket extends RCTExtend implements IRedPacket {
         WritableMap writableMap = Arguments.createMap();
         writableMap.putString(MessageConstant.RedPacket.TYPE, type);
         writableMap.putString(MessageConstant.RedPacket.COMMENTS, comments);
-        writableMap.putString(MessageConstant.RedPacket.SERIA_NO, serialNo);
+        writableMap.putString(MessageConstant.RedPacket.SERIAL_NO, serialNo);
         return writableMap;
     }
     @Override
@@ -36,7 +36,7 @@ public class RCTRedPacket extends RCTExtend implements IRedPacket {
         JsonObject json = new JsonObject();
         json.addProperty(MessageConstant.RedPacket.TYPE, type);
         json.addProperty(MessageConstant.RedPacket.COMMENTS, comments);
-        json.addProperty(MessageConstant.RedPacket.SERIA_NO, serialNo);
+        json.addProperty(MessageConstant.RedPacket.SERIAL_NO, serialNo);
         return json;
     }
 

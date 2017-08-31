@@ -34,6 +34,7 @@
     <dimen name="red_packet_comments_size">16sp</dimen>
     <dimen name="red_packet_text_size">14sp</dimen>
     <dimen name="red_packet_tag_size">10sp</dimen>
+    <dimen name="message_padding">48dp</dimen>
 
 
 </resources>
