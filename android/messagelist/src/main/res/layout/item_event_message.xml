@@ -14,5 +14,5 @@
         android:padding="5dp"
         android:textSize="10sp"
         android:text="TextView"
-        android:textColor="#ffffff" />
+        android:textColor="@color/white" />
 </LinearLayout>

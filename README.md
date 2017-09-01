@@ -7,14 +7,17 @@
 
 ```
 npm install react-native-imui --save
-react-native link
 ```
-
-如果 link 安卓失败，需要手动修改一下 `settings.gradle` 中的引用路径：
-
+ `settings.gradle` 中的引用路径：
 ```
 include ':app', ':react-native-imui'
 project(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')
+include ':react-native-imui:chatinput'
+include ':react-native-imui:messagelist'
+include ':react-native-imui:popuptool'
+include ':react-native-imui:emoji'
+include ':react-native-imui:photoViewPagerview'
+include ':react-native-imui:photoViewPagerview:photodraweeview'
 ```
 
 然后在 app 的 `build.gradle`中引用：
@@ -50,12 +53,10 @@ dependencies {
 
 
 
-
-
-
 - ### iOS
-  - PROJECT -> TARGETS -> Build Settings -> Enable Bitcode Set to No
   - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
+  - 把 `iOSResourcePacket` 目录`NIMKitEmoticon.bundle`拖到Xcode`Resources`目录下
+  - 把 `iOSResourcePacket` 目录`IMGS`拖到Xcode`Images.xcassets`下
 
 ## 数据格式
 

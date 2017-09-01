@@ -3,23 +3,39 @@ package cn.jiguang.imui.messagelist;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
+import cn.jiguang.imui.messagelist.module.RCTMember;
+import cn.jiguang.imui.messagelist.module.RCTMessage;
+import cn.jiguang.imui.utils.SessorUtil;
 
 
 public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
@@ -38,6 +54,14 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private static final String ON_TOUCH_EDIT_TEXT_EVENT = "onTouchEditText";
     private static final String ON_EDIT_TEXT_CHANGE_EVENT = "onEditTextChange";
     private final int REQUEST_PERMISSION = 0x0001;
+
+    public static final String RCT_DATA = "members";
+    public static final String RCT_AIT_MEMBERS_ACTION = "cn.jiguang.imui.chatinput.intent.aitMembers";
+
+
+    private ReactContext mContext;
+    private ChatInputView chatInput;
+    private Map<String, RCTMember> idList = new HashMap();
 
     @Override
     public String getName() {
@@ -59,8 +83,16 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     @Override
     protected ChatInputView createViewInstance(final ThemedReactContext reactContext) {
         Log.w(TAG, "createViewInstance");
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(RCT_AIT_MEMBERS_ACTION);
+
+        mContext = reactContext;
+        SessorUtil.getInstance(reactContext).register(true);
+        mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
+
         final Activity activity = reactContext.getCurrentActivity();
-        final ChatInputView chatInput = new ChatInputView(activity, null);
+        chatInput = new ChatInputView(activity, null);
         chatInput.setMenuContainerHeight(666);
         // Use default layout
         chatInput.setMenuClickListener(new OnMenuClickListener() {
@@ -70,8 +102,22 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                     return false;
                 }
                 WritableMap event = Arguments.createMap();
+                WritableArray array = Arguments.createArray();
+
+                if (!idList.isEmpty()) {
+                    // 移走后面又删掉的账号
+                    removeInvalidAccount(idList, input.toString());
+                    // 替换文本中的账号为昵称
+                    input =  replaceNickName(idList, input.toString());
+
+                    for (Map.Entry<String, RCTMember> entry : idList.entrySet()) {
+                        array.pushString(entry.getValue().getContactId());
+                    }
+                }
+
                 event.putString("text", input.toString());
-//                event.putString("ids", input.toString());
+                event.putArray("ids", array);
+                idList.clear();
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_SEND_TEXT_EVENT, event);
                 return true;
             }
@@ -206,4 +252,46 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         Log.w(TAG, "name:" + child.getClass().getName());
         Log.w(TAG, "index:" + index);
     }
+
+    private void removeInvalidAccount(Map<String, RCTMember> selectedMembers, String text) {
+        if (TextUtils.isEmpty(text) || selectedMembers.isEmpty()) {
+            return;
+        }
+        Iterator<String> keys = selectedMembers.keySet().iterator();
+        while (keys.hasNext()) {
+            String account = keys.next();
+            Pattern p = Pattern.compile("(@" + account + " )");
+            Matcher matcher = p.matcher(text);
+            if (matcher.find()) {
+                continue;
+            }
+            keys.remove();
+        }
+    }
+
+    private String replaceNickName(Map<String, RCTMember> selectedMembers, String text) {
+        if (TextUtils.isEmpty(text) || selectedMembers.isEmpty()) {
+            return "";
+        }
+        for (Map.Entry<String, RCTMember> entry : selectedMembers.entrySet()) {
+            String account = entry.getKey();
+            String aitName = entry.getValue().getName();
+            text = text.replaceAll("(@" + account + " )", "@" + aitName + " ");
+        }
+        return text;
+    }
+
+    private BroadcastReceiver RCTMsgListReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Gson gson = new GsonBuilder().registerTypeAdapter(RCTMessage.class, new RCTChatInputDeserialize())
+                    .create();
+            if (intent.getAction().equals(RCT_AIT_MEMBERS_ACTION)) {
+                String member = intent.getStringExtra(RCT_DATA);
+                RCTMember item = gson.fromJson(member, RCTMember.class);
+                chatInput.appendReplace(item.getContactId(), item.getName());
+                idList.put(item.getContactId(), item);
+            }
+        }
+    };
 }

@@ -142,6 +142,10 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
         if (layout != null && mAvatarIv.getVisibility() == View.VISIBLE) {
             layout.getLayoutParams().width = (int) (style.getWindowWidth() * style.getBubbleMaxWidth());
         }
+        if(mDateTv!=null){
+            mDateTv.setTextColor(Color.WHITE);
+            mDateTv.setTextSize(12);
+        }
         if (!mIsSender) {
             if (mDisplayNameTv.getVisibility() == View.VISIBLE) {
                 mDisplayNameTv.setMaxEms(8);

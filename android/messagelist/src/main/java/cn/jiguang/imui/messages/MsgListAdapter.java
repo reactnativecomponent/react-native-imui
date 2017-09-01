@@ -550,6 +550,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         mItems.clear();
         mTimedItems.clear();
         lastShowTimeItem = null;
+        notifyDataSetChanged();
     }
 
     /**
@@ -1245,5 +1246,13 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         ViewHolderController.getInstance().release();
+    }
+
+    public void stopPlayVoice() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+        }
+
     }
 }

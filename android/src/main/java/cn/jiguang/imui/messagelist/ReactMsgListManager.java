@@ -4,7 +4,6 @@ package cn.jiguang.imui.messagelist;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -74,6 +73,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
     public static final String RCT_INSERT_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.insertMessages";
     public static final String RCT_DELETE_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.deleteMessages";
+    public static final String RCT_CLEAR_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.clearMessages";
+    public static final String RCT_STOP_PLAY_VOICE_ACTION = "cn.jiguang.imui.messagelist.intent.stopPlayVoice";
 
     public static final String RCT_SCROLL_TO_BOTTOM_ACTION = "cn.jiguang.imui.messagelist.intent.scrollToBottom";
 
@@ -96,6 +97,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         intentFilter.addAction(RCT_UPDATE_MESSAGE_ACTION);
         intentFilter.addAction(RCT_INSERT_MESSAGES_ACTION);
         intentFilter.addAction(RCT_DELETE_MESSAGES_ACTION);
+        intentFilter.addAction(RCT_CLEAR_MESSAGES_ACTION);
+        intentFilter.addAction(RCT_STOP_PLAY_VOICE_ACTION);
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
@@ -231,8 +234,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             dialog.addItem("复制", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
-                    ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
-                    cm.setText(message.getText());
+//                    ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    cm.setText(message.getText());
                     WritableMap event = Arguments.createMap();
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "copy");
@@ -253,7 +256,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         });
         if (message.isOutgoing()
                 && (message.getType() != IMessage.MessageType.SEND_RED_PACKET
-                || message.getType() != IMessage.MessageType.SEND_BANK_TRANSFER)) {
+                && message.getType() != IMessage.MessageType.SEND_BANK_TRANSFER)) {
             dialog.addItem("撤回", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
@@ -306,6 +309,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
 
     @ReactProp(name = "initList")
     public void setInitList(MessageList messageList, ReadableArray messages) {
+
+        mAdapter.clear();
         if (messages != null && messages.size() > 0) {
             final List<RCTMessage> list = new ArrayList<>();
             for (int i = 0; i < messages.size(); i++) {
@@ -410,6 +415,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         @Override
         public void onReceive(Context context, Intent intent) {
             Activity activity = mContext.getCurrentActivity();
+
             Gson gson = new GsonBuilder().registerTypeAdapter(RCTMessage.class, new RCTMessageDeserializer())
                     .create();
             if (intent.getAction().equals(RCT_APPEND_MESSAGES_ACTION)) {
@@ -463,6 +469,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
                     mAdapter.delete(rctMessage);
                 }
+            } else if (intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)) {
+                if (mAdapter != null)
+                    mAdapter.clear();
+            } else if (intent.getAction().equals(RCT_STOP_PLAY_VOICE_ACTION)) {
+                if (mAdapter != null)
+                    mAdapter.stopPlayVoice();
             }
         }
     };

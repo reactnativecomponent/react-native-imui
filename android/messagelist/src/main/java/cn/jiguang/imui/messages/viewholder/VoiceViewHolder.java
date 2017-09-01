@@ -77,6 +77,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         });
         long duration = TimeUtil.getSecondsByMilliseconds(extend.getDuration());
         duration = duration < 0 ? 0 : duration;
+        duration = duration > 60 ? 60 : duration;
         String lengthStr = duration + mContext.getString(R.string.aurora_symbol_second);
         int width = (int) (-0.04 * duration * duration + 4.526 * duration + 75.214);
         mMsgTv.setWidth((int) (width * mDensity));
@@ -202,8 +203,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
 
     @Override
     public void applyStyle(MessageListStyle style) {
-        mDateTv.setTextSize(style.getDateTextSize());
-        mDateTv.setTextColor(style.getDateTextColor());
+        super.applyStyle(style);
         mSendDrawable = style.getSendVoiceDrawable();
         mReceiveDrawable = style.getReceiveVoiceDrawable();
         mPlaySendAnim = style.getPlaySendVoiceAnim();

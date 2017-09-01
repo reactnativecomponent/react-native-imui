@@ -32,7 +32,7 @@ export default class ChatInput extends Component {
     if (!this.props.onSendText) {
       return;
     }
-    this.props.onSendText(event.nativeEvent.text);
+    this.props.onSendText(event.nativeEvent.text,event.nativeEvent.ids);
   }
 
   _onSendVideo(event: Event) {

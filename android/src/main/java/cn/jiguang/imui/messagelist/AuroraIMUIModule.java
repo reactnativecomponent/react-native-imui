@@ -11,8 +11,10 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.UIImplementation;
 import com.facebook.react.uimanager.UIManagerModule;
 
+import cn.jiguang.imui.messagelist.module.RCTMember;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
 
+import static cn.jiguang.imui.messagelist.MessageUtil.configChatInput;
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 
 
@@ -89,7 +91,18 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
         getReactApplicationContext().sendBroadcast(intent);
     }
 
-
+    @ReactMethod
+    public void clearMessage(){
+        Intent intent = new Intent();
+        intent.setAction(ReactMsgListManager.RCT_CLEAR_MESSAGES_ACTION);
+        getReactApplicationContext().sendBroadcast(intent);
+    }
+    @ReactMethod
+    public void stopPlayVoice(){
+        Intent intent = new Intent();
+        intent.setAction(ReactMsgListManager.RCT_STOP_PLAY_VOICE_ACTION);
+        getReactApplicationContext().sendBroadcast(intent);
+    }
 
     @ReactMethod
     public void scrollToBottom() {
@@ -98,5 +111,14 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
         getReactApplicationContext().sendBroadcast(intent);
     }
 
+    @ReactMethod
+    public void getAitMember(ReadableMap member){
+
+        RCTMember chatInput = configChatInput(member);
+        Intent intent = new Intent();
+        intent.setAction(ReactChatInputManager.RCT_AIT_MEMBERS_ACTION);
+        intent.putExtra(ReactChatInputManager.RCT_DATA, chatInput.toString());
+        getReactApplicationContext().sendBroadcast(intent);
+    }
 
 }
