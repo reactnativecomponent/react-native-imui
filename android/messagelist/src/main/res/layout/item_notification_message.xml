@@ -14,5 +14,5 @@
         android:padding="5dp"
         android:textSize="10sp"
         android:text="notification"
-        android:textColor="@color/aurora_msg_event_text_color" />
+        android:textColor="@color/white" />
 </LinearLayout>

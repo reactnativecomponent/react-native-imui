@@ -89,6 +89,12 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
         getReactApplicationContext().sendBroadcast(intent);
     }
 
+    @ReactMethod
+    public void clearMessage(){
+        Intent intent = new Intent();
+        intent.setAction(ReactMsgListManager.RCT_CLEAR_MESSAGES_ACTION);
+        getReactApplicationContext().sendBroadcast(intent);
+    }
 
 
     @ReactMethod

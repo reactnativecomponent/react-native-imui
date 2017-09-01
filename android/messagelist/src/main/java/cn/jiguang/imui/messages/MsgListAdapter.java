@@ -550,6 +550,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         mItems.clear();
         mTimedItems.clear();
         lastShowTimeItem = null;
+        notifyDataSetChanged();
     }
 
     /**

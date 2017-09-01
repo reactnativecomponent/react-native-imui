@@ -74,6 +74,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
     public static final String RCT_INSERT_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.insertMessages";
     public static final String RCT_DELETE_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.deleteMessages";
+    public static final String RCT_CLEAR_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.clearMessages";
 
     public static final String RCT_SCROLL_TO_BOTTOM_ACTION = "cn.jiguang.imui.messagelist.intent.scrollToBottom";
 
@@ -96,6 +97,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         intentFilter.addAction(RCT_UPDATE_MESSAGE_ACTION);
         intentFilter.addAction(RCT_INSERT_MESSAGES_ACTION);
         intentFilter.addAction(RCT_DELETE_MESSAGES_ACTION);
+        intentFilter.addAction(RCT_CLEAR_MESSAGES_ACTION);
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
@@ -253,7 +255,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         });
         if (message.isOutgoing()
                 && (message.getType() != IMessage.MessageType.SEND_RED_PACKET
-                || message.getType() != IMessage.MessageType.SEND_BANK_TRANSFER)) {
+                && message.getType() != IMessage.MessageType.SEND_BANK_TRANSFER)) {
             dialog.addItem("撤回", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
@@ -306,6 +308,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
 
     @ReactProp(name = "initList")
     public void setInitList(MessageList messageList, ReadableArray messages) {
+
+        mAdapter.clear();
         if (messages != null && messages.size() > 0) {
             final List<RCTMessage> list = new ArrayList<>();
             for (int i = 0; i < messages.size(); i++) {
@@ -463,6 +467,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
                     mAdapter.delete(rctMessage);
                 }
+            }else if(intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)){
+                mAdapter.clear();
             }
         }
     };
