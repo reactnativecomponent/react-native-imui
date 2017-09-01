@@ -3,16 +3,23 @@ package cn.jiguang.imui.messagelist;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.Map;
 
@@ -20,6 +27,8 @@ import cn.jiguang.imui.chatinput.ChatInputView;
 import cn.jiguang.imui.chatinput.listener.OnClickEditTextListener;
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
+import cn.jiguang.imui.messagelist.module.RCTMessage;
+import cn.jiguang.imui.utils.SessorUtil;
 
 
 public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
@@ -38,6 +47,12 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private static final String ON_TOUCH_EDIT_TEXT_EVENT = "onTouchEditText";
     private static final String ON_EDIT_TEXT_CHANGE_EVENT = "onEditTextChange";
     private final int REQUEST_PERMISSION = 0x0001;
+
+    public static final String RCT_DATA = "members";
+    public static final String RCT_AIT_MEMBERS_ACTION = "cn.jiguang.imui.chatinput.intent.aitMembers";
+
+
+    private ReactContext mContext;
 
     @Override
     public String getName() {
@@ -59,6 +74,14 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     @Override
     protected ChatInputView createViewInstance(final ThemedReactContext reactContext) {
         Log.w(TAG, "createViewInstance");
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(RCT_AIT_MEMBERS_ACTION);
+
+        mContext = reactContext;
+        SessorUtil.getInstance(reactContext).register(true);
+        mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
+
         final Activity activity = reactContext.getCurrentActivity();
         final ChatInputView chatInput = new ChatInputView(activity, null);
         chatInput.setMenuContainerHeight(666);
@@ -206,4 +229,13 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         Log.w(TAG, "name:" + child.getClass().getName());
         Log.w(TAG, "index:" + index);
     }
+
+    private BroadcastReceiver RCTMsgListReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Activity activity = mContext.getCurrentActivity();
+            Gson gson = new GsonBuilder().registerTypeAdapter(RCTMessage.class, new RCTChatInputDeserialize())
+                    .create();
+        }
+    };
 }

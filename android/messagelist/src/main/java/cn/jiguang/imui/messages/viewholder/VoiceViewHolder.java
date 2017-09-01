@@ -202,8 +202,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
 
     @Override
     public void applyStyle(MessageListStyle style) {
-        mDateTv.setTextSize(style.getDateTextSize());
-        mDateTv.setTextColor(style.getDateTextColor());
+        super.applyStyle(style);
         mSendDrawable = style.getSendVoiceDrawable();
         mReceiveDrawable = style.getReceiveVoiceDrawable();
         mPlaySendAnim = style.getPlaySendVoiceAnim();

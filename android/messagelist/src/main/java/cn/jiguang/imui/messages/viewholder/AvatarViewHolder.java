@@ -144,6 +144,7 @@ public class AvatarViewHolder<MESSAGE extends IMessage>
         }
         if(mDateTv!=null){
             mDateTv.setTextColor(Color.WHITE);
+            mDateTv.setTextSize(12);
         }
         if (!mIsSender) {
             if (mDisplayNameTv.getVisibility() == View.VISIBLE) {

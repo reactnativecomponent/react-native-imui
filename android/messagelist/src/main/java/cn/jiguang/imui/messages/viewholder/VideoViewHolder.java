@@ -59,5 +59,6 @@ public class VideoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
 
     @Override
     public void applyStyle(MessageListStyle style) {
+        super.applyStyle(style);
     }
 }

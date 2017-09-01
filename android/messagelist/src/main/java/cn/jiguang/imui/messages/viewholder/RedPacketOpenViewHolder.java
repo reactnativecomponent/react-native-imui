@@ -65,6 +65,8 @@ public class RedPacketOpenViewHolder<MESSAGE extends IMessage>
     @Override
     public void applyStyle(MessageListStyle style) {
 
+        mTextView.setTextColor(Color.WHITE);
+        mTextView.setTextSize(12);
     }
 
     class ClickAble extends ClickableSpan implements View.OnClickListener {

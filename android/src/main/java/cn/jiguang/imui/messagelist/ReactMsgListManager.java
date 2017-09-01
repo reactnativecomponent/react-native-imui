@@ -4,7 +4,6 @@ package cn.jiguang.imui.messagelist;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -233,8 +232,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             dialog.addItem("复制", new CustomAlertDialog.onSeparateItemClickListener() {
                 @Override
                 public void onClick() {
-                    ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
-                    cm.setText(message.getText());
+//                    ClipboardManager cm = (ClipboardManager) reactContext.getSystemService(Context.CLIPBOARD_SERVICE);
+//                    cm.setText(message.getText());
                     WritableMap event = Arguments.createMap();
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "copy");

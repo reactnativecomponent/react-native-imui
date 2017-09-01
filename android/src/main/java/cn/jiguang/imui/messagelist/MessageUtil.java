@@ -10,6 +10,7 @@ import java.util.Map;
 
 import cn.jiguang.imui.messagelist.module.RCTAccountNotice;
 import cn.jiguang.imui.messagelist.module.RCTBankTransfer;
+import cn.jiguang.imui.messagelist.module.RCTChatInput;
 import cn.jiguang.imui.messagelist.module.RCTExtend;
 import cn.jiguang.imui.messagelist.module.RCTLink;
 import cn.jiguang.imui.messagelist.module.RCTLocation;
@@ -167,5 +168,11 @@ public class MessageUtil {
 //            }
 //        }
         return rctMsg;
+    }
+
+    public static RCTChatInput configChatInput(ReadableMap chatInput){
+        RCTChatInput input = new RCTChatInput();
+
+        return input;
     }
 }

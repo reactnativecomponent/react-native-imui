@@ -57,6 +57,7 @@ public class CustonViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder
 
     @Override
     public void applyStyle(MessageListStyle style) {
+        super.applyStyle(style);
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
         mMsgTv.setTextSize(17);
         mMsgTv.setLinkTextColor(Color.rgb(173,0,151));

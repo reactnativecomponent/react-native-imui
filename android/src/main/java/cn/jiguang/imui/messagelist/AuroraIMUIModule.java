@@ -11,8 +11,10 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.UIImplementation;
 import com.facebook.react.uimanager.UIManagerModule;
 
+import cn.jiguang.imui.messagelist.module.RCTChatInput;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
 
+import static cn.jiguang.imui.messagelist.MessageUtil.configChatInput;
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 
 
@@ -104,5 +106,18 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
         getReactApplicationContext().sendBroadcast(intent);
     }
 
+    @ReactMethod
+    public void getAitMemberList(ReadableArray members){
+        String[] rctMembers = new String[members.size()];
+        for (int i = 0; i < members.size(); i++) {
+
+            RCTChatInput chatInput = configChatInput(members.getMap(i));
+            rctMembers[i] = chatInput.toString();
+        }
+        Intent intent = new Intent();
+        intent.setAction(ReactChatInputManager.RCT_AIT_MEMBERS_ACTION);
+        intent.putExtra(ReactChatInputManager.RCT_DATA, rctMembers);
+        getReactApplicationContext().sendBroadcast(intent);
+    }
 
 }
