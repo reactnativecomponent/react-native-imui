@@ -167,7 +167,12 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
             self.durationLabel.isHidden = false
             let tmpDict = message.customDict
             let strDuration = tmpDict.object(forKey: "duration") as! String
-            self.durationLabel.text = strDuration+"\""
+            let intDuration = (strDuration as NSString).intValue
+            if intDuration > 60 {
+                self.durationLabel.text = "60\""
+            }else{
+               self.durationLabel.text = strDuration+"\""
+            }
             if message.isOutGoing {
                 self.durationLabel.textAlignment = .right
             } else {

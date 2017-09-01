@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-#define maxRecordTime 59
+#define maxRecordTime 60
 
 @interface DWAudioRecorderManager()<AVAudioRecorderDelegate>{
     CGFloat timeCount;
@@ -139,8 +139,8 @@
 - (void)detectionVoice
 {
     timeCount = timeCount + 0.05;
-    NSLog(@"timeCount:%f",timeCount);
-     [self.audioRecorder currentTime];
+//    NSTimeInterval recordTime = [self.audioRecorder currentTime];
+//    NSLog(@"timeCount:%f  ----recordTime:%f",timeCount,recordTime);
     if (timeCount < maxRecordTime) {
         if (timeCount > 49) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordLongNotification" object:@(maxRecordTime - timeCount)];
@@ -169,12 +169,9 @@
     self.audioRecorderTimer = nil;
     if (self.audioRecorder)
     {
-        if ([self.audioRecorder isRecording])
-        {
             // 获取录音时长
             self.audioRecorderTime = [self.audioRecorder currentTime];
             [self.audioRecorder stop];
-            NSLog(@"----audioRecorderTime:%f",self.audioRecorderTime);
             // 停止录音后释放掉
             self.audioRecorder = nil;
             if (self.audioRecorderTime < 2) {//时间小于2秒
@@ -187,7 +184,6 @@
             }else{
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"FinishAudioRecordNotification" object:nil];
             }
-        }
     }
 
 }
