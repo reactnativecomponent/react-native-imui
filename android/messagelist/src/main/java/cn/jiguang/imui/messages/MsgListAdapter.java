@@ -1247,4 +1247,12 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         super.onDetachedFromRecyclerView(recyclerView);
         ViewHolderController.getInstance().release();
     }
+
+    public void stopPlayVoice() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+        }
+
+    }
 }

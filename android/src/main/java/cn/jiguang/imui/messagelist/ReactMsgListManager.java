@@ -74,6 +74,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     public static final String RCT_INSERT_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.insertMessages";
     public static final String RCT_DELETE_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.deleteMessages";
     public static final String RCT_CLEAR_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.clearMessages";
+    public static final String RCT_STOP_PLAY_VOICE_ACTION = "cn.jiguang.imui.messagelist.intent.stopPlayVoice";
 
     public static final String RCT_SCROLL_TO_BOTTOM_ACTION = "cn.jiguang.imui.messagelist.intent.scrollToBottom";
 
@@ -97,6 +98,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         intentFilter.addAction(RCT_INSERT_MESSAGES_ACTION);
         intentFilter.addAction(RCT_DELETE_MESSAGES_ACTION);
         intentFilter.addAction(RCT_CLEAR_MESSAGES_ACTION);
+        intentFilter.addAction(RCT_STOP_PLAY_VOICE_ACTION);
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
@@ -413,6 +415,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         @Override
         public void onReceive(Context context, Intent intent) {
             Activity activity = mContext.getCurrentActivity();
+
             Gson gson = new GsonBuilder().registerTypeAdapter(RCTMessage.class, new RCTMessageDeserializer())
                     .create();
             if (intent.getAction().equals(RCT_APPEND_MESSAGES_ACTION)) {
@@ -466,8 +469,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
                     mAdapter.delete(rctMessage);
                 }
-            }else if(intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)){
-                mAdapter.clear();
+            } else if (intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)) {
+                if (mAdapter != null)
+                    mAdapter.clear();
+            } else if (intent.getAction().equals(RCT_STOP_PLAY_VOICE_ACTION)) {
+                if (mAdapter != null)
+                    mAdapter.stopPlayVoice();
             }
         }
     };

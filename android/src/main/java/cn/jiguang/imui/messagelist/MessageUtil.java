@@ -10,7 +10,7 @@ import java.util.Map;
 
 import cn.jiguang.imui.messagelist.module.RCTAccountNotice;
 import cn.jiguang.imui.messagelist.module.RCTBankTransfer;
-import cn.jiguang.imui.messagelist.module.RCTChatInput;
+import cn.jiguang.imui.messagelist.module.RCTMember;
 import cn.jiguang.imui.messagelist.module.RCTExtend;
 import cn.jiguang.imui.messagelist.module.RCTLink;
 import cn.jiguang.imui.messagelist.module.RCTLocation;
@@ -170,8 +170,13 @@ public class MessageUtil {
         return rctMsg;
     }
 
-    public static RCTChatInput configChatInput(ReadableMap chatInput){
-        RCTChatInput input = new RCTChatInput();
+    public static RCTMember configChatInput(ReadableMap chatInput) {
+        Log.d("AuroraIMUIModule", "configure message: " + chatInput);
+        RCTMember input = new RCTMember(chatInput.getString(ChatInputConstant.Member.NAME),
+                chatInput.getString(ChatInputConstant.Member.CONTACT_ID));
+        if(chatInput.hasKey(ChatInputConstant.Member.ALIAS)){
+            input.setAlias(chatInput.getString(ChatInputConstant.Member.ALIAS));
+        }
 
         return input;
     }

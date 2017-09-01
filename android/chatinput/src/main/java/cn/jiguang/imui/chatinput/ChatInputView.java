@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.widget.Space;
 import android.text.Editable;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -45,7 +46,7 @@ import dowin.com.emoji.emoji.MoonUtil;
  * Created by dowin on 2017/8/25.
  */
 
-public class ChatInputView extends LinearLayout implements View.OnClickListener {
+public class ChatInputView extends LinearLayout {
 
     public static final byte KEYBOARD_STATE_SHOW = -3;
     public static final byte KEYBOARD_STATE_HIDE = -2;
@@ -86,6 +87,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
     public static int sMenuHeight = 666;
 
     private boolean mShowSoftInput = false;
+    private boolean isKeyboardShowed = false;
 
     private Context mContext;
 
@@ -178,9 +180,32 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
         actionLayout.addView(view, index);
     }
 
-    @Override
-    public void onClick(View v) {
 
+    public void appendReplace(String key, String name) {
+
+        key += " ";
+        name += " ";
+        // insert account
+        int start = mChatInput.getSelectionStart();
+        if (start < 0 || start >= mChatInput.length()) {
+            mChatInput.append(key);
+        } else {
+            mChatInput.getEditableText().insert(start, key);// 光标所在位置插入文字
+        }
+
+        // 替换成昵称
+        Editable editable = mChatInput.getText();
+        name = "@" + name;
+
+        int length = key.length();
+        // 不是输入的@，而是插进来的
+//        if (!force) {
+            start--;
+            length++;
+//        }
+
+        editable.setSpan(TeamMemberAitHelper.getInputAitSpan(mContext,name, mChatInput.getTextSize(), mChatInput.getMeasuredWidth()),
+                start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     @Override
@@ -365,7 +390,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
     }
 
     private void hideInputMethod() {
-//        isKeyboardShowed = false;
+        isKeyboardShowed = false;
 //        uiHandler.removeCallbacks(showTextRunnable);
         inputMethodManager.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
         mChatInput.clearFocus();
@@ -375,10 +400,10 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
     private void showInputMethod() {
         mChatInput.requestFocus();
         //如果已经显示,则继续操作时不需要把光标定位到最后
-//        if (!isKeyboardShowed) {
-//            editTextMessage.setSelection(editTextMessage.getText().length());
-//            isKeyboardShowed = true;
-//        }
+        if (!isKeyboardShowed) {
+            mChatInput.setSelection(mChatInput.getText().length());
+            isKeyboardShowed = true;
+        }
         inputMethodManager.showSoftInput(mChatInput, 0);
     }
 
@@ -390,7 +415,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        showInputMethod();
         dismissMenuLayout();
 //        setMenuContainerHeight(1);
         mChatInput.requestFocus();
@@ -411,6 +436,7 @@ public class ChatInputView extends LinearLayout implements View.OnClickListener 
         setMenuContainerHeight(sMenuHeight);
         mShowSoftInput = false;
     }
+
     public void dismissMenuLayout() {
         mMenuContainer.setVisibility(GONE);
     }
