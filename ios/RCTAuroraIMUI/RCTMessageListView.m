@@ -108,6 +108,7 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
+      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickRemoveImageView) name:@"RemoveDWOrigImgView" object:nil];
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
     
@@ -340,7 +341,7 @@
         origImg.frame = CGRectMake(0, 0, screenW, screenH);
         origImg.alpha = 0;
         [[UIApplication sharedApplication].keyWindow addSubview:origImg];
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             origImg.alpha += 1;
         } completion:^(BOOL finished) {
             origImg.alpha = 1;
@@ -348,6 +349,11 @@
     });
 }
 
+- (void)clickRemoveImageView{
+    if (_delegate != nil) {
+        [_delegate onClickRemoveImageView];
+    }
+}
 
 - (void)awakeFromNib {
   [super awakeFromNib];

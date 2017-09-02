@@ -20,6 +20,8 @@
 - (void)messageCollectionView:(UICollectionView * _Nonnull)_ forItemAt:(NSIndexPath * _Nonnull)forItemAt model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 /// Tells the delegate that user tap message bubble
 - (void)messageCollectionViewWithTapCellView:(NSString * )tapCellView;
+- (void)messageCollectionViewWithLongTapCellViewModel:(id <IMUIMessageModelProtocol> _Nonnull)model;
+
 - (void)messageCollectionViewWithDidTapMessageBubbleInCell:(UICollectionViewCell * _Nonnull)didTapMessageBubbleInCell;
 
 - (void)messageCollectionViewWithOpenMessageBubbleUrl:(NSString *)url;
@@ -57,6 +59,9 @@ RCT_EXPORT_VIEW_PROPERTY(onStatusViewClick, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onBeginDragMessageList, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLoadMessages, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickChangeAutoScroll, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onClickLongTapCell, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onClickRemoveImageView, RCTBubblingEventBlock)
+
 
 
 RCT_EXPORT_MODULE()
@@ -237,6 +242,15 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onMsgOpenUrlClick((@{@"url": url}));
 }
 
+- (void)messageCollectionViewWithLongTapCellViewModel:(id <IMUIMessageModelProtocol> _Nonnull)model{
+    if(!_messageList.onClickLongTapCell) { return; }
+    RCTMessageModel *message = model;
+    NSDictionary *messageDic = message.messageDictionary;
+    _messageList.onClickLongTapCell((@{@"message": messageDic}));
+    
+}
+
+
 
 - (void)messageCollectionViewWithDidShowMenuStr:(NSString *)strMenu model:(id<IMUIMessageModelProtocol>)model{
     if(!_messageList.onDealWithMenuClick) { return; }
@@ -294,6 +308,11 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onClickChangeAutoScroll(@{ @"isAutoScroll": [NSNumber numberWithBool:isAutoScroll]});
 }
 
+
+- (void)onClickRemoveImageView{
+    if(!_messageList.onClickRemoveImageView) { return; }
+    _messageList.onClickRemoveImageView(@{});
+}
 
 //- (void)onPullToRefreshMessageList {
 //    

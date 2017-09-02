@@ -193,7 +193,10 @@
     }
 }
 
+
+
 - (void)clickTapGest{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"RemoveDWOrigImgView" object:nil];
     [self removeFromSuperview];
 }
 

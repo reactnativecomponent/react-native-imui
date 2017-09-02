@@ -19,10 +19,11 @@ export default class MessageList extends Component {
   constructor(props) {
     super(props);
     this._onMsgClick = this._onMsgClick.bind(this);
+    this._onClickLongTapCell = this._onClickLongTapCell.bind(this);
     this._onMsgOpenUrlClick = this._onMsgOpenUrlClick.bind(this);
     this._onDealWithMenuClick = this._onDealWithMenuClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
-    this._onStatusViewClick = this._onStatusViewClick.bind(this);
+    this._onStatusViewClick = this._onStatusViewClick.bind(this);    
 
   }
 
@@ -31,6 +32,13 @@ export default class MessageList extends Component {
       return;
     }
     this.props.onMsgClick(event.nativeEvent.message);
+  }
+
+    _onClickLongTapCell(event: Event) {
+    if (!this.props.onClickLongTapCell) {
+      return;
+    }
+    this.props.onClickLongTapCell(event.nativeEvent.message);
   }
 
   _onMsgOpenUrlClick(event: Event) {
@@ -81,18 +89,26 @@ export default class MessageList extends Component {
     	}
     	this.props.onClickChangeAutoScroll(event.nativeEvent.isAutoScroll);
     }
+    _onClickRemoveImageView(event:Event){
+      if(!this.props.onClickRemoveImageView){
+        return;
+      }
+      this.props.onClickRemoveImageView();
+    }
 
   render() {
     return (
       <RCTMessageList 
           {...this.props} 
           onMsgClick={this._onMsgClick}
+          onClickLongTapCell={this._onClickLongTapCell}
           onAvatarClick={this._onAvatarClick}
           onMsgOpenUrlClick ={this._onMsgOpenUrlClick}
           onDealWithMenuClick={this._onDealWithMenuClick}
           onStatusViewClick={this._onStatusViewClick}
           onClickLoadMessages={this._onClickLoadMessages.bind(this)}
           onClickChangeAutoScroll={this._onClickChangeAutoScroll.bind(this)}
+          onClickRemoveImageView={this._onClickRemoveImageView.bind(this)}
       />
     );
   }
@@ -102,6 +118,7 @@ export default class MessageList extends Component {
 MessageList.propTypes = {
   initalData:PropTypes.array,
   onMsgClick: PropTypes.func,
+  onClickLongTapCell: PropTypes.func,
   onMsgOpenUrlClick: PropTypes.func,
   onDealWithMenuClick: PropTypes.func,
   onAvatarClick: PropTypes.func,
@@ -109,6 +126,7 @@ MessageList.propTypes = {
   onBeginDragMessageList: PropTypes.func,
     onClickLoadMessages:PropTypes.func,
     onClickChangeAutoScroll:PropTypes.func,
+    onClickRemoveImageView:PropTypes.func,
   sendBubble: PropTypes.string,
   receiveBubble: PropTypes.string,
   sendBubble: PropTypes.object,

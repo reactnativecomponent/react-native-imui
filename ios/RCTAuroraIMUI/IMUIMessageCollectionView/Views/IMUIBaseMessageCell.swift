@@ -249,6 +249,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         popOver.presentPopover(from: self.bubbleView.bounds, in: self.bubbleView, withStrings: items as! [Any])
         let obj = "showMenu" as NSString
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ClickLongTouchShowMenuNotification"), object: obj)
+        self.delegate?.messageCollectionView?(longTapCellViewModel: self.message!)
     }
   }
     
