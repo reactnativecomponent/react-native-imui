@@ -31,6 +31,8 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onClickLoadMessages;
 @property (nonatomic, copy) RCTBubblingEventBlock onClickChangeAutoScroll;
 
+@property (copy, nonatomic) NSArray *initalData;
+
 // custom layout
 @property(strong, nonatomic) NSDictionary *sendBubble;
 

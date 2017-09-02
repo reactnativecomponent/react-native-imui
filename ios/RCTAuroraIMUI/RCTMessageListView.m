@@ -17,6 +17,7 @@
 #define screenH [UIScreen mainScreen].bounds.size.height
 
 
+
 @interface RCTMessageListView ()<IMUIMessageMessageCollectionViewDelegate,UIScrollViewDelegate>{
     UIView *coverView;
     RNRecordTipsView *recordView;
@@ -26,9 +27,32 @@
 @property (assign, nonatomic) NSTimeInterval lastTime;
 @property (copy, nonatomic) NSString *strLastMsgId;
 @property (copy, nonatomic) NSMutableArray *tmpMessageArr;
+
 @end
 
 @implementation RCTMessageListView
+
+- (void)setInitalData:(NSArray *)initalData{
+    if (initalData.count) {
+        NSMutableArray *modeArr = [NSMutableArray array];
+        for (NSMutableDictionary *message in initalData) {
+            NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue];
+            if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
+                _lastTime = msgTime;
+                _strLastMsgId = [message objectForKey:@"msgId"];
+                [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
+            }else{
+                [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
+            }
+            RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
+            [modeArr addObject:messageModel];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.messageList fristAppendMessagesWith:modeArr];
+        });
+    }
+}
+
 
 - (NSMutableArray *)tmpMessageArr{
     if (_tmpMessageArr == nil) {
@@ -59,9 +83,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appendMessages:)
                                                  name:kAppendMessages object:nil];
-      [[NSNotificationCenter defaultCenter] addObserver:self
-                                               selector:@selector(fristAppendMessages:)
-                                                   name:kFristAppendMessage object:nil];
+//      [[NSNotificationCenter defaultCenter] addObserver:self
+//                                               selector:@selector(fristAppendMessages:)
+//                                                   name:kFristAppendMessage object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(deleteMessage:)
                                                    name:kDeleteMessage object:nil];
@@ -138,24 +162,24 @@
   }
 }
 
-- (void)fristAppendMessages:(NSNotification *) notification {
-    NSArray *messages = [notification object];
-    for (NSMutableDictionary *message in messages) {
-        NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue];
-        if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
-            _lastTime = msgTime;
-            _strLastMsgId = [message objectForKey:@"msgId"];
-            [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
-        }else{
-            [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
-        }
-        RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            [self.messageList fristAppendMessageWith: messageModel];
-        });
-    }
-}
+//- (void)fristAppendMessages:(NSNotification *) notification {
+//    NSArray *messages = [notification object];
+//    for (NSMutableDictionary *message in messages) {
+//        NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue];
+//        if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
+//            _lastTime = msgTime;
+//            _strLastMsgId = [message objectForKey:@"msgId"];
+//            [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
+//        }else{
+//            [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
+//        }
+//        RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//            [self.messageList fristAppendMessageWith: messageModel];
+//        });
+//    }
+//}
 
 - (void)deleteMessage:(NSNotification *)notification{
     NSArray *messages = [[notification object] copy];

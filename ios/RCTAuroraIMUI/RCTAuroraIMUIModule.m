@@ -36,9 +36,9 @@ RCT_EXPORT_METHOD(appendMessages:(NSArray *)messages) {
   [[NSNotificationCenter defaultCenter] postNotificationName:kAppendMessages object: messages];
 }
 
-RCT_EXPORT_METHOD(fristAppendMessages:(NSArray *)messages) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFristAppendMessage object: messages];
-}
+//RCT_EXPORT_METHOD(fristAppendMessages:(NSArray *)messages) {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kFristAppendMessage object: messages];
+//}
 RCT_EXPORT_METHOD(deleteMessage:(NSArray *)messages) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteMessage object: messages];
 }

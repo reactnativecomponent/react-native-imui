@@ -46,6 +46,8 @@
 
 @implementation RCTMessageListViewManager
 
+RCT_EXPORT_VIEW_PROPERTY(initalData, NSArray)
+
 RCT_EXPORT_VIEW_PROPERTY(onAvatarClick, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onMsgClick, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onMsgOpenUrlClick, RCTBubblingEventBlock)

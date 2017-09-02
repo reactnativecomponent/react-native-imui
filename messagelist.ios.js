@@ -100,6 +100,7 @@ export default class MessageList extends Component {
 }
 
 MessageList.propTypes = {
+  initalData:PropTypes.array,
   onMsgClick: PropTypes.func,
   onMsgOpenUrlClick: PropTypes.func,
   onDealWithMenuClick: PropTypes.func,
