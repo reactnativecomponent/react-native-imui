@@ -51,6 +51,7 @@
 @dynamic placeholder;
 @dynamic placeholderColor;
 @synthesize textViewText;
+
 // having initwithcoder allows us to use HPGrowingTextView in a Nib. -- aob, 9/2011
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -262,6 +263,7 @@
     }
     self.textViewText = textView.text;
     [self refreshHeight];
+
 }
 
 - (void)refreshHeight

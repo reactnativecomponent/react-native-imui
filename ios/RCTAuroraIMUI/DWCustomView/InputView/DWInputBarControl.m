@@ -162,6 +162,8 @@
     _inputGrowView.layer.cornerRadius = 5.0f;
     _inputGrowView.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0].CGColor;
     _inputGrowView.layer.borderWidth = 1;
+//    _inputGrowView.minNumberOfLines = 0.5;
+    _inputGrowView.maxNumberOfLines = 4;
 //    _inputGrowView.contentInset = UIEdgeInsetsMake(5, 5, 5, 5);
     _inputGrowView.returnKeyType = UIReturnKeySend;
     _inputGrowView.enablesReturnKeyAutomatically = YES;
@@ -226,20 +228,16 @@
     
     CGFloat inputX = CGRectGetMaxX(_showRecordeBtn.frame)+1.5*_margin;
     CGFloat inputW = expressionBtnX - inputX - 1.5*_margin;
-    CGFloat inputY = _margin;
-    CGFloat inputH = _toolH - 2*_margin;
-    _inputGrowView.frame = CGRectMake(inputX, inputY+DESIGN_SIZE_750(5), inputW, inputH);
-    _recordBtn.frame = CGRectMake(inputX, inputY+DESIGN_SIZE_750(2.5), inputW, inputH-DESIGN_SIZE_750(8));
-
+    CGFloat inputY = 1.6*_margin;
+    CGFloat inputH = _toolH - 3.2*_margin;
+    _inputGrowView.frame = CGRectMake(inputX, inputY, inputW, inputH);
+//    _recordBtn.frame = CGRectMake(inputX, inputY+DESIGN_SIZE_750(2.5), inputW, inputH-DESIGN_SIZE_750(8));
+    _recordBtn.frame = _inputGrowView.frame;
     _expressionView.y = CGRectGetMaxY(_toolView.frame);
+
 }
 
 
-- (void)layoutSubviews{
-    _inputGrowView.minNumberOfLines = 0.5;
-    _inputGrowView.maxNumberOfLines = 4;
-    
-}
 
 //点击按钮
 - (void)clickControlBtn:(UIButton *)btn{
