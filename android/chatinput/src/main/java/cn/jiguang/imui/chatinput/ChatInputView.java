@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.SystemClock;
@@ -20,6 +21,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -48,6 +50,7 @@ import dowin.com.emoji.emoji.MoonUtil;
 
 public class ChatInputView extends LinearLayout {
 
+    public static final String TAG = "ChatInputView";
     public static final byte KEYBOARD_STATE_SHOW = -3;
     public static final byte KEYBOARD_STATE_HIDE = -2;
     public static final byte KEYBOARD_STATE_INIT = -1;
@@ -88,6 +91,9 @@ public class ChatInputView extends LinearLayout {
 
     private boolean mShowSoftInput = false;
     private boolean isKeyboardShowed = false;
+
+    private int inputHeight = 0;
+    private int showType = 0;
 
     private Context mContext;
 
@@ -153,6 +159,8 @@ public class ChatInputView extends LinearLayout {
         mHeight = dm.heightPixels;
 
         mChatInput.setOnTouchListener(inputTouchListener);
+
+        initKeyboard();
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -200,17 +208,21 @@ public class ChatInputView extends LinearLayout {
         int length = key.length();
         // 不是输入的@，而是插进来的
 //        if (!force) {
-            start--;
-            length++;
+        start--;
+        length++;
 //        }
 
-        editable.setSpan(TeamMemberAitHelper.getInputAitSpan(mContext,name, mChatInput.getTextSize(), mChatInput.getMeasuredWidth()),
+        editable.setSpan(TeamMemberAitHelper.getInputAitSpan(mContext, name, mChatInput.getTextSize(), mChatInput.getMeasuredWidth()),
                 start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
     @Override
     protected void onDetachedFromWindow() {
+        if (mWindow != null) {
+            getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+        }
         super.onDetachedFromWindow();
+
     }
 
     @Override
@@ -223,9 +235,7 @@ public class ChatInputView extends LinearLayout {
     private OnTouchListener inputTouchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (mEditTextListener != null) {
-                mEditTextListener.onTouchEditText();
-            }
+
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !mShowSoftInput) {
                 mShowSoftInput = true;
                 invisibleMenuLayout();
@@ -245,40 +255,43 @@ public class ChatInputView extends LinearLayout {
                 changeSendToAction(true);
 
             } else if (view.getId() == R.id.imui_layout_voice) {
+                showType = 0;
                 if (mListener != null) {
-                    mListener.switchToMicrophoneMode();
+                    mListener.onFeatureView(inputHeight, showType);
                 }
                 switchVoiceOrInput();
             } else {
                 if (mMenuContainer.getVisibility() != VISIBLE) {
                     dismissSoftInputAndShowMenu();
                 } else if (view.getId() == mLastClickId) {
+                    if (view.getId() == R.id.imui_layout_emoji) {
+                        mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_text_selector);
+                    }
                     dismissMenuAndResetSoftMode();
+                    showType = 0;
                     if (mListener != null) {
-                        mListener.switchToMicrophoneMode();
+                        mListener.onFeatureView(inputHeight, showType);
                     }
                     return;
                 }
 
                 if (view.getId() == R.id.imui_layout_action) {
-                    if (mListener != null) {
-                        mListener.switchToActionMode();
-                    }
-
+                    showType = 2;
                     changeVoiceToInput(true);
                     actionLayout.setVisibility(VISIBLE);
                     emoticonPickerView.setVisibility(GONE);
 
                 } else if (view.getId() == R.id.imui_layout_emoji) {
-                    if (mListener != null) {
-                        mListener.switchToEmojiMode();
-                    }
+                    showType = 1;
                     changeVoiceToInput(true);
                     emoticonPickerView.setVisibility(VISIBLE);
+                    mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
                     emoticonPickerView.show(emoticonSelectedListener);
                     actionLayout.setVisibility(GONE);
                 }
-
+                if (mListener != null) {
+                    mListener.onFeatureView(inputHeight, showType);
+                }
                 mLastClickId = view.getId();
 //                mMenuContainer.requestLayout();
             }
@@ -379,6 +392,7 @@ public class ChatInputView extends LinearLayout {
             }
 
             hideInputMethod();
+            dismissMenuLayout();
         } else {
             changeVoiceToInput(true);
             if (!empty) {
@@ -576,6 +590,30 @@ public class ChatInputView extends LinearLayout {
         });
 
         shrinkAnimatorSet.start();
+    }
+
+    private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+
+        @Override
+        public void onGlobalLayout() {
+            Rect r = new Rect();
+            mWindow.getDecorView().getWindowVisibleDisplayFrame(r);
+            int screenHeight = mWindow.getDecorView().getRootView().getHeight();
+            int height = screenHeight - r.bottom + mChatInputContainer.getHeight();
+            Log.d(TAG, "Keyboard Size: " + height);
+            if (inputHeight == height) {
+                return;
+            }
+            inputHeight = height;
+            if (mListener != null) {
+                mListener.onShowKeyboard(inputHeight, showType);
+            }
+        }
+
+    };
+
+    void initKeyboard() {
+        getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
 
     private long convertStrTimeToLong(String strTime) {

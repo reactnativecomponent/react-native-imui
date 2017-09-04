@@ -21,10 +21,8 @@ export default class ChatInput extends Component {
     this._onSendText = this._onSendText.bind(this);
     this._onSendVideo = this._onSendVideo.bind(this);
     this._onSendVoice = this._onSendVoice.bind(this);
-    this._onSwitchToMicrophoneMode = this._onSwitchToMicrophoneMode.bind(this);
-    this._onSwitchToActionMode = this._onSwitchToActionMode.bind(this);
-    this._onSwitchToEmojiMode = this._onSwitchToEmojiMode.bind(this);
-    this._onTouchEditText = this._onTouchEditText.bind(this);
+    this._onShowKeyboard = this._onShowKeyboard.bind(this);
+    this._onFeatureView = this._onFeatureView.bind(this);
     this._onEditTextChange = this._onEditTextChange.bind(this);
   }
 
@@ -48,32 +46,18 @@ export default class ChatInput extends Component {
     }
     this.props.onSendVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
   }
-  _onSwitchToMicrophoneMode() {
-    if (!this.props.onSwitchToMicrophoneMode) {
-      return;
-    }
-    this.props.onSwitchToMicrophoneMode();
-  }
 
-  _onSwitchToActionMode() {
-    if (!this.props.onSwitchToActionMode) {
+  _onShowKeyboard(event:Event) {
+    if (!this.props.onShowKeyboard) {
       return;
     }
-    this.props.onSwitchToActionMode();
+    this.props.onShowKeyboard(event.nativeEvent.inputHeight,event.nativeEvent.showType);
   }
-
-  _onSwitchToEmojiMode() {
-    if (!this.props.onSwitchToEmojiMode) {
-      return;
-    }
-    this.props.onSwitchToEmojiMode();
-  }
-
-  _onTouchEditText() {
-    if (!this.props.onTouchEditText) {
-      return;
-    }
-    this.props.onTouchEditText();
+  _onFeatureView(event:Event) {
+      if (!this.props.onFeatureView) {
+        return;
+      }
+      this.props.onFeatureView(event.nativeEvent.inputHeight,event.nativeEvent.showType);
   }
   _onEditTextChange(event: Event) {
     if (!this.props.onEditTextChange) {
@@ -89,10 +73,8 @@ export default class ChatInput extends Component {
           onSendText={this._onSendText}
           onSendVideo={this._onSendVideo}
           onSendVoice={this._onSendVoice}
-          onSwitchToMicrophoneMode={this._onSwitchToMicrophoneMode}
-          onSwitchToActionMode={this._onSwitchToActionMode}
-          onSwitchToEmojiMode={this._onSwitchToEmojiMode}
-          onTouchEditText={this._onTouchEditText}
+          onShowKeyboard={this._onShowKeyboard}
+          onFeatureView={this._onFeatureView}
           onEditTextChange={this._onEditTextChange}
       />
     );
@@ -105,10 +87,8 @@ ChatInput.propTypes = {
   isDismissMenuContainer: PropTypes.bool,
   onSendVideo: PropTypes.func,
   onSendVoice: PropTypes.func,
-  onSwitchToMicrophoneMode: PropTypes.func,
-  onSwitchToActionMode: PropTypes.func,
-  onSwitchToEmojiMode: PropTypes.func,
-  onTouchEditText: PropTypes.func,
+  onShowKeyboard: PropTypes.func,
+  onFeatureView: PropTypes.func,
   onEditTextChange: PropTypes.func,
   ...View.propTypes
 };

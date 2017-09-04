@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,7 +42,11 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
                 }
             }
         });
-
+        if (mText.length() <= 3) {
+            mMsgTv.setGravity(Gravity.CENTER);
+        } else {
+            mMsgTv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+        }
         mMsgTv.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        mMsgTv.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +78,7 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
         super.applyStyle(style);
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
         mMsgTv.setTextSize(17);
-        mMsgTv.setLinkTextColor(Color.rgb(173,0,151));
+        mMsgTv.setLinkTextColor(Color.rgb(173, 0, 151));
 
     }
 

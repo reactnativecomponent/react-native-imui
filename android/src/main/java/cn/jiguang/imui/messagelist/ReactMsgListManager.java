@@ -68,6 +68,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     private static final String ON_STATUS_VIEW_CLICK_EVENT = "onStatusViewClick";
     private static final String ON_TOUCH_MSG_LIST_EVENT = "onTouchMsgList";
     private static final String ON_PULL_TO_REFRESH_EVENT = "onPullToRefresh";
+    private static final String ON_CLICK_CHANGE_AUTO_SCROLL_EVENT = "onClickChangeAutoScroll";
 
     public static final String RCT_APPEND_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.appendMessages";
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
@@ -148,7 +149,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         };
         mAdapter = new MsgListAdapter<>("0", holdersConfig, imageLoader);
         mAdapter.setActivity(mContext.getCurrentActivity());
-        msgList.setAdapter(mAdapter);
+        msgList.setAdapter(mAdapter,5);
         mAdapter.setOnMsgClickListener(new MsgListAdapter.OnMsgClickListener<RCTMessage>() {
             @Override
             public void onMessageClick(RCTMessage message) {
@@ -220,9 +221,17 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         });
         mAdapter.setOnLoadMoreListener(new MsgListAdapter.OnLoadMoreListener() {
             @Override
-            public void onLoadMore(int i, int i1) {
+            public void onLoadMore(int page, int total) {
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                         ON_PULL_TO_REFRESH_EVENT, null);
+            }
+
+            @Override
+            public void onAutoScroll(boolean autoScroll) {
+                WritableMap event = Arguments.createMap();
+                event.putBoolean("isAutoScroll",autoScroll);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                        ON_CLICK_CHANGE_AUTO_SCROLL_EVENT, event);
             }
         });
         return msgList;
@@ -433,7 +442,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mAdapter.addToStart(list, true);
+                            mAdapter.addToStart(list, false);
                         }
                     });
                 }
@@ -489,6 +498,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 .put(ON_LINK_CLICK_EVENT, MapBuilder.of("registrationName", ON_LINK_CLICK_EVENT))
                 .put(ON_TOUCH_MSG_LIST_EVENT, MapBuilder.of("registrationName", ON_TOUCH_MSG_LIST_EVENT))
                 .put(ON_PULL_TO_REFRESH_EVENT, MapBuilder.of("registrationName", ON_PULL_TO_REFRESH_EVENT))
+                .put(ON_CLICK_CHANGE_AUTO_SCROLL_EVENT, MapBuilder.of("registrationName", ON_CLICK_CHANGE_AUTO_SCROLL_EVENT))
                 .build();
     }
 

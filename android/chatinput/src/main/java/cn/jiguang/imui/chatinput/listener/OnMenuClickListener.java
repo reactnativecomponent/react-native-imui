@@ -14,18 +14,6 @@ public interface OnMenuClickListener {
      */
     boolean onSendTextMessage(CharSequence input);
 
-    /**
-     * Fires when voice button is on click.
-     */
-    void switchToMicrophoneMode();
-
-    /**
-     * Fires when photo button is on click.
-     */
-    void switchToActionMode();
-
-    /**
-     * Fires when camera button is on click.
-     */
-    void switchToEmojiMode();
+    void onFeatureView(int inputHeight,int showType);
+    void onShowKeyboard(int inputHeight,int showType);
 }

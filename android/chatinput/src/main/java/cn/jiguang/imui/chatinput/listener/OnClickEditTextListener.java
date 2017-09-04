@@ -5,7 +5,6 @@ package cn.jiguang.imui.chatinput.listener;
  */
 
 public interface OnClickEditTextListener {
-    void onTouchEditText();
 
     void onTextChanged(String changeText);
 }
