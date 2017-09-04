@@ -41,7 +41,7 @@ public class MessageList extends RecyclerView {
      * @param adapter   Adapter, extends MsgListAdapter.
      * @param <MESSAGE> Message model extends IMessage.
      */
-    public <MESSAGE extends IMessage> void setAdapter(MsgListAdapter<MESSAGE> adapter) {
+    public <MESSAGE extends IMessage> void setAdapter(MsgListAdapter<MESSAGE> adapter,int visibleThreshold) {
 //        SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
 //        itemAnimator.setSupportsChangeAnimations(false);
         setItemAnimator(null);
@@ -50,10 +50,10 @@ public class MessageList extends RecyclerView {
                 getContext(), LinearLayoutManager.VERTICAL, true);
         layoutManager.setStackFromEnd(true);
         setLayoutManager(layoutManager);
-        
+
         adapter.setLayoutManager(layoutManager);
         adapter.setStyle(mContext, mMsgListStyle);
-        addOnScrollListener(new ScrollMoreListener(layoutManager, adapter));
+        addOnScrollListener(new ScrollMoreListener(layoutManager, adapter, visibleThreshold));
         super.setAdapter(adapter);
     }
 
@@ -194,6 +194,7 @@ public class MessageList extends RecyclerView {
         int resId = getResources().getIdentifier(drawableName, "drawable", packageName);
         mMsgListStyle.setSendingIndeterminateDrawable(getResources().getDrawable(resId));
     }
+
     private final Runnable measureAndLayout = new Runnable() {
 
         int width = 0;
@@ -213,6 +214,7 @@ public class MessageList extends RecyclerView {
             layout(getLeft(), getTop(), getRight(), getBottom());
         }
     };
+
     @Override
     public void requestLayout() {
         super.requestLayout();

@@ -13,15 +13,21 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
     private int mCurrentPage = 0;
     private int mPreviousTotalItemCount = 0;
     private boolean mLoading = false;
+    private int visibleThreshold = 20;
+    private int scrollThreshold = 3;
+    private boolean autoScroll = true;
 
-    public ScrollMoreListener(LinearLayoutManager layoutManager, OnLoadMoreListener listener) {
+    public ScrollMoreListener(LinearLayoutManager layoutManager, OnLoadMoreListener listener, int visibleThreshold) {
         this.mLayoutManager = layoutManager;
         this.mListener = listener;
+        if (visibleThreshold > 0) {
+            this.visibleThreshold = visibleThreshold;
+        }
     }
 
     private int getLastVisibleItem(int[] lastVisibleItemPositions) {
         int maxSize = 0;
-        for (int i=0; i < lastVisibleItemPositions.length; i++) {
+        for (int i = 0; i < lastVisibleItemPositions.length; i++) {
             if (i == 0) {
                 maxSize = lastVisibleItemPositions[i];
             } else if (lastVisibleItemPositions[i] > maxSize) {
@@ -35,6 +41,7 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         if (mListener != null) {
             int lastVisibleItemPosition = 0;
+            int firstVisibleItemPosition = 0;
             int totalItemCount = mLayoutManager.getItemCount();
             if (mLayoutManager instanceof StaggeredGridLayoutManager) {
                 int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager)
@@ -42,6 +49,7 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
                 lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions);
             } else if (mLayoutManager instanceof LinearLayoutManager) {
                 lastVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();
+                firstVisibleItemPosition = ((LinearLayoutManager) mLayoutManager).findFirstVisibleItemPosition();
             } else if (mLayoutManager instanceof GridLayoutManager) {
                 lastVisibleItemPosition = ((GridLayoutManager) mLayoutManager).findLastVisibleItemPosition();
             }
@@ -59,7 +67,11 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
                 mPreviousTotalItemCount = totalItemCount;
             }
 
-            int visibleThreshold = 5;
+            boolean auto = firstVisibleItemPosition < scrollThreshold;
+            if (autoScroll != auto) {
+                autoScroll = auto;
+                mListener.onAutoScroll(autoScroll);
+            }
             if (!mLoading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
                 mCurrentPage++;
                 mListener.onLoadMore(mCurrentPage, totalItemCount);
@@ -70,5 +82,7 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
 
     interface OnLoadMoreListener {
         void onLoadMore(int page, int total);
+
+        void onAutoScroll(boolean autoScroll);
     }
 }

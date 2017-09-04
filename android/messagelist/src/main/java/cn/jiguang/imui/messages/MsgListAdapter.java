@@ -376,15 +376,20 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
      */
     public void addToStart(List<MESSAGE> messages, boolean scrollToBottom) {
         boolean first = mItems.isEmpty();
+        updateShowTimeItem(messages, first, true);
         for (int i = 0; i < messages.size(); i++) {
             MESSAGE message = messages.get(i);
             mItems.add(0, new Wrapper<>(message));
+            notifyItemRangeInserted(0, 1);
             addImage(message, false);
         }
-        updateShowTimeItem(messages, first, true);
-        notifyItemRangeInserted(0, messages.size());
-        if (mLayoutManager != null && isToBottom()) {
+
+//        notifyItemRangeInserted(0, messages.size());
+        if (mLayoutManager != null && scrollToBottom) {
             mLayoutManager.scrollToPosition(0);
+            mLayoutManager.requestLayout();
+        }
+        if (mLayoutManager != null) {
             mLayoutManager.requestLayout();
         }
     }
@@ -727,12 +732,20 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         }
     }
 
+    @Override
+    public void onAutoScroll(boolean autoScroll) {
+        if (null != mListener) {
+            mListener.onAutoScroll(autoScroll);
+        }
+    }
+
     public interface DefaultMessageViewHolder {
         void applyStyle(MessageListStyle style);
     }
 
     public interface OnLoadMoreListener {
         void onLoadMore(int page, int totalCount);
+        void onAutoScroll(boolean autoScroll);
     }
 
     public interface SelectionListener {

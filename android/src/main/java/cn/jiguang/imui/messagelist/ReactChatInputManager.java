@@ -1,6 +1,5 @@
 package cn.jiguang.imui.messagelist;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -43,16 +42,12 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private static final String REACT_CHAT_INPUT = "RCTChatInput";
     private static final String TAG = "RCTChatInput";
 
-    private static final String SWITCH_TO_MIC_EVENT = "onSwitchToMicrophoneMode";
-    private static final String SWITCH_TO_ACTION_EVENT = "onSwitchToActionMode";
-    private static final String SWITCH_TO_EMOJI_EVENT = "onSwitchToEmojiMode";
-
     private static final String ON_SEND_TEXT_EVENT = "onSendText";
-    private static final String ON_SEND_VIDEO = "onSendVideo";
     private static final String ON_SEND_VOICE = "onSendVoice";
 
-    private static final String ON_TOUCH_EDIT_TEXT_EVENT = "onTouchEditText";
     private static final String ON_EDIT_TEXT_CHANGE_EVENT = "onEditTextChange";
+    private static final String ON_FEATURE_VIEW_EVENT = "onFeatureView";
+    private static final String ON_SHOW_KEY_BOARD_EVENT = "onShowKeyboard";
     private final int REQUEST_PERMISSION = 0x0001;
 
     public static final String RCT_DATA = "members";
@@ -108,7 +103,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                     // 移走后面又删掉的账号
                     removeInvalidAccount(idList, input.toString());
                     // 替换文本中的账号为昵称
-                    input =  replaceNickName(idList, input.toString());
+//                    input =  replaceNickName(idList, input.toString());
 
                     for (Map.Entry<String, RCTMember> entry : idList.entrySet()) {
                         array.pushString(entry.getValue().getContactId());
@@ -123,35 +118,19 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
             }
 
             @Override
-            public void switchToMicrophoneMode() {
-                Activity activity = reactContext.getCurrentActivity();
-                String[] perms = new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.RECORD_AUDIO
-                };
-
-//                if ((ActivityCompat.checkSelfPermission(activity, perms[0]) != PackageManager.PERMISSION_GRANTED
-//                        && ActivityCompat.checkSelfPermission(activity, perms[1]) != PackageManager.PERMISSION_GRANTED
-//                        && ActivityCompat.checkSelfPermission(activity, perms[2]) != PackageManager.PERMISSION_GRANTED
-//                        && ActivityCompat.checkSelfPermission(activity, perms[3]) != PackageManager.PERMISSION_GRANTED)) {
-//                    ActivityCompat.requestPermissions(activity, perms, REQUEST_PERMISSION);
-//                }
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        SWITCH_TO_MIC_EVENT, null);
+            public void onFeatureView(int inputHeight, int showType) {
+                WritableMap event = Arguments.createMap();
+                event.putInt("inputHeight", inputHeight);
+                event.putInt("showType", showType);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_FEATURE_VIEW_EVENT, event);
             }
 
             @Override
-            public void switchToActionMode() {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        SWITCH_TO_ACTION_EVENT, null);
-            }
-
-            @Override
-            public void switchToEmojiMode() {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        SWITCH_TO_EMOJI_EVENT, null);
+            public void onShowKeyboard(int inputHeight, int showType) {
+                WritableMap event = Arguments.createMap();
+                event.putInt("inputHeight", inputHeight);
+                event.putInt("showType", showType);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(), ON_SHOW_KEY_BOARD_EVENT, event);
             }
         });
 
@@ -200,11 +179,6 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         });
 
         chatInput.setOnClickEditTextListener(new OnClickEditTextListener() {
-            @Override
-            public void onTouchEditText() {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(chatInput.getId(),
-                        ON_TOUCH_EDIT_TEXT_EVENT, null);
-            }
 
             @Override
             public void onTextChanged(String changeText) {
@@ -236,13 +210,10 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     public Map<String, Object> getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.<String, Object>builder()
                 .put(ON_SEND_TEXT_EVENT, MapBuilder.of("registrationName", ON_SEND_TEXT_EVENT))
-                .put(SWITCH_TO_MIC_EVENT, MapBuilder.of("registrationName", SWITCH_TO_MIC_EVENT))
-                .put(SWITCH_TO_ACTION_EVENT, MapBuilder.of("registrationName", SWITCH_TO_ACTION_EVENT))
-                .put(SWITCH_TO_EMOJI_EVENT, MapBuilder.of("registrationName", SWITCH_TO_EMOJI_EVENT))
-                .put(ON_SEND_VIDEO, MapBuilder.of("registrationName", ON_SEND_VIDEO))
                 .put(ON_SEND_VOICE, MapBuilder.of("registrationName", ON_SEND_VOICE))
-                .put(ON_TOUCH_EDIT_TEXT_EVENT, MapBuilder.of("registrationName", ON_TOUCH_EDIT_TEXT_EVENT))
                 .put(ON_EDIT_TEXT_CHANGE_EVENT, MapBuilder.of("registrationName", ON_EDIT_TEXT_CHANGE_EVENT))
+                .put(ON_FEATURE_VIEW_EVENT, MapBuilder.of("registrationName", ON_FEATURE_VIEW_EVENT))
+                .put(ON_SHOW_KEY_BOARD_EVENT, MapBuilder.of("registrationName", ON_SHOW_KEY_BOARD_EVENT))
                 .build();
     }
 

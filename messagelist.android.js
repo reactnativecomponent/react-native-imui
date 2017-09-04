@@ -20,7 +20,7 @@ export default class MessageList extends Component {
     super(props);
     this._onLinkClick = this._onLinkClick.bind(this);
     this._onMsgClick = this._onMsgClick.bind(this);
-    this._onMsgLongClick = this._onMsgLongClick.bind(this);
+    this._onClickChangeAutoScroll = this._onClickChangeAutoScroll.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onStatusViewClick = this._onStatusViewClick.bind(this);
     this._onTouchMsgList = this._onTouchMsgList.bind(this);
@@ -39,12 +39,11 @@ export default class MessageList extends Component {
     }
     this.props.onLinkClick(event.nativeEvent.message);
   }
-
-  _onMsgLongClick(event: Event) {
-    if (!this.props.onMsgLongClick) {
+  _onClickChangeAutoScroll(event: Event) {
+    if (!this.props.onClickChangeAutoScroll) {
       return;
     }
-    this.props.onMsgLongClick(event.nativeEvent.message);
+    this.props.onClickChangeAutoScroll(event.nativeEvent.isAutoScroll);
   }
 
   _onAvatarClick(event: Event) {
@@ -82,7 +81,7 @@ export default class MessageList extends Component {
           onLinkClick={this._onLinkClick}
           onMsgClick={this._onMsgClick}
           onAvatarClick={this._onAvatarClick}
-          onMsgLongClick={this._onMsgLongClick}
+          onClickChangeAutoScroll={this._onClickChangeAutoScroll}
           onStatusViewClick={this._onStatusViewClick}
           onTouchMsgList={this._onTouchMsgList}
           onPullToRefresh={this._onPullToRefresh}
@@ -96,11 +95,12 @@ MessageList.propTypes = {
   initList: PropTypes.array,
   onLinkClick: PropTypes.func,
   onMsgClick: PropTypes.func,
-  onMsgLongClick: PropTypes.func,
+  onClickChangeAutoScroll: PropTypes.func,
   onAvatarClick: PropTypes.func,
   onStatusViewClick: PropTypes.func,
   onTouchMsgList: PropTypes.func,
   onPullToRefresh: PropTypes.func,
+
   sendBubble: PropTypes.object,
   receiveBubble: PropTypes.object,
   sendBubbleTextColor: PropTypes.string,
