@@ -87,6 +87,8 @@ public class ChatInputView extends LinearLayout {
 
     private int mWidth;
     private int mHeight;
+    private float density;
+    private float scaleDensity;
     public static int sMenuHeight = 666;
 
     private boolean mShowSoftInput = false;
@@ -142,6 +144,7 @@ public class ChatInputView extends LinearLayout {
         mMenuContainer = (FrameLayout) findViewById(R.id.aurora_fl_menu_container);
 
         emoticonPickerView = (EmoticonPickerView) findViewById(R.id.emoticon_picker_view);
+        emoticonPickerView.setWithSticker(true);
         actionLayout = (LinearLayout) findViewById(R.id.aurora_view_action_layout);
 
         mMenuContainer.setVisibility(GONE);
@@ -157,6 +160,8 @@ public class ChatInputView extends LinearLayout {
         DisplayMetrics dm = getResources().getDisplayMetrics();
         mWidth = dm.widthPixels;
         mHeight = dm.heightPixels;
+        density = dm.density;
+        scaleDensity = dm.scaledDensity;
 
         mChatInput.setOnTouchListener(inputTouchListener);
 
@@ -196,16 +201,16 @@ public class ChatInputView extends LinearLayout {
         // insert account
         int start = mChatInput.getSelectionStart();
         if (start < 0 || start >= mChatInput.length()) {
-            mChatInput.append(key);
+            mChatInput.append(name);
         } else {
-            mChatInput.getEditableText().insert(start, key);// 光标所在位置插入文字
+            mChatInput.getEditableText().insert(start, name);// 光标所在位置插入文字
         }
 
         // 替换成昵称
         Editable editable = mChatInput.getText();
         name = "@" + name;
 
-        int length = key.length();
+        int length = name.length();
         // 不是输入的@，而是插进来的
 //        if (!force) {
         start--;
@@ -239,6 +244,10 @@ public class ChatInputView extends LinearLayout {
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && !mShowSoftInput) {
                 mShowSoftInput = true;
                 invisibleMenuLayout();
+                showType = 0;
+                if (mListener != null) {
+                    mListener.onFeatureView(inputHeight, showType);
+                }
                 mChatInput.requestFocus();
             }
             return false;
@@ -255,18 +264,16 @@ public class ChatInputView extends LinearLayout {
                 changeSendToAction(true);
 
             } else if (view.getId() == R.id.imui_layout_voice) {
+                switchVoiceOrInput();
+
                 showType = 0;
                 if (mListener != null) {
                     mListener.onFeatureView(inputHeight, showType);
                 }
-                switchVoiceOrInput();
             } else {
                 if (mMenuContainer.getVisibility() != VISIBLE) {
                     dismissSoftInputAndShowMenu();
                 } else if (view.getId() == mLastClickId) {
-                    if (view.getId() == R.id.imui_layout_emoji) {
-                        mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_text_selector);
-                    }
                     dismissMenuAndResetSoftMode();
                     showType = 0;
                     if (mListener != null) {
@@ -282,10 +289,11 @@ public class ChatInputView extends LinearLayout {
                     emoticonPickerView.setVisibility(GONE);
 
                 } else if (view.getId() == R.id.imui_layout_emoji) {
+
                     showType = 1;
                     changeVoiceToInput(true);
                     emoticonPickerView.setVisibility(VISIBLE);
-                    mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
+                    mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_text_selector);
                     emoticonPickerView.show(emoticonSelectedListener);
                     actionLayout.setVisibility(GONE);
                 }
@@ -295,6 +303,7 @@ public class ChatInputView extends LinearLayout {
                 mLastClickId = view.getId();
 //                mMenuContainer.requestLayout();
             }
+            Log.w(TAG, "viewId: " + view.getId() + "-showType:" + showType);
         }
     };
     private IEmoticonSelectedListener emoticonSelectedListener = new IEmoticonSelectedListener() {
@@ -380,7 +389,7 @@ public class ChatInputView extends LinearLayout {
     void changeVoiceToInput(boolean input) {
         mChatInput.setVisibility(input ? VISIBLE : INVISIBLE);
         mChatVoice.setVisibility(input ? INVISIBLE : VISIBLE);
-        mVoiceBtn.setImageResource(input ? R.drawable.nim_message_button_bottom_text_selector : R.drawable.nim_message_button_bottom_audio_selector);
+        mVoiceBtn.setImageResource(input ? R.drawable.nim_message_button_bottom_audio_selector : R.drawable.nim_message_button_bottom_text_selector);
     }
 
     void switchVoiceOrInput() {
@@ -453,6 +462,10 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuLayout() {
         mMenuContainer.setVisibility(GONE);
+        if (showType == 1) {
+            showType = 0;
+            mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
+        }
     }
 
     public void invisibleMenuLayout() {
@@ -600,17 +613,35 @@ public class ChatInputView extends LinearLayout {
             mWindow.getDecorView().getWindowVisibleDisplayFrame(r);
             int screenHeight = mWindow.getDecorView().getRootView().getHeight();
             int height = screenHeight - r.bottom + mChatInputContainer.getHeight();
-            Log.d(TAG, "Keyboard Size: " + height);
+            Log.d(TAG, "Keyboard Size: " + px2dip(height) + "-showType:" + showType);
             if (inputHeight == height) {
                 return;
             }
+            if (inputHeight > height) {
+
+            } else {
+
+            }
             inputHeight = height;
             if (mListener != null) {
-                mListener.onShowKeyboard(inputHeight, showType);
+                mListener.onShowKeyboard(px2dip(inputHeight), showType);
             }
         }
 
     };
+
+    public int dip2px(float dipValue) {
+        return (int) (dipValue * density + 0.5f);
+    }
+
+    public int px2dip(float pxValue) {
+        return (int) (pxValue / density + 0.5f);
+    }
+
+    public int sp2px(float spValue) {
+        return (int) (spValue * scaleDensity + 0.5f);
+    }
+
 
     void initKeyboard() {
         getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);

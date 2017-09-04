@@ -136,7 +136,7 @@ public class PhotoViewPagerViewUtil {
         Rect rect = new Rect();
         View decorView = mActivity.getWindow().getDecorView();
         decorView.getWindowVisibleDisplayFrame(rect);
-        lay.height = dm.heightPixels - rect.top;
+        lay.height = dm.heightPixels;// - rect.top;
         lay.width = dm.widthPixels;
         dialog.show();
     }
