@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E1BA8841F39AB8400A15E62 /* NIMInputAtCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */; };
 		4E1BA8851F39AB8400A15E62 /* NIMInputAtCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */; };
+		4E31CB2D1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */; };
 		4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */; };
 		4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */; };
 		4E34C33D1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */; };
@@ -145,6 +146,7 @@
 /* Begin PBXFileReference section */
 		4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputAtCache.h; sourceTree = "<group>"; };
 		4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputAtCache.m; sourceTree = "<group>"; };
+		4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIUnKnownMessageCell.swift; sourceTree = "<group>"; };
 		4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITransferMessageCell.swift; sourceTree = "<group>"; };
 		4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUINotificationMessageCell.swift; sourceTree = "<group>"; };
 		4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketOpenMessageCell.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */,
 				4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */,
 				4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */,
+				4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				4E77A3AD1F30840000098CAF /* UIViewExtension.swift in Sources */,
 				624B82911EE5710E006C3C03 /* MyUser.swift in Sources */,
 				4E77A3BD1F30840000098CAF /* IMUIMessageStatusViewProtocal.swift in Sources */,
+				4E31CB2D1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift in Sources */,
 				4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */,
 				4E49AD881F34176100B50439 /* RNRecordTipsView.m in Sources */,
 				4E77A3C41F30840000098CAF /* IMUIMessageCollectionView.swift in Sources */,

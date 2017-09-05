@@ -29,6 +29,7 @@ import UIKit
     @objc optional func messageCollectionView(reloadMoreData:String)
     @objc optional func messageCollectionView(tapCellView:String)
     @objc optional func messageCollectionView(longTapCellViewModel:IMUIMessageModelProtocol)
+    @objc optional func messageCollectionView(longTapAvatarPressWithModel:IMUIMessageModelProtocol)
     @objc optional func messageCollectionView(changeAutoScroll:Bool)
     
     

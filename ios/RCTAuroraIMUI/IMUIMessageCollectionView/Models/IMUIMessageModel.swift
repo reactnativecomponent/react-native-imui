@@ -21,6 +21,7 @@ import UIKit
   case url
   case account_notice
   case redpacketOpen
+    case unknown
   case custom
 }
 
@@ -153,10 +154,10 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         isShowAvatar = false
         break
     case .redpacket:
-        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width*0.62, height: UIScreen.main.bounds.width*0.62*0.35)
+        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width*0.65, height: UIScreen.main.bounds.width*0.65*0.35)
         break
     case .transfer:
-        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width*0.62, height: UIScreen.main.bounds.width*0.62*0.35)
+        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width*0.65, height: UIScreen.main.bounds.width*0.65*0.35)
         break
     case .url:
         bubbleContentSize = CGSize(width: 100, height: 100)
@@ -165,6 +166,10 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         bubbleContentSize = CGSize(width: 200, height: 30)
         break
     case .redpacketOpen:
+        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+        isShowAvatar = false
+        break
+    case .unknown:
         bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
         isShowAvatar = false
         break

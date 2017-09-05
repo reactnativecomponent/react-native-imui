@@ -32,6 +32,7 @@ open class RCTMessageModel: IMUIMessageModel {
     static let kMsgTypeUrl = "url"
     static let kMsgTypeAccountNotifce = "account_notice"
     static let kMsgTypeRedpacketOpen = "redpacketOpen"
+    static let kMsgTypeUnKnow = "unknown"
     
     
   static let kMsgKeyMsgId = "msgId"
@@ -204,42 +205,34 @@ open class RCTMessageModel: IMUIMessageModel {
         textLayout = MyMessageCellLayout(isOutGoingMessage: isOutgoing!,
                                        isNeedShowTime: needShowTime!,
                                        bubbleContentSize: RCTMessageModel.calculateTextContentSize(text: text!, isOutGoing: isOutgoing!), bubbleContentInsets: UIEdgeInsets.zero, showAvatar:true)
-      }
-      
-      if typeString == RCTMessageModel.kMsgTypeImage {
+      }else if typeString == RCTMessageModel.kMsgTypeImage {
         msgType = .image
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-      }
-      
-      if typeString == RCTMessageModel.kMsgTypeVoice {
+      }else if typeString == RCTMessageModel.kMsgTypeVoice {
         
         msgType = .voice
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-      }
-      
-      if typeString == RCTMessageModel.kMsgTypeVideo {
+      }else if typeString == RCTMessageModel.kMsgTypeVideo {
         msgType = .video
-      }
-      if typeString == RCTMessageModel.kMsgTypeLocation {
+      }else if typeString == RCTMessageModel.kMsgTypeLocation {
             msgType = .location
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-        }
-        if typeString == RCTMessageModel.kMsgTypeNotification {
+        }else if typeString == RCTMessageModel.kMsgTypeNotification {
             msgType = .notification
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-        }
-      if typeString == RCTMessageModel.kMsgTypeRedpacket {
+        }else if typeString == RCTMessageModel.kMsgTypeRedpacket {
             msgType = .redpacket
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-        }
-      if typeString == RCTMessageModel.kMsgTypeTransfer {
+        }else if typeString == RCTMessageModel.kMsgTypeTransfer {
             msgType = .transfer
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
-        }
-        if typeString == RCTMessageModel.kMsgTypeRedpacketOpen {
+        }else if typeString == RCTMessageModel.kMsgTypeRedpacketOpen {
             msgType = .redpacketOpen
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
+      }else{
+            msgType = .unknown
         }
+        
     }
     
     var msgStatus = IMUIMessageStatus.success
@@ -365,7 +358,8 @@ open class RCTMessageModel: IMUIMessageModel {
         messageDic.setValue(RCTMessageModel.kMsgTypeRedpacketOpen, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
-      case .custom:
+      case .unknown:
+        messageDic.setValue(RCTMessageModel.kMsgTypeUnKnow, forKey: RCTMessageModel.kMsgKeyMsgType)
         break
         
       default:

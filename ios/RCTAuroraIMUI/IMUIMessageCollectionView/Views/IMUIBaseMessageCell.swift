@@ -57,6 +57,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     avatarImage.isUserInteractionEnabled = true
     avatarImage.addGestureRecognizer(avatarGesture)
     
+    let longAvatarPress = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapAvatarPress(sender:)))
+    avatarImage.addGestureRecognizer(longAvatarPress)
     nameLabel.font = IMUIMessageCellLayout.nameLabelTextFont
     durationLabel.font = UIFont.systemFont(ofSize: 14)
     durationLabel.textColor = UIColor.init(red: 157/255.0, green: 157/255.0, blue: 158/255.0, alpha: 1)
@@ -142,7 +144,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.nameLabel.text = message.fromUser.displayName()
     
     self.message = message
-    if message.type == .notification || message.type == .redpacketOpen{
+    if message.type == .notification || message.type == .redpacketOpen || message.type == .unknown{
         self.bubbleView.backgroundColor = UIColor.clear
     }else{
         self.bubbleView.setupBubbleImage(resizeBubbleImage: message.resizableBubbleImage)
@@ -226,9 +228,11 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         self.delegate?.messageCollectionView?(tapCellView: "")
     }
     
+    
+    
   func longTapBubbleView(sender : UILongPressGestureRecognizer) {
     if sender.state == UIGestureRecognizerState.began{
-        if self.message?.type == .notification || self.message?.type == .redpacketOpen {
+        if self.message?.type == .notification || self.message?.type == .redpacketOpen || self.message?.type == .unknown {
             return
         }
         let items = NSMutableArray.init()
@@ -265,7 +269,17 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   func tapHeaderImage() {
     self.delegate?.messageCollectionView?(didTapHeaderImageInCell: self, model: self.message!)
   }
-  
+  //长按头像
+    func longTapAvatarPress(sender : UILongPressGestureRecognizer){
+        if !(self.message?.isOutGoing)! {
+            if sender.state == UIGestureRecognizerState.began{
+                self.delegate?.messageCollectionView?(longTapAvatarPressWithModel: self.message!)
+               
+            }
+        }
+    }
+    
+    
   func tapSatusView() {
         self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
     

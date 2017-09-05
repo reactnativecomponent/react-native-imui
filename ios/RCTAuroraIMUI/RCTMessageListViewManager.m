@@ -21,7 +21,7 @@
 /// Tells the delegate that user tap message bubble
 - (void)messageCollectionViewWithTapCellView:(NSString * )tapCellView;
 - (void)messageCollectionViewWithLongTapCellViewModel:(id <IMUIMessageModelProtocol> _Nonnull)model;
-
+- (void)messageCollectionViewWithLongTapAvatarPressWithModel:(id <IMUIMessageModelProtocol> _Nonnull)model;
 - (void)messageCollectionViewWithDidTapMessageBubbleInCell:(UICollectionViewCell * _Nonnull)didTapMessageBubbleInCell;
 
 - (void)messageCollectionViewWithOpenMessageBubbleUrl:(NSString *)url;
@@ -249,8 +249,18 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onClickLongTapCell((@{@"message": messageDic}));
     
 }
-
-
+//长按头像
+- (void)messageCollectionViewWithLongTapAvatarPressWithModel:(id <IMUIMessageModelProtocol> _Nonnull)model{
+    RCTMessageModel *message = model;
+    NSDictionary *messageDic = message.messageDictionary;
+    NSDictionary *fromUser = [messageDic objectForKey:@"fromUser"];
+    NSString *strName = [NSString stringWithFormat:@"%@",[fromUser objectForKey:@"name"]];
+    NSString *strUserID = [NSString stringWithFormat:@"%@",[fromUser objectForKey:@"_id"]];
+    NSDictionary *personDict = [NSDictionary dictionaryWithObjects:@[strName,strUserID,@"Yes"] forKeys:@[@"name",@"userId",@"isLongGest"]];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"GetAtPersonNotification" object:personDict];
+    
+    
+}
 
 - (void)messageCollectionViewWithDidShowMenuStr:(NSString *)strMenu model:(id<IMUIMessageModelProtocol>)model{
     if(!_messageList.onDealWithMenuClick) { return; }

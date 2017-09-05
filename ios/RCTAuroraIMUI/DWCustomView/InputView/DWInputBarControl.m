@@ -92,11 +92,18 @@
     });
 }
 
+
+
 - (void)clickGetAtPerson:(NSNotification *)notifi{
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *person = notifi.object;
-        NIMInputAtItem *item = [[NIMInputAtItem alloc] init];
+        NSString *strIsLongGest = [person objectForKey:@"isLongGest"];
         NSString *strName = [NSString stringWithFormat:@"%@%@",[person objectForKey:@"name"],NIMInputAtEndChar];
+        if ([strIsLongGest isEqualToString:@"Yes"]) {
+            strName = [NSString stringWithFormat:@"%@%@",NIMInputAtStartChar,strName];
+        }
+        NIMInputAtItem *item = [[NIMInputAtItem alloc] init];
+        
         item.uid = [person objectForKey:@"userId"];
         item.name = [person objectForKey:@"name"];
         [self.atCache addAtItem:item];

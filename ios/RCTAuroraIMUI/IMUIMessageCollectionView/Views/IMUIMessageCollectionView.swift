@@ -85,6 +85,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUIRedPacketMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketMessageCell.self.description())
     self.messageCollectionView.register(IMUITransferMessageCell.self, forCellWithReuseIdentifier: IMUITransferMessageCell.self.description())
     self.messageCollectionView.register(IMUIRedPacketOpenMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketOpenMessageCell.self.description())
+    self.messageCollectionView.register(IMUIUnKnownMessageCell.self, forCellWithReuseIdentifier: IMUIUnKnownMessageCell.self.description())
     self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
     
     self.messageCollectionView.isScrollEnabled = true
@@ -263,6 +264,10 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     case .redpacketOpen:
         cellIdentify = IMUIRedPacketOpenMessageCell.self.description()
         break
+    case .unknown:
+        cellIdentify = IMUIUnKnownMessageCell.self.description()
+        break
+        
     default:
       break
     }
