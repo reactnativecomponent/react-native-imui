@@ -48,7 +48,7 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
         if (cancel) {
             recordHelper.cancelRecord();
         } else {
-            recordHelper.finishRecord();
+            recordHelper.finishRecord(false);
         }
     }
 

@@ -112,13 +112,16 @@ public class RecordHelper {
     }
 
     //录音完毕
-    public void finishRecord() {
+    public void finishRecord(boolean isTooLong) {
         cancelTimer();
         stopRecording();
 
         intervalTime = System.currentTimeMillis() - startTime;
         if (intervalTime < MIN_INTERVAL_TIME) {
-            Toast.makeText(mContext, mContext.getString(R.string.time_too_short_toast), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, mContext.getString(R.string.time_too_short_toast), Toast.LENGTH_SHORT).show();
+            if (null != mListener) {
+                mListener.onFinishRecord(null, isTooLong,(int) (intervalTime / 1000));
+            }
             currentAudioFile.delete();
         } else {
             if (currentAudioFile != null && currentAudioFile.exists()) {
@@ -138,7 +141,7 @@ public class RecordHelper {
                     }
                     // TODO finish callback here
                     if (null != mListener) {
-                        mListener.onFinishRecord(getCurrentAudioFile(), mDuration);
+                        mListener.onFinishRecord(getCurrentAudioFile(),isTooLong, mDuration);
                     }
                 } else {
                     Toast.makeText(mContext, mContext.getString(R.string.record_voice_permission_request),
@@ -241,7 +244,7 @@ public class RecordHelper {
 
                     Log.w(getClass().getName(), cancelAble + "" + db + "" + intervalTime);
                     if (intervalTime >= MAX_INTERVAL_TIME) {
-                        finishRecord();
+                        finishRecord(true);
                     } else {
                         if (mListener != null) {
                             mListener.onRecording(cancelAble, db, MAX_INTERVAL_TIME - (int) intervalTime);

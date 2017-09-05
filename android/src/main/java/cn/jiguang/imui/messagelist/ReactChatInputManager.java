@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -67,6 +69,11 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     public void onDropViewInstance(ChatInputView view) {
         Log.w(TAG, "onDropViewInstance");
         super.onDropViewInstance(view);
+        try {
+            mContext.unregisterReceiver(RCTChatInputReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -84,7 +91,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
         mContext = reactContext;
         SessorUtil.getInstance(reactContext).register(true);
-        mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
+        mContext.registerReceiver(RCTChatInputReceiver, intentFilter);
 
         final Activity activity = reactContext.getCurrentActivity();
         chatInput = new ChatInputView(activity, null);
@@ -137,15 +144,34 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         chatInput.setRecordVoiceListener(new RecordVoiceListener() {
             Dialog dialog;
             TimerTipView view;
-
+            Handler handler = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what){
+                        case 1:
+                            hideDialog();
+                            break;
+                    }
+                }
+            };
             @Override
             public void onStartRecord() {
                 showDialog();
             }
 
             @Override
-            public void onFinishRecord(String voiceFile, int duration) {
-                hideDialog();
+            public void onFinishRecord(String voiceFile, boolean isTooLong,int duration) {
+                if(TextUtils.isEmpty(voiceFile)){
+                    view.updateStatus(0, 2, 0);
+                    handler.sendEmptyMessageDelayed(1,500);
+                    return;
+                }
+                if(isTooLong){
+                    view.updateStatus(0, 3, 0);
+                    handler.sendEmptyMessageDelayed(1,500);
+                }else {
+                    hideDialog();
+                }
                 WritableMap event = Arguments.createMap();
                 event.putString("mediaPath", voiceFile);
                 event.putString("duration", Integer.toString(duration));
@@ -193,6 +219,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         return chatInput;
     }
 
+
     @ReactProp(name = "menuContainerHeight")
     public void setMenuContainerHeight(ChatInputView chatInputView, int height) {
         Log.w(TAG, "Setting menu container height: " + height);
@@ -201,6 +228,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
     @ReactProp(name = "isDismissMenuContainer")
     public void dismissMenuContainer(ChatInputView chatInputView, boolean isDismiss) {
+        Log.w(TAG, "dismissMenuContainer: " + isDismiss);
         if (isDismiss) {
             chatInputView.dismissMenuLayout();
         }
@@ -228,15 +256,17 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         if (TextUtils.isEmpty(text) || selectedMembers.isEmpty()) {
             return;
         }
-        Iterator<String> keys = selectedMembers.keySet().iterator();
-        while (keys.hasNext()) {
-            String account = keys.next();
-            Pattern p = Pattern.compile("(@" + account + " )");
+        Iterator<Map.Entry<String, RCTMember>> entry = selectedMembers.entrySet().iterator();
+        while (entry.hasNext()) {
+            Map.Entry<String, RCTMember> next = entry.next();
+            String account = next.getKey();
+            String name =  next.getValue().getName();
+            Pattern p = Pattern.compile("(@" + name + " )");
             Matcher matcher = p.matcher(text);
             if (matcher.find()) {
                 continue;
             }
-            keys.remove();
+            entry.remove();
         }
     }
 
@@ -252,7 +282,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         return text;
     }
 
-    private BroadcastReceiver RCTMsgListReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver RCTChatInputReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             Gson gson = new GsonBuilder().registerTypeAdapter(RCTMessage.class, new RCTChatInputDeserialize())

@@ -17,7 +17,7 @@ public interface RecordVoiceListener {
      * @param voiceFile The audio file.
      * @param duration  The duration of audio file, specified in seconds.
      */
-    void onFinishRecord(String voiceFile, int duration);
+    void onFinishRecord(String voiceFile,boolean isTooLong, int duration);
 
     /**
      * Fires when canceled recording, will delete the audio file.
