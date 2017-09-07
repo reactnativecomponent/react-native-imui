@@ -139,6 +139,7 @@
 - (void)detectionVoice
 {
     timeCount = timeCount + 0.05;
+    NSLog(@"----timeCount:%f",timeCount);
 //    NSTimeInterval recordTime = [self.audioRecorder currentTime];
 //    NSLog(@"timeCount:%f  ----recordTime:%f",timeCount,recordTime);
     if (timeCount < maxRecordTime) {
@@ -163,7 +164,7 @@
 /// 停止录音
 - (void)audioRecorderStop
 {
-    NSLog(@"----timeCount:%f",timeCount);
+    
     // 释放计时器
     [self.audioRecorderTimer invalidate];
     self.audioRecorderTimer = nil;

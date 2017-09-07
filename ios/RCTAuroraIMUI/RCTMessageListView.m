@@ -79,7 +79,8 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder:aDecoder];
   if (self) {
-//    self.frame = CGRectMake(0, 0, screenW, screenH-60-50);//60为导航栏高度，50为输入栏默认高度
+    self.frame = CGRectMake(0, 0, screenW, screenH-60-50);//60为导航栏高度，50为输入栏默认高度
+      self.autoresizingMask = UIViewAutoresizingNone;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appendMessages:)
                                                  name:kAppendMessages object:nil];
@@ -268,6 +269,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([strStatus isEqualToString:@"Start"]) {
             coverView.hidden = NO;
+            recordView.time = @"60";
             recordView.status = UIRecordSoundStatusRecoding;
         }else if ([strStatus isEqualToString:@"Complete"]) {
             coverView.hidden = YES;
@@ -361,7 +363,6 @@
 }
 
 - (void)dealloc {
-    NSLog(@"RCTMessageListView----dealloc");
   [[NSNotificationCenter defaultCenter] removeObserver: self];
   [self removeObserver:self forKeyPath:@"bounds"];
 }
