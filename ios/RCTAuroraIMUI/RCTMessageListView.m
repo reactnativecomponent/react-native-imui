@@ -12,7 +12,7 @@
 #import "RCTAuroraIMUIModule.h"
 #import "RNRecordTipsView.h"
 #import "UIView+Extend.h"
-#import "DWOrigImgView.h"
+#import "DWOrigScorllView.h"
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
@@ -27,6 +27,7 @@
 @property (assign, nonatomic) NSTimeInterval lastTime;
 @property (copy, nonatomic) NSString *strLastMsgId;
 @property (copy, nonatomic) NSMutableArray *tmpMessageArr;
+@property (copy, nonatomic) NSMutableArray *imageArr;
 
 @end
 
@@ -46,6 +47,7 @@
             }
             RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
             [modeArr addObject:messageModel];
+            [self appendImageMessage:message];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.messageList fristAppendMessagesWith:modeArr];
@@ -53,12 +55,18 @@
     }
 }
 
-
 - (NSMutableArray *)tmpMessageArr{
     if (_tmpMessageArr == nil) {
         _tmpMessageArr = [NSMutableArray array];
     }
     return _tmpMessageArr;
+}
+
+- (NSMutableArray *)imageArr{
+    if (_imageArr == nil) {
+        _imageArr = [NSMutableArray array];
+    }
+    return _imageArr;
 }
 
 
@@ -84,9 +92,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appendMessages:)
                                                  name:kAppendMessages object:nil];
-//      [[NSNotificationCenter defaultCenter] addObserver:self
-//                                               selector:@selector(fristAppendMessages:)
-//                                                   name:kFristAppendMessage object:nil];
+
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(deleteMessage:)
                                                    name:kDeleteMessage object:nil];
@@ -164,24 +170,6 @@
   }
 }
 
-//- (void)fristAppendMessages:(NSNotification *) notification {
-//    NSArray *messages = [notification object];
-//    for (NSMutableDictionary *message in messages) {
-//        NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue];
-//        if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
-//            _lastTime = msgTime;
-//            _strLastMsgId = [message objectForKey:@"msgId"];
-//            [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
-//        }else{
-//            [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
-//        }
-//        RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//
-//            [self.messageList fristAppendMessageWith: messageModel];
-//        });
-//    }
-//}
 
 - (void)deleteMessage:(NSNotification *)notification{
     NSArray *messages = [[notification object] copy];
@@ -211,6 +199,7 @@
       }else{
           [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
       }
+      [self appendImageMessage:message];
     RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
       if (isShowMenuing) {
           [self.tmpMessageArr addObject:messageModel];
@@ -226,6 +215,7 @@
     NSArray *messages = [[notification object] copy];
     NSMutableArray *messageModels = [NSMutableArray array];
     NSTimeInterval insertTime = 0;
+    NSMutableArray *tmpIMGArr = [NSMutableArray array];
     for (NSMutableDictionary *message in messages) {
         NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue];
         if ((!insertTime)||(fabs(insertTime - msgTime) >180)) {
@@ -234,13 +224,33 @@
         }else{
             [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
         }
+        NSString *strType = [message objectForKey:@"msgType"];
+        if ([strType isEqualToString: @"image"]) {
+            NSMutableDictionary *imgDict = [message objectForKey:@"extend"];
+            [imgDict setObject:[message objectForKey:@"msgId"] forKey:@"msgId"];
+            [tmpIMGArr insertObject:imgDict atIndex:0];
+        }
         RCTMessageModel * messageModel = [self convertMessageDicToModel: message];
         [messageModels insertObject:messageModel atIndex:0];
+    }
+    for (NSMutableDictionary *imgD in tmpIMGArr) {
+        [self.imageArr insertObject:imgD atIndex:0];
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.messageList insertMessagesWith: messageModels];
     });
 }
+//添加图片message到数组
+- (void)appendImageMessage:(NSMutableDictionary *)message{
+    NSString *strType = [message objectForKey:@"msgType"];
+    if ([strType isEqualToString: @"image"]) {
+        NSMutableDictionary *imgDict = [message objectForKey:@"extend"];
+        [imgDict setObject:[message objectForKey:@"msgId"] forKey:@"msgId"];
+        [self.imageArr addObject:imgDict];
+    }
+}
+
+
 
 - (void)updateMessage:(NSNotification *) notification {
     NSMutableDictionary *message = [notification object];
@@ -337,17 +347,28 @@
 
 - (void)clickShowOrigImgView:(NSNotification *)noti{
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *dict = noti.object;
-        DWOrigImgView *origImg = [DWOrigImgView origImgViewWithDict:dict];
-        origImg = [DWOrigImgView origImgViewWithDict:dict];
-        origImg.frame = CGRectMake(0, 0, screenW, screenH);
-        origImg.alpha = 0;
-        [[UIApplication sharedApplication].keyWindow addSubview:origImg];
-        [UIView animateWithDuration:0.5 animations:^{
-            origImg.alpha += 1;
-        } completion:^(BOOL finished) {
-            origImg.alpha = 1;
-        }];
+        NSString *strID = noti.object;
+        if (_imageArr.count) {
+            NSInteger index = 0;
+            for (NSMutableDictionary *imgDict in _imageArr) {
+                NSString *msgID = [imgDict objectForKey:@"msgId"];
+                index ++;
+                if ([strID isEqualToString:msgID]) {
+                    break;
+                }
+            }
+            if (index > 0) {
+                DWOrigScorllView *scroll = [DWOrigScorllView scrollViewWithDataArr:_imageArr andIndex:(index-1)];
+                scroll.frame = CGRectMake(0, 0, screenW, screenH);
+                scroll.alpha = 0;
+                [[UIApplication sharedApplication].keyWindow addSubview:scroll];
+                [UIView animateWithDuration:0.5 animations:^{
+                    scroll.alpha += 1;
+                } completion:^(BOOL finished) {
+                    scroll.alpha = 1;
+                }];
+            }
+        }
     });
 }
 

@@ -13,6 +13,10 @@
 		4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */; };
 		4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */; };
 		4E34C33D1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */; };
+		4E36B2C41F629613009ECBAE /* DWOrigScorllView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */; };
+		4E36B2C51F629613009ECBAE /* DWOrigScorllView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */; };
+		4E36B2C81F62964E009ECBAE /* DWOrigImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */; };
+		4E36B2C91F62964E009ECBAE /* DWOrigImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */; };
 		4E3B9B361F4BD4F400218A0D /* DWAudioRecorderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E3B9B341F4BD4F400218A0D /* DWAudioRecorderManager.h */; };
 		4E3B9B371F4BD4F400218A0D /* DWAudioRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B9B351F4BD4F400218A0D /* DWAudioRecorderManager.m */; };
 		4E466F911F3ADECF0014451B /* M80AttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E466F861F3ADECF0014451B /* M80AttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -98,8 +102,6 @@
 		4E77A3C81F30840000098CAF /* IMUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3941F30840000098CAF /* IMUITextView.swift */; };
 		4E77A3C91F30840000098CAF /* IMUIVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */; };
 		4E77A3CA1F30840000098CAF /* IMUIVoiceMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */; };
-		4E7F98881F56ABB500C9075D /* DWOrigImgView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7F98861F56ABB500C9075D /* DWOrigImgView.h */; };
-		4E7F98891F56ABB500C9075D /* DWOrigImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F98871F56ABB500C9075D /* DWOrigImgView.m */; };
 		4EC4F96D1F46F0B1000C5CA6 /* MenuPopOverView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EC4F96E1F46F0B1000C5CA6 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */; };
 		623EA9A21EE55D0800EC43AE /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */; };
@@ -150,6 +152,10 @@
 		4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITransferMessageCell.swift; sourceTree = "<group>"; };
 		4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUINotificationMessageCell.swift; sourceTree = "<group>"; };
 		4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketOpenMessageCell.swift; sourceTree = "<group>"; };
+		4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigScorllView.m; sourceTree = "<group>"; };
+		4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigScorllView.h; sourceTree = "<group>"; };
+		4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImageView.h; sourceTree = "<group>"; };
+		4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImageView.m; sourceTree = "<group>"; };
 		4E3B9B341F4BD4F400218A0D /* DWAudioRecorderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWAudioRecorderManager.h; sourceTree = "<group>"; };
 		4E3B9B351F4BD4F400218A0D /* DWAudioRecorderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWAudioRecorderManager.m; sourceTree = "<group>"; };
 		4E466F861F3ADECF0014451B /* M80AttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M80AttributedLabel.h; sourceTree = "<group>"; };
@@ -234,8 +240,6 @@
 		4E77A3941F30840000098CAF /* IMUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextView.swift; sourceTree = "<group>"; };
 		4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoMessageCell.swift; sourceTree = "<group>"; };
 		4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVoiceMessageCell.swift; sourceTree = "<group>"; };
-		4E7F98861F56ABB500C9075D /* DWOrigImgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImgView.h; sourceTree = "<group>"; };
-		4E7F98871F56ABB500C9075D /* DWOrigImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImgView.m; sourceTree = "<group>"; };
 		4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopOverView.h; sourceTree = "<group>"; };
 		4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopOverView.m; sourceTree = "<group>"; };
 		6239E6641EDDB1F700B9AC9C /* libAuroraIMUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAuroraIMUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,6 +317,10 @@
 		4E49AD801F34176100B50439 /* DWCustomView */ = {
 			isa = PBXGroup;
 			children = (
+				4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */,
+				4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */,
+				4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */,
+				4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */,
 				4E49ADE71F346B7500B50439 /* DWEmoticonView */,
 				4E49ADD41F341BB400B50439 /* MyCacheImageView.h */,
 				4E49ADD51F341BB400B50439 /* MyCacheImageView.m */,
@@ -357,8 +365,6 @@
 		4E49ADE71F346B7500B50439 /* DWEmoticonView */ = {
 			isa = PBXGroup;
 			children = (
-				4E7F98861F56ABB500C9075D /* DWOrigImgView.h */,
-				4E7F98871F56ABB500C9075D /* DWOrigImgView.m */,
 				4EC4F96A1F46F0B1000C5CA6 /* MenuPopOverView */,
 				4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */,
 				4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */,
@@ -579,6 +585,7 @@
 			files = (
 				4E3B9B361F4BD4F400218A0D /* DWAudioRecorderManager.h in Headers */,
 				4E466F951F3ADECF0014451B /* M80AttributedLabelDefines.h in Headers */,
+				4E36B2C51F629613009ECBAE /* DWOrigScorllView.h in Headers */,
 				4E49AE2D1F3476E500B50439 /* NIMInputEmoticonDefine.h in Headers */,
 				4E49AE2A1F3476CC00B50439 /* NIMInputEmoticonManager.h in Headers */,
 				4E77A3B41F30840000098CAF /* IMUI.h in Headers */,
@@ -590,6 +597,7 @@
 				4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */,
 				4E49ADD61F341BB400B50439 /* MyCacheImageView.h in Headers */,
 				4E49AE1E1F34762200B50439 /* NIMInputEmoticonButton.h in Headers */,
+				4E36B2C81F62964E009ECBAE /* DWOrigImageView.h in Headers */,
 				4E49AE261F34767100B50439 /* UIImage+NIM.h in Headers */,
 				4E49AD9D1F34178000B50439 /* UIView+Extend.h in Headers */,
 				4E49AD991F34178000B50439 /* HPGrowingTextView.h in Headers */,
@@ -602,7 +610,6 @@
 				4E466FA21F3AE5480014451B /* NIMInputEmoticonParser.h in Headers */,
 				4E49AD851F34176100B50439 /* RNCustomInputView.h in Headers */,
 				4E49AE1A1F34760500B50439 /* NIMPageView.h in Headers */,
-				4E7F98881F56ABB500C9075D /* DWOrigImgView.h in Headers */,
 				4E49AD951F34178000B50439 /* DWInputBarControl.h in Headers */,
 				4E49AD9B1F34178000B50439 /* HPTextViewInternal.h in Headers */,
 			);
@@ -754,6 +761,7 @@
 				624B828D1EE5710E006C3C03 /* imuiDemo-Bridging-Header.h in Sources */,
 				4E466F921F3ADECF0014451B /* M80AttributedLabel.m in Sources */,
 				624B82901EE5710E006C3C03 /* MyMessageModel.swift in Sources */,
+				4E36B2C91F62964E009ECBAE /* DWOrigImageView.m in Sources */,
 				4E49AD9A1F34178000B50439 /* HPGrowingTextView.m in Sources */,
 				4E77A3B21F30840000098CAF /* BundleMessageListExtension.swift in Sources */,
 				4E49AE311F3476F800B50439 /* NSString+NIMKit.m in Sources */,
@@ -773,7 +781,6 @@
 				4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */,
 				4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */,
 				4E77A3B31F30840000098CAF /* UIImageMessageListExtension.swift in Sources */,
-				4E7F98891F56ABB500C9075D /* DWOrigImgView.m in Sources */,
 				4E77A3C01F30840000098CAF /* IMUIBaseMessageCell.swift in Sources */,
 				4E77A3AA1F30840000098CAF /* StringExtension.swift in Sources */,
 				4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */,
@@ -820,6 +827,7 @@
 				4E77A3B51F30840000098CAF /* IMUIMessageCellLayout.swift in Sources */,
 				4E466F971F3ADECF0014451B /* M80AttributedLabelURL.m in Sources */,
 				4E49AE1B1F34760500B50439 /* NIMPageView.m in Sources */,
+				4E36B2C41F629613009ECBAE /* DWOrigScorllView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

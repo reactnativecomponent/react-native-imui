@@ -17,7 +17,6 @@
 
 //message Notification
 #define kAppendMessages @"kAppendMessage"
-#define kFristAppendMessage @"kFristAppendMessage"
 #define kInsertMessagesToTop @"kInsertMessagesToTop"
 #define kUpdateMessge @"kUpdateMessge"
 #define kScrollToBottom @"kScrollToBottom"

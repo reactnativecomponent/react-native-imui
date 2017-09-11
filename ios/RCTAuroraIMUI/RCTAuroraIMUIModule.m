@@ -36,9 +36,6 @@ RCT_EXPORT_METHOD(appendMessages:(NSArray *)messages) {
   [[NSNotificationCenter defaultCenter] postNotificationName:kAppendMessages object: messages];
 }
 
-//RCT_EXPORT_METHOD(fristAppendMessages:(NSArray *)messages) {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kFristAppendMessage object: messages];
-//}
 RCT_EXPORT_METHOD(deleteMessage:(NSArray *)messages) {
     [[NSNotificationCenter defaultCenter] postNotificationName:kDeleteMessage object: messages];
 }
@@ -93,8 +90,8 @@ RCT_EXPORT_METHOD(stopPlayActivity) {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"StopPlayActivity" object: nil];
 }
 
-RCT_EXPORT_METHOD(showOrigImage:(NSDictionary *)dict) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: dict];
+RCT_EXPORT_METHOD(showOrigImage:(NSString *)msgID) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: msgID];
 }
 
 @end

@@ -252,7 +252,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         popOver.delegate = self as MenuPopOverViewDelegate
         popOver.presentPopover(from: self.bubbleView.bounds, in: self.bubbleView, withStrings: items as! [Any])
         let obj = "showMenu" as NSString
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ClickLongTouchShowMenuNotification"), object: obj)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kClickLongTouchShowMenuNotification"), object: obj)
         self.delegate?.messageCollectionView?(longTapCellViewModel: self.message!)
     }
   }
@@ -263,7 +263,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     
     public func popoverViewDidDismiss(_ popoverView: MenuPopOverView!) {
         let obj = "dismissMenu" as NSString
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ClickLongTouchShowMenuNotification"), object: obj)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kClickLongTouchShowMenuNotification"), object: obj)
     }
     
   func tapHeaderImage() {

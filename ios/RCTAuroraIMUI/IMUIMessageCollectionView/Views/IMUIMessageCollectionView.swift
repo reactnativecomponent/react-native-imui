@@ -148,13 +148,7 @@ open class IMUIMessageCollectionView: UIView {
         
     }
     
-    open func fristAppendMessage(with message: IMUIMessageModel) {
-        self.chatDataManager.appendMessage(with: message)
-        self.messageCollectionView.reloadData()
-        scrollToBottom(with: false)
 
-    }
-    
     open func deleteMessage(with messageId: String) {
         self.chatDataManager.deleteMessage(with: messageId)
         self.messageCollectionView.reloadData()
