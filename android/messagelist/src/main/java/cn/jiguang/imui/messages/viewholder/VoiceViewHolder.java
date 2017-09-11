@@ -67,7 +67,11 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         if (extend == null) {
             return;
         }
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+        if (SessorUtil.getInstance(mContext).isEarPhoneOn()) {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+        } else {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
         mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
             @Override
@@ -154,11 +158,6 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
             mFIS = new FileInputStream(extend.getPath());
             mFD = mFIS.getFD();
             mMediaPlayer.setDataSource(mFD);
-            if (SessorUtil.getInstance(mContext).isEarPhoneOn()) {
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-            } else {
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            }
             mMediaPlayer.prepare();
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
