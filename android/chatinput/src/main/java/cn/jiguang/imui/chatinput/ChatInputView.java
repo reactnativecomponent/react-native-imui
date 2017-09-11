@@ -225,8 +225,11 @@ public class ChatInputView extends LinearLayout {
     protected void onDetachedFromWindow() {
         if (mWindow != null) {
             getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
+            mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         }
         super.onDetachedFromWindow();
+
 
     }
 
@@ -446,7 +449,7 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissSoftInputAndShowMenu() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
