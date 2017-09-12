@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -172,21 +171,21 @@ public class ChatInputView extends LinearLayout {
         init(context);
         mStyle = ChatInputStyle.parse(context, attrs);
 
-        mChatInput.setMaxLines(mStyle.getInputMaxLines());
-        mChatInput.setHint(mStyle.getInputHint());
-        mChatInput.setText(mStyle.getInputText());
-        mChatInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, mStyle.getInputTextSize());
-        mChatInput.setTextColor(mStyle.getInputTextColor());
-        mChatInput.setHintTextColor(mStyle.getInputHintColor());
-        mChatInput.setBackgroundResource(mStyle.getInputEditTextBg());
+//        mChatInput.setMaxLines(mStyle.getInputMaxLines());
+//        mChatInput.setHint(mStyle.getInputHint());
+//        mChatInput.setText(mStyle.getInputText());
+//        mChatInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, mStyle.getInputTextSize());
+//        mChatInput.setTextColor(mStyle.getInputTextColor());
+//        mChatInput.setHintTextColor(mStyle.getInputHintColor());
+//        mChatInput.setBackgroundResource(mStyle.getInputEditTextBg());
 //        mInputMarginLeft.getLayoutParams().width = mStyle.getInputMarginLeft();
 //        mInputMarginRight.getLayoutParams().width = mStyle.getInputMarginRight();
-        mVoiceBtn.setImageResource(mStyle.getVoiceBtnIcon());
-        mVoiceBtn.setBackground(mStyle.getVoiceBtnBg());
-        mEmojiBtn.setBackground(mStyle.getPhotoBtnBg());
-        mEmojiBtn.setImageResource(mStyle.getPhotoBtnIcon());
-        mSendBtn.setBackground(mStyle.getSendBtnBg());
-        mSendBtn.setImageResource(mStyle.getSendBtnIcon());
+//        mVoiceBtn.setImageResource(mStyle.getVoiceBtnIcon());
+//        mVoiceBtn.setBackground(mStyle.getVoiceBtnBg());
+//        mEmojiBtn.setBackground(mStyle.getPhotoBtnBg());
+//        mEmojiBtn.setImageResource(mStyle.getPhotoBtnIcon());
+//        mSendBtn.setBackground(mStyle.getSendBtnBg());
+//        mSendBtn.setImageResource(mStyle.getSendBtnIcon());
     }
 
     public void addActionView(View view, int index) {
@@ -286,10 +285,15 @@ public class ChatInputView extends LinearLayout {
                 }
 
                 if (view.getId() == R.id.imui_layout_action) {
-                    showType = 2;
+
+
                     changeVoiceToInput(true);
                     actionLayout.setVisibility(VISIBLE);
                     emoticonPickerView.setVisibility(GONE);
+                    if (showType == 1) {
+                        mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
+                    }
+                    showType = 2;
 
                 } else if (view.getId() == R.id.imui_layout_emoji) {
 
