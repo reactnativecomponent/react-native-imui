@@ -10,12 +10,12 @@
 
 #import "DWOrigImageView.h"
 #import "UIView+Extend.h"
-#import "MyCacheImageView.h"
+
 
 
 @interface DWOrigImageView (){
     UIScrollView *contentScrollView;
-    MyCacheImageView *imgView;
+    
     UIPinchGestureRecognizer *pinchGest;
 
     CGRect orginFrame;
@@ -28,7 +28,7 @@
 @implementation DWOrigImageView
 
 - (void)dealloc{
-    [imgView removeGestureRecognizer:pinchGest];
+    [self.imgView removeGestureRecognizer:pinchGest];
 
 }
 
@@ -43,7 +43,7 @@
     NSString *thumbPath = [dict objectForKey:@"thumbPath"];
     NSString *strUrl = [dict objectForKey:@"url"];
     UIImage *placeImg = [UIImage imageWithData:[NSData dataWithContentsOfFile:thumbPath]];
-    [imgView setImageURL:strUrl placeImage:placeImg];
+    [self.imgView setImageURL:strUrl placeImage:placeImg];
 //    imgView.image = [UIImage imageNamed:strUrl];
     NSNumber *numW = [dict objectForKey:@"imageWidth"];
     NSNumber *numH = [dict objectForKey:@"imageHeight"];
@@ -54,9 +54,9 @@
     if (imgH < screenH) {
         imgY = (screenH-imgH)*0.5;
     }
-    imgView.frame = CGRectMake(0, imgY, imgW, imgH);
+    self.imgView.frame = CGRectMake(0, imgY, imgW, imgH);
     contentScrollView.contentSize = CGSizeMake(imgW, imgH);
-    orginFrame = imgView.frame;
+    orginFrame = self.imgView.frame;
 }
 
 
@@ -75,17 +75,17 @@
     contentScrollView.showsVerticalScrollIndicator = NO;
     contentScrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:contentScrollView];
-    imgView = [[MyCacheImageView alloc]init];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.userInteractionEnabled = YES;
-    imgView.multipleTouchEnabled = YES;
-    [contentScrollView addSubview:imgView];
+    self.imgView = [[MyCacheImageView alloc]init];
+    self.imgView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imgView.userInteractionEnabled = YES;
+    self.imgView.multipleTouchEnabled = YES;
+    [contentScrollView addSubview:self.imgView];
     pinchGest = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(clickPinchView:)];
-    [imgView addGestureRecognizer:pinchGest];
+    [self.imgView addGestureRecognizer:pinchGest];
 }
 
 - (void)saveImage{
-    UIImageWriteToSavedPhotosAlbum(imgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    UIImageWriteToSavedPhotosAlbum(self.imgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
 }
 
 
@@ -103,7 +103,7 @@
 
 
 - (void)restoreView{
-    imgView.frame = orginFrame;
+    self.imgView.frame = orginFrame;
     contentScrollView.contentSize = CGSizeMake(screenW, orginFrame.size.height);
 }
 

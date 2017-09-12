@@ -13,6 +13,7 @@
 
 @optional
 - (void)origImageViewClickTap;
+- (void)origImageViewClickScannedImg:(NSString *)strScan;
 
 @end
 

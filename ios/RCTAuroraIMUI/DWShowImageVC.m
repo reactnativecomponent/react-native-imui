@@ -36,6 +36,10 @@
 
 }
 
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
+#pragma mark orgDelegate
 - (void)origImageViewClickTap{
     [self dismissViewControllerAnimated:NO completion:nil];
     [UIView animateWithDuration:0.3 animations:^{
@@ -43,8 +47,15 @@
     } completion:^(BOOL finished) {
         [_scroll removeFromSuperview];
     }];
-
 }
 
+- (void)origImageViewClickScannedImg:(NSString *)strScan{
+    [self dismissViewControllerAnimated:NO completion:^{
+        [_scroll removeFromSuperview];
+         [[NSNotificationCenter defaultCenter]postNotificationName:@"DWOrigImageViewScanNotificatiom" object:strScan];
+    }];
+   
+    
+}
 
 @end

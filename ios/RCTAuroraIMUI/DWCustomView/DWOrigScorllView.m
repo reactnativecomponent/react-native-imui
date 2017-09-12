@@ -7,22 +7,26 @@
 //
 
 #import "DWOrigScorllView.h"
+#import "DWActionSheetView.h"
 
 
 #define margin 20
 
-@interface DWOrigScorllView()<UIScrollViewDelegate>{
+@interface DWOrigScorllView()<UIScrollViewDelegate,DWActionSheetViewDelegate>{
     NSInteger count;
     NSInteger showIndex;
     CGFloat fristContentX;
     UIButton *downBtn;
     UITapGestureRecognizer *tapGest;
+    UILongPressGestureRecognizer *longGest;
 }
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (copy, nonatomic) NSMutableArray *imgArr;
 @property (strong, nonatomic) DWOrigImageView *firstImageView;
 @property (strong, nonatomic) DWOrigImageView *midImageView;
 @property (strong, nonatomic) DWOrigImageView *lastImageView;
+@property (strong, nonatomic) DWOrigImageView *codeImageView;
+@property (copy, nonatomic) NSString *strScanResult;
 
 @end
 
@@ -119,6 +123,9 @@
     tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickTapGest)];
     [self addGestureRecognizer:tapGest];
     
+    longGest = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(clickLongGest:)];
+    [self addGestureRecognizer:longGest];
+    
     CGFloat btnWH = 35;
     CGFloat btnX = screenW - btnWH - 20;
     CGFloat btnY = screenH - btnWH - 20;
@@ -135,6 +142,39 @@
     if ([self.delegate respondsToSelector:@selector(origImageViewClickTap)]) {
         [self.delegate origImageViewClickTap];
     }
+}
+
+//长按
+- (void)clickLongGest:(UILongPressGestureRecognizer *)gest{
+    if (gest.state == UIGestureRecognizerStateBegan){
+        if (_scrollView.contentOffset.x == screenW+margin){//中间
+            [self qrCodeWithImage:_midImageView];
+        }else if (_scrollView.contentOffset.x == 0){
+            [self qrCodeWithImage:_firstImageView];
+        }else if(_scrollView.contentOffset.x == (screenW+margin)*2){
+            [self qrCodeWithImage:_lastImageView];
+        }
+    }
+}
+
+- (void)qrCodeWithImage:(DWOrigImageView *)orgImgView{
+    _codeImageView = orgImgView;
+    NSMutableArray *titles = [NSMutableArray arrayWithObjects:@"保存图片", nil];
+    //1. 初始化扫描仪，设置设别类型和识别质量
+    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
+    //2. 扫描获取的特征组
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:orgImgView.imgView.image.CGImage]];
+    if (features.count) {
+        //3. 获取扫描结果
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        [titles addObject:@"识别图中二维码"];
+        _strScanResult = scannedResult;
+    }else{
+        _strScanResult = @"";
+    }
+    DWActionSheetView *alertSheetView = [[DWActionSheetView alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:titles];
+    [alertSheetView xxy_show];
 }
 
 
@@ -242,5 +282,16 @@
     }
 }
 
+#pragma mark - XXYActionSheetViewDelegate
+- (void)actionSheet:(DWActionSheetView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"buttonIndex:%zd",buttonIndex);
+    if (buttonIndex == 0) {//保存图片
+        [_codeImageView saveImage];
+    }else if(buttonIndex == 1){//识别二维码
+        if ([self.delegate respondsToSelector:@selector(origImageViewClickScannedImg:)]) {
+            [self.delegate origImageViewClickScannedImg:_strScanResult];
+        }
+    }
+}
 
 @end

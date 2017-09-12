@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyCacheImageView.h"
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
 
 
 @interface DWOrigImageView : UIView
-
+@property (strong, nonatomic) MyCacheImageView *imgView;
 + (instancetype)origImgViewWithDict:(NSDictionary *)dict;
 - (void)setupImgViewWithDict:(NSDictionary *)dict;
 - (void)restoreView;//复原ImageView

@@ -117,12 +117,18 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
     
     switch type {
     case .image:
-        let imgWidth = screenW * 0.6;
+        var imgWidth:Float = Float(screenW * 0.4);
         let imgW = self.customDict.object(forKey: "imageWidth") as! NSString
+        if imgWidth > imgW.floatValue  {
+            imgWidth = imgW.floatValue
+        }
         let imgH = self.customDict.object(forKey: "imageHeight") as! NSString
-        let imgPercent:CGFloat = CGFloat(imgH.floatValue / imgW.floatValue)
-        let imgHeight = imgWidth * imgPercent
-        bubbleContentSize = CGSize(width: imgWidth, height: imgHeight)
+        let imgPercent:Float = imgH.floatValue / imgW.floatValue
+        var imgHeight:Float = imgWidth * imgPercent
+        if imgHeight > Float(screenW*1.5) {
+            imgHeight = Float(screenW*1.5)
+        }
+        bubbleContentSize = CGSize(width:  CGFloat(imgWidth), height: CGFloat(imgHeight))
         break
     case .text:
         let tmpLabel = M80AttributedLabel()

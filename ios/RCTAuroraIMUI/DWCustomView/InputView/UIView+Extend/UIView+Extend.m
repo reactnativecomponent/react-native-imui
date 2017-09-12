@@ -90,4 +90,11 @@
     return self.frame.origin.x + self.frame.size.width;
 }
 
+- (void)setOrigin:(CGPoint)origin {
+    CGRect frame = self.frame;
+    frame.origin = origin;
+    self.frame = frame;
+}
+
+
 @end

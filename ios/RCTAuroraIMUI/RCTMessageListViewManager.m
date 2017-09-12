@@ -60,7 +60,7 @@ RCT_EXPORT_VIEW_PROPERTY(onBeginDragMessageList, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLoadMessages, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickChangeAutoScroll, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLongTapCell, RCTBubblingEventBlock)
-
+RCT_EXPORT_VIEW_PROPERTY(onClickScanImageView, RCTBubblingEventBlock)
 
 
 RCT_EXPORT_MODULE()
@@ -317,6 +317,10 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     _messageList.onClickChangeAutoScroll(@{ @"isAutoScroll": [NSNumber numberWithBool:isAutoScroll]});
 }
 
+-(void)onClickScanImageView:(NSString *)strResult{
+    if (!_messageList.onClickScanImageView) { return; }
+    _messageList.onClickScanImageView(@{ @"result": strResult});
+}
 
 //- (void)onPullToRefreshMessageList {
 //    

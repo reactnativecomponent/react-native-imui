@@ -7,6 +7,7 @@
 //
 
 #import "MenuPopOverView.h"
+#import "DWRecoderCoveView.h"
 
 // Geometry metrics
 #define kPopOverViewPadding 20.f
@@ -322,8 +323,14 @@
 
 -(void)setupLayout:(CGRect)rect inView:(UIView*)view {
     // get the top view
-    // http://stackoverflow.com/questions/3843411/getting-reference-to-the-top-most-view-window-in-ios-application/8045804#8045804
-    UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
+ //因为加了一层遮盖在window上面，所以不能取lastObject
+//    UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
+    
+     UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
+    if ([topView isKindOfClass:[DWRecoderCoveView class]]) {
+        NSInteger count = [[UIApplication sharedApplication] keyWindow].subviews.count;
+        topView = [[UIApplication sharedApplication] keyWindow].subviews[count - 2];
+    }
     
     CGRect screenBounds = [self currentScreenBoundsDependOnOrientation];
     float popoverMaxWidth = screenBounds.size.width - 2 * kPopOverViewPadding;
