@@ -18,4 +18,5 @@
 @property (nonatomic,assign) CGFloat centerY;
 @property (assign, nonatomic) CGFloat nim_bottom;
 @property (assign, nonatomic) CGFloat nim_right;
+@property (nonatomic, assign) CGPoint origin;
 @end

@@ -13,13 +13,15 @@
 #import "RNRecordTipsView.h"
 #import "UIView+Extend.h"
 #import "DWOrigScorllView.h"
+#import "DWShowImageVC.h"
+#import "DWRecoderCoveView.h"
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
 
 
 @interface RCTMessageListView ()<IMUIMessageMessageCollectionViewDelegate,UIScrollViewDelegate>{
-    UIView *coverView;
+    DWRecoderCoveView *coverView;
     RNRecordTipsView *recordView;
     BOOL isShowMenuing;
     
@@ -115,7 +117,8 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
-      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickRemoveImageView) name:@"RemoveDWOrigImgView" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickScanOrigImgView:) name:@"DWOrigImageViewScanNotificatiom" object:nil];
+      
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
     
@@ -133,33 +136,27 @@
 
 
 - (void)addCoverView{
-    coverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenW, screenH)];
-    coverView.backgroundColor = [UIColor clearColor];
-    
-    CGFloat recordWH = 150;
-    CGFloat recordX = (screenW - recordWH)*0.5;
-    CGFloat recordY = (screenH - recordWH )*0.3;
-    recordView = [[RNRecordTipsView alloc]initWithFrame:CGRectMake(recordX, recordY, recordWH, recordWH)];
-    recordView.numFontSize = @"60";
-    recordView.status = UIRecordSoundStatusRecoding;
-    [coverView addSubview:recordView];
-    coverView.hidden = YES;
-    [self addSubview:coverView];
-
+//    for (UIView *tmpView in [UIApplication sharedApplication].keyWindow.subviews) {
+//        if ([tmpView isKindOfClass:[DWRecoderCoveView class]]) {
+//            [tmpView removeFromSuperview];
+//        }
+//    }
+//    coverView = [[DWRecoderCoveView alloc]initWithFrame:CGRectMake(0, 0, screenW, screenH-50)];
+//    coverView.backgroundColor = [UIColor clearColor];
+//    
+//    CGFloat recordWH = 150;
+//    CGFloat recordX = (screenW - recordWH)*0.5;
+//    CGFloat recordY = (screenH - recordWH )*0.4;
+//    recordView = [[RNRecordTipsView alloc]initWithFrame:CGRectMake(recordX, recordY, recordWH, recordWH)];
+//    recordView.numFontSize = @"60";
+//    recordView.status = UIRecordSoundStatusRecoding;
+//    [coverView addSubview:recordView];
+//    coverView.hidden = YES;
+//    [[UIApplication sharedApplication].keyWindow addSubview:coverView];
+//    NSLog(@"keyWindow:%zd",[UIApplication sharedApplication].keyWindow.subviews.count);
 }
 
 
-
-//- (void)refresh:(UIRefreshControl *)refreshControl
-//{
-//  [self performSelector:@selector(endRefresh:) withObject:refreshControl afterDelay:0.5f];
-//}
-//
-//- (void)endRefresh:(UIRefreshControl *)refreshControl
-//{
-//  [refreshControl endRefreshing];
-//
-//}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -358,25 +355,27 @@
                 }
             }
             if (index > 0) {
-                DWOrigScorllView *scroll = [DWOrigScorllView scrollViewWithDataArr:_imageArr andIndex:(index-1)];
-                scroll.frame = CGRectMake(0, 0, screenW, screenH);
-                scroll.alpha = 0;
-                [[UIApplication sharedApplication].keyWindow addSubview:scroll];
-                [UIView animateWithDuration:0.5 animations:^{
-                    scroll.alpha += 1;
-                } completion:^(BOOL finished) {
-                    scroll.alpha = 1;
-                }];
+                UIWindow *win = [UIApplication sharedApplication].keyWindow;
+                UIViewController *rootVC = win.rootViewController;
+                DWShowImageVC *vc = [[DWShowImageVC alloc]init];
+                vc.imageArr = _imageArr;
+                vc.index = index;
+                [rootVC presentViewController:vc animated:NO completion:nil];
             }
         }
     });
 }
 
-- (void)clickRemoveImageView{
-    if (_delegate != nil) {
-        [_delegate onClickRemoveImageView];
-    }
+- (void)clickScanOrigImgView:(NSNotification *)noti{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *strResult = noti.object;
+        if (_delegate != nil) {
+            [_delegate onClickScanImageView:strResult];
+        }
+    });
+
 }
+
 
 - (void)awakeFromNib {
   [super awakeFromNib];
@@ -386,6 +385,7 @@
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver: self];
   [self removeObserver:self forKeyPath:@"bounds"];
+
 }
 
 

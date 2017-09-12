@@ -14,7 +14,7 @@
 @protocol RCTMessageListDelegate <NSObject>
 @optional
 //- (void)onPullToRefreshMessageList;
-- (void)onClickRemoveImageView;
+- (void)onClickScanImageView:(NSString *)strResult;
 
 @end
 
@@ -33,7 +33,8 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onClickLoadMessages;
 @property (nonatomic, copy) RCTBubblingEventBlock onClickChangeAutoScroll;
 @property(nonatomic, copy) RCTBubblingEventBlock onClickLongTapCell;
-@property(nonatomic, copy) RCTBubblingEventBlock onClickRemoveImageView;
+@property(nonatomic, copy) RCTBubblingEventBlock onClickScanImageView;
+
 
 @property (copy, nonatomic) NSArray *initalData;
 
