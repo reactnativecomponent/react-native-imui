@@ -13,6 +13,7 @@
 #import "RNRecordTipsView.h"
 #import "UIView+Extend.h"
 #import "DWOrigScorllView.h"
+#import "DWShowImageVC.h"
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
@@ -115,7 +116,6 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
-      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickRemoveImageView) name:@"RemoveDWOrigImgView" object:nil];
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
     
@@ -358,25 +358,28 @@
                 }
             }
             if (index > 0) {
-                DWOrigScorllView *scroll = [DWOrigScorllView scrollViewWithDataArr:_imageArr andIndex:(index-1)];
-                scroll.frame = CGRectMake(0, 0, screenW, screenH);
-                scroll.alpha = 0;
-                [[UIApplication sharedApplication].keyWindow addSubview:scroll];
-                [UIView animateWithDuration:0.5 animations:^{
-                    scroll.alpha += 1;
-                } completion:^(BOOL finished) {
-                    scroll.alpha = 1;
-                }];
+//                DWOrigScorllView *scroll = [DWOrigScorllView scrollViewWithDataArr:_imageArr andIndex:(index-1)];
+//                scroll.frame = CGRectMake(0, 0, screenW, screenH);
+//                scroll.alpha = 0;
+//                [[UIApplication sharedApplication].keyWindow addSubview:scroll];
+//                [UIView animateWithDuration:0.5 animations:^{
+//                    scroll.alpha += 1;
+//                } completion:^(BOOL finished) {
+//                    scroll.alpha = 1;
+//                }];
+                UIWindow *win = [UIApplication sharedApplication].keyWindow;
+                UIViewController *rootVC = win.rootViewController;
+                DWShowImageVC *vc = [[DWShowImageVC alloc]init];
+                vc.imageArr = _imageArr;
+                vc.index = index;
+                [rootVC presentViewController:vc animated:NO completion:nil];
             }
         }
     });
+
+    
 }
 
-- (void)clickRemoveImageView{
-    if (_delegate != nil) {
-        [_delegate onClickRemoveImageView];
-    }
-}
 
 - (void)awakeFromNib {
   [super awakeFromNib];

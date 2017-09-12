@@ -7,7 +7,7 @@
 //
 
 #import "DWOrigScorllView.h"
-#import "DWOrigImageView.h"
+
 
 #define margin 20
 
@@ -32,13 +32,13 @@
      [self removeGestureRecognizer:tapGest];
 }
 
-+ (instancetype)scrollViewWithDataArr:(NSArray *)dataArr andIndex:(NSInteger )index{
++ (instancetype)scrollViewWithDataArr:(NSArray *)dataArr andIndex:(NSInteger )index showDownBtnTime:(NSTimeInterval)time{
     DWOrigScorllView *scroll = [[DWOrigScorllView alloc]init];
-    [scroll setupWithDataArr:dataArr andIndex:index];
+    [scroll setupWithDataArr:dataArr andIndex:index showDownBtnTime:time];
     return scroll;
 }
 
-- (void)setupWithDataArr:(NSArray *)arr andIndex:(NSInteger )index{
+- (void)setupWithDataArr:(NSArray *)arr andIndex:(NSInteger )index showDownBtnTime:(NSTimeInterval)time{
     _imgArr = [arr copy];
     count = _imgArr.count;
     if (_imgArr.count == 1) {
@@ -95,8 +95,12 @@
         showIndex = index;
         _scrollView.contentOffset = CGPointMake(fristContentX, 0);
     }
+    [self performSelector:@selector(showBtnDelayMethod) withObject:nil afterDelay:time];
 }
 
+- (void)showBtnDelayMethod{
+    downBtn.hidden = NO;
+}
 
 - (instancetype)init{
     if (self = [super init]) {
@@ -122,13 +126,15 @@
     [downBtn setBackgroundImage:[UIImage imageNamed:@"download"] forState:UIControlStateNormal];
     [downBtn addTarget:self action:@selector(clickDownLoadBtn) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:downBtn];
-    [self performSelector:@selector(delayMethod) withObject:nil  afterDelay:3.0];
+    downBtn.hidden = YES;
+    [self performSelector:@selector(delayMethod) withObject:nil  afterDelay:5.0];
 }
 
 
 - (void)clickTapGest{
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"RemoveDWOrigImgView" object:nil];
-    [self removeFromSuperview];
+    if ([self.delegate respondsToSelector:@selector(origImageViewClickTap)]) {
+        [self.delegate origImageViewClickTap];
+    }
 }
 
 

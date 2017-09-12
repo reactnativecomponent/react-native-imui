@@ -65,6 +65,8 @@
 		4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */; };
 		4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */; };
 		4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */; };
+		4E6573561F66940200D4BAA8 /* DWShowImageVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6573541F66940200D4BAA8 /* DWShowImageVC.h */; };
+		4E6573571F66940200D4BAA8 /* DWShowImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6573551F66940200D4BAA8 /* DWShowImageVC.m */; };
 		4E77A3A51F30840000098CAF /* IMUIAudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */; };
 		4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36A1F30840000098CAF /* CGRectExtension.swift */; };
 		4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36B1F30840000098CAF /* CIImageExtension.swift */; };
@@ -203,6 +205,8 @@
 		4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageHeadCell.swift; sourceTree = "<group>"; };
 		4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILocationMessageCell.swift; sourceTree = "<group>"; };
 		4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketMessageCell.swift; sourceTree = "<group>"; };
+		4E6573541F66940200D4BAA8 /* DWShowImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWShowImageVC.h; sourceTree = "<group>"; };
+		4E6573551F66940200D4BAA8 /* DWShowImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWShowImageVC.m; sourceTree = "<group>"; };
 		4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIAudioPlayerHelper.swift; sourceTree = "<group>"; };
 		4E77A36A1F30840000098CAF /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		4E77A36B1F30840000098CAF /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
@@ -541,6 +545,8 @@
 				623EA9781EE55CB200EC43AE /* RCTAuroraIMUI-Bridging-Header.h */,
 				623EA97E1EE55CB200EC43AE /* RCTMessageListView.h */,
 				623EA97F1EE55CB200EC43AE /* RCTMessageListView.m */,
+				4E6573541F66940200D4BAA8 /* DWShowImageVC.h */,
+				4E6573551F66940200D4BAA8 /* DWShowImageVC.m */,
 				623EA9801EE55CB200EC43AE /* RCTMessageListView.xib */,
 				623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */,
 				623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */,
@@ -610,6 +616,7 @@
 				4E466FA21F3AE5480014451B /* NIMInputEmoticonParser.h in Headers */,
 				4E49AD851F34176100B50439 /* RNCustomInputView.h in Headers */,
 				4E49AE1A1F34760500B50439 /* NIMPageView.h in Headers */,
+				4E6573561F66940200D4BAA8 /* DWShowImageVC.h in Headers */,
 				4E49AD951F34178000B50439 /* DWInputBarControl.h in Headers */,
 				4E49AD9B1F34178000B50439 /* HPTextViewInternal.h in Headers */,
 			);
@@ -811,6 +818,7 @@
 				4E77A3C31F30840000098CAF /* IMUIMessageBubbleView.swift in Sources */,
 				4E466F991F3ADECF0014451B /* NSMutableAttributedString+M80.m in Sources */,
 				624B829A1EE5710E006C3C03 /* RCTMessageListView.h in Sources */,
+				4E6573571F66940200D4BAA8 /* DWShowImageVC.m in Sources */,
 				4E49AD961F34178000B50439 /* DWInputBarControl.m in Sources */,
 				4E49AE271F34767100B50439 /* UIImage+NIM.m in Sources */,
 				4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */,
