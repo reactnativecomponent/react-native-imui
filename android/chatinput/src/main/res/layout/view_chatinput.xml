@@ -50,6 +50,7 @@
             <EditText
                 android:id="@+id/imui_chat_input"
                 android:layout_height="@dimen/imui_chat_width"
+                android:maxLines="5"
                 android:layout_width="match_parent"
                 android:background="@drawable/aurora_edittext_bg"
                 android:cursorVisible="true"
