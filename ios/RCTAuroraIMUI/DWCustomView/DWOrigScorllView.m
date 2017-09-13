@@ -284,12 +284,13 @@
 
 #pragma mark - XXYActionSheetViewDelegate
 - (void)actionSheet:(DWActionSheetView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"buttonIndex:%zd",buttonIndex);
-    if (buttonIndex == 0) {//保存图片
-        [_codeImageView saveImage];
-    }else if(buttonIndex == 1){//识别二维码
-        if ([self.delegate respondsToSelector:@selector(origImageViewClickScannedImg:)]) {
-            [self.delegate origImageViewClickScannedImg:_strScanResult];
+    if (buttonIndex != actionSheet.cancelButtonIndex){
+        if (buttonIndex == 0) {//保存图片
+            [_codeImageView saveImage];
+        }else if(buttonIndex == 1){//识别二维码
+            if ([self.delegate respondsToSelector:@selector(origImageViewClickScannedImg:)]) {
+                [self.delegate origImageViewClickScannedImg:_strScanResult];
+            }
         }
     }
 }

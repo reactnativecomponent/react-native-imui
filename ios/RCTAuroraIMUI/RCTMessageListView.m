@@ -136,23 +136,23 @@
 
 
 - (void)addCoverView{
-//    for (UIView *tmpView in [UIApplication sharedApplication].keyWindow.subviews) {
-//        if ([tmpView isKindOfClass:[DWRecoderCoveView class]]) {
-//            [tmpView removeFromSuperview];
-//        }
-//    }
-//    coverView = [[DWRecoderCoveView alloc]initWithFrame:CGRectMake(0, 0, screenW, screenH-50)];
-//    coverView.backgroundColor = [UIColor clearColor];
-//    
-//    CGFloat recordWH = 150;
-//    CGFloat recordX = (screenW - recordWH)*0.5;
-//    CGFloat recordY = (screenH - recordWH )*0.4;
-//    recordView = [[RNRecordTipsView alloc]initWithFrame:CGRectMake(recordX, recordY, recordWH, recordWH)];
-//    recordView.numFontSize = @"60";
-//    recordView.status = UIRecordSoundStatusRecoding;
-//    [coverView addSubview:recordView];
-//    coverView.hidden = YES;
-//    [[UIApplication sharedApplication].keyWindow addSubview:coverView];
+    for (UIView *tmpView in [UIApplication sharedApplication].keyWindow.subviews) {
+        if ([tmpView isKindOfClass:[DWRecoderCoveView class]]) {
+            [tmpView removeFromSuperview];
+        }
+    }
+    coverView = [[DWRecoderCoveView alloc]initWithFrame:CGRectMake(0, 0, screenW, screenH-50)];
+    coverView.backgroundColor = [UIColor clearColor];
+    
+    CGFloat recordWH = 150;
+    CGFloat recordX = (screenW - recordWH)*0.5;
+    CGFloat recordY = (screenH - recordWH )*0.4;
+    recordView = [[RNRecordTipsView alloc]initWithFrame:CGRectMake(recordX, recordY, recordWH, recordWH)];
+    recordView.numFontSize = @"60";
+    recordView.status = UIRecordSoundStatusRecoding;
+    [coverView addSubview:recordView];
+    coverView.hidden = YES;
+    [[UIApplication sharedApplication].keyWindow addSubview:coverView];
 //    NSLog(@"keyWindow:%zd",[UIApplication sharedApplication].keyWindow.subviews.count);
 }
 
@@ -160,11 +160,14 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-  if (object == self && [keyPath isEqualToString:@"bounds"]) {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      [self.messageList scrollToBottomWith: NO];
-    });
-  }
+    UIViewController *topVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if (!topVC.presentedViewController) {
+        if (object == self && [keyPath isEqualToString:@"bounds"]) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.messageList scrollToBottomWith: NO];
+            });
+        }
+    }
 }
 
 

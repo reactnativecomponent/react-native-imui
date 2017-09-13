@@ -343,7 +343,7 @@
     CGFloat maxY = CGRectGetMaxY(destRect);
     
     // 1 pixel gap
-    if (maxY + kPopOverViewHeight + 1 > CGRectGetMidY(topViewBounds)) {
+    if (maxY + kPopOverViewHeight + 1 > (CGRectGetMidY(topViewBounds)+60)) {
         _isArrowUp = NO;
         _arrowPoint = CGPointMake(CGRectGetMidX(destRect), minY - 1);
     } else {
