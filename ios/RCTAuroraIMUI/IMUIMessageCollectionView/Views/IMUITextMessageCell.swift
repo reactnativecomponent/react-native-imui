@@ -66,12 +66,13 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
 //    textMessageLable.text = text
     textMessageLable.nim_setText(text);
     if isOutGoing {
-      textMessageLable.textColor = UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        textMessageLable.linkColor = UIColor.init(red: 35/255, green: 141/255.0, blue: 250/255, alpha: 1)
+        textMessageLable.textColor = UIColor.white
+        textMessageLable.linkColor = UIColor.init(red: 187/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1)
         
     } else {
-      textMessageLable.textColor = UIColor.white
-      textMessageLable.linkColor = UIColor.init(red: 187/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1)
+        textMessageLable.textColor = UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
+        textMessageLable.linkColor = UIColor.init(red: 35/255, green: 141/255.0, blue: 250/255, alpha: 1)
+      
     }
   }
     
