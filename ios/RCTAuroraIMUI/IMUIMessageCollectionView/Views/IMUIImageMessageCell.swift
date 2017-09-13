@@ -10,7 +10,7 @@ import UIKit
 
 class IMUIImageMessageCell: IMUIBaseMessageCell {
 
-  var imageView = UIImageView()
+  var imageView = MyCacheImageView()
     var myMessage: IMUIMessageModelProtocol?
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -19,7 +19,10 @@ class IMUIImageMessageCell: IMUIBaseMessageCell {
   }
   
     func clickDidCompletePic(notification:Notification){
-        self.layoutImage(image: UIImage(contentsOfFile: (self.myMessage?.mediaFilePath())!)!)
+        let tmpImage = UIImage(contentsOfFile: (self.myMessage?.mediaFilePath())!)
+        if tmpImage != nil{
+            self.layoutImage(image: tmpImage!)
+        }
     }
     
   required init?(coder aDecoder: NSCoder) {
@@ -39,6 +42,9 @@ class IMUIImageMessageCell: IMUIBaseMessageCell {
     let image = UIImage(contentsOfFile: message.mediaFilePath())
     if image != nil {
         self.layoutImage(image: image!)
+    }else{
+        let strUrl = message.customDict.object(forKey: "url") as! String
+        self.imageView.setImageURL(strUrl)
     }
   }
   
