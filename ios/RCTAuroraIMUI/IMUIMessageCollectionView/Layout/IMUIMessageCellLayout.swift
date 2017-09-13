@@ -16,7 +16,7 @@ import UIKit
  */
 open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
 
-  public static var avatarSize: CGSize = CGSize(width: 40, height: 40)
+  public static var avatarSize: CGSize = CGSize(width: 40, height: 40)//js那边可以设置
   
   public static var avatarOffsetToCell: UIOffset = UIOffset(horizontal: 0, vertical: 10)
   
@@ -83,6 +83,7 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
     let bubbleHeight = bubbleContentSize.height +
       bubbleContentInset.top +
       bubbleContentInset.bottom
+//    print("bubbleHeight:\(bubbleHeight)   :\(bubbleContentSize.height)  :\(bubbleContentInset.top)  :\(bubbleContentInset.bottom)")
     return CGSize(width: bubbleWidth, height: bubbleHeight)
   }
   

@@ -403,8 +403,8 @@ open class RCTMessageModel: IMUIMessageModel {
 
 //MARK - IMUIMessageCellLayoutProtocal
 open class MyMessageCellLayout: IMUIMessageCellLayout {
-  open static var outgoingPadding = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 15)
-  open static var incommingPadding = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 10)
+  open static var outgoingPadding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+  open static var incommingPadding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
   
   override init(isOutGoingMessage: Bool, isNeedShowTime: Bool, bubbleContentSize: CGSize, bubbleContentInsets: UIEdgeInsets, showAvatar: Bool) {
     
@@ -412,7 +412,6 @@ open class MyMessageCellLayout: IMUIMessageCellLayout {
   }
   
   open override var bubbleContentInset: UIEdgeInsets {
-    
     if isOutGoingMessage {
       return MyMessageCellLayout.outgoingPadding
     } else {
