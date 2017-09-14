@@ -160,10 +160,22 @@
 - (void)qrCodeWithImage:(DWOrigImageView *)orgImgView{
     _codeImageView = orgImgView;
     NSMutableArray *titles = [NSMutableArray arrayWithObjects:@"保存图片", nil];
+    
+    NSData *imgData = UIImageJPEGRepresentation(orgImgView.imgView.image,1);
+    UIImage *codeImg;
+    if (imgData.length/1024 > 1000) {
+        NSData *data = nil;
+        data = UIImageJPEGRepresentation(orgImgView.imgView.image,0.1);
+        codeImg = [UIImage imageWithData:data];
+//        NSLog(@"压缩:%zd",imgData.length);
+    }else{
+        codeImg = orgImgView.imgView.image;
+//        NSLog(@"原图");
+    }
     //1. 初始化扫描仪，设置设别类型和识别质量
-    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];
+    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyLow }];
     //2. 扫描获取的特征组
-    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:orgImgView.imgView.image.CGImage]];
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:codeImg.CGImage]];
     if (features.count) {
         //3. 获取扫描结果
         CIQRCodeFeature *feature = [features objectAtIndex:0];
