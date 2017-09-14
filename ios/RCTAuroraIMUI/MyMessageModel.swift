@@ -293,7 +293,7 @@ open class RCTMessageModel: IMUIMessageModel {
     tmpLabel.font = IMUITextMessageCell.inComingTextFont
     tmpLabel.nim_setText(text)
 //    return tmpLabel.sizeThatFits(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
-    return tmpLabel.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
+    return tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
     
 //    if isOutGoing {
 //      return text.sizeWithConstrainedWidth(with: IMUIMessageCellLayout.bubbleMaxWidth, font: IMUITextMessageCell.outGoingTextFont)
@@ -404,8 +404,8 @@ open class RCTMessageModel: IMUIMessageModel {
 //MARK - IMUIMessageCellLayoutProtocal
 open class MyMessageCellLayout: IMUIMessageCellLayout {
 
-  open static var outgoingPadding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 14)
-  open static var incommingPadding = UIEdgeInsets(top: 8, left: 14, bottom: 8, right: 8)
+  open static var outgoingPadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 14)
+  open static var incommingPadding = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 8)
 
   
   override init(isOutGoingMessage: Bool, isNeedShowTime: Bool, bubbleContentSize: CGSize, bubbleContentInsets: UIEdgeInsets, showAvatar: Bool) {

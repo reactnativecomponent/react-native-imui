@@ -53,9 +53,10 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     }else{
         self.textMessageLable.textAlignment = CTTextAlignment.center
     }
-    let textX = layout.bubbleContentInset.left
-    let textY = layout.bubbleContentInset.top
+
     let textSize = self.textMessageLable.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
+    let textX = layout.bubbleContentInset.left
+    let textY = (layout.bubbleFrame.height - textSize.height)*0.5
     self.textMessageLable.frame = CGRect(origin: CGPoint(x:textX, y:textY), size: textSize)
     
   }

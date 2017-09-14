@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize)sizeThatFits:(CGSize)size;
 
 - (CGSize)getTheLabelSize:(CGSize)maxSize;
+- (CGSize)getTheLabelBubbleSize:(CGSize)maxSize;
 
 //设置全局的自定义Link检测Block(详见M80AttributedLabelURL)
 + (void)setCustomDetectMethod:(nullable M80CustomDetectLinkBlock)block;

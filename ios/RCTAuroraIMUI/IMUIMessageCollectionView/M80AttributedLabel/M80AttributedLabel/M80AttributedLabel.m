@@ -642,6 +642,25 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
     }
 }
 
+- (CGSize)getTheLabelBubbleSize:(CGSize)maxSize{
+    NSAttributedString *drawString = [self attributedStringForDraw];
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef) drawString);
+    CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, 0), NULL, maxSize, NULL);
+    CFRelease(framesetter);
+    CGFloat tmpW = fitSize.width;
+    CGFloat tmpH = fitSize.height;
+    if (tmpW < 30) {
+        tmpW = 30;
+    }else{
+        tmpW = tmpW + 3;
+    }
+    if (tmpH < 40) {
+        tmpH = 40;
+    }
+    return CGSizeMake(tmpW, tmpH );
+}
+
+
 
 - (CGSize)getTheLabelSize:(CGSize)maxSize{
     NSAttributedString *drawString = [self attributedStringForDraw];

@@ -134,7 +134,8 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         let tmpLabel = M80AttributedLabel()
         tmpLabel.nim_setText(self.text())
         tmpLabel.font = IMUITextMessageCell.inComingTextFont
-        bubbleContentSize = tmpLabel.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
+        bubbleContentSize = tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
+        print("bubbleContentSize: \(bubbleContentSize)")
 //        bubbleContentSize = tmpLabel.sizeThatFits(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
         
 //      if isOutGoing {
