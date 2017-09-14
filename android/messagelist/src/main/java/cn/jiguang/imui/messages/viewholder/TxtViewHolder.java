@@ -78,7 +78,8 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
         super.applyStyle(style);
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
         mMsgTv.setTextSize(17);
-        mMsgTv.setLinkTextColor(mIsSender ? Color.parseColor("#238dfa") : Color.parseColor("#bbdcff"));
+        mMsgTv.setTextColor(mIsSender ? Color.WHITE : Color.BLACK);
+        mMsgTv.setLinkTextColor(mIsSender ? Color.parseColor("#bbdcff") : Color.parseColor("#238dfa"));
 
     }
 

@@ -49,7 +49,7 @@ public class ImageViewPagerActivity extends Activity {
             }
         };
         List<String> list = new ArrayList<>();
-        viewPager.setAdapter(new DraweePagerAdapter(list, null, imageloader));
+        viewPager.setAdapter(new DraweePagerAdapter(list, null,null, imageloader));
 //        indicator.setViewPager(viewPager);
     }
 }

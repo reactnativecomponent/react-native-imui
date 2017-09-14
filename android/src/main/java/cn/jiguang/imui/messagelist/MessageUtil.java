@@ -127,8 +127,7 @@ public class MessageUtil {
                             ext.getString(MessageConstant.RedPacketOpen.SEND_ID), ext.getString(MessageConstant.RedPacketOpen.OPEN_ID));
                 }
                 break;
-            case SEND_CUSTOM:
-            case RECEIVE_CUSTOM:
+            case CUSTOM:
             case TIP:
             case NOTIFICATION:
             case EVENT:

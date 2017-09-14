@@ -71,7 +71,12 @@ public class PhotoViewPagerViewUtil {
             public void onClick(View view) {
                 dialog.dismiss();
             }
-        }, imageLoader);
+        }, new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return false;
+            }
+        },imageLoader);
         viewPager.setAdapter(adapter);
         final TextView indexText = (TextView) view.findViewById(R.id.pager_index);
         if (urlArray.size() == 1) {

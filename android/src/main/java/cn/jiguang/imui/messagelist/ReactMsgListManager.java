@@ -3,6 +3,7 @@ package cn.jiguang.imui.messagelist;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
@@ -33,6 +35,7 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.popup.tool.PopupUtil;
 import com.popupmenu.NIMPopupMenu;
 import com.popupmenu.PopupMenuItem;
 
@@ -42,10 +45,12 @@ import java.util.List;
 import java.util.Map;
 
 import cn.jiguang.imui.commons.ImageLoader;
+import cn.jiguang.imui.commons.models.IMediaFile;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
 import cn.jiguang.imui.messages.MessageList;
 import cn.jiguang.imui.messages.MsgListAdapter;
+import cn.jiguang.imui.utils.PhotoViewPagerViewUtil;
 import cn.jiguang.imui.utils.SessorUtil;
 
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
@@ -69,6 +74,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     private static final String ON_TOUCH_MSG_LIST_EVENT = "onTouchMsgList";
     private static final String ON_PULL_TO_REFRESH_EVENT = "onPullToRefresh";
     private static final String ON_CLICK_CHANGE_AUTO_SCROLL_EVENT = "onClickChangeAutoScroll";
+    private static final String ON_DECODE_QR_CODE_EVENT = "onDecodeQRCode";
 
     public static final String RCT_APPEND_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.appendMessages";
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
@@ -149,10 +155,15 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
         };
         mAdapter = new MsgListAdapter<>("0", holdersConfig, imageLoader);
         mAdapter.setActivity(mContext.getCurrentActivity());
-        msgList.setAdapter(mAdapter,5);
+        msgList.setAdapter(mAdapter, 5);
         mAdapter.setOnMsgClickListener(new MsgListAdapter.OnMsgClickListener<RCTMessage>() {
             @Override
             public void onMessageClick(RCTMessage message) {
+                if (message.getType() == IMessage.MessageType.SEND_IMAGE || message.getType() == IMessage.MessageType.RECEIVE_IMAGE) {
+                    IMediaFile extend = (IMediaFile) message.getExtend();
+                    PhotoViewPagerViewUtil.show(reactContext.getCurrentActivity(), mAdapter.getImageList(), mAdapter.getImageIndex(extend), null);
+                    return;
+                }
                 WritableMap event = Arguments.createMap();
                 event.putMap("message", message.toWritableMap());
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_CLICK_EVENT, event);
@@ -163,9 +174,9 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onMessageLongClick(RCTMessage message) {
                 showMenu(reactContext, message);
-                WritableMap event = Arguments.createMap();
-                event.putMap("message", message.toWritableMap());
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_LONG_CLICK_EVENT, event);
+//                WritableMap event = Arguments.createMap();
+//                event.putMap("message", message.toWritableMap());
+//                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_LONG_CLICK_EVENT, event);
             }
         });
 
@@ -229,13 +240,46 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
             @Override
             public void onAutoScroll(boolean autoScroll) {
                 WritableMap event = Arguments.createMap();
-                event.putBoolean("isAutoScroll",autoScroll);
+                event.putBoolean("isAutoScroll", autoScroll);
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                         ON_CLICK_CHANGE_AUTO_SCROLL_EVENT, event);
             }
         });
         return msgList;
     }
+
+    private PhotoViewPagerViewUtil.IPhotoLongClickListener longClickListener = new PhotoViewPagerViewUtil.IPhotoLongClickListener() {
+        @Override
+        public boolean onClick(final Dialog dialog, View v, final IMediaFile mediaFile) {
+            String code = null;
+            try {
+                code = DecodeUtil.parseQRcodeBitmap(mediaFile.getThumbPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            List<String> list = new ArrayList<>();
+            list.add("保存图片");
+            if (code != null) {
+                list.add("识别图中二维码");
+            }
+            final String finalCode = code;
+            PopupUtil.showDialog(mContext.getCurrentActivity(), null, list, new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 0) {
+                        PhotoViewPagerViewUtil.saveImageToAlbum(mediaFile, mContext);
+                    } else if (position == 1) {
+                        dialog.dismiss();
+                        WritableMap event = Arguments.createMap();
+                        event.putString("code", finalCode);
+                        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                                ON_DECODE_QR_CODE_EVENT, event);
+                    }
+                }
+            });
+            return false;
+        }
+    };
 
     void showMenu(final ReactContext reactContext, final RCTMessage message) {
         CustomAlertDialog dialog = new CustomAlertDialog(reactContext.getCurrentActivity());
@@ -499,6 +543,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                 .put(ON_TOUCH_MSG_LIST_EVENT, MapBuilder.of("registrationName", ON_TOUCH_MSG_LIST_EVENT))
                 .put(ON_PULL_TO_REFRESH_EVENT, MapBuilder.of("registrationName", ON_PULL_TO_REFRESH_EVENT))
                 .put(ON_CLICK_CHANGE_AUTO_SCROLL_EVENT, MapBuilder.of("registrationName", ON_CLICK_CHANGE_AUTO_SCROLL_EVENT))
+                .put(ON_DECODE_QR_CODE_EVENT, MapBuilder.of("registrationName", ON_DECODE_QR_CODE_EVENT))
                 .build();
     }
 

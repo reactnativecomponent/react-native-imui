@@ -24,7 +24,7 @@ import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 
 public class RecordHelper {
 
-    private static final int MIN_INTERVAL_TIME = 1000;// 1s
+    private static final int MIN_INTERVAL_TIME = 3000;// 1s
 
     private static final int MAX_INTERVAL_TIME = 60;// 1s
 
@@ -68,6 +68,7 @@ public class RecordHelper {
             recorder.setOnErrorListener(new MediaRecorder.OnErrorListener() {
                 @Override
                 public void onError(MediaRecorder mediaRecorder, int i, int i2) {
+                    cancelRecord();
                     Log.i("RecordVoiceController", "recorder prepare failed!");
                 }
             });
@@ -83,7 +84,8 @@ public class RecordHelper {
                 Toast.makeText(mContext, mContext.getString(R.string.illegal_state_toast), Toast.LENGTH_SHORT).show();
             }
 //
-            cancelTimer();
+//            cancelTimer();
+            cancelRecord();
 //            dismissDialog();
             if (currentAudioFile != null) {
                 currentAudioFile.delete();

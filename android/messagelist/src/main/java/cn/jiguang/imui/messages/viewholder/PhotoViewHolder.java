@@ -11,7 +11,6 @@ import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IMediaFile;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageListStyle;
-import cn.jiguang.imui.utils.PhotoViewPagerViewUtil;
 
 public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<MESSAGE> {
 
@@ -36,7 +35,9 @@ public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         mPhotoIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoViewPagerViewUtil.show(getAdapter().getActivity(), getAdapter().getImageList(), getAdapter().getImageIndex(extend));
+                if(mMsgClickListener!=null){
+                    mMsgClickListener.onMessageClick(message);
+                }
             }
         });
         mPhotoIv.setOnLongClickListener(new View.OnLongClickListener() {
