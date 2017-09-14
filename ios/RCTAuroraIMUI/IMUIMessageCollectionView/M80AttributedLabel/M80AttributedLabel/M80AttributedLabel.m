@@ -528,7 +528,7 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
     [self appendImage:image
               maxSize:maxSize
                margin:margin
-            alignment:M80ImageAlignmentBottom];
+            alignment:M80ImageAlignmentCenter];
 }
 
 - (void)appendImage:(UIImage *)image
@@ -1176,6 +1176,8 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
 
 - (void)nim_setText:(NSString *)text
 {
+    
+    CGFloat imgHW = self.font.pointSize + 4;
     [self setText:@""];
     NSArray *tokens = [[NIMInputEmoticonParser currentParser] tokens:text];
     for (NIMInputTextToken *token in tokens)
@@ -1187,7 +1189,7 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
             if (image)
             {
                 [self appendImage:image
-                          maxSize:CGSizeMake(18, 18)];
+                          maxSize:CGSizeMake(imgHW, imgHW)];
             }
         }
         else
