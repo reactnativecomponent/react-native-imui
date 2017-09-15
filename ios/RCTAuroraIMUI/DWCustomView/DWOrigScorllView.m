@@ -161,22 +161,12 @@
 - (void)qrCodeWithImage:(DWOrigImageView *)orgImgView{
     _codeImageView = orgImgView;
     NSMutableArray *titles = [NSMutableArray arrayWithObjects:@"保存图片", nil];
-    
-    NSData *imgData = UIImageJPEGRepresentation(orgImgView.imgView.image,1);
-    UIImage *codeImg;
-    if (imgData.length/1024 > 1000) {
-        NSData *data = nil;
-        data = UIImageJPEGRepresentation(orgImgView.imgView.image,0.1);
-        codeImg = [UIImage imageWithData:data];
-//        NSLog(@"压缩:%zd",imgData.length);
-    }else{
-        codeImg = orgImgView.imgView.image;
-//        NSLog(@"原图");
-    }
+    UIImage *image = [self imageSizeWithScreenImage:orgImgView.imgView.image];
+
     //1. 初始化扫描仪，设置设别类型和识别质量
-    CIDetector*detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyLow }];
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy: CIDetectorAccuracyHigh}];
     //2. 扫描获取的特征组
-    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:codeImg.CGImage]];
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
     if (features.count) {
         //3. 获取扫描结果
         CIQRCodeFeature *feature = [features objectAtIndex:0];
@@ -188,6 +178,32 @@
     }
     DWActionSheetView *alertSheetView = [[DWActionSheetView alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:titles];
     [alertSheetView xxy_show];
+}
+
+//压缩图片
+- (UIImage *)imageSizeWithScreenImage:(UIImage *)image{
+    CGFloat imageWidth = image.size.width;
+    CGFloat imageHeight = image.size.height;
+    CGFloat screenWidth = screenW;
+    CGFloat screenHeight = screenH;
+    
+    if (imageWidth <= screenWidth && imageHeight <= screenHeight) {
+        return image;
+    }
+    
+    CGFloat max = MAX(imageWidth, imageHeight);
+    CGFloat scale = max / (screenHeight * 2.0);
+    
+    CGSize size = CGSizeMake(imageWidth / scale, imageHeight / scale);
+//    UIGraphicsBeginImageContext(size);
+    UIGraphicsBeginImageContextWithOptions(size, YES, 1.0);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+    
+    return nil;
 }
 
 
