@@ -48,8 +48,9 @@
             android:paddingTop="5dp">
 
             <EditText
+                android:layout_gravity="center"
                 android:id="@+id/imui_chat_input"
-                android:layout_height="@dimen/imui_chat_width"
+                android:layout_height="@dimen/imui_chat_input_width"
                 android:maxLines="5"
                 android:layout_width="match_parent"
                 android:background="@drawable/aurora_edittext_bg"
@@ -62,10 +63,11 @@
                 android:textSize="18sp" />
 
             <Button
+                android:layout_gravity="center"
                 android:id="@+id/imui_chat_voice"
                 android:layout_width="match_parent"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_height="@dimen/imui_chat_width"
+                android:layout_height="@dimen/imui_chat_input_width"
                 android:background="@drawable/voice_bg"
                 android:text="按住 说话"
                 android:visibility="invisible" />

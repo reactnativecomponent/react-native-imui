@@ -16,7 +16,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.dowin.imageviewer.DraweePagerAdapter;
@@ -45,28 +44,46 @@ public class PhotoViewPagerViewUtil {
     static ImageLoader imageLoader = new ImageLoader<IMediaFile>() {
         @Override
         public void load(final PhotoDraweeView photoDraweeView, IMediaFile o) {
-            ImageRequest request;
-            if (TextUtils.isEmpty(o.getUrl())) {
-                request = ImageRequest.fromFile(new File(o.getThumbPath()));
-            } else {
-                photoDraweeView.setThumbImage(o.getThumbPath());
-                request = ImageRequest.fromUri(o.getUrl());
-            }
 
-            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
-            controller.setImageRequest(request);
-            controller.setOldController(photoDraweeView.getController());
-            controller.setControllerListener(new BaseControllerListener<ImageInfo>() {
-                @Override
-                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                    super.onFinalImageSet(id, imageInfo, animatable);
-                    if (imageInfo == null) {
-                        return;
-                    }
-                    photoDraweeView.update(imageInfo.getWidth(), imageInfo.getHeight());
+//                RequestManager m = Glide.with(photoDraweeView.getContext());
+//                DrawableTypeRequest request;
+//
+//                if (TextUtils.isEmpty(o.getUrl())) {
+//                    request = m.load(o.getUrl());
+//                } else {
+//                    request = m.load(new File(o.getThumbPath()));
+//                }
+//                request.fitCenter()
+//                        .placeholder(R.drawable.aurora_picture_not_found)
+//                        .override(400, Target.SIZE_ORIGINAL)
+//                        .into(photoDraweeView);
+
+            try {
+                ImageRequest request;
+                if (TextUtils.isEmpty(o.getUrl())) {
+                    request = ImageRequest.fromFile(new File(o.getThumbPath()));
+                } else {
+                    photoDraweeView.setThumbImage(o.getThumbPath());
+                    request = ImageRequest.fromUri(o.getUrl());
                 }
-            });
-            photoDraweeView.setController(controller.build());
+
+                PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
+                controller.setImageRequest(request);
+                controller.setOldController(photoDraweeView.getController());
+                controller.setControllerListener(new BaseControllerListener<ImageInfo>() {
+                    @Override
+                    public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                        super.onFinalImageSet(id, imageInfo, animatable);
+                        if (imageInfo == null) {
+                            return;
+                        }
+                        photoDraweeView.update(imageInfo.getWidth(), imageInfo.getHeight());
+                    }
+                });
+                photoDraweeView.setController(controller.build());
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -109,12 +126,12 @@ public class PhotoViewPagerViewUtil {
             }
         }, imageLoader);
         View download = view.findViewById(R.id.download);
-        try {
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) download.getLayoutParams();
-            params.bottomMargin = 37;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) download.getLayoutParams();
+//            params.bottomMargin = 37;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +153,7 @@ public class PhotoViewPagerViewUtil {
         Rect rect = new Rect();
         View decorView = mActivity.getWindow().getDecorView();
         decorView.getWindowVisibleDisplayFrame(rect);
-        lay.height = dm.heightPixels;// - rect.top;
+        lay.height = dm.heightPixels - rect.top;
         lay.width = dm.widthPixels;
         dialog.show();
     }
