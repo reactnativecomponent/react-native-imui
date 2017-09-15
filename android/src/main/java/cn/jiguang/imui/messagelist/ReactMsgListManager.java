@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
@@ -24,6 +25,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.Target;
 import com.dialog.CustomAlertDialog;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -57,7 +59,7 @@ import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 import static com.bumptech.glide.Glide.with;
 
 
-public class ReactMsgListManager extends ViewGroupManager<MessageList> {
+public class ReactMsgListManager extends ViewGroupManager<MessageList> implements LifecycleEventListener {
 
     private static final String REACT_MESSAGE_LIST = "RCTMessageList";
     private static final String TAG = "RCTMessageList";
@@ -270,6 +272,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
                         PhotoViewPagerViewUtil.saveImageToAlbum(mediaFile, mContext);
                     } else if (position == 1) {
                         dialog.dismiss();
+                        Toast.makeText(mContext,finalCode,Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
                         event.putString("code", finalCode);
                         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
@@ -563,6 +566,22 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> {
     public void onCatalystInstanceDestroy() {
         super.onCatalystInstanceDestroy();
         Log.w(TAG, "onCatalystInstanceDestroy");
+
+    }
+
+    @Override
+    public void onHostResume() {
+
+    }
+
+    @Override
+    public void onHostPause() {
+        if (mAdapter != null)
+            mAdapter.pausePlayVoice();
+    }
+
+    @Override
+    public void onHostDestroy() {
 
     }
 }

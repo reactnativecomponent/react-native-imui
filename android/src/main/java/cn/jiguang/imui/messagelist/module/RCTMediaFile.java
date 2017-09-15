@@ -13,6 +13,7 @@ public class RCTMediaFile extends RCTExtend implements IMediaFile{
 
 
 
+    private String id;
     private String height;
     private String width;
     private String displayName;
@@ -67,6 +68,15 @@ public class RCTMediaFile extends RCTExtend implements IMediaFile{
         this.duration = duration;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String getHeight() {
         return height;
@@ -100,5 +110,10 @@ public class RCTMediaFile extends RCTExtend implements IMediaFile{
     @Override
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

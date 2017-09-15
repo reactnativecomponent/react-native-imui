@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/pager_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,20 +25,16 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/download"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginBottom="25dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/download" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
+        android:src="@drawable/download" />
     <!--<me.relex.circleindicator.CircleIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"

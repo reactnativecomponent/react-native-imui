@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -420,9 +421,34 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         }
     }
 
+    void deleteImage(MESSAGE message) {
+        if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE || message.getType() == IMessage.MessageType.SEND_IMAGE) {
+            IMediaFile extend = (IMediaFile) message.getExtend();
+            for (int i = 0; i < imageList.size(); i++) {
+                if (TextUtils.equals(message.getMsgId(), imageList.get(i).getId())) {
+                    imageList.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    void updateImage(MESSAGE message) {
+        if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE || message.getType() == IMessage.MessageType.SEND_IMAGE) {
+            IMediaFile extend = (IMediaFile) message.getExtend();
+            for (int i = 0; i < imageList.size(); i++) {
+                if (TextUtils.equals(message.getMsgId(),imageList.get(i).getId())) {
+                    imageList.set(i, extend);
+                    break;
+                }
+            }
+        }
+    }
+
     void addImage(MESSAGE message, boolean fromStart) {
         if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE || message.getType() == IMessage.MessageType.SEND_IMAGE) {
             IMediaFile extend = (IMediaFile) message.getExtend();
+            extend.setId(message.getMsgId());
             if (fromStart) {
                 imageList.add(0, extend);
             } else {
@@ -433,7 +459,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
 
     public int getImageIndex(IMediaFile mediaFile) {
         for (int i = 0; i < imageList.size(); i++) {
-            if (imageList.get(i) == mediaFile) {
+            if (TextUtils.equals(imageList.get(i).getId(), mediaFile.getId())) {
                 return i;
             }
         }
@@ -488,6 +514,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         if (position >= 0) {
             Wrapper<MESSAGE> element = new Wrapper<>(newMessage);
             mItems.set(position, element);
+            updateImage(newMessage);
             notifyItemChanged(position);
             if (mLayoutManager != null) {
                 mLayoutManager.requestLayout();
@@ -502,6 +529,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
      */
     public void delete(MESSAGE message) {
         deleteById(message.getMsgId());
+        deleteImage(message);
     }
 
     /**
@@ -744,6 +772,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
 
     public interface OnLoadMoreListener {
         void onLoadMore(int page, int totalCount);
+
         void onAutoScroll(boolean autoScroll);
     }
 
@@ -1244,6 +1273,11 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         ViewHolderController.getInstance().release();
     }
 
+    public void pausePlayVoice() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.pause();
+        }
+    }
     public void stopPlayVoice() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
