@@ -10,14 +10,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.dowin.imageviewer.DraweePagerAdapter;
@@ -32,7 +31,6 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import cn.jiguang.imui.R;
@@ -111,6 +109,12 @@ public class PhotoViewPagerViewUtil {
             }
         }, imageLoader);
         View download = view.findViewById(R.id.download);
+        try {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) download.getLayoutParams();
+            params.bottomMargin = 37;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,27 +125,7 @@ public class PhotoViewPagerViewUtil {
             }
         });
         viewPager.setAdapter(adapter);
-        final TextView indexText = (TextView) view.findViewById(com.dowin.imageviewer.R.id.pager_index);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                indexText.setText(String.format("%d/%d", position + 1, adapter.getCount()));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         viewPager.setCurrentItem(curIndex);
-        indexText.setText(String.format("%d/%d", curIndex + 1, adapter.getCount()));
-        //        indicator.setViewPager(viewPager);
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(false);
@@ -164,7 +148,7 @@ public class PhotoViewPagerViewUtil {
                 String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), imageFile.getAbsolutePath(), "title", "description");
                 context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + imageFile.getAbsolutePath())));
                 Toast.makeText(context, "保存到相册！", Toast.LENGTH_SHORT).show();
-            } catch (FileNotFoundException e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
             }
         }

@@ -6,6 +6,8 @@ package cn.jiguang.imui.commons.models;
 
 public interface IMediaFile extends IExtend {
 
+    void setId(String id);
+    String getId();
     String getHeight();
 
     String getWidth();
