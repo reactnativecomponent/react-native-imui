@@ -88,9 +88,9 @@ public class RCTMessage implements IMessage {
                 case MessageConstant.MsgType.LINK:
                     return MessageType.SEND_LINK;
                 case MessageConstant.MsgType.CUSTON:
-                    return MessageType.SEND_CUSTOM;
+                    return MessageType.CUSTOM;
                 default:
-                    return MessageType.SEND_CUSTOM;
+                    return MessageType.CUSTOM;
             }
         } else {
             switch (msgType) {
@@ -121,9 +121,9 @@ public class RCTMessage implements IMessage {
                 case MessageConstant.MsgType.LINK:
                     return MessageType.RECEIVE_LINK;
                 case MessageConstant.MsgType.CUSTON:
-                    return MessageType.RECEIVE_CUSTOM;
+                    return MessageType.CUSTOM;
                 default:
-                    return MessageType.RECEIVE_CUSTOM;
+                    return MessageType.CUSTOM;
             }
         }
     }

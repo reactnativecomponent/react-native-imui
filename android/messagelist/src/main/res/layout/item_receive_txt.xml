@@ -28,7 +28,7 @@
             android:id="@+id/aurora_tv_msgitem_message"
             style="@style/aurora_msgitem_msg_txt_style"
             android:autoLink="all"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textIsSelectable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

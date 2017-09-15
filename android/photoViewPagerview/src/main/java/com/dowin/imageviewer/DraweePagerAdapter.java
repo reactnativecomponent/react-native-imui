@@ -18,12 +18,14 @@ import me.relex.photodraweeview.PhotoDraweeView;
 
 public class DraweePagerAdapter<T> extends PagerAdapter {
     private View.OnClickListener listener = null;
+    private View.OnLongClickListener longClickListener = null;
     private ImageLoader imageLoader;
 
-    public DraweePagerAdapter(List<T> urls, View.OnClickListener listener, ImageLoader<T> imageLoader) {
+    public DraweePagerAdapter(List<T> urls, View.OnClickListener listener,View.OnLongClickListener longClickListener, ImageLoader<T> imageLoader) {
         this.listener = listener;
         this.mDrawables = urls;
         this.imageLoader = imageLoader;
+        this.longClickListener = longClickListener;
     }
 
     private List<T> mDrawables = new ArrayList<>();
@@ -64,6 +66,7 @@ public class DraweePagerAdapter<T> extends PagerAdapter {
                     listener.onClick(view);
                 }
             });
+            photoDraweeView.setOnLongClickListener(longClickListener);
         }
 //        photoDraweeView.getHierarchy();
         imageLoader.load(photoDraweeView, item);

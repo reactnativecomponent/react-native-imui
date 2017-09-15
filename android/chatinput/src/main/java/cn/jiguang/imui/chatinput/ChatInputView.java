@@ -289,7 +289,7 @@ public class ChatInputView extends LinearLayout {
 
                     changeVoiceToInput(true);
                     actionLayout.setVisibility(VISIBLE);
-                    emoticonPickerView.setVisibility(GONE);
+                    emoticonPickerView.setVisibility(INVISIBLE);
                     if (showType == 1) {
                         mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
                     }
@@ -302,7 +302,7 @@ public class ChatInputView extends LinearLayout {
                     emoticonPickerView.setVisibility(VISIBLE);
                     mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_text_selector);
                     emoticonPickerView.show(emoticonSelectedListener);
-                    actionLayout.setVisibility(GONE);
+                    actionLayout.setVisibility(INVISIBLE);
                 }
                 if (mListener != null) {
                     mListener.onFeatureView(inputHeight, showType);
@@ -439,9 +439,9 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         try {
-            Thread.sleep(100);
+            Thread.sleep(140);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -453,9 +453,9 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissSoftInputAndShowMenu() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         try {
-            Thread.sleep(100);
+            Thread.sleep(140);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -476,7 +476,7 @@ public class ChatInputView extends LinearLayout {
     }
 
     public void invisibleMenuLayout() {
-        mMenuContainer.setVisibility(GONE);
+        mMenuContainer.setVisibility(INVISIBLE);
     }
 
     public void showMenuLayout() {

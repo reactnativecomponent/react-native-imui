@@ -67,11 +67,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         if (extend == null) {
             return;
         }
-        if (SessorUtil.getInstance(mContext).isEarPhoneOn()) {
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
-        } else {
-            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        }
+
         mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
             @Override
@@ -154,6 +150,11 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     private void playVoice(int position, IMediaFile extend) {
         mController.setLastPlayPosition(position);
         try {
+            if (SessorUtil.getInstance(mContext).isEarPhoneOn()) {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_VOICE_CALL);
+            } else {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            }
             mMediaPlayer.reset();
             mFIS = new FileInputStream(extend.getPath());
             mFD = mFIS.getFD();

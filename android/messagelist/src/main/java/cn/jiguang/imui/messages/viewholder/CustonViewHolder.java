@@ -2,70 +2,64 @@ package cn.jiguang.imui.messages.viewholder;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.TextView;
 
-import cn.jiguang.imui.BuildConfig;
 import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageListStyle;
+import cn.jiguang.imui.messages.MsgListAdapter;
 
-public class CustonViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<MESSAGE> {
+public class CustonViewHolder<MESSAGE extends IMessage>
+        extends BaseMessageViewHolder<MESSAGE>
+        implements MsgListAdapter.DefaultMessageViewHolder {
 
-    protected TextView mMsgTv;
-
+    private TextView mTextView;
 
     public CustonViewHolder(RecyclerView.Adapter adapter, View itemView, boolean isSender) {
-        super(adapter, itemView, isSender);
-        mMsgTv = (TextView) itemView.findViewById(R.id.aurora_tv_msgitem_message);
+        super(adapter, itemView);
+        mTextView = (TextView) itemView.findViewById(R.id.aurora_tv_msgitem_event);
+        mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        String start = "收到当前版本不支持的消息，请";
+        String end = "更新版本";
 
+        SpannableString spann = new SpannableString(start + end + "查看");
+        spann.setSpan(new ClickAble(), start.length() - 1, start.length() + end.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTextView.setText(spann);
     }
 
-
     @Override
-    public void onBind(final MESSAGE message) {
-        super.onBind(message);
-//        mMsgTv.setText(message.getText());
-        String mText = message.getText();
+    public void onBind(MESSAGE message) {
 
-        mMsgTv.setText("暂不支持该消息类型");
 
-        mMsgTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mMsgClickListener != null) {
-                    mMsgClickListener.onMessageClick(message);
-                }
-            }
-        });
 
-        mMsgTv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (mMsgLongClickListener != null) {
-                    mMsgLongClickListener.onMessageLongClick(message);
-                } else {
-                    if (BuildConfig.DEBUG) {
-                        Log.w("MsgListAdapter", "Didn't set long click listener! Drop event.");
-                    }
-                }
-                return true;
-            }
-        });
     }
 
     @Override
     public void applyStyle(MessageListStyle style) {
-        super.applyStyle(style);
-        mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
-        mMsgTv.setTextSize(17);
-        mMsgTv.setLinkTextColor(Color.rgb(173,0,151));
+
+        mTextView.setTextColor(Color.WHITE);
+        mTextView.setTextSize(12);
     }
 
+    class ClickAble extends ClickableSpan implements View.OnClickListener {
 
-    public TextView getMsgTextView() {
-        return mMsgTv;
+        @Override
+        public void onClick(View widget) {
+            if (onLinkClickListener != null) {
+//                onLinkClickListener.onLinkClick(widget, "");
+            }
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            ds.setColor(Color.rgb(35,141,250));
+            ds.setUnderlineText(true);
+        }
     }
-
 }

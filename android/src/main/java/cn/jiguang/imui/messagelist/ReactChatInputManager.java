@@ -36,7 +36,6 @@ import cn.jiguang.imui.chatinput.listener.OnMenuClickListener;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 import cn.jiguang.imui.messagelist.module.RCTMember;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
-import cn.jiguang.imui.utils.SessorUtil;
 
 
 public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
@@ -90,7 +89,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         intentFilter.addAction(RCT_AIT_MEMBERS_ACTION);
 
         mContext = reactContext;
-        SessorUtil.getInstance(reactContext).register(true);
+//        SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTChatInputReceiver, intentFilter);
 
         final Activity activity = reactContext.getCurrentActivity();

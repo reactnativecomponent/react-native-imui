@@ -67,8 +67,7 @@ public interface IMessage {
         SEND_FILE,
         RECEIVE_FILE,
 
-        SEND_CUSTOM,
-        RECEIVE_CUSTOM;
+        CUSTOM;
 
         public String type;
 

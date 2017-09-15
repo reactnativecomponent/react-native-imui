@@ -72,7 +72,11 @@ public class PhotoViewPagerViewUtil {
         }
     };
 
-    public static void show(final Activity mActivity, final List<IMediaFile> list, int curIndex) {
+    public interface IPhotoLongClickListener {
+        boolean onClick(Dialog dialog, View v, IMediaFile mediaFile);
+    }
+
+    public static void show(final Activity mActivity, final List<IMediaFile> list, int curIndex, final IPhotoLongClickListener longClickListener) {
 
         final Dialog dialog = new Dialog(mActivity, com.dowin.imageviewer.R.style.ImageDialog);
         final View view = mActivity.getLayoutInflater().inflate(com.dowin.imageviewer.R.layout.activity_viewpager, null);
@@ -92,6 +96,18 @@ public class PhotoViewPagerViewUtil {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
+            }
+        }, new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (longClickListener != null) {
+                    final int index = viewPager.getCurrentItem();
+                    if (index >= 0 && index < list.size()) {
+                        longClickListener.onClick(dialog, v, list.get(index));
+                    }
+                }
+                return false;
             }
         }, imageLoader);
         View download = view.findViewById(R.id.download);
