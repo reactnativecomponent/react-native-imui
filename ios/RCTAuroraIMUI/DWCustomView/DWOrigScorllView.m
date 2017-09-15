@@ -19,6 +19,7 @@
     UIButton *downBtn;
     UITapGestureRecognizer *tapGest;
     UILongPressGestureRecognizer *longGest;
+    CGFloat beginDragX;
 }
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (copy, nonatomic) NSMutableArray *imgArr;
@@ -212,23 +213,36 @@
 
 #pragma mark -- scrollviewDelgate
 
+// 当开始滚动视图时，执行该方法。一次有效滑动（开始滑动，滑动一小段距离，只要手指不松开，只算一次滑动），只执行一次。
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    beginDragX = scrollView.contentOffset.x;
+}
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if (scrollView.contentOffset.x < screenW*0.5) {
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }else if ((scrollView.contentOffset.x < screenW+margin+screenW*0.5)&&(scrollView.contentOffset.x > screenW*0.5 )) {
-        [scrollView setContentOffset:CGPointMake(screenW+margin, 0) animated:YES];
-    }else{
-        [scrollView setContentOffset:CGPointMake((screenW+margin)*2, 0) animated:YES];
-    }
+     [self changeScrollViewOffset:scrollView];
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.x < screenW*0.5) {
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }else if ((scrollView.contentOffset.x < screenW+margin+screenW*0.5)&&(scrollView.contentOffset.x > screenW*0.5 )) {
-        [scrollView setContentOffset:CGPointMake(screenW+margin, 0) animated:YES];
-    }else{
-        [scrollView setContentOffset:CGPointMake((screenW+margin)*2, 0) animated:YES];
+    [self changeScrollViewOffset:scrollView];
+}
+
+- (void)changeScrollViewOffset:(UIScrollView *)scrollView{
+    if ((scrollView.contentOffset.x - beginDragX)>0) {//向右
+        if (scrollView.contentOffset.x < screenW*0.2) {
+            [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }else if ((scrollView.contentOffset.x < screenW+margin+screenW*0.2)&&(scrollView.contentOffset.x > screenW*0.2 )) {
+            [scrollView setContentOffset:CGPointMake(screenW+margin, 0) animated:YES];
+        }else{
+            [scrollView setContentOffset:CGPointMake((screenW+margin)*2, 0) animated:YES];
+        }
+    }else{//向左
+        if(scrollView.contentOffset.x < screenW*0.8+margin) {
+            [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }else if (scrollView.contentOffset.x < ((screenW+margin)*2 - screenW*0.2) && (scrollView.contentOffset.x > (screenW+margin-screenW*0.2 ))) {
+            [scrollView setContentOffset:CGPointMake(screenW+margin, 0) animated:YES];
+        }else{
+            [scrollView setContentOffset:CGPointMake((screenW+margin)*2, 0) animated:YES];
+        }
     }
 }
 

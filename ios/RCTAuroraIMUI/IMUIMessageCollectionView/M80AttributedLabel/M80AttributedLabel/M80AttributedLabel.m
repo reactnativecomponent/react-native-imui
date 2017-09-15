@@ -656,6 +656,8 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
     }
     if (tmpH < 40) {
         tmpH = 40;
+    }else{
+        tmpH += 20;
     }
     return CGSizeMake(tmpW, tmpH );
 }
