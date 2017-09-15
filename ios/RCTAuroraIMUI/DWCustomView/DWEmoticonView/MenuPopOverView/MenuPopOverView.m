@@ -18,7 +18,7 @@
 #define kRightButtonWidth 30.f
 #define kArrowHeight 9.5f
 #define kTextFont [UIFont systemFontOfSize:14]
-#define kTextEdgeInsets 10.f
+#define kTextEdgeInsets 20.f
 
 // Customizable color
 #define kDefaultBackgroundColor [UIColor blackColor]
@@ -342,6 +342,7 @@
     CGFloat minY = CGRectGetMinY(destRect);
     CGFloat maxY = CGRectGetMaxY(destRect);
     
+    NSLog(@":%f     :%f",maxY + kPopOverViewHeight + 1,CGRectGetMidY(topViewBounds));
     // 1 pixel gap
     if (maxY + kPopOverViewHeight + 1 > (CGRectGetMidY(topViewBounds)+60)) {
         _isArrowUp = NO;

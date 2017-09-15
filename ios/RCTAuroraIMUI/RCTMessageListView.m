@@ -244,8 +244,14 @@
 - (void)appendImageMessage:(NSMutableDictionary *)message{
     NSString *strType = [message objectForKey:@"msgType"];
     if ([strType isEqualToString: @"image"]) {
+        NSString *strID = [message objectForKey:@"msgId"];
         NSMutableDictionary *imgDict = [message objectForKey:@"extend"];
-        [imgDict setObject:[message objectForKey:@"msgId"] forKey:@"msgId"];
+        [imgDict setObject:strID forKey:@"msgId"];
+        for (NSMutableDictionary *tmpDict in self.imageArr) {
+            if ([[tmpDict objectForKey:@"msgId"] isEqualToString:strID]) {
+                return;
+            }
+        }
         [self.imageArr addObject:imgDict];
     }
 }
