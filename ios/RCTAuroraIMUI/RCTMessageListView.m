@@ -175,6 +175,7 @@
     NSArray *messages = [[notification object] copy];
     for (NSMutableDictionary *message in messages) {
         NSString *strMsgId = [message objectForKey:@"msgId"];
+        [self deleteImageMessage:message];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.messageList deleteMessageWith:strMsgId];
         });
@@ -255,7 +256,18 @@
         [self.imageArr addObject:imgDict];
     }
 }
-
+//从数组中删除图片
+- (void)deleteImageMessage:(NSMutableDictionary *)message{
+    NSMutableArray *tmpArr = [self.imageArr copy];
+    NSString *strID = [message objectForKey:@"msgId"];
+    for (NSInteger i=0; i<tmpArr.count; i++) {
+        NSMutableDictionary *tmpDict = tmpArr[i];
+        if ([[tmpDict objectForKey:@"msgId"] isEqualToString:strID]) {
+            [self.imageArr removeObjectAtIndex:i];
+            return;
+        }
+    }
+}
 
 
 - (void)updateMessage:(NSNotification *) notification {

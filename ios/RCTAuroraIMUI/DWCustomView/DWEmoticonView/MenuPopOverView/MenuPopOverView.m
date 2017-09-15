@@ -337,20 +337,28 @@
 
     // determine the arrow position
     CGRect topViewBounds = topView.bounds;
+    //rect是去到的cell的大小，然后求其相对位置
     CGPoint origin = [topView convertPoint:rect.origin fromView:view];
     CGRect destRect = CGRectMake(origin.x, origin.y, rect.size.width, rect.size.height);
     CGFloat minY = CGRectGetMinY(destRect);
     CGFloat maxY = CGRectGetMaxY(destRect);
-    
-    NSLog(@":%f     :%f",maxY + kPopOverViewHeight + 1,CGRectGetMidY(topViewBounds));
-    // 1 pixel gap
-    if (maxY + kPopOverViewHeight + 1 > (CGRectGetMidY(topViewBounds)+60)) {
-        _isArrowUp = NO;
-        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), minY - 1);
-    } else {
+    if (minY < 100) {
         _isArrowUp = YES;
         _arrowPoint = CGPointMake(CGRectGetMidX(destRect), maxY + 1);
+    } else {
+        _isArrowUp = NO;
+        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), minY - 1);
     }
+    
+
+//    // 1 pixel gap
+//    if (maxY + kPopOverViewHeight + 1 > (CGRectGetMidY(topViewBounds)+60)) {
+//        _isArrowUp = NO;
+//        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), minY - 1);
+//    } else {
+//        _isArrowUp = YES;
+//        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), maxY + 1);
+//    }
     
     float contentWidth = self.contentView.frame.size.width;
     float xOrigin = 0.f;
