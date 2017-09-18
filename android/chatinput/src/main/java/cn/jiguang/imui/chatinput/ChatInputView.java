@@ -408,15 +408,15 @@ public class ChatInputView extends LinearLayout {
             }
 
             hideInputMethod();
-            dismissMenuLayout();
+
         } else {
             changeVoiceToInput(true);
             if (!empty) {
                 changeSendToAction(false);
             }
             showInputMethod();
-            dismissMenuAndResetSoftMode();
         }
+        dismissMenuLayout();
     }
 
     private void hideInputMethod() {
@@ -437,9 +437,14 @@ public class ChatInputView extends LinearLayout {
         inputMethodManager.showSoftInput(mChatInput, 0);
     }
 
+    public void setSoftInput(boolean resize) {
+        mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                | (resize ? WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE : WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN));
+    }
+
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         try {
             Thread.sleep(140);
         } catch (InterruptedException e) {
@@ -453,7 +458,7 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissSoftInputAndShowMenu() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         try {
             Thread.sleep(140);
         } catch (InterruptedException e) {
