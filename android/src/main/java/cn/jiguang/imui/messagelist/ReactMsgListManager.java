@@ -56,7 +56,6 @@ import cn.jiguang.imui.utils.PhotoViewPagerViewUtil;
 import cn.jiguang.imui.utils.SessorUtil;
 
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
-import static com.bumptech.glide.Glide.with;
 
 
 public class ReactMsgListManager extends ViewGroupManager<MessageList> implements LifecycleEventListener {
@@ -121,22 +120,20 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             @Override
             public void loadAvatarImage(ImageView avatarImageView, String string) {
 
-                if (reactContext == null || reactContext.getCurrentActivity() == null || string != null) {
+                Log.w(TAG, "loadAvatarImage: " + string);
+                if (reactContext == null || reactContext.getCurrentActivity() == null || string == null) {
                     return;
                 }
-                try {
+                if (string.startsWith("http://")||string.startsWith("https://")) {
+                    Glide.with(reactContext)
+                            .load(string)
+                            .placeholder(IdHelper.getDrawable(reactContext, "aurora_headicon_default"))
+                            .into(avatarImageView);
+                }else {
                     int resId = IdHelper.getDrawable(reactContext, string);
                     if (resId != 0) {
-                        Log.d("ReactMsgListManager", "Set drawable name: " + string);
                         avatarImageView.setImageResource(resId);
-                    } else {
-                        with(reactContext)
-                                .load(string)
-                                .placeholder(IdHelper.getDrawable(reactContext, "aurora_headicon_default"))
-                                .into(avatarImageView);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
 
@@ -152,7 +149,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         RequestManager m = Glide.with(reactContext);
                         DrawableTypeRequest request;
 
-                        if (string.startsWith("http://")) {
+                        if (string.startsWith("http://")||string.startsWith("https://")) {
                             request = m.load(string);
                         } else {
                             request = m.load(new File(string));

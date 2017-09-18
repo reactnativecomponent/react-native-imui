@@ -131,7 +131,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     }
 
     private void setShowTime(MESSAGE message, boolean show) {
-        Log.w("MsgListAdatper", message.getTimeString() + "-" + show);
+        //Log.w("MsgListAdatper", message.getTimeString() + "-" + show);
         if (show) {
             mTimedItems.add(message.getMsgId());
         } else {

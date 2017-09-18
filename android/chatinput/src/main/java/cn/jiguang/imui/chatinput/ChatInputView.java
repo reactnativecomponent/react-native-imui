@@ -278,7 +278,7 @@ public class ChatInputView extends LinearLayout {
                     dismissSoftInputAndShowMenu();
                 } else if (view.getId() == mLastClickId) {
                     dismissMenuAndResetSoftMode();
-                    showType = 0;
+                    showType = -1;
                     if (mListener != null) {
                         mListener.onFeatureView(inputHeight, showType);
                     }
@@ -445,7 +445,7 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         try {
             Thread.sleep(140);
         } catch (InterruptedException e) {
@@ -453,7 +453,6 @@ public class ChatInputView extends LinearLayout {
         }
         showInputMethod();
         dismissMenuLayout();
-//        setMenuContainerHeight(1);
         mChatInput.requestFocus();
     }
 
@@ -499,7 +498,7 @@ public class ChatInputView extends LinearLayout {
         if (height > 0) {
             sMenuHeight = height;
             mMenuContainer.setLayoutParams(
-                    new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height));
+                    new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, dip2px(height)));
         }
     }
 

@@ -94,7 +94,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
         final Activity activity = reactContext.getCurrentActivity();
         chatInput = new ChatInputView(activity, null);
-        chatInput.setMenuContainerHeight(666);
+//        chatInput.setMenuContainerHeight(666);
         // Use default layout
         chatInput.setMenuClickListener(new OnMenuClickListener() {
             @Override
