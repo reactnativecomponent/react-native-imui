@@ -282,7 +282,6 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     
   func tapSatusView() {
         self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
-    
   }
   
   func didDisAppearCell() {
