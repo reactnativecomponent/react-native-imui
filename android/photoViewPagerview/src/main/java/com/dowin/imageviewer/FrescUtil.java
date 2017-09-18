@@ -44,6 +44,7 @@ public class FrescUtil {
                 .build();
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(context)
                 .setCacheKeyFactory(DefaultCacheKeyFactory.getInstance())
+                .setDownsampleEnabled(true)
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .build();
         config.getMainDiskCacheConfig();

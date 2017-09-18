@@ -436,6 +436,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     void updateImage(MESSAGE message) {
         if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE || message.getType() == IMessage.MessageType.SEND_IMAGE) {
             IMediaFile extend = (IMediaFile) message.getExtend();
+            extend.setId(message.getMsgId());
             for (int i = 0; i < imageList.size(); i++) {
                 if (TextUtils.equals(message.getMsgId(),imageList.get(i).getId())) {
                     imageList.set(i, extend);

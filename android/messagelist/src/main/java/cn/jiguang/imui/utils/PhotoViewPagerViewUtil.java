@@ -25,15 +25,20 @@ import com.dowin.imageviewer.MultiTouchViewPager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.File;
 import java.util.List;
 
 import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IMediaFile;
+import dowin.com.emoji.media.ScreenUtil;
 import me.relex.photodraweeview.PhotoDraweeView;
 
 /**
@@ -59,15 +64,22 @@ public class PhotoViewPagerViewUtil {
 //                        .into(photoDraweeView);
 
             try {
-                ImageRequest request;
+                Uri uri;
                 if (TextUtils.isEmpty(o.getUrl())) {
-                    request = ImageRequest.fromFile(new File(o.getThumbPath()));
+                    uri = Uri.fromFile(new File(o.getThumbPath()));
+//                    request = ImageRequest.fromFile(new File(o.getThumbPath()));
                 } else {
-                    photoDraweeView.setThumbImage(o.getThumbPath());
-                    request = ImageRequest.fromUri(o.getUrl());
+//                    request = ImageRequest.fromUri(o.getUrl());
+                    uri = Uri.parse(o.getUrl());
                 }
 
                 PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
+//                controller.setImageRequest(request);
+                int size = Math.max(ScreenUtil.getDisplayWidth(photoDraweeView.getContext()),ScreenUtil.getDisplayHeight(photoDraweeView.getContext()));
+                ImageRequest request =  ImageRequestBuilder.newBuilderWithSource(uri)
+                        .setResizeOptions(ResizeOptions.forSquareSize(size))
+                        .setRotationOptions(RotationOptions.autoRotateAtRenderTime())
+                        .build();
                 controller.setImageRequest(request);
                 controller.setOldController(photoDraweeView.getController());
                 controller.setControllerListener(new BaseControllerListener<ImageInfo>() {
@@ -80,6 +92,7 @@ public class PhotoViewPagerViewUtil {
                         photoDraweeView.update(imageInfo.getWidth(), imageInfo.getHeight());
                     }
                 });
+                ImagePipelineConfig.newBuilder(photoDraweeView.getContext()).setDownsampleEnabled(true).build();
                 photoDraweeView.setController(controller.build());
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -95,24 +108,17 @@ public class PhotoViewPagerViewUtil {
 
         final Dialog dialog = new Dialog(mActivity, com.dowin.imageviewer.R.style.ImageDialog);
         final View view = mActivity.getLayoutInflater().inflate(com.dowin.imageviewer.R.layout.activity_viewpager, null);
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    dialog.dismiss();
-                }
-                return false;
-            }
-        });
+
 //        CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         final MultiTouchViewPager viewPager = (MultiTouchViewPager) view.findViewById(com.dowin.imageviewer.R.id.view_pager);
         viewPager.setBackgroundColor(Color.BLACK);
-        final DraweePagerAdapter<IMediaFile> adapter = new DraweePagerAdapter(list, new View.OnClickListener() {
+        View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
-        }, new View.OnLongClickListener() {
+        };
+        View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -124,7 +130,18 @@ public class PhotoViewPagerViewUtil {
                 }
                 return false;
             }
-        }, imageLoader);
+        };
+        final DraweePagerAdapter<IMediaFile> adapter = new DraweePagerAdapter(list, onClickListener, onLongClickListener, imageLoader);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dialog.dismiss();
+                }
+                return false;
+            }
+        });
         View download = view.findViewById(R.id.download);
 //        try {
 //            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) download.getLayoutParams();
