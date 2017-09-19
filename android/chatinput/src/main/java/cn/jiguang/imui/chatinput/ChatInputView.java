@@ -305,8 +305,15 @@ public class ChatInputView extends LinearLayout {
                     emoticonPickerView.show(emoticonSelectedListener);
                     actionLayout.setVisibility(INVISIBLE);
                 }
+
                 if (mListener != null) {
-                    mListener.onFeatureView(inputHeight, showType);
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onFeatureView(inputHeight, showType);
+                        }
+                    }, 100);
+
                 }
                 mLastClickId = view.getId();
 //                mMenuContainer.requestLayout();
@@ -445,30 +452,36 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        try {
-            Thread.sleep(140);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+//        try {
+//            Thread.sleep(140);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismissMenuLayout();
+            }
+        }, 100);
         showInputMethod();
-        dismissMenuLayout();
+
         mChatInput.requestFocus();
     }
 
     public void dismissSoftInputAndShowMenu() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        try {
-            Thread.sleep(140);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(140);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        hideInputMethod();
         showMenuLayout();
-        if (inputMethodManager != null) {
-            inputMethodManager.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
-        }
         setMenuContainerHeight(sMenuHeight);
+
         mShowSoftInput = false;
     }
 

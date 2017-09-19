@@ -90,8 +90,10 @@ public class RecordHelper {
             if (currentAudioFile != null) {
                 currentAudioFile.delete();
             }
-            recorder.release();
-            recorder = null;
+            if(recorder!=null) {
+                recorder.release();
+                recorder = null;
+            }
         }
 
     }

@@ -377,8 +377,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     public void addToStart(List<MESSAGE> messages, boolean scrollToBottom) {
         boolean first = mItems.isEmpty();
         updateShowTimeItem(messages, first, true);
-        for (int i = 0; i < messages.size(); i++) {
+        for (int i = 0; i < messages.size(); i++) {//3 2 1
             MESSAGE message = messages.get(i);
+
             mItems.add(0, new Wrapper<>(message));
             notifyItemRangeInserted(0, 1);
             addImage(message, false);

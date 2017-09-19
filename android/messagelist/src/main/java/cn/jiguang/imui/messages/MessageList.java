@@ -48,7 +48,7 @@ public class MessageList extends RecyclerView {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, true);
-        layoutManager.setStackFromEnd(true);
+//        layoutManager.setStackFromEnd(true);
         setLayoutManager(layoutManager);
 
         adapter.setLayoutManager(layoutManager);

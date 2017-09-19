@@ -528,8 +528,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 mAdapter.addToEnd(list);
             } else if (intent.getAction().equals(RCT_SCROLL_TO_BOTTOM_ACTION)) {
                 Log.i("RCTMessageListManager", "Scroll to bottom");
-                mAdapter.getLayoutManager().scrollToPosition(0);
-                mAdapter.getLayoutManager().requestLayout();
+                msgList.smoothScrollToPosition(0);
+//                mAdapter.getLayoutManager().scrollToPosition(0);
             } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 for (int i = 0; i < messages.length; i++) {
