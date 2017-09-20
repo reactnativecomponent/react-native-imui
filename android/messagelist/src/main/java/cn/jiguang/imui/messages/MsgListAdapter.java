@@ -386,12 +386,16 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         }
 
 //        notifyItemRangeInserted(0, messages.size());
-        if (mLayoutManager != null && scrollToBottom) {
-            mLayoutManager.scrollToPosition(0);
-            mLayoutManager.requestLayout();
-        }
         if (mLayoutManager != null) {
-            mLayoutManager.requestLayout();
+            if (scrollToBottom) {
+                mLayoutManager.scrollToPosition(0);
+            }
+            if (mLayoutManager.canScrollVertically()) {
+                mLayoutManager.setStackFromEnd(false);
+            } else {
+                mLayoutManager.requestLayout();
+            }
+            Log.w("MsgListAdapter", "canScrollVertically:" + mLayoutManager.canScrollVertically());
         }
     }
 
@@ -439,7 +443,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
             IMediaFile extend = (IMediaFile) message.getExtend();
             extend.setId(message.getMsgId());
             for (int i = 0; i < imageList.size(); i++) {
-                if (TextUtils.equals(message.getMsgId(),imageList.get(i).getId())) {
+                if (TextUtils.equals(message.getMsgId(), imageList.get(i).getId())) {
                     imageList.set(i, extend);
                     break;
                 }
@@ -1280,6 +1284,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
             mMediaPlayer.pause();
         }
     }
+
     public void stopPlayVoice() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
