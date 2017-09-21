@@ -318,7 +318,7 @@ public class ChatInputView extends LinearLayout {
                 mLastClickId = view.getId();
 //                mMenuContainer.requestLayout();
             }
-            Log.w(TAG, "viewId: " + view.getId() + "-showType:" + showType);
+//            Log.w(TAG, "viewId: " + view.getId() + "-showType:" + showType);
         }
     };
     private IEmoticonSelectedListener emoticonSelectedListener = new IEmoticonSelectedListener() {
@@ -638,7 +638,7 @@ public class ChatInputView extends LinearLayout {
             mWindow.getDecorView().getWindowVisibleDisplayFrame(r);
             int screenHeight = mWindow.getDecorView().getRootView().getHeight();
             int height = screenHeight - r.bottom + mChatInputContainer.getHeight();
-            Log.d(TAG, "Keyboard Size: " + px2dip(height) + "-showType:" + showType);
+//            Log.d(TAG, "Keyboard Size: " + px2dip(height) + "-showType:" + showType);
             if (inputHeight == height) {
                 return;
             }

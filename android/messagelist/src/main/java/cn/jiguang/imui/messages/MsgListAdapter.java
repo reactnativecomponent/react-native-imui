@@ -390,12 +390,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
             if (scrollToBottom) {
                 mLayoutManager.scrollToPosition(0);
             }
-            if (mLayoutManager.canScrollVertically()) {
-                mLayoutManager.setStackFromEnd(false);
-            } else {
-                mLayoutManager.requestLayout();
-            }
-            Log.w("MsgListAdapter", "canScrollVertically:" + mLayoutManager.canScrollVertically());
+            mLayoutManager.requestLayout();
         }
     }
 
