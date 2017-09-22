@@ -31,6 +31,8 @@
 
 
             <TextView
+                android:paddingTop="@dimen/voice_padding"
+                android:paddingBottom="@dimen/voice_padding"
                 android:id="@+id/aurora_tv_msgitem_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

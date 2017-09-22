@@ -35,6 +35,8 @@
     <dimen name="red_packet_text_size">14sp</dimen>
     <dimen name="red_packet_tag_size">10sp</dimen>
     <dimen name="message_padding">48dp</dimen>
+    <dimen name="voice_padding">13dp</dimen>
+    <dimen name="photo_width">166dp</dimen>
 
 
 </resources>

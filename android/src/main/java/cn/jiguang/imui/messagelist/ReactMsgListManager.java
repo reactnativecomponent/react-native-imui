@@ -156,7 +156,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         }
                         request.fitCenter()
                                 .placeholder(IdHelper.getDrawable(reactContext, "aurora_picture_not_found"))
-                                .override(400, Target.SIZE_ORIGINAL)
+                                .override(imageView.getMaxWidth(), Target.SIZE_ORIGINAL)
                                 .into(imageView);
                     } catch (Exception e) {
                         e.printStackTrace();

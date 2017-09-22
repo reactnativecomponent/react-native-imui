@@ -21,6 +21,7 @@ import cn.jiguang.imui.commons.models.IMediaFile;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageListStyle;
 import cn.jiguang.imui.messages.ViewHolderController;
+import cn.jiguang.imui.utils.DisplayUtil;
 import cn.jiguang.imui.utils.SessorUtil;
 import cn.jiguang.imui.utils.TimeUtil;
 
@@ -211,6 +212,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         if (mIsSender) {
             mVoiceIv.setImageResource(mSendDrawable);
             mMsgTv.setBackground(style.getSendBubbleDrawable());
+            mMsgTv.setPadding(0,DisplayUtil.dp2px(style.mContext,12),DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,12));
             if (style.getSendingProgressDrawable() != null) {
                 mSendingPb.setProgressDrawable(style.getSendingProgressDrawable());
             }
@@ -220,13 +222,8 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         } else {
             mVoiceIv.setImageResource(mReceiveDrawable);
             mMsgTv.setBackground(style.getReceiveBubbleDrawable());
+            mMsgTv.setPadding(DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,12),0,DisplayUtil.dp2px(style.mContext,12));
         }
-
-        android.view.ViewGroup.LayoutParams layoutParams = mAvatarIv.getLayoutParams();
-        layoutParams.width = style.getAvatarWidth();
-        layoutParams.height = style.getAvatarHeight();
-        mAvatarIv.setLayoutParams(layoutParams);
-
         mLengthTv.setTextColor(Color.rgb(157, 157, 158));
     }
 

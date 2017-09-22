@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:background="@drawable/aurora_bg_imagemsg_default"
-            android:maxHeight="300dp"
-            android:maxWidth="300dp"
+            android:maxHeight="@dimen/photo_width"
+            android:maxWidth="@dimen/photo_width"
             android:src="@drawable/aurora_picture_not_found"
             app:videomessage_radius="8dp" />
 
