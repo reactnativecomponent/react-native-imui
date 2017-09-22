@@ -21,7 +21,7 @@ import UIKit
   case url
   case account_notice
   case redpacketOpen
-    case unknown
+  case unknown
   case custom
 }
 
@@ -63,6 +63,7 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
   
   @objc public var duration: CGFloat
     let screenW = UIScreen.main.bounds.size.width
+    let screenH = UIScreen.main.bounds.size.height
   
   open var msgId = {
     return ""
@@ -125,8 +126,8 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         let imgH = self.customDict.object(forKey: "imageHeight") as! NSString
         let imgPercent:Float = imgH.floatValue / imgW.floatValue
         var imgHeight:Float = imgWidth * imgPercent
-        if imgHeight > Float(screenW*1.5) {
-            imgHeight = Float(screenW*1.5)
+        if imgHeight > Float(screenH*0.5) {
+            imgHeight = Float(screenH*0.5)
         }
         bubbleContentSize = CGSize(width:  CGFloat(imgWidth), height: CGFloat(imgHeight))
         break
@@ -145,7 +146,7 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
 //      }
       break
     case .voice:
-      bubbleContentSize = CGSize(width: 80, height: 32)
+      bubbleContentSize = CGSize(width: 80, height: 40)
       break
     case .video:
       bubbleContentSize = CGSize(width: 120, height: 160)

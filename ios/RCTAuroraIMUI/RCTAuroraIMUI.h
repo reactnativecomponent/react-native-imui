@@ -10,6 +10,7 @@
 #import "MyCacheImageView.h"
 #import "M80AttributedLabel.h"
 #import "MenuPopOverView.h"
+#import "DWRecoderCoveView.h"
 //! Project version number for RCTAuroraIMUI.
 
 #define FONT_SIZE_375(size) [UIFont systemFontOfSize:([UIScreen mainScreen].bounds.size.width*((size)/375.0))]

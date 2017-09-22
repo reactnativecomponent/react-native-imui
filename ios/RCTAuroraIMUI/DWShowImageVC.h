@@ -11,4 +11,5 @@
 @interface DWShowImageVC : UIViewController
 @property (copy, nonatomic) NSMutableArray *imageArr;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) UIImage *backgroundImg;
 @end

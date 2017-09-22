@@ -15,7 +15,7 @@ enum IMUIMessageCellType {
 }
 
 open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,MenuPopOverViewDelegate {
-  var bubbleView: IMUIMessageBubbleView
+   public var bubbleView: IMUIMessageBubbleView
   lazy var avatarImage = MyCacheImageView()
     lazy var timeBackView = UIView()
   lazy var timeLabel = UILabel()
@@ -23,7 +23,9 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     lazy var durationLabel = UILabel()
     lazy var isPlayedView = UIView() //录音是否播放过
   weak var statusView: UIView?
-  
+    public var cellType:String?
+    public var cellMsgId:String?
+    
   weak var delegate: IMUIMessageMessageCollectionViewDelegate?
   var message: IMUIMessageModelProtocol?
     var cellGesture = UITapGestureRecognizer.init()
@@ -41,8 +43,6 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.contentView.addSubview(self.nameLabel)
     self.contentView.addSubview(self.durationLabel)
     self.contentView.addSubview(self.isPlayedView)
-//    self.bubbleGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBubbleView))
-//    let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapBubbleView(sender:)))
     self.cellGesture.addTarget(self, action: #selector(self.tapCellView))
     self.bubbleGesture.addTarget(self, action: #selector(self.tapBubbleView))
     self.longPress.addTarget(self, action: #selector(self.longTapBubbleView(sender:)))
@@ -141,15 +141,21 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     timeRect.origin.x = timeX
     self.timeBackView.frame = timeRect
     self.timeLabel.frame = self.timeBackView.bounds
+    self.timeBackView.isHidden = true
+    if self.timeBackView.frame.size.width > 0 {
+        self.timeBackView.isHidden = false
+    }
     self.nameLabel.text = message.fromUser.displayName()
-    
     self.message = message
     if message.type == .notification || message.type == .redpacketOpen || message.type == .unknown{
         self.bubbleView.backgroundColor = UIColor.clear
     }else{
         self.bubbleView.setupBubbleImage(resizeBubbleImage: message.resizableBubbleImage)
     }
-
+    if message.type == .image{
+        cellType = "image"
+        cellMsgId = self.message?.msgId
+    }
     self.durationLabel.isHidden = true
     self.isPlayedView.isHidden = true
     
@@ -219,6 +225,13 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   func tapBubbleView() {
     if self.message?.type == .text {
         self.delegate?.messageCollectionView?(tapCellView: "")
+    }else if self.message?.type == .image {
+        let strMsgID = (self.message?.msgId)! as NSString
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ShowOrigImageNotification"), object: strMsgID)
+        
+//        self.delegate?.messageCollectionView?(didTapImageMessageBubbleInCell:rect, model: self.message! )
+        self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
+        
     }else{
         self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
     }

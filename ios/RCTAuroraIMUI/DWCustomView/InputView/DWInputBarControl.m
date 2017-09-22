@@ -11,10 +11,12 @@
 #import "NIMInputEmoticonManager.h"
 #import "NIMInputAtCache.h"
 #import "DWAudioRecorderManager.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface DWInputBarControl ()<HPGrowingTextViewDelegate,DWRecordDelegate,NIMInputEmoticonProtocol>{
     UIView *line;
     CGFloat tmpGrowViewH;
+    BOOL isHasVoiceAuth;
 }
 @property (nonatomic, strong) NIMInputAtCache *atCache;
 @property (copy, nonatomic) NSString *strRecordPath;
@@ -63,9 +65,9 @@
     dispatch_sync(dispatch_get_main_queue(), ^{
         [weakSelf.inputGrowView endEditing:YES];
         [UIView animateWithDuration:1.0 animations:^{
-            if (weakSelf.showMenuBtn.selected && (weakSelf.height > self.menuViewH )) {
+            if (weakSelf.showMenuBtn.selected && (weakSelf.height > menuViewH )) {
                 weakSelf.showMenuBtn.selected = NO;
-                weakSelf.height = weakSelf.height - self.menuViewH;
+                weakSelf.height = weakSelf.height - menuViewH;
                 weakSelf.onFeatureView(@{@"inputHeight":@(weakSelf.height),@"showType":@(0)});
             }else if(weakSelf.showExpressionBtn.selected && (weakSelf.height > expressionViewH )){
                 weakSelf.showExpressionBtn.selected = NO;
@@ -74,6 +76,7 @@
             }
         } completion:^(BOOL finished) {
             weakSelf.expressionView.hidden = YES;
+            weakSelf.functionView.hidden = YES;
         }];
 
     });
@@ -199,6 +202,11 @@
     _expressionView.delegate = self;
     [self addSubview:_expressionView];
     _expressionView.hidden = YES;
+    
+    self.functionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenW, menuViewH)];
+    [self addSubview:_functionView];
+    _functionView.backgroundColor = [UIColor clearColor];
+    _functionView.hidden = YES;
 
     [_showMenuBtn setBackgroundImage:[UIImage imageNamed:@"more_ios"] forState:UIControlStateNormal];
     [_showMenuBtn setBackgroundImage:[UIImage imageNamed:@"more_ios_HL"] forState:UIControlStateHighlighted];
@@ -241,6 +249,7 @@
 //    _recordBtn.frame = CGRectMake(inputX, inputY+DESIGN_SIZE_750(2.5), inputW, inputH-DESIGN_SIZE_750(8));
     _recordBtn.frame = _inputGrowView.frame;
     _expressionView.y = CGRectGetMaxY(_toolView.frame);
+    _functionView.y = CGRectGetMaxY(_toolView.frame);
 
 }
 
@@ -262,28 +271,49 @@
     return soundFilePath;
 }
 
+- (BOOL)getVoiceAVAuthorizationStatus{
+    [AVCaptureDevice requestAccessForMediaType:
+     AVMediaTypeAudio completionHandler:^(BOOL granted)
+     {//麦克风权限
+         if (granted) {
+             isHasVoiceAuth = YES;
+         }else{
+             isHasVoiceAuth = NO;
+             UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风\n设置>隐私>麦克风" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+             [alart show];
+         }
+     }];
+    return isHasVoiceAuth;
+}
+
+
 #pragma mark DWRecordButton录音按钮代理方法
 - (void)recordTouchDownAction:(DWRecordButton *)btn{
     NSLog(@"开始录音");
-    if (!btn.selected) {
-        btn.selected = YES;
-        [btn setButtonStateWithRecording];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
-        _strRecordPath = [self getSaveRecordPath];
-        [[DWAudioRecorderManager shareManager] audioRecorderStartWithFilePath:_strRecordPath ];
-
+    if ([self getVoiceAVAuthorizationStatus]) {
+        if (!btn.selected) {
+            btn.selected = YES;
+            [btn setButtonStateWithRecording];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
+            _strRecordPath = [self getSaveRecordPath];
+            [[DWAudioRecorderManager shareManager] audioRecorderStartWithFilePath:_strRecordPath ];
+        }
     }
 }
 - (void)recordTouchUpOutsideAction:(DWRecordButton *)btn{
-    NSLog(@"取消录音");
-    [btn setButtonStateWithNormal];
-    [[DWAudioRecorderManager shareManager] audioRecorderCancel];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Canceled"];
+    if (isHasVoiceAuth) {
+        NSLog(@"取消录音");
+        [btn setButtonStateWithNormal];
+        [[DWAudioRecorderManager shareManager] audioRecorderCancel];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Canceled"];
+    }
 }
 - (void)recordTouchUpInsideAction:(DWRecordButton *)btn{
-    NSLog(@"完成录音");
-    [btn setButtonStateWithNormal];
-    [[DWAudioRecorderManager shareManager] audioRecorderStop];
+    if (isHasVoiceAuth) {
+        NSLog(@"完成录音");
+        [btn setButtonStateWithNormal];
+        [[DWAudioRecorderManager shareManager] audioRecorderStop];
+    }
 }
 
 - (void)recordTouchDragInsideAction:(DWRecordButton *)btn{
@@ -296,18 +326,22 @@
 }
 //中间状态  从 TouchDragOutside ---> TouchDragInside
 - (void)recordTouchDragEnterAction:(DWRecordButton *)btn{
-    if (btn.selected) {
-        NSLog(@"继续录音");
-        [btn setButtonStateWithRecording];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Continue"];
+    if (isHasVoiceAuth) {
+        if (btn.selected) {
+            NSLog(@"继续录音");
+            [btn setButtonStateWithRecording];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Continue"];
+        }
     }
 }
 //中间状态  从 TouchDragInside ---> TouchDragOutside
 - (void)recordTouchDragExitAction:(DWRecordButton *)btn{
-    if (btn.selected) {
-        NSLog(@"将要取消录音");
-        [btn setButtonStateWithCancel];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Move"];
+    if (isHasVoiceAuth) {
+        if (btn.selected) {
+            NSLog(@"将要取消录音");
+            [btn setButtonStateWithCancel];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Move"];
+        }
     }
 }
 
@@ -358,6 +392,7 @@
         growingTextView.height = tmpGrowViewH;
     }
     self.expressionView.hidden = YES;
+    self.functionView.hidden = YES;
     self.showExpressionBtn.selected = NO;
     self.showMenuBtn.selected = NO;
 }

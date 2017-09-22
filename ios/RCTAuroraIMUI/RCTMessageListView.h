@@ -34,6 +34,7 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onClickChangeAutoScroll;
 @property(nonatomic, copy) RCTBubblingEventBlock onClickLongTapCell;
 @property(nonatomic, copy) RCTBubblingEventBlock onClickScanImageView;
+//@property(nonatomic, copy) RCTBubblingEventBlock onClickTapImageMessageBubble;
 
 
 @property (copy, nonatomic) NSArray *initalData;

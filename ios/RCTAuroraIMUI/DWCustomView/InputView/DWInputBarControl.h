@@ -16,6 +16,7 @@
 #define screenH [UIScreen mainScreen].bounds.size.height
 #define DESIGN_SIZE_750(length) (screenW*((length)/750.0)) //根据设计图算长度
 #define expressionViewH 216
+#define menuViewH 240
 
 typedef enum{
     DWInputBarControlBtnTypeRecord = 1001,
@@ -33,8 +34,9 @@ typedef enum{
 
 @interface DWInputBarControl : UIView
 @property (assign, nonatomic) CGFloat toolH;
-@property (assign, nonatomic) CGFloat menuViewH;
+//@property (assign, nonatomic) CGFloat menuViewH;
 @property (strong, nonatomic) NIMInputEmoticonContainerView *expressionView;
+@property (strong, nonatomic) UIView *functionView;
 @property (strong, nonatomic) UIView *toolView;
 @property (strong, nonatomic) UIButton *showExpressionBtn;//显示表情按钮
 @property (strong, nonatomic) UIButton *showMenuBtn;//显示菜单按钮

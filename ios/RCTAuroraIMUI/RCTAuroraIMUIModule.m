@@ -90,8 +90,8 @@ RCT_EXPORT_METHOD(stopPlayActivity) {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"StopPlayActivity" object: nil];
 }
 
-RCT_EXPORT_METHOD(showOrigImage:(NSString *)msgID) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: msgID];
-}
+//RCT_EXPORT_METHOD(showOrigImage:(NSString *)msgID) {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: msgID];
+//}
 
 @end

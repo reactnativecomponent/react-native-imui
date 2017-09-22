@@ -30,7 +30,7 @@
 - (void)messageCollectionViewWithDidShowMenuStr:(NSString *)strMenu model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 - (void)messageCollectionViewWithReloadMoreData:(NSString *)data;
 - (void)messageCollectionViewWithChangeAutoScroll:(BOOL *)isAutoScroll;
-
+//- (void)messageCollectionViewWithDidTapImageMessageBubbleInCell:(CGRect)rect model:(id <IMUIMessageModelProtocol> _Nonnull)model;
 
 /// Tells the delegate that user tap header image in message cell
 - (void)messageCollectionViewWithDidTapHeaderImageInCell:(UICollectionViewCell * _Nonnull)didTapHeaderImageInCell model:(id <IMUIMessageModelProtocol> _Nonnull)model;
@@ -61,7 +61,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickLoadMessages, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickChangeAutoScroll, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLongTapCell, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickScanImageView, RCTBubblingEventBlock)
-
+//RCT_EXPORT_VIEW_PROPERTY(onClickTapImageMessageBubble, RCTBubblingEventBlock)
 
 RCT_EXPORT_MODULE()
 - (UIView *)view
@@ -321,6 +321,16 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     if (!_messageList.onClickScanImageView) { return; }
     _messageList.onClickScanImageView(@{ @"result": strResult});
 }
+
+//- (void)messageCollectionViewWithDidTapImageMessageBubbleInCell:(CGRect)rect model:(id<IMUIMessageModelProtocol> _Nonnull)model{
+//    if (!_messageList.onClickTapImageMessageBubble) {return;}
+//    RCTMessageModel *message = model;
+//    NSMutableDictionary *messageDic = message.messageDictionary;
+//    NSString *strRect = NSStringFromCGRect(rect);
+//    [messageDic setObject:strRect forKey:@"rect"];
+//    _messageList.onClickTapImageMessageBubble(@{@"message": messageDic});
+//}
+
 
 //- (void)onPullToRefreshMessageList {
 //    

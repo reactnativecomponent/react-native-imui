@@ -23,7 +23,7 @@
 		4E40B95D1F67B90800E2FE50 /* DWActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B95B1F67B90800E2FE50 /* DWActionSheetView.m */; };
 		4E40B9661F67BC2400E2FE50 /* UIImage+DWImageColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B9641F67BC2400E2FE50 /* UIImage+DWImageColor.h */; };
 		4E40B9671F67BC2400E2FE50 /* UIImage+DWImageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B9651F67BC2400E2FE50 /* UIImage+DWImageColor.m */; };
-		4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B9741F67CFBB00E2FE50 /* DWRecoderCoveView.h */; };
+		4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B9741F67CFBB00E2FE50 /* DWRecoderCoveView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E40B9771F67CFBB00E2FE50 /* DWRecoderCoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B9751F67CFBB00E2FE50 /* DWRecoderCoveView.m */; };
 		4E466F911F3ADECF0014451B /* M80AttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E466F861F3ADECF0014451B /* M80AttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E466F921F3ADECF0014451B /* M80AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E466F871F3ADECF0014451B /* M80AttributedLabel.m */; };
@@ -624,12 +624,12 @@
 				4E466F911F3ADECF0014451B /* M80AttributedLabel.h in Headers */,
 				4E466F961F3ADECF0014451B /* M80AttributedLabelURL.h in Headers */,
 				4E466F931F3ADECF0014451B /* M80AttributedLabelAttachment.h in Headers */,
+				4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */,
 				4EC4F96D1F46F0B1000C5CA6 /* MenuPopOverView.h in Headers */,
 				4E466F981F3ADECF0014451B /* NSMutableAttributedString+M80.h in Headers */,
 				4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */,
 				4E49ADD61F341BB400B50439 /* MyCacheImageView.h in Headers */,
 				4E49AE1E1F34762200B50439 /* NIMInputEmoticonButton.h in Headers */,
-				4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */,
 				4E36B2C81F62964E009ECBAE /* DWOrigImageView.h in Headers */,
 				4E49AE261F34767100B50439 /* UIImage+NIM.h in Headers */,
 				4E49AD9D1F34178000B50439 /* UIView+Extend.h in Headers */,

@@ -31,6 +31,7 @@ import UIKit
     @objc optional func messageCollectionView(longTapCellViewModel:IMUIMessageModelProtocol)
     @objc optional func messageCollectionView(longTapAvatarPressWithModel:IMUIMessageModelProtocol)
     @objc optional func messageCollectionView(changeAutoScroll:Bool)
+//    @objc optional func messageCollectionView(didTapImageMessageBubbleInCell: CGRect, model: IMUIMessageModelProtocol)
     
     
   

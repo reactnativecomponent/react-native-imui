@@ -22,7 +22,7 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_VIEW_PROPERTY(menuViewH, CGFloat);
+//RCT_EXPORT_VIEW_PROPERTY(menuViewH, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(defaultToolHeight, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(onFeatureView, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onShowKeyboard, RCTBubblingEventBlock)
@@ -52,12 +52,14 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     if (inpuntBar.showMenuBtn.selected) {
         [inpuntBar.inputGrowView endEditing:YES];
         inpuntBar.expressionView.hidden = YES;
-        CGFloat inputH = inpuntBar.inputViewHeight + inpuntBar.menuViewH;
+        inpuntBar.functionView.hidden = NO;
+        CGFloat inputH = inpuntBar.inputViewHeight + menuViewH;
         inpuntBar.height = inputH;
         showType = 1;
         if(!inpuntBar.onFeatureView) { return; }
         inpuntBar.onFeatureView(@{@"inputHeight":@(inpuntBar.height),@"showType":@(showType)});
     }else{
+        inpuntBar.functionView.hidden = YES;
         inpuntBar.height = inpuntBar.inputViewHeight;
         [inpuntBar.inputGrowView becomeFirstResponder];
     }
@@ -76,6 +78,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     inpuntBar.showMenuBtn.selected = NO;
     if (inpuntBar.showExpressionBtn.selected) {
         [inpuntBar.inputGrowView endEditing:YES];
+        inpuntBar.functionView.hidden = YES;
         inpuntBar.expressionView.hidden = NO;
         CGFloat inputH = inpuntBar.inputViewHeight + expressionViewH;
         inpuntBar.height = inputH;
@@ -95,6 +98,7 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
     inpuntBar.showMenuBtn.selected = NO;
     inpuntBar.showExpressionBtn.selected = NO;
     inpuntBar.expressionView.hidden = YES;
+    inpuntBar.functionView.hidden = YES;
     if (inpuntBar.showRecordeBtn.selected) {
         [inpuntBar.inputGrowView endEditing:YES];
         inpuntBar.height = inpuntBar.defaultToolHeight;

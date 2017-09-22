@@ -22,7 +22,7 @@ enum IMUIMessageBubbleType {
     
 }
 
-class IMUIMessageBubbleView: UIImageView {
+open class IMUIMessageBubbleView: UIImageView {
 
   var bubbleImageView: UIImageView
   
@@ -33,16 +33,16 @@ class IMUIMessageBubbleView: UIImageView {
     self.addSubview(bubbleImageView)
   }
   
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     self.bubbleImageView.frame = self.bounds
   }
   
-  func setupBubbleImage(resizeBubbleImage: UIImage) {
+   func setupBubbleImage(resizeBubbleImage: UIImage) {
     bubbleImageView.image = resizeBubbleImage
     self.layer.mask = bubbleImageView.layer
     self.image = resizeBubbleImage

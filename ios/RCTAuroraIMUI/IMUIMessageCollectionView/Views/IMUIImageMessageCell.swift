@@ -14,6 +14,7 @@ class IMUIImageMessageCell: IMUIBaseMessageCell {
     var myMessage: IMUIMessageModelProtocol?
   override init(frame: CGRect) {
     super.init(frame: frame)
+    imageView.contentMode = UIViewContentMode.scaleAspectFill
     bubbleView.addSubview(imageView)
     NotificationCenter.default.addObserver(self, selector: #selector(clickDidCompletePic(notification:)), name: NSNotification.Name(rawValue: "RNNeteaseimDidCompletePic"), object: nil)
   }

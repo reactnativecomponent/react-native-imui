@@ -193,12 +193,16 @@
   
   for (NSMutableDictionary *message in messages) {
       NSTimeInterval msgTime = [[message objectForKey:@"timeString"] doubleValue] ;
-      if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
-          _lastTime = msgTime;
-          _strLastMsgId = [message objectForKey:@"msgId"];
-          [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
+      if (![_strLastMsgId isEqualToString:[message objectForKey:@"msgId"]]) {
+          if ((!_lastTime)||(fabs(_lastTime-msgTime) > 180)) {
+              _lastTime = msgTime;
+              _strLastMsgId = [message objectForKey:@"msgId"];
+              [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
+          }else{
+              [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
+          }
       }else{
-          [message setObject:[NSNumber numberWithBool:NO] forKey:@"isShowTime"];
+          [message setObject:[NSNumber numberWithBool:YES] forKey:@"isShowTime"];
       }
       [self appendImageMessage:message];
     RCTMessageModel * messageModel = [self convertMessageDicToModel:message];
@@ -343,8 +347,6 @@
     } completion:^(BOOL finished) {
          self.height = height;
     }];
-    
-   
 }
 
 - (void)clickLongTouchShowMenu:(NSNotification *)noti{
@@ -364,28 +366,125 @@
 
 
 - (void)clickShowOrigImgView:(NSNotification *)noti{
+    NSString *strMsgID = noti.object;
+    UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
+    if ([topView isKindOfClass:[DWRecoderCoveView class]]) {
+        NSInteger count = [[UIApplication sharedApplication] keyWindow].subviews.count;
+        topView = [[UIApplication sharedApplication] keyWindow].subviews[count - 2];
+    }
+    NSMutableArray *rectArr = [NSMutableArray array];
+    for (UIView *tmpView in self.messageList.messageCollectionView.subviews) {
+        if ([tmpView isKindOfClass:[IMUIBaseMessageCell class]] ) {
+            IMUIBaseMessageCell *cell = (IMUIBaseMessageCell *)tmpView;
+            if ([cell.cellType isEqualToString:@"image"]) {
+                CGPoint imgPoint = [topView convertPoint:CGPointMake(0, 0) fromView:cell.bubbleView];
+                CGSize imgSize = cell.bubbleView.frame.size;
+                NSMutableDictionary *rectDict = [NSMutableDictionary dictionary];
+                [rectDict setObject:cell.cellMsgId forKey:@"msgId"];
+                [rectDict setObject:NSStringFromCGRect(CGRectMake(imgPoint.x, imgPoint.y, imgSize.width, imgSize.height)) forKey:@"rect"];
+                [rectArr addObject:rectDict];
+            }
+        }
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *strID = noti.object;
         if (_imageArr.count) {
             NSInteger index = 0;
+            NSInteger imgIndex = 0;
             for (NSMutableDictionary *imgDict in _imageArr) {
                 NSString *msgID = [imgDict objectForKey:@"msgId"];
                 index ++;
-                if ([strID isEqualToString:msgID]) {
-                    break;
+                if ([strMsgID isEqualToString:msgID]) {
+                    imgIndex = index;
                 }
+                [imgDict setObject:@"" forKey:@"rect"];
+                for (NSMutableDictionary *tmpDict in rectArr) {
+                    if ([msgID isEqualToString:[tmpDict objectForKey:@"msgId"]]) {
+                        [imgDict setObject:[tmpDict objectForKey:@"rect"] forKey:@"rect"];
+                        break;
+                    }
+                }
+                
             }
-            if (index > 0) {
+            if (imgIndex > 0) {
                 UIWindow *win = [UIApplication sharedApplication].keyWindow;
                 UIViewController *rootVC = win.rootViewController;
                 DWShowImageVC *vc = [[DWShowImageVC alloc]init];
                 vc.imageArr = _imageArr;
-                vc.index = index;
+                vc.backgroundImg = [self getScreenshots];
+                vc.index = imgIndex;
                 [rootVC presentViewController:vc animated:NO completion:nil];
             }
         }
     });
 }
+
+- (UIImage *)getScreenshots{
+    CGRect screenShotRect = [[UIScreen mainScreen] bounds];
+    UIGraphicsBeginImageContextWithOptions(screenShotRect.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    BOOL hasTakenStatusBarScreenshot = NO;
+    for (UIWindow *window in [[UIApplication sharedApplication] windows])
+    {
+        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
+        {
+
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, [window center].x, [window center].y);
+            CGContextConcatCTM(context, [window transform]);
+            CGContextTranslateCTM(context,
+                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
+                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
+            
+            
+            // Render the layer hierarchy to the current context
+            [[window layer] renderInContext:context];
+            
+            // Restore the context
+            CGContextRestoreGState(context);
+        }
+        
+        // Screenshot status bar if next window's window level > status bar window level
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        NSUInteger currentWindowIndex = [windows indexOfObject:window];
+        if (windows.count > currentWindowIndex + 1)
+        {
+            UIWindow *nextWindow = [windows objectAtIndex:currentWindowIndex + 1];
+            if ( nextWindow.windowLevel > UIWindowLevelStatusBar && !hasTakenStatusBarScreenshot)
+            {
+                [self mergeStatusBarToContext:context rect:screenShotRect];
+                hasTakenStatusBarScreenshot = YES;
+            }
+        }
+        else
+        {
+            if (!hasTakenStatusBarScreenshot)
+            {
+                [self mergeStatusBarToContext:context rect:screenShotRect];
+                hasTakenStatusBarScreenshot = YES;
+            }
+        }
+    }
+    // Retrieve the screenshot image
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+- (void)mergeStatusBarToContext:(CGContextRef)context rect:(CGRect)rect{
+    UIWindow *statusBarView = [[UIApplication sharedApplication] valueForKey:@"statusBarWindow"];
+//    UIView *statusBarView = [UIView statusBarInstance_ComOpenThreadOTScreenshotHelper];
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, [statusBarView center].x, [statusBarView center].y);
+    CGContextConcatCTM(context, [statusBarView transform]);
+    CGContextTranslateCTM(context,
+                          -[statusBarView bounds].size.width * [[statusBarView layer] anchorPoint].x,
+                          -[statusBarView bounds].size.height * [[statusBarView layer] anchorPoint].y);
+    
+    [[statusBarView layer] renderInContext:context];
+    CGContextRestoreGState(context);
+}
+
+
 
 - (void)clickScanOrigImgView:(NSNotification *)noti{
     dispatch_async(dispatch_get_main_queue(), ^{
