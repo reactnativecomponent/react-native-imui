@@ -11,6 +11,7 @@ import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IMediaFile;
 import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.MessageListStyle;
+import cn.jiguang.imui.utils.DisplayUtil;
 
 public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<MESSAGE> {
 
@@ -60,6 +61,8 @@ public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     public void applyStyle(MessageListStyle style) {
         super.applyStyle(style);
 
+        mPhotoIv.setMinimumWidth(DisplayUtil.dp2px(style.mContext,100));
+        mPhotoIv.setMinimumHeight(DisplayUtil.dp2px(style.mContext,100));
         mPhotoIv.setScaleType(ImageView.ScaleType.FIT_END);
 //        if (mIsSender) {
 //            mPhotoIv.setBackground(style.getSendPhotoMsgBg());
