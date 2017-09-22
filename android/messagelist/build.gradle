@@ -27,7 +27,6 @@ dependencies {
     compile project(':react-native-imui:emoji')
     compile project(':react-native-imui:photoViewPagerview')
 
-    compile 'com.facebook.fresco:fresco:1.0.1'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

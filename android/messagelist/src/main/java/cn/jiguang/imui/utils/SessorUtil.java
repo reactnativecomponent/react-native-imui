@@ -7,9 +7,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 
-import com.dowin.imageviewer.FrescUtil;
-
-import static android.R.attr.streamType;
 import static android.content.Context.SENSOR_SERVICE;
 
 /**
@@ -65,7 +62,7 @@ public class SessorUtil implements SensorEventListener {
         }
         hasRegister = register;
 
-        FrescUtil.init(mContext);
+//        FrescUtil.init(mContext);
     }
 
     public boolean isEarPhoneOn() {

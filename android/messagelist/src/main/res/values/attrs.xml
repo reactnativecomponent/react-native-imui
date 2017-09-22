@@ -53,5 +53,6 @@
         <attr name="receivePhotoMsgBg" format="reference"/>
 
         <attr name="videomessage_radius" format="dimension|reference"/>
+        <attr name="videomessage_shape" format="reference"/>
     </declare-styleable>
 </resources>

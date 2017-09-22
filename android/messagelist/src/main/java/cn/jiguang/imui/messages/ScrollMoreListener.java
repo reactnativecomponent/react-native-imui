@@ -13,7 +13,7 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
     private int mCurrentPage = 0;
     private int mPreviousTotalItemCount = 0;
     private boolean mLoading = false;
-    private int visibleThreshold = 20;
+    private int visibleThreshold = 5;
     private int scrollThreshold = 3;
     private boolean autoScroll = true;
 
@@ -39,6 +39,26 @@ public class ScrollMoreListener extends RecyclerView.OnScrollListener {
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        if (mLayoutManager instanceof LinearLayoutManager) {
+            LinearLayoutManager ll = (LinearLayoutManager) mLayoutManager;
+            if (ll.getStackFromEnd()) {
+                if (ll.getChildCount() < mLayoutManager.getItemCount()) {
+                    try {
+                        ll.setStackFromEnd(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else {
+                if (ll.getChildCount() >= mLayoutManager.getItemCount()) {
+                    try {
+                        ll.setStackFromEnd(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         if (mListener != null) {
             int lastVisibleItemPosition = 0;
             int firstVisibleItemPosition = 0;

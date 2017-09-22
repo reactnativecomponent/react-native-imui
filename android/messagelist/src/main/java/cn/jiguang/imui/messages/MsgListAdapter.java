@@ -131,7 +131,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     }
 
     private void setShowTime(MESSAGE message, boolean show) {
-        Log.w("MsgListAdatper", message.getTimeString() + "-" + show);
+        //Log.w("MsgListAdatper", message.getTimeString() + "-" + show);
         if (show) {
             mTimedItems.add(message.getMsgId());
         } else {
@@ -377,19 +377,19 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     public void addToStart(List<MESSAGE> messages, boolean scrollToBottom) {
         boolean first = mItems.isEmpty();
         updateShowTimeItem(messages, first, true);
-        for (int i = 0; i < messages.size(); i++) {
+        for (int i = 0; i < messages.size(); i++) {//3 2 1
             MESSAGE message = messages.get(i);
+
             mItems.add(0, new Wrapper<>(message));
             notifyItemRangeInserted(0, 1);
             addImage(message, false);
         }
 
 //        notifyItemRangeInserted(0, messages.size());
-        if (mLayoutManager != null && scrollToBottom) {
-            mLayoutManager.scrollToPosition(0);
-            mLayoutManager.requestLayout();
-        }
         if (mLayoutManager != null) {
+            if (scrollToBottom) {
+                mLayoutManager.scrollToPosition(0);
+            }
             mLayoutManager.requestLayout();
         }
     }
@@ -436,8 +436,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     void updateImage(MESSAGE message) {
         if (message.getType() == IMessage.MessageType.RECEIVE_IMAGE || message.getType() == IMessage.MessageType.SEND_IMAGE) {
             IMediaFile extend = (IMediaFile) message.getExtend();
+            extend.setId(message.getMsgId());
             for (int i = 0; i < imageList.size(); i++) {
-                if (TextUtils.equals(message.getMsgId(),imageList.get(i).getId())) {
+                if (TextUtils.equals(message.getMsgId(), imageList.get(i).getId())) {
                     imageList.set(i, extend);
                     break;
                 }
@@ -1278,6 +1279,7 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
             mMediaPlayer.pause();
         }
     }
+
     public void stopPlayVoice() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();

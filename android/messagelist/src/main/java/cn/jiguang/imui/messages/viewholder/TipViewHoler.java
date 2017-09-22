@@ -32,8 +32,9 @@ public class TipViewHoler<MESSAGE extends IMessage>
 
     @Override
     public void applyStyle(MessageListStyle style) {
+
         mEvent.setTextColor(Color.WHITE);
-        mEvent.setTextSize(style.getEventTextSize());
+        mEvent.setTextSize(12);
         mEvent.setPadding(style.getEventPadding(), style.getEventPadding(), style.getEventPadding(), style.getEventPadding());
     }
 }

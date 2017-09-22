@@ -225,8 +225,9 @@ public class ChatInputView extends LinearLayout {
         if (mWindow != null) {
             getViewTreeObserver().removeOnGlobalLayoutListener(onGlobalLayoutListener);
             mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
+        hideInputMethod();
         super.onDetachedFromWindow();
 
 
@@ -277,7 +278,7 @@ public class ChatInputView extends LinearLayout {
                     dismissSoftInputAndShowMenu();
                 } else if (view.getId() == mLastClickId) {
                     dismissMenuAndResetSoftMode();
-                    showType = 0;
+                    showType = -1;
                     if (mListener != null) {
                         mListener.onFeatureView(inputHeight, showType);
                     }
@@ -304,13 +305,20 @@ public class ChatInputView extends LinearLayout {
                     emoticonPickerView.show(emoticonSelectedListener);
                     actionLayout.setVisibility(INVISIBLE);
                 }
+
                 if (mListener != null) {
-                    mListener.onFeatureView(inputHeight, showType);
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mListener.onFeatureView(inputHeight, showType);
+                        }
+                    }, 100);
+
                 }
                 mLastClickId = view.getId();
 //                mMenuContainer.requestLayout();
             }
-            Log.w(TAG, "viewId: " + view.getId() + "-showType:" + showType);
+//            Log.w(TAG, "viewId: " + view.getId() + "-showType:" + showType);
         }
     };
     private IEmoticonSelectedListener emoticonSelectedListener = new IEmoticonSelectedListener() {
@@ -444,36 +452,41 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        try {
-            Thread.sleep(140);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+//        try {
+//            Thread.sleep(140);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismissMenuLayout();
+            }
+        }, 100);
         showInputMethod();
-        dismissMenuLayout();
-//        setMenuContainerHeight(1);
+
         mChatInput.requestFocus();
     }
 
     public void dismissSoftInputAndShowMenu() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        try {
-            Thread.sleep(140);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(140);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        hideInputMethod();
         showMenuLayout();
-        if (inputMethodManager != null) {
-            inputMethodManager.hideSoftInputFromWindow(mChatInput.getWindowToken(), 0);
-        }
         setMenuContainerHeight(sMenuHeight);
+
         mShowSoftInput = false;
     }
 
     public void dismissMenuLayout() {
-        mMenuContainer.setVisibility(GONE);
+        mMenuContainer.setVisibility(INVISIBLE);
         if (showType == 1) {
             showType = 0;
             mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);
@@ -498,7 +511,7 @@ public class ChatInputView extends LinearLayout {
         if (height > 0) {
             sMenuHeight = height;
             mMenuContainer.setLayoutParams(
-                    new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height));
+                    new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, dip2px(height)));
         }
     }
 
@@ -625,7 +638,7 @@ public class ChatInputView extends LinearLayout {
             mWindow.getDecorView().getWindowVisibleDisplayFrame(r);
             int screenHeight = mWindow.getDecorView().getRootView().getHeight();
             int height = screenHeight - r.bottom + mChatInputContainer.getHeight();
-            Log.d(TAG, "Keyboard Size: " + px2dip(height) + "-showType:" + showType);
+//            Log.d(TAG, "Keyboard Size: " + px2dip(height) + "-showType:" + showType);
             if (inputHeight == height) {
                 return;
             }

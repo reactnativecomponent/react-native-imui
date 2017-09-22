@@ -56,7 +56,6 @@ import cn.jiguang.imui.utils.PhotoViewPagerViewUtil;
 import cn.jiguang.imui.utils.SessorUtil;
 
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
-import static com.bumptech.glide.Glide.with;
 
 
 public class ReactMsgListManager extends ViewGroupManager<MessageList> implements LifecycleEventListener {
@@ -120,36 +119,48 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         ImageLoader imageLoader = new ImageLoader() {
             @Override
             public void loadAvatarImage(ImageView avatarImageView, String string) {
-                int resId = IdHelper.getDrawable(reactContext, string);
-                if (resId != 0) {
-                    Log.d("ReactMsgListManager", "Set drawable name: " + string);
-                    avatarImageView.setImageResource(resId);
-                } else {
-                    with(reactContext)
+
+                Log.w(TAG, "loadAvatarImage: " + string);
+                if (reactContext == null || reactContext.getCurrentActivity() == null || string == null) {
+                    return;
+                }
+                if (string.startsWith("http://")||string.startsWith("https://")) {
+                    Glide.with(reactContext)
                             .load(string)
                             .placeholder(IdHelper.getDrawable(reactContext, "aurora_headicon_default"))
                             .into(avatarImageView);
+                }else {
+                    int resId = IdHelper.getDrawable(reactContext, string);
+                    if (resId != 0) {
+                        avatarImageView.setImageResource(resId);
+                    }
                 }
             }
 
             @Override
             public void loadImage(ImageView imageView, String string) {
                 // You can use other image load libraries.
-
+                if (reactContext == null || reactContext.getCurrentActivity() == null) {
+                    return;
+                }
 
                 if (string != null) {
-                    RequestManager m = Glide.with(reactContext);
-                    DrawableTypeRequest request;
+                    try {
+                        RequestManager m = Glide.with(reactContext);
+                        DrawableTypeRequest request;
 
-                    if (string.startsWith("http://")) {
-                        request = m.load(string);
-                    } else {
-                        request = m.load(new File(string));
+                        if (string.startsWith("http://")||string.startsWith("https://")) {
+                            request = m.load(string);
+                        } else {
+                            request = m.load(new File(string));
+                        }
+                        request.fitCenter()
+                                .placeholder(IdHelper.getDrawable(reactContext, "aurora_picture_not_found"))
+                                .override(imageView.getMaxWidth(), Target.SIZE_ORIGINAL)
+                                .into(imageView);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    request.fitCenter()
-                            .placeholder(IdHelper.getDrawable(reactContext, "aurora_picture_not_found"))
-                            .override(400, Target.SIZE_ORIGINAL)
-                            .into(imageView);
                 }
 
 
@@ -272,7 +283,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         PhotoViewPagerViewUtil.saveImageToAlbum(mediaFile, mContext);
                     } else if (position == 1) {
                         dialog.dismiss();
-                        Toast.makeText(mContext,finalCode,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
                         event.putString("code", finalCode);
                         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
@@ -517,8 +528,8 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 mAdapter.addToEnd(list);
             } else if (intent.getAction().equals(RCT_SCROLL_TO_BOTTOM_ACTION)) {
                 Log.i("RCTMessageListManager", "Scroll to bottom");
-                mAdapter.getLayoutManager().scrollToPosition(0);
-                mAdapter.getLayoutManager().requestLayout();
+                msgList.smoothScrollToPosition(0);
+//                mAdapter.getLayoutManager().scrollToPosition(0);
             } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 for (int i = 0; i < messages.length; i++) {

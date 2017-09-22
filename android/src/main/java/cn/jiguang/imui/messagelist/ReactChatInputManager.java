@@ -1,11 +1,14 @@
 package cn.jiguang.imui.messagelist;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -93,8 +96,13 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         mContext.registerReceiver(RCTChatInputReceiver, intentFilter);
 
         final Activity activity = reactContext.getCurrentActivity();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                activity.requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, 100);
+            }
+        }
         chatInput = new ChatInputView(activity, null);
-        chatInput.setMenuContainerHeight(666);
+//        chatInput.setMenuContainerHeight(666);
         // Use default layout
         chatInput.setMenuClickListener(new OnMenuClickListener() {
             @Override
@@ -143,32 +151,33 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         chatInput.setRecordVoiceListener(new RecordVoiceListener() {
             Dialog dialog;
             TimerTipView view;
-            Handler handler = new Handler(){
+            Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
-                    switch (msg.what){
+                    switch (msg.what) {
                         case 1:
                             hideDialog();
                             break;
                     }
                 }
             };
+
             @Override
             public void onStartRecord() {
                 showDialog();
             }
 
             @Override
-            public void onFinishRecord(String voiceFile, boolean isTooLong,int duration) {
-                if(TextUtils.isEmpty(voiceFile)){
+            public void onFinishRecord(String voiceFile, boolean isTooLong, int duration) {
+                if (TextUtils.isEmpty(voiceFile)) {
                     view.updateStatus(0, 2, 0);
-                    handler.sendEmptyMessageDelayed(1,500);
+                    handler.sendEmptyMessageDelayed(1, 500);
                     return;
                 }
-                if(isTooLong){
+                if (isTooLong) {
                     view.updateStatus(0, 3, 0);
-                    handler.sendEmptyMessageDelayed(1,500);
-                }else {
+                    handler.sendEmptyMessageDelayed(1, 500);
+                } else {
                     hideDialog();
                 }
                 WritableMap event = Arguments.createMap();
@@ -197,6 +206,8 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
             void showDialog() {
                 dialog = new Dialog(reactContext.getCurrentActivity(), R.style.Theme_audioDialog);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
                 view = new TimerTipView(reactContext);
                 dialog.setContentView(view);
                 dialog.show();
@@ -259,7 +270,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         while (entry.hasNext()) {
             Map.Entry<String, RCTMember> next = entry.next();
             String account = next.getKey();
-            String name =  next.getValue().getName();
+            String name = next.getValue().getName();
             Pattern p = Pattern.compile("(@" + name + " )");
             Matcher matcher = p.matcher(text);
             if (matcher.find()) {

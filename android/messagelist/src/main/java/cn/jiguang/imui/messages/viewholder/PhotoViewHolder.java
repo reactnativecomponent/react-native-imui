@@ -59,11 +59,13 @@ public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
     @Override
     public void applyStyle(MessageListStyle style) {
         super.applyStyle(style);
-        if (mIsSender) {
-            mPhotoIv.setBackground(style.getSendPhotoMsgBg());
-        } else {
-            mPhotoIv.setBackground(style.getReceivePhotoMsgBg());
-        }
+
+        mPhotoIv.setScaleType(ImageView.ScaleType.FIT_END);
+//        if (mIsSender) {
+//            mPhotoIv.setBackground(style.getSendPhotoMsgBg());
+//        } else {
+//            mPhotoIv.setBackground(style.getReceivePhotoMsgBg());
+//        }
     }
 
 }
