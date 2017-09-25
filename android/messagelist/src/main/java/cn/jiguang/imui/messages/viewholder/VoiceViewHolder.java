@@ -209,10 +209,11 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         mReceiveDrawable = style.getReceiveVoiceDrawable();
         mPlaySendAnim = style.getPlaySendVoiceAnim();
         mPlayReceiveAnim = style.getPlayReceiveVoiceAnim();
+        final int padding = 8;
         if (mIsSender) {
             mVoiceIv.setImageResource(mSendDrawable);
             mMsgTv.setBackground(style.getSendBubbleDrawable());
-            mMsgTv.setPadding(0,DisplayUtil.dp2px(style.mContext,12),DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,12));
+            mMsgTv.setPadding(0,DisplayUtil.dp2px(style.mContext,padding),DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,padding));
             if (style.getSendingProgressDrawable() != null) {
                 mSendingPb.setProgressDrawable(style.getSendingProgressDrawable());
             }
@@ -222,7 +223,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
         } else {
             mVoiceIv.setImageResource(mReceiveDrawable);
             mMsgTv.setBackground(style.getReceiveBubbleDrawable());
-            mMsgTv.setPadding(DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,12),0,DisplayUtil.dp2px(style.mContext,12));
+            mMsgTv.setPadding(DisplayUtil.dp2px(style.mContext,3),DisplayUtil.dp2px(style.mContext,padding),0,DisplayUtil.dp2px(style.mContext,padding));
         }
         mLengthTv.setTextColor(Color.rgb(157, 157, 158));
     }
