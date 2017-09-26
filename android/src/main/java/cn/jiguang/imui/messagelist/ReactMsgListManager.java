@@ -276,6 +276,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             if (code != null) {
                 list.add("识别图中二维码");
             }
+            list.add("取消");
             final String finalCode = code;
             PopupUtil.showDialog(mContext.getCurrentActivity(), null, list, new AdapterView.OnItemClickListener() {
                 @Override

@@ -5,14 +5,17 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
@@ -61,6 +64,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private ReactContext mContext;
     private ChatInputView chatInput;
     private Map<String, RCTMember> idList = new HashMap();
+    private Dialog dialog;
 
     @Override
     public String getName() {
@@ -71,6 +75,10 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     public void onDropViewInstance(ChatInputView view) {
         Log.w(TAG, "onDropViewInstance");
         super.onDropViewInstance(view);
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
         try {
             mContext.unregisterReceiver(RCTChatInputReceiver);
         } catch (Exception e) {
@@ -96,9 +104,20 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         mContext.registerReceiver(RCTChatInputReceiver, intentFilter);
 
         final Activity activity = reactContext.getCurrentActivity();
+        Log.w(TAG, "SDK_INT:" + Build.VERSION.SDK_INT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (activity.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                activity.requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, 100);
+            final String permission = Manifest.permission.RECORD_AUDIO;
+            Log.w(TAG, "checkCallingOrSelfPermission:" + activity.checkCallingOrSelfPermission(permission));
+            Log.w(TAG, "checkSelfPermission:" + activity.checkSelfPermission(permission));
+            Log.w(TAG, "checkCallingPermission:" + activity.checkCallingPermission(permission));
+            if (activity.checkCallingPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                    Log.w(TAG, "shouldShowRequestPermissionRationale:true");
+                } else {
+                    Log.w(TAG, "shouldShowRequestPermissionRationale:false");
+                }
+                activity.requestPermissions(new String[]{permission}, 100);
             }
         }
         chatInput = new ChatInputView(activity, null);
@@ -149,7 +168,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         });
 
         chatInput.setRecordVoiceListener(new RecordVoiceListener() {
-            Dialog dialog;
+
             TimerTipView view;
             Handler handler = new Handler() {
                 @Override
@@ -200,16 +219,27 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
             void hideDialog() {
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
-                    dialog = null;
                 }
             }
 
             void showDialog() {
-                dialog = new Dialog(reactContext.getCurrentActivity(), R.style.Theme_audioDialog);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
-                view = new TimerTipView(reactContext);
-                dialog.setContentView(view);
+                if (dialog == null) {
+                    dialog = new Dialog(reactContext.getCurrentActivity(), R.style.Theme_audioDialog);
+                    dialog.setCanceledOnTouchOutside(false);
+//                dialog.setCancelable(false);
+                    view = new TimerTipView(reactContext);
+                    dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                                dialog.dismiss();
+                            }
+                            return false;
+                        }
+                    });
+                    dialog.setContentView(view);
+                }
+                view.updateStatus(0, 0, 0);
                 dialog.show();
             }
         });
