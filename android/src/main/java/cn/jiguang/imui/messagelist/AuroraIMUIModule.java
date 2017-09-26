@@ -2,6 +2,7 @@ package cn.jiguang.imui.messagelist;
 
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -82,8 +83,11 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
     public void deleteMessage(ReadableArray messages) {
         String[] rctMessages = new String[messages.size()];
         for (int i = 0; i < messages.size(); i++) {
-            RCTMessage rctMessage = configMessage(messages.getMap(i));
-            rctMessages[i] = rctMessage.toString();
+            ReadableMap item = messages.getMap(i);
+            if (item.hasKey(MessageConstant.Message.MSG_ID)) {
+                String id = item.getString(MessageConstant.Message.MSG_ID);
+                rctMessages[i] = id;
+            }
         }
         Intent intent = new Intent();
         intent.setAction(ReactMsgListManager.RCT_DELETE_MESSAGES_ACTION);
@@ -92,13 +96,15 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void clearMessage(){
+    public void clearMessage() {
         Intent intent = new Intent();
         intent.setAction(ReactMsgListManager.RCT_CLEAR_MESSAGES_ACTION);
         getReactApplicationContext().sendBroadcast(intent);
     }
+
     @ReactMethod
-    public void stopPlayVoice(){
+    public void stopPlayVoice() {
+        Log.w(getClass().getName(), "stopPlayVoice");
         Intent intent = new Intent();
         intent.setAction(ReactMsgListManager.RCT_STOP_PLAY_VOICE_ACTION);
         getReactApplicationContext().sendBroadcast(intent);
@@ -112,7 +118,7 @@ public class AuroraIMUIModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getAitMember(ReadableMap member){
+    public void getAitMember(ReadableMap member) {
 
         RCTMember chatInput = configChatInput(member);
         Intent intent = new Intent();
