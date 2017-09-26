@@ -110,7 +110,7 @@ public class VoiceViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
                 mVoiceAnimation = (AnimationDrawable) mVoiceIv.getDrawable();
                 mController.addView(getAdapterPosition(), mVoiceIv);
                 // If audio is playing, pause
-                Log.e("VoiceViewHolder", "MediaPlayer playing " + mMediaPlayer.isPlaying() + "now position " + getAdapterPosition());
+//                Log.e("VoiceViewHolder", "MediaPlayer playing " + mMediaPlayer.isPlaying() + "now position " + getAdapterPosition());
                 if (mController.getLastPlayPosition() == getAdapterPosition()) {
                     if (mMediaPlayer.isPlaying()) {
                         pauseVoice();

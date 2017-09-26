@@ -110,6 +110,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
+        reactContext.addLifecycleEventListener(this);
         SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
 
@@ -124,12 +125,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 if (reactContext == null || reactContext.getCurrentActivity() == null || string == null) {
                     return;
                 }
-                if (string.startsWith("http://")||string.startsWith("https://")) {
+                if (string.startsWith("http://") || string.startsWith("https://")) {
                     Glide.with(reactContext)
                             .load(string)
                             .placeholder(IdHelper.getDrawable(reactContext, "aurora_headicon_default"))
                             .into(avatarImageView);
-                }else {
+                } else {
                     int resId = IdHelper.getDrawable(reactContext, string);
                     if (resId != 0) {
                         avatarImageView.setImageResource(resId);
@@ -149,7 +150,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         RequestManager m = Glide.with(reactContext);
                         DrawableTypeRequest request;
 
-                        if (string.startsWith("http://")||string.startsWith("https://")) {
+                        if (string.startsWith("http://") || string.startsWith("https://")) {
                             request = m.load(string);
                         } else {
                             request = m.load(new File(string));
@@ -533,13 +534,13 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 for (int i = 0; i < messages.length; i++) {
-                    final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
-                    mAdapter.delete(rctMessage);
+                    mAdapter.delete(messages[i]);
                 }
             } else if (intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)) {
                 if (mAdapter != null)
                     mAdapter.clear();
             } else if (intent.getAction().equals(RCT_STOP_PLAY_VOICE_ACTION)) {
+                Log.w(TAG, "stopPlayVoice");
                 if (mAdapter != null)
                     mAdapter.stopPlayVoice();
             }
@@ -566,6 +567,9 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         super.onDropViewInstance(view);
         Log.w(TAG, "onDropViewInstance");
         try {
+            if (mAdapter != null) {
+                mAdapter.stopPlayVoice();
+            }
             SessorUtil.getInstance(mContext).register(false);
             mContext.unregisterReceiver(RCTMsgListReceiver);
         } catch (Exception e) {
@@ -587,8 +591,9 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
 
     @Override
     public void onHostPause() {
+        Log.w(TAG, "onHostPause");
         if (mAdapter != null)
-            mAdapter.pausePlayVoice();
+            mAdapter.stopPlayVoice();
     }
 
     @Override
