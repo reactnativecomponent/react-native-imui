@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/aurora_bg_event_message"
-        android:gravity="center"
+        android:gravity="left"
         android:padding="5dp"
         android:textSize="10sp"
         android:text="notification"
