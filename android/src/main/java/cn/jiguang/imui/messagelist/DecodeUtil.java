@@ -77,6 +77,6 @@ public class DecodeUtil {
             e.printStackTrace();
         }
 
-        return result != null ? result.getText() : "";
+        return result != null ? result.getText() : null;
     }
 }

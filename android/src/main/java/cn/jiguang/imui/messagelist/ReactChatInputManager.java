@@ -65,6 +65,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     private ChatInputView chatInput;
     private Map<String, RCTMember> idList = new HashMap();
     private Dialog dialog;
+    private TimerTipView timerTipView;
 
     @Override
     public String getName() {
@@ -104,22 +105,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         mContext.registerReceiver(RCTChatInputReceiver, intentFilter);
 
         final Activity activity = reactContext.getCurrentActivity();
-        Log.w(TAG, "SDK_INT:" + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final String permission = Manifest.permission.RECORD_AUDIO;
-            Log.w(TAG, "checkCallingOrSelfPermission:" + activity.checkCallingOrSelfPermission(permission));
-            Log.w(TAG, "checkSelfPermission:" + activity.checkSelfPermission(permission));
-            Log.w(TAG, "checkCallingPermission:" + activity.checkCallingPermission(permission));
-            if (activity.checkCallingPermission(permission) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-                    Log.w(TAG, "shouldShowRequestPermissionRationale:true");
-                } else {
-                    Log.w(TAG, "shouldShowRequestPermissionRationale:false");
-                }
-                activity.requestPermissions(new String[]{permission}, 100);
-            }
-        }
         chatInput = new ChatInputView(activity, null);
 //        chatInput.setMenuContainerHeight(666);
         // Use default layout
@@ -169,7 +155,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
         chatInput.setRecordVoiceListener(new RecordVoiceListener() {
 
-            TimerTipView view;
+
             Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
@@ -189,12 +175,12 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
             @Override
             public void onFinishRecord(String voiceFile, boolean isTooLong, int duration) {
                 if (TextUtils.isEmpty(voiceFile)) {
-                    view.updateStatus(0, 2, 0);
+                    timerTipView.updateStatus(0, 2, 0);
                     handler.sendEmptyMessageDelayed(1, 500);
                     return;
                 }
                 if (isTooLong) {
-                    view.updateStatus(0, 3, 0);
+                    timerTipView.updateStatus(0, 3, 0);
                     handler.sendEmptyMessageDelayed(1, 500);
                 } else {
                     hideDialog();
@@ -213,7 +199,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
             @Override
             public void onRecording(boolean cancelAble, int dbSize, int time) {
-                view.updateStatus(dbSize, cancelAble ? 1 : 0, time);
+                timerTipView.updateStatus(dbSize, cancelAble ? 1 : 0, time);
             }
 
             void hideDialog() {
@@ -227,7 +213,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                     dialog = new Dialog(reactContext.getCurrentActivity(), R.style.Theme_audioDialog);
                     dialog.setCanceledOnTouchOutside(false);
 //                dialog.setCancelable(false);
-                    view = new TimerTipView(reactContext);
+                    timerTipView = new TimerTipView(reactContext);
                     dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                         @Override
                         public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -237,9 +223,9 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
                             return false;
                         }
                     });
-                    dialog.setContentView(view);
+                    dialog.setContentView(timerTipView);
                 }
-                view.updateStatus(0, 0, 0);
+                timerTipView.updateStatus(0, 0, 0);
                 dialog.show();
             }
         });
@@ -259,6 +245,24 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
         return chatInput;
     }
 
+    void requestPermission(Activity activity) {
+        final String permission = Manifest.permission.RECORD_AUDIO;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            Log.w(TAG, "checkCallingOrSelfPermission:" + activity.checkCallingOrSelfPermission(permission));
+            Log.w(TAG, "checkSelfPermission:" + activity.checkSelfPermission(permission));
+            Log.w(TAG, "checkCallingPermission:" + activity.checkCallingPermission(permission));
+            if (activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                    Log.w(TAG, "shouldShowRequestPermissionRationale:true");
+                } else {
+                    Log.w(TAG, "shouldShowRequestPermissionRationale:false");
+                }
+//                activity.requestPermissions(new String[]{permission}, 100);
+            }
+        }
+    }
 
     @ReactProp(name = "menuContainerHeight")
     public void setMenuContainerHeight(ChatInputView chatInputView, int height) {

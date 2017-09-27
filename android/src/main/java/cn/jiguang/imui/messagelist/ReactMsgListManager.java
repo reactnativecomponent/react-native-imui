@@ -75,7 +75,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     private static final String ON_TOUCH_MSG_LIST_EVENT = "onTouchMsgList";
     private static final String ON_PULL_TO_REFRESH_EVENT = "onPullToRefresh";
     private static final String ON_CLICK_CHANGE_AUTO_SCROLL_EVENT = "onClickChangeAutoScroll";
-    private static final String ON_DECODE_QR_CODE_EVENT = "onDecodeQRCode";
+    private static final String ON_DECODE_QR_CODE_EVENT = "onClickScanImageView";
 
     public static final String RCT_APPEND_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.appendMessages";
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
@@ -175,7 +175,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             public void onMessageClick(RCTMessage message) {
                 if (message.getType() == IMessage.MessageType.SEND_IMAGE || message.getType() == IMessage.MessageType.RECEIVE_IMAGE) {
                     IMediaFile extend = (IMediaFile) message.getExtend();
-                    PhotoViewPagerViewUtil.show(reactContext.getCurrentActivity(), mAdapter.getImageList(), mAdapter.getImageIndex(extend), null);
+                    PhotoViewPagerViewUtil.show(reactContext.getCurrentActivity(), mAdapter.getImageList(), mAdapter.getImageIndex(extend), longClickListener);
                     return;
                 }
                 WritableMap event = Arguments.createMap();
@@ -287,7 +287,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         dialog.dismiss();
                         Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
-                        event.putString("code", finalCode);
+                        event.putString("result", finalCode);
                         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                                 ON_DECODE_QR_CODE_EVENT, event);
                     }
