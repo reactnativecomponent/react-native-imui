@@ -654,7 +654,7 @@ static dispatch_queue_t get_m80_attributed_label_parse_queue() \
     }else{
         tmpW = tmpW + 3;
     }
-    if (tmpH < 40) {
+    if (tmpH < 35) {
         tmpH = 40;
     }else{
         tmpH += 20;

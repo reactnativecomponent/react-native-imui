@@ -120,7 +120,6 @@ class IMUIRedPacketOpenMessageCell: IMUIBaseMessageCell {
             searchRange = NSMakeRange(NSMaxRange(tmpRange), nsInStr.length - NSMaxRange(tmpRange))
         }
         return results
-        
     }
     
 }

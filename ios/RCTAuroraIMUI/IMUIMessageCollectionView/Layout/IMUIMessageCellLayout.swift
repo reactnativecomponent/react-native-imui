@@ -30,7 +30,8 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
   
   public static var cellWidth: CGFloat = 0
   
-  public static var cellContentInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+  public static var cellContentInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom:
+    5, right: 10)
   
   public static var statusViewSize: CGSize = CGSize(width: 30, height: 30)
     
@@ -230,9 +231,7 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
       let timeWidth = IMUIMessageCellLayout.cellWidth -
         cellContentInset.left -
         cellContentInset.right
-      
-        
-        
+
       return CGRect(x: cellContentInset.left,
                     y: cellContentInset.top,
                     width: timeWidth,
@@ -293,7 +292,9 @@ open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
     }
     if  !isNeedShowInComingAvatar {
         bubbleX = 0
-        bubbleY = bubbleY + 10
+        if isNeedShowTime{
+            bubbleY = bubbleY+5
+        }
     }
     return CGRect(x: bubbleX,
                   y: bubbleY,

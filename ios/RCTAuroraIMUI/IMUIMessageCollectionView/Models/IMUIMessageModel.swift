@@ -158,7 +158,9 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
       bubbleContentSize = CGSize(width: locationW, height: UIScreen.main.bounds.width*0.625*0.5+tmpSize.height+15 )
       break
     case .notification:
-        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
+        let strTitle = self.customDict.object(forKey: "tipMsg") as! String
+        let tmpSize = heightWithFont(font: UIFont.systemFont(ofSize:  12), fixedWidth: (screenW*0.8), text: strTitle)
+        bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: tmpSize.height+10)
         isShowAvatar = false
         break
     case .redpacket:
@@ -171,7 +173,7 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         bubbleContentSize = CGSize(width: 100, height: 100)
         break
     case .account_notice:
-        bubbleContentSize = CGSize(width: 200, height: 30)
+        bubbleContentSize = CGSize(width: 200, height: 40)
         break
     case .redpacketOpen:
         bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
