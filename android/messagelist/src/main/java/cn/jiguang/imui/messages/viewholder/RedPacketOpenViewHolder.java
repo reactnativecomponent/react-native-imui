@@ -7,7 +7,6 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,7 +29,6 @@ public class RedPacketOpenViewHolder<MESSAGE extends IMessage>
 
     private TextView mTextView;
     final static Pattern pattern = Pattern.compile("红包{1}");
-    private ImageSpan imageSpan;
 
     public RedPacketOpenViewHolder(RecyclerView.Adapter adapter, View itemView, boolean isSender) {
         super(adapter, itemView);

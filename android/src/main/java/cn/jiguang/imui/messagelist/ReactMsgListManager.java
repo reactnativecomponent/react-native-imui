@@ -75,7 +75,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     private static final String ON_TOUCH_MSG_LIST_EVENT = "onTouchMsgList";
     private static final String ON_PULL_TO_REFRESH_EVENT = "onPullToRefresh";
     private static final String ON_CLICK_CHANGE_AUTO_SCROLL_EVENT = "onClickChangeAutoScroll";
-    private static final String ON_DECODE_QR_CODE_EVENT = "onDecodeQRCode";
+    private static final String ON_DECODE_QR_CODE_EVENT = "onClickScanImageView";
 
     public static final String RCT_APPEND_MESSAGES_ACTION = "cn.jiguang.imui.messagelist.intent.appendMessages";
     public static final String RCT_UPDATE_MESSAGE_ACTION = "cn.jiguang.imui.messagelist.intent.updateMessage";
@@ -110,6 +110,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         intentFilter.addAction(RCT_SCROLL_TO_BOTTOM_ACTION);
 
         mContext = reactContext;
+        reactContext.addLifecycleEventListener(this);
         SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
 
@@ -124,12 +125,12 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 if (reactContext == null || reactContext.getCurrentActivity() == null || string == null) {
                     return;
                 }
-                if (string.startsWith("http://")||string.startsWith("https://")) {
+                if (string.startsWith("http://") || string.startsWith("https://")) {
                     Glide.with(reactContext)
                             .load(string)
                             .placeholder(IdHelper.getDrawable(reactContext, "aurora_headicon_default"))
                             .into(avatarImageView);
-                }else {
+                } else {
                     int resId = IdHelper.getDrawable(reactContext, string);
                     if (resId != 0) {
                         avatarImageView.setImageResource(resId);
@@ -149,7 +150,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         RequestManager m = Glide.with(reactContext);
                         DrawableTypeRequest request;
 
-                        if (string.startsWith("http://")||string.startsWith("https://")) {
+                        if (string.startsWith("http://") || string.startsWith("https://")) {
                             request = m.load(string);
                         } else {
                             request = m.load(new File(string));
@@ -174,7 +175,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             public void onMessageClick(RCTMessage message) {
                 if (message.getType() == IMessage.MessageType.SEND_IMAGE || message.getType() == IMessage.MessageType.RECEIVE_IMAGE) {
                     IMediaFile extend = (IMediaFile) message.getExtend();
-                    PhotoViewPagerViewUtil.show(reactContext.getCurrentActivity(), mAdapter.getImageList(), mAdapter.getImageIndex(extend), null);
+                    PhotoViewPagerViewUtil.show(reactContext.getCurrentActivity(), mAdapter.getImageList(), mAdapter.getImageIndex(extend), longClickListener);
                     return;
                 }
                 WritableMap event = Arguments.createMap();
@@ -275,6 +276,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             if (code != null) {
                 list.add("识别图中二维码");
             }
+            list.add("取消");
             final String finalCode = code;
             PopupUtil.showDialog(mContext.getCurrentActivity(), null, list, new AdapterView.OnItemClickListener() {
                 @Override
@@ -285,7 +287,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         dialog.dismiss();
                         Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
-                        event.putString("code", finalCode);
+                        event.putString("result", finalCode);
                         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
                                 ON_DECODE_QR_CODE_EVENT, event);
                     }
@@ -533,13 +535,13 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
                 for (int i = 0; i < messages.length; i++) {
-                    final RCTMessage rctMessage = gson.fromJson(messages[i], RCTMessage.class);
-                    mAdapter.delete(rctMessage);
+                    mAdapter.delete(messages[i]);
                 }
             } else if (intent.getAction().equals(RCT_CLEAR_MESSAGES_ACTION)) {
                 if (mAdapter != null)
                     mAdapter.clear();
             } else if (intent.getAction().equals(RCT_STOP_PLAY_VOICE_ACTION)) {
+                Log.w(TAG, "stopPlayVoice");
                 if (mAdapter != null)
                     mAdapter.stopPlayVoice();
             }
@@ -566,6 +568,9 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         super.onDropViewInstance(view);
         Log.w(TAG, "onDropViewInstance");
         try {
+            if (mAdapter != null) {
+                mAdapter.stopPlayVoice();
+            }
             SessorUtil.getInstance(mContext).register(false);
             mContext.unregisterReceiver(RCTMsgListReceiver);
         } catch (Exception e) {
@@ -587,8 +592,9 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
 
     @Override
     public void onHostPause() {
+        Log.w(TAG, "onHostPause");
         if (mAdapter != null)
-            mAdapter.pausePlayVoice();
+            mAdapter.stopPlayVoice();
     }
 
     @Override

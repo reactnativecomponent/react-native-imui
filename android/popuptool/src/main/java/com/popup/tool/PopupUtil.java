@@ -38,7 +38,7 @@ public class PopupUtil {
 
     public static void showDialog(Context context, String title, final List<String> action, final AdapterView.OnItemClickListener itemClickListener) {
         final AlertDialog dialog = new AlertDialog.Builder(context).create();
-        View view = LayoutInflater.from(context).inflate(R.layout.action, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.menu, null);
 
         int length = 0;
         if (action != null && action.size() > 0) {
@@ -70,12 +70,15 @@ public class PopupUtil {
         dialog.show();
         int width = dialog.getWindow().getWindowManager().getDefaultDisplay().getWidth();
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = width-(width/6);
-        params.height =  WindowManager.LayoutParams.WRAP_CONTENT;
-        params.gravity = Gravity.CENTER;
+        params.width = width;
+        params.x = 0;
+        params.y = 0;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.gravity = Gravity.LEFT | Gravity.BOTTOM;
         dialog.getWindow().setAttributes(params);
     }
-    public static void showAction(Context context,View top, String title, final List<String> action, final AdapterView.OnItemClickListener itemClickListener) {
+
+    public static void showAction(Context context, View top, String title, final List<String> action, final AdapterView.OnItemClickListener itemClickListener) {
         View view = LayoutInflater.from(context).inflate(R.layout.action, null);
         final PopupWindow popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 

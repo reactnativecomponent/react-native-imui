@@ -526,11 +526,10 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     /**
      * Delete message.
      *
-     * @param message message to be deleted.
+     * @param messageId message to be deleted.
      */
-    public void delete(MESSAGE message) {
-        deleteById(message.getMsgId());
-        deleteImage(message);
+    public void delete(String messageId) {
+        deleteById(messageId);
     }
 
     /**
@@ -541,6 +540,11 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
     public void deleteById(String id) {
         int index = getMessagePositionById(id);
         if (index >= 0) {
+            Wrapper wrapper = mItems.get(index);
+            if (wrapper.item instanceof IMessage) {
+                MESSAGE message = (MESSAGE) wrapper.item;
+                deleteImage(message);
+            }
             mItems.remove(index);
             notifyItemRemoved(index);
         }
@@ -1274,16 +1278,16 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         ViewHolderController.getInstance().release();
     }
 
-    public void pausePlayVoice() {
+    public void releasePlayVoice() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
         }
     }
 
     public void stopPlayVoice() {
+        Log.w(getClass().getName(), "stopPlayVoice");
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mMediaPlayer.stop();
-            mMediaPlayer.release();
         }
 
     }
