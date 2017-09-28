@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,6 +125,11 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 Log.w(TAG, "loadAvatarImage: " + string);
                 if (reactContext == null || reactContext.getCurrentActivity() == null || string == null) {
                     return;
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if(reactContext.getCurrentActivity().isDestroyed()){
+                        return;
+                    }
                 }
                 if (string.startsWith("http://") || string.startsWith("https://")) {
                     Glide.with(reactContext)

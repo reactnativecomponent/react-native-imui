@@ -520,7 +520,12 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
             if (mLayoutManager != null) {
                 mLayoutManager.requestLayout();
             }
+        }else {
+            List<MESSAGE> list = new ArrayList<>();
+            list.add(newMessage);
+            addToStart(list,true);
         }
+
     }
 
     /**
