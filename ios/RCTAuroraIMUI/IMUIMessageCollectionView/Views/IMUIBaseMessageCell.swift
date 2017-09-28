@@ -294,17 +294,19 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     
     
   func tapSatusView() {
-    let alter = UIAlertView.init(title: "重发该消息？", message: "", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
-    alter.show()
+    self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
+//    let alter = UIAlertView.init(title: "重发该消息？", message: "", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
+//    alter.show()
+    
   }
   
-    public func alertView(_ alertView:UIAlertView, clickedButtonAt buttonIndex: Int){
-        if(buttonIndex==alertView.cancelButtonIndex){
-            print("取消")
-        }else{
-            self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
-        }
-    }
+//    public func alertView(_ alertView:UIAlertView, clickedButtonAt buttonIndex: Int){
+//        if(buttonIndex==alertView.cancelButtonIndex){
+//            print("取消")
+//        }else{
+//            self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
+//        }
+//    }
     
   func didDisAppearCell() {
   }
