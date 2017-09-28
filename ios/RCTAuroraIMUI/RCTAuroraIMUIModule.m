@@ -90,6 +90,10 @@ RCT_EXPORT_METHOD(stopPlayActivity) {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"StopPlayActivity" object: nil];
 }
 
+RCT_EXPORT_METHOD(clickScrollEnabled:(BOOL)isScroll) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"clickScrollEnabled" object: [NSNumber numberWithBool:isScroll]];
+}
+
 //RCT_EXPORT_METHOD(showOrigImage:(NSString *)msgID) {
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kShowOrigImageNotification object: msgID];
 //}

@@ -39,7 +39,6 @@
 
 
 @property (copy, nonatomic) NSArray *initalData;
-
 // custom layout
 @property(strong, nonatomic) NSDictionary *sendBubble;
 

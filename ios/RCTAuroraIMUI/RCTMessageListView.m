@@ -118,6 +118,7 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickScanOrigImgView:) name:@"DWOrigImageViewScanNotificatiom" object:nil];
+      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickScrollEnabled:) name:@"clickScrollEnabled" object:nil];
       
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
@@ -496,6 +497,10 @@
 
 }
 
+- (void)clickScrollEnabled:(NSNotification *)noti{
+    NSNumber *scrollNum = noti.object;
+    self.messageList.messageCollectionView.scrollEnabled = [scrollNum boolValue];
+}
 
 - (void)awakeFromNib {
   [super awakeFromNib];
