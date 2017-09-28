@@ -36,14 +36,13 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
 
     private void onStartAudioRecord() {
         button.setText(text[1]);
-        button.setSelected(false);
+        button.setSelected(true);
         recordHelper.startRecording();
     }
 
     private void onEndAudioRecord(boolean cancel) {
         button.setText(text[0]);
         button.setSelected(false);
-
 
         if (cancel) {
             recordHelper.cancelRecord();
@@ -91,7 +90,6 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
             onEndAudioRecord(isCancelled(v, event));
             updateStatus(isCancelled(v, event) ? UpdateStatus.Canceled : UpdateStatus.Complete);
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//                    touched = true;
             cancelAudioRecord(isCancelled(v, event));
             updateStatus(isCancelled(v, event) ? UpdateStatus.Move : UpdateStatus.Continue);
         }
