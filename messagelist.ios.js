@@ -70,7 +70,7 @@ export default class MessageList extends Component {
   }
 
   _onBeginDragMessageList(event: Event) {
-    if (!this.props.onStatusViewClick) {
+    if (!this.props.onBeginDragMessageList) {
       return;
     }
     this.props.onBeginDragMessageList();
@@ -95,6 +95,12 @@ export default class MessageList extends Component {
       }
       this.props.onClickScanImageView(event.nativeEvent);
     }
+    _onClickSendValidation(event:Event){
+      if(!this.props.onClickSendValidation){
+        return;
+      }
+      this.props.onClickSendValidation();
+    }
 
   render() {
     return (
@@ -109,6 +115,7 @@ export default class MessageList extends Component {
           onClickLoadMessages={this._onClickLoadMessages.bind(this)}
           onClickChangeAutoScroll={this._onClickChangeAutoScroll.bind(this)}
           onClickScanImageView={this._onClickScanImageView.bind(this)}
+          onClickSendValidation={this._onClickSendValidation.bind(this)}
       />
     );
   }
@@ -127,6 +134,7 @@ MessageList.propTypes = {
     onClickLoadMessages:PropTypes.func,
     onClickChangeAutoScroll:PropTypes.func,
     onClickScanImageView:PropTypes.func,
+    onClickSendValidation:PropTypes.func,
   sendBubble: PropTypes.string,
   receiveBubble: PropTypes.string,
   sendBubble: PropTypes.object,

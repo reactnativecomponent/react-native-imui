@@ -14,20 +14,20 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
     var titleLable = UILabel()
     var backView = UIView()
     let screenW = UIScreen.main.bounds.size.width
-//    let labelGest = UITapGestureRecognizer.init()
+    let labelGest = UITapGestureRecognizer.init()
+    var locationIndex:Int = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         titleLable.textColor = UIColor.white
         titleLable.font = UIFont.systemFont(ofSize: 12)
-//        titleLable.font = UIFont.init(name: "helvetica", size: 12)
         titleLable.numberOfLines = 0
         titleLable.isUserInteractionEnabled = true
         backView.backgroundColor = UIColor.init(red: 206/255.0, green: 206/255.0, blue: 206/255.0, alpha: 1)
         backView.layer.cornerRadius = 5
         backView.clipsToBounds = true
         backView.addSubview(titleLable)
-//        labelGest.addTarget(self, action: #selector(self.clickTapValidation(sender:)))
+        labelGest.addTarget(self, action: #selector(self.clickTapValidation(sender:)))
         bubbleView.addSubview(backView)
     }
     
@@ -56,12 +56,13 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
         self.backView.frame = CGRect(origin: CGPoint(x:titleX, y:titleY), size: CGSize(width:titleSize.width+10, height:titleSize.height+10))
         self.titleLable.frame = CGRect(origin: CGPoint(x:5, y:5), size: CGSize(width:titleSize.width, height:titleSize.height))
         let attString = NSMutableAttributedString.init(string: strTitle)
-//        if strTitle.hasSuffix("发送朋友验证"){
-//            self.titleLable.addGestureRecognizer(labelGest)
-//            let tmpArr = rangesOf(searchString: "发送朋友验证", inString: strTitle)
-//            let tmpR:NSRange = tmpArr.lastObject as! NSRange
-//            attString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: tmpR)
-//        }
+        if strTitle.hasSuffix("发送朋友验证"){
+            self.titleLable.addGestureRecognizer(labelGest)
+            let tmpArr = rangesOf(searchString: "发送朋友验证", inString: strTitle)
+            let tmpR:NSRange = tmpArr.lastObject as! NSRange
+            locationIndex = tmpR.location
+            attString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: tmpR)
+        }
         self.titleLable.attributedText = attString
 
     }
@@ -93,12 +94,11 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
     func clickTapValidation(sender : UITapGestureRecognizer){
         let touchPoint = sender.location(in: self.titleLable)
         let path:CGMutablePath = CGMutablePath()
-        path.addRect(CGRect(x:0, y:0, width:self.titleLable.frame.size.width, height:self.titleLable.frame.size.height))
+        path.addRect(CGRect(x:0, y:0, width:self.titleLable.frame.size.width, height:self.titleLable.frame.size.height+10))
         let framesetter = CTFramesetterCreateWithAttributedString(self.titleLable.attributedText!)
         let ctframe = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil)
         //获取行数
         let lines:NSArray = CTFrameGetLines(ctframe)
-        print("line:\(CFArrayGetCount(lines))   line:\(self.titleLable.numberOfLines) height:\(self.titleLable.frame.size.height)")
         let numOfLine:NSInteger = self.titleLable.numberOfLines > 0 ? min(self.titleLable.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines)
         if numOfLine != 0 {
             var lineOrigins:[CGPoint] = Array(repeating:.zero,count:numOfLine)
@@ -114,7 +114,10 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
                 let lineFrame = CGRect(x:baseLineOri.x, y:baseLineOri.y-ascent, width:lineWidth, height:ascent+descent)
                 if lineFrame.contains(touchPoint){
                     let index = CTLineGetStringIndexForPosition(line, touchPoint)
-                    print("index:\(index)")
+                    if index.hashValue > self.locationIndex {
+                        self.delegate?.messageCollectionView?(didTapValidationWithModel: self.message!)
+                    }
+                
                 }
             }
         }

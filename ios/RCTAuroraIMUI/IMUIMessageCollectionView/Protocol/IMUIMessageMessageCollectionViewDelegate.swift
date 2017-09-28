@@ -44,6 +44,9 @@ import UIKit
    *  Tells the delegate that user tap statusView in message cell
    */
   @objc optional func messageCollectionView(didTapStatusViewInCell: UICollectionViewCell, model: IMUIMessageModelProtocol)
+    
+    @objc optional func messageCollectionView(didTapValidationWithModel: IMUIMessageModelProtocol)
+    
   
   /**
    *  Tells the delegate that the message cell will show in screen

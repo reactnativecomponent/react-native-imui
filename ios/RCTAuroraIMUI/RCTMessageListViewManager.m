@@ -43,6 +43,8 @@
 /// Tells the delegate when messageCollection beginDragging
 - (void)messageCollectionView:(UICollectionView * _Nonnull)willBeginDragging;
 
+- (void)messageCollectionViewWithDidTapValidationWithModel:(id <IMUIMessageModelProtocol> _Nonnull)model;
+
 
 @end
 
@@ -61,6 +63,8 @@ RCT_EXPORT_VIEW_PROPERTY(onClickLoadMessages, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickChangeAutoScroll, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickLongTapCell, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickScanImageView, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onClickSendValidation, RCTBubblingEventBlock)
+
 //RCT_EXPORT_VIEW_PROPERTY(onClickTapImageMessageBubble, RCTBubblingEventBlock)
 
 RCT_EXPORT_MODULE()
@@ -321,6 +325,12 @@ RCT_CUSTOM_VIEW_PROPERTY(receiveBubblePadding, NSDictionary, RCTMessageListView)
     if (!_messageList.onClickScanImageView) { return; }
     _messageList.onClickScanImageView(@{ @"result": strResult});
 }
+
+- (void)messageCollectionViewWithDidTapValidationWithModel:(id<IMUIMessageModelProtocol>)model{
+    if(!_messageList.onClickSendValidation) { return; }
+    _messageList.onClickSendValidation(@{@"message": @""});
+}
+
 
 //- (void)messageCollectionViewWithDidTapImageMessageBubbleInCell:(CGRect)rect model:(id<IMUIMessageModelProtocol> _Nonnull)model{
 //    if (!_messageList.onClickTapImageMessageBubble) {return;}
