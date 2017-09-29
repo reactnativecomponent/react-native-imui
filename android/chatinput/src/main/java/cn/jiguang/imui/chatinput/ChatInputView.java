@@ -187,7 +187,9 @@ public class ChatInputView extends LinearLayout {
 //        mSendBtn.setBackground(mStyle.getSendBtnBg());
 //        mSendBtn.setImageResource(mStyle.getSendBtnIcon());
     }
-
+    public void resetVoice() {
+        onChatVoiceTouch.reset();
+    }
     public void addActionView(View view, int index) {
         actionLayout.addView(view, index);
     }
@@ -680,4 +682,6 @@ public class ChatInputView extends LinearLayout {
         }
         return SystemClock.elapsedRealtime() - longTime;
     }
+
+
 }
