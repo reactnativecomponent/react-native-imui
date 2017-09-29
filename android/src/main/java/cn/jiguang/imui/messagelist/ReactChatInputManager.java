@@ -174,12 +174,15 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
 
             @Override
             public void onFinishRecord(String voiceFile, boolean isTooLong, int duration) {
+
+
                 if (TextUtils.isEmpty(voiceFile)) {
                     timerTipView.updateStatus(0, 2, 0);
                     handler.sendEmptyMessageDelayed(1, 500);
                     return;
                 }
                 if (isTooLong) {
+                    chatInput.resetVoice();
                     timerTipView.updateStatus(0, 3, 0);
                     handler.sendEmptyMessageDelayed(1, 500);
                 } else {

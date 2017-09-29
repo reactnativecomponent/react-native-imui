@@ -68,6 +68,10 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
         button.setText(cancel ? text[2] : text[1]);
     }
 
+    public void reset(){
+        button.setText(text[0]);
+        button.setSelected(false);
+    }
     private boolean isCancelled(View view, MotionEvent event) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
