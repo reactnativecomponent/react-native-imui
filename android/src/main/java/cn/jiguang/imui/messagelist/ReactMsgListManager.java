@@ -127,7 +127,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                     return;
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    if(reactContext.getCurrentActivity().isDestroyed()){
+                    if (reactContext.getCurrentActivity().isDestroyed()) {
                         return;
                     }
                 }
@@ -392,7 +392,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 RCTMessage rctMessage = configMessage(messages.getMap(i));
                 list.add(rctMessage);
             }
-            mAdapter.addToStart(list, true);
+            mAdapter.addToStart(list, true, false);
         }
     }
 
@@ -508,7 +508,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mAdapter.addToStart(list, false);
+                            mAdapter.addToStart(list, false, true);
                         }
                     });
                 }
