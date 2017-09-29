@@ -152,7 +152,7 @@ open class IMUIMessageCollectionView: UIView {
     open func deleteMessage(with messageId: String) {
         self.chatDataManager.deleteMessage(with: messageId)
         self.messageCollectionView.reloadData()
-        self.scrollToBottom(with: true)
+//        self.scrollToBottom(with: true)
     }
     open func cleanAllMessages() {
         self.chatDataManager.cleanCache()
