@@ -24,6 +24,7 @@ export default class MessageList extends Component {
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onStatusViewClick = this._onStatusViewClick.bind(this);
     this._onTouchMsgList = this._onTouchMsgList.bind(this);
+    this._onClickScanImageView = this._onClickScanImageView.bind(this);
     this._onPullToRefresh = this._onPullToRefresh.bind(this);
   }
 
@@ -60,6 +61,12 @@ export default class MessageList extends Component {
     this.props.onStatusViewClick(event.nativeEvent.message,event.nativeEvent.opt);
   }
 
+    _onClickScanImageView(event:Event){
+        if(!this.props.onClickScanImageView){
+            return;
+        }
+        this.props.onClickScanImageView(event.nativeEvent);
+    }
   _onTouchMsgList() {
     if (!this.props.onTouchMsgList) {
       return;
@@ -84,6 +91,7 @@ export default class MessageList extends Component {
           onClickChangeAutoScroll={this._onClickChangeAutoScroll}
           onStatusViewClick={this._onStatusViewClick}
           onTouchMsgList={this._onTouchMsgList}
+          onClickScanImageView={this._onClickScanImageView}
           onPullToRefresh={this._onPullToRefresh}
         />
     );
@@ -99,6 +107,7 @@ MessageList.propTypes = {
   onAvatarClick: PropTypes.func,
   onStatusViewClick: PropTypes.func,
   onTouchMsgList: PropTypes.func,
+    onClickScanImageView:PropTypes.func,
   onPullToRefresh: PropTypes.func,
 
   sendBubble: PropTypes.object,
