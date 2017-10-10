@@ -410,8 +410,9 @@
                 UIWindow *win = [UIApplication sharedApplication].keyWindow;
                 UIViewController *rootVC = win.rootViewController;
                 DWShowImageVC *vc = [[DWShowImageVC alloc]init];
+                vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 vc.imageArr = _imageArr;
-                vc.backgroundImg = [self getScreenshots];
+//                vc.backgroundImg = [self getScreenshots];
                 vc.index = imgIndex;
                 [rootVC presentViewController:vc animated:NO completion:nil];
             }

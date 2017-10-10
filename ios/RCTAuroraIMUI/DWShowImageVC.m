@@ -30,7 +30,7 @@
     [super viewDidLoad];
     UIWindow *screenWindow = [[UIApplication sharedApplication] keyWindow];
     [self.view addSubview:self.backImageView];
-    self.backImageView.image = self.backgroundImg;
+//    self.backImageView.image = self.backgroundImg;
     
     _scroll = [DWOrigScorllView scrollViewWithDataArr:_imageArr andIndex:(_index-1) showDownBtnTime:0.3 ];
     _scroll.delegate = self;
