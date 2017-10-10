@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
@@ -291,7 +290,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                         PhotoViewPagerViewUtil.saveImageToAlbum(mediaFile, mContext);
                     } else if (position == 1) {
                         dialog.dismiss();
-                        Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
                         event.putString("result", finalCode);
                         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
