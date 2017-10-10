@@ -215,7 +215,7 @@ public class ChatInputView extends LinearLayout {
         // 不是输入的@，而是插进来的
 //        if (!force) {
         start--;
-        length++;
+//        length++;
 //        }
 
         editable.setSpan(TeamMemberAitHelper.getInputAitSpan(mContext, name, mChatInput.getTextSize(), mChatInput.getMeasuredWidth()),
