@@ -2,7 +2,6 @@ package cn.jiguang.imui.messages.viewholder;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import cn.jiguang.imui.BuildConfig;
 import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.IMessage;
+import cn.jiguang.imui.messages.ClickLinkMovementMethod;
 import cn.jiguang.imui.messages.MessageListStyle;
 import dowin.com.emoji.emoji.LinkClick;
 import dowin.com.emoji.emoji.MoonUtil;
@@ -47,7 +47,7 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
         } else {
             mMsgTv.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         }
-        mMsgTv.setMovementMethod(LinkMovementMethod.getInstance());
+        mMsgTv.setMovementMethod(ClickLinkMovementMethod.getInstance());
 
 //        mMsgTv.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -61,6 +61,7 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
         mMsgTv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+//                Log.w("MoonUtil", mMsgTv.getMovementMethod().getClass().getName());
                 if (mMsgLongClickListener != null) {
                     mMsgLongClickListener.onMessageLongClick(message);
                 } else {
@@ -78,6 +79,8 @@ public class TxtViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<ME
         super.applyStyle(style);
         mMsgTv.setMaxWidth((int) (style.getWindowWidth() * style.getBubbleMaxWidth()));
         mMsgTv.setTextSize(18);
+        mMsgTv.setTextIsSelectable(false);
+        mMsgTv.setClickable(false);
         mMsgTv.setTextColor(mIsSender ? Color.WHITE : Color.BLACK);
         mMsgTv.setLinkTextColor(mIsSender ? Color.parseColor("#bbdcff") : Color.parseColor("#238dfa"));
 
