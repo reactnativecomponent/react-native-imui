@@ -13,6 +13,8 @@
 #import "DWAudioRecorderManager.h"
 #import <AVFoundation/AVFoundation.h>
 
+#define toolBackColor [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+
 @interface DWInputBarControl ()<HPGrowingTextViewDelegate,DWRecordDelegate,NIMInputEmoticonProtocol>{
     UIView *line;
     CGFloat tmpGrowViewH;
@@ -155,7 +157,7 @@
 
 - (void)addSubContentView{
     _toolView = [[UIView alloc]init];
-    _toolView.backgroundColor = [UIColor whiteColor];
+    _toolView.backgroundColor = toolBackColor;
     [self addSubview:_toolView];
     
     line = [[UIView alloc]init];
@@ -168,7 +170,7 @@
     [_toolView addSubview:_showRecordeBtn];
     
     _inputGrowView = [[HPGrowingTextView alloc]init];
-    _inputGrowView.backgroundColor = [UIColor whiteColor];
+    _inputGrowView.backgroundColor = toolBackColor;
     _inputGrowView.layer.cornerRadius = 5.0f;
     _inputGrowView.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0].CGColor;
     _inputGrowView.layer.borderWidth = 1;
@@ -246,11 +248,10 @@
     CGFloat inputY = 1.6*_margin;
     CGFloat inputH = _toolH - 3.2*_margin;
     _inputGrowView.frame = CGRectMake(inputX, inputY, inputW, inputH);
-//    _recordBtn.frame = CGRectMake(inputX, inputY+DESIGN_SIZE_750(2.5), inputW, inputH-DESIGN_SIZE_750(8));
-    _recordBtn.frame = _inputGrowView.frame;
+    _recordBtn.frame = CGRectMake(inputX, inputY*(1-0.3), inputW, inputH+inputY*0.6);
+//    _recordBtn.frame = _inputGrowView.frame;
     _expressionView.y = CGRectGetMaxY(_toolView.frame);
     _functionView.y = CGRectGetMaxY(_toolView.frame);
-
 }
 
 
