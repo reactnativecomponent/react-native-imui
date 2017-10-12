@@ -284,6 +284,9 @@ NSInteger NIMCustomPageViewHeight    = 159;
 #pragma mark - EmoticonButtonTouchDelegate
 - (void)selectedEmoticon:(NIMInputEmoticon*)emoticon catalogID:(NSString*)catalogID{
     if ([self.delegate respondsToSelector:@selector(selectedEmoticon:catalog:description:)]) {
+        if ((catalogID) && (!self.tabView.sendButton.enabled)){//非删除按钮
+            [self setupSendBtnCanSend:YES];
+        }
         [self.delegate selectedEmoticon:emoticon.emoticonID catalog:catalogID description:emoticon.tag];
     }
 }
@@ -338,6 +341,18 @@ NSInteger NIMCustomPageViewHeight    = 159;
         }
     }
     return _tabView;
+}
+
+#pragma mark --set sendBtn
+- (void)setupSendBtnCanSend:(BOOL)enabled{
+    self.tabView.sendButton.enabled = enabled;
+    if (enabled) {
+        [self.tabView.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.tabView.sendButton setBackgroundColor:[UIColor blueColor]];
+    }else{
+        [self.tabView.sendButton setTitleColor:[UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.tabView.sendButton setBackgroundColor:[UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1.0]];
+    }
 }
 
 @end

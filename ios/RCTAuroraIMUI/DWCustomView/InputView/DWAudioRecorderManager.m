@@ -183,7 +183,7 @@
                     [fileMgr removeItemAtPath:self.filePath error:&err];
                 }
             }else{
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"FinishAudioRecordNotification" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"FinishAudioRecordNotification" object:self.filePath];
             }
     }
 

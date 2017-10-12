@@ -80,6 +80,8 @@ RCT_EXPORT_VIEW_PROPERTY(onClickMention, RCTBubblingEventBlock)
         [inpuntBar.inputGrowView endEditing:YES];
         inpuntBar.functionView.hidden = YES;
         inpuntBar.expressionView.hidden = NO;
+        [inpuntBar.expressionView setupSendBtnCanSend:([inpuntBar.inputGrowView.text length] ? YES : NO)];
+        
         CGFloat inputH = inpuntBar.inputViewHeight + expressionViewH;
         inpuntBar.height = inputH;
         showType = 0;

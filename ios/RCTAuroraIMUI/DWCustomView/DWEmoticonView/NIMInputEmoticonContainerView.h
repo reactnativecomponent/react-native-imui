@@ -31,6 +31,7 @@
 @property (nonatomic, strong)  NIMInputEmoticonTabView   *tabView;
 @property (nonatomic, weak)    id<NIMInputEmoticonProtocol>  delegate;
 //@property (nonatomic, weak)    id<NIMSessionConfig> config;
+- (void)setupSendBtnCanSend:(BOOL)enabled;
 
 @end
 

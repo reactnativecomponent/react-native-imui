@@ -9,23 +9,8 @@
 #import <UIKit/UIKit.h>
 @class DWRecordButton;
 
-@protocol DWRecordDelegate <NSObject>
-
-@optional
-- (void)recordTouchDownAction:(DWRecordButton *)btn;
-- (void)recordTouchUpOutsideAction:(DWRecordButton *)btn;
-- (void)recordTouchUpInsideAction:(DWRecordButton *)btn;
-- (void)recordTouchDragEnterAction:(DWRecordButton *)btn;
-- (void)recordTouchDragInsideAction:(DWRecordButton *)btn;
-- (void)recordTouchDragOutsideAction:(DWRecordButton *)btn;
-- (void)recordTouchDragExitAction:(DWRecordButton *)btn;
-
-@end
-
-
 @interface DWRecordButton : UIButton
 
-@property (assign, nonatomic) id<DWRecordDelegate> delegate;
 @property (copy, nonatomic) NSArray *textArr;
 - (void)setButtonStateWithRecording;
 - (void)setButtonStateWithNormal;

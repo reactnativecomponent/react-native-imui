@@ -8,13 +8,15 @@
 
 #import "DWRecordButton.h"
 #import <AVFoundation/AVFoundation.h>
+#import "DWAudioRecorderManager.h"
 
 #define kGetColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 
 @interface DWRecordButton (){
-    BOOL isAuthorized;//录音权限
+    BOOL isTouchOut;
+    BOOL isHasVoiceAuth;
 }
-
+@property (copy, nonatomic) NSString *strRecordPath;
 @end
 
 
@@ -34,13 +36,13 @@
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
         
-        [self addTarget:self action:@selector(recordTouchDown) forControlEvents:UIControlEventTouchDown];
-        [self addTarget:self action:@selector(recordTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
-        [self addTarget:self action:@selector(recordTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-        [self addTarget:self action:@selector(recordTouchDragEnter) forControlEvents:UIControlEventTouchDragEnter];
-        [self addTarget:self action:@selector(recordTouchDragInside) forControlEvents:UIControlEventTouchDragInside];
-        [self addTarget:self action:@selector(recordTouchDragOutside) forControlEvents:UIControlEventTouchDragOutside];
-        [self addTarget:self action:@selector(recordTouchDragExit) forControlEvents:UIControlEventTouchDragExit];
+//        [self addTarget:self action:@selector(recordTouchDown) forControlEvents:UIControlEventTouchDown];
+//        [self addTarget:self action:@selector(recordTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
+//        [self addTarget:self action:@selector(recordTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+//        [self addTarget:self action:@selector(recordTouchDragEnter) forControlEvents:UIControlEventTouchDragEnter];
+//        [self addTarget:self action:@selector(recordTouchDragInside) forControlEvents:UIControlEventTouchDragInside];
+//        [self addTarget:self action:@selector(recordTouchDragOutside) forControlEvents:UIControlEventTouchDragOutside];
+//        [self addTarget:self action:@selector(recordTouchDragExit) forControlEvents:UIControlEventTouchDragExit];
         
     }
     return self;
@@ -78,89 +80,116 @@
     [self setTitle:strCancel forState:UIControlStateNormal];
 }
 
-//判断录音权限
-- (BOOL)canRecord
-{
-    isAuthorized = NO;
-    AVAuthorizationStatus AVstatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];//麦克风权限
-    switch (AVstatus) {
-            //允许状态
-        case AVAuthorizationStatusAuthorized:
-            isAuthorized = YES;
-            NSLog(@"Authorized");
-            break;
-            //不允许状态，可以弹出一个alertview提示用户在隐私设置中开启权限
-        case AVAuthorizationStatusDenied:
-            NSLog(@"Denied");
-            break;
-            //未知，第一次申请权限
-        case AVAuthorizationStatusNotDetermined:
-            NSLog(@"not Determined");
-            //此应用程序没有被授权访问,可能是家长控制权限
-        case AVAuthorizationStatusRestricted:{
-            NSLog(@"Restricted");
-            NSString *tips = @"请在iPhone的”设置-隐私-照片“选项中，允许App访问你的麦克风";
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:tips delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                [alert show];
-        }
-            break;
-        default:
-             NSLog(@"default");
-            break;
-    }
-    return isAuthorized;
-}
-
-
 #pragma mark -- 事件方法回调
+//开始录音
 - (void)recordTouchDown
 {
-//    [self canRecord];
-    if ([self.delegate respondsToSelector:@selector(recordTouchDownAction:)] ) {
-        [self.delegate recordTouchDownAction:self];
+    NSLog(@"开始录音");
+    if ([self getVoiceAVAuthorizationStatus]) {
+        isTouchOut = NO;
+        if (!self.selected) {
+            self.selected = YES;
+            [self setButtonStateWithRecording];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
+            _strRecordPath = [self getSaveRecordPath];
+            [[DWAudioRecorderManager shareManager] audioRecorderStartWithFilePath:_strRecordPath ];
+        }
+    }
+}
+//取消录音
+- (void)recordTouchUpOutside{
+    if (isHasVoiceAuth) {
+        NSLog(@"取消录音");
+        [self setButtonStateWithNormal];
+        [[DWAudioRecorderManager shareManager] audioRecorderCancel];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Canceled"];
+    }
+}
+//完成录音
+- (void)recordTouchUpInside{
+    if (isHasVoiceAuth) {
+        NSLog(@"完成录音");
+        [self setButtonStateWithNormal];
+        [[DWAudioRecorderManager shareManager] audioRecorderStop];
+    }
+}
+//继续录音
+- (void)recordTouchDragEnter{
+    if (isHasVoiceAuth) {
+        if (self.selected) {
+            NSLog(@"继续录音");
+            [self setButtonStateWithRecording];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Continue"];
+        }
+    }
+}
+//将要取消录音
+- (void)recordTouchDragExit{
+    if (isHasVoiceAuth) {
+        if (self.selected) {
+            NSLog(@"将要取消录音");
+            [self setButtonStateWithCancel];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Move"];
+        }
     }
 }
 
-- (void)recordTouchUpOutside
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchUpOutsideAction:)]) {
-        [self.delegate recordTouchUpOutsideAction:self];
+#pragma mark  touch--
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self recordTouchDown];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    if (touchPoint.y > 0) {//结束
+        [self recordTouchUpInside];
+    }else{//取消
+        [self recordTouchUpOutside];
     }
 }
 
-- (void)recordTouchUpInside
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchUpInsideAction:)] ) {
-        [self.delegate recordTouchUpInsideAction:self];
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesMoved~~~~~~");
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    if ((touchPoint.y < 0) && (!isTouchOut)) {//移出按钮范围
+        isTouchOut = YES;
+        [self recordTouchDragExit];
+    }else if((touchPoint.y > 0) && isTouchOut){//进入按钮范围
+        isTouchOut = NO;
+        [self recordTouchDragEnter];
     }
 }
 
-- (void)recordTouchDragEnter
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragEnterAction:)] ) {
-        [self.delegate recordTouchDragEnterAction:self];
-    }
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{//取消录音
+    [self recordTouchUpOutside];
 }
 
-- (void)recordTouchDragInside
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragInsideAction:)]) {
-        [self.delegate recordTouchDragInsideAction:self];
-    }
+//判断录音权限
+- (BOOL)getVoiceAVAuthorizationStatus{
+    [AVCaptureDevice requestAccessForMediaType:
+     AVMediaTypeAudio completionHandler:^(BOOL granted)
+     {//麦克风权限
+         if (granted) {
+             isHasVoiceAuth = YES;
+         }else{
+             isHasVoiceAuth = NO;
+             UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风\n设置>隐私>麦克风" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+             [alart show];
+         }
+     }];
+    return isHasVoiceAuth;
 }
 
-- (void)recordTouchDragOutside
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragOutsideAction:)] ) {
-        [self.delegate recordTouchDragOutsideAction:self];
-    }
-}
-
-- (void)recordTouchDragExit
-{
-    if ([self.delegate respondsToSelector:@selector(recordTouchDragExitAction:)]) {
-        [self.delegate recordTouchDragExitAction:self];
-    }
+//获取保存录音路径
+- (NSString *)getSaveRecordPath{
+    NSString *dirPath = NSTemporaryDirectory();
+    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+    NSString *recordName = [NSString stringWithFormat:@"%.0f.aac",interval];
+    NSString *soundFilePath = [dirPath stringByAppendingPathComponent:recordName];
+    return soundFilePath;
 }
 
 

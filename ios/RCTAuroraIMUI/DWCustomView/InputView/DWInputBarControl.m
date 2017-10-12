@@ -10,18 +10,17 @@
 #import "UIView+Extend.h"
 #import "NIMInputEmoticonManager.h"
 #import "NIMInputAtCache.h"
-#import "DWAudioRecorderManager.h"
+//#import "DWAudioRecorderManager.h"
 #import <AVFoundation/AVFoundation.h>
 
 #define toolBackColor [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
 
-@interface DWInputBarControl ()<HPGrowingTextViewDelegate,DWRecordDelegate,NIMInputEmoticonProtocol>{
+@interface DWInputBarControl ()<HPGrowingTextViewDelegate,NIMInputEmoticonProtocol>{
     UIView *line;
     CGFloat tmpGrowViewH;
-    BOOL isHasVoiceAuth;
 }
 @property (nonatomic, strong) NIMInputAtCache *atCache;
-@property (copy, nonatomic) NSString *strRecordPath;
+//@property (copy, nonatomic) NSString *strRecordPath;
 @end
 
 @implementation DWInputBarControl
@@ -42,7 +41,7 @@
     //监听选择@人的回调
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickGetAtPerson:) name:@"GetAtPersonNotification" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(growingTextViewDeleteBackward) name:@"GrowTextViewDeleteBackWard" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickSendRecordMessage) name:@"FinishAudioRecordNotification" object:nil];//录音结束，发送录音message
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickSendRecordMessage:) name:@"FinishAudioRecordNotification" object:nil];//录音结束，发送录音message
 }
 
 #pragma mark -- 监听键盘
@@ -58,8 +57,6 @@
         self.onShowKeyboard(@{@"inputHeight":@(tmpH),@"showType":@(0)});
     }
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeMessageListHeightNotification" object:@{@"listViewHeight":@(screenH - 60 - tmpH)}];
-    
-
 }
 
 - (void)hidenFeatureView{
@@ -143,15 +140,16 @@
     [self creatUI];
 }
 //发送录音message
-- (void)clickSendRecordMessage{
+- (void)clickSendRecordMessage:(NSNotification *)noti{
+    NSString *strRecordPath = noti.object;
     dispatch_async(dispatch_get_main_queue(), ^{
         [_recordBtn setButtonStateWithNormal];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Complete"];
         if (self.onSendRecordMessage) {
-            self.onSendRecordMessage(@{@"Path":self.strRecordPath});
+            self.onSendRecordMessage(@{@"Path":strRecordPath});
         }
     });
-    NSLog(@"strRecordPath:%@",self.strRecordPath);
+    NSLog(@"strRecordPath:%@",strRecordPath);
 }
 
 
@@ -188,7 +186,6 @@
     _recordBtn = [[DWRecordButton alloc]init];
     _recordBtn.textArr = @[@"按住 说话",@"松开 结束",@"松开 取消"];
     _recordBtn.hidden = YES;
-    _recordBtn.delegate = self;
     [_toolView addSubview:_recordBtn];
     
     _showExpressionBtn = [[UIButton alloc]init];
@@ -204,6 +201,8 @@
     _expressionView.delegate = self;
     [self addSubview:_expressionView];
     _expressionView.hidden = YES;
+    NIMInputEmoticonTabView *tab = _expressionView.tabView;
+
     
     self.functionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenW, menuViewH)];
     [self addSubview:_functionView];
@@ -263,88 +262,6 @@
     }
 }
 
-//获取保存录音路径
-- (NSString *)getSaveRecordPath{
-    NSString *dirPath = NSTemporaryDirectory();
-    NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
-    NSString *recordName = [NSString stringWithFormat:@"%.0f.aac",interval];
-    NSString *soundFilePath = [dirPath stringByAppendingPathComponent:recordName];
-    return soundFilePath;
-}
-
-- (BOOL)getVoiceAVAuthorizationStatus{
-    [AVCaptureDevice requestAccessForMediaType:
-     AVMediaTypeAudio completionHandler:^(BOOL granted)
-     {//麦克风权限
-         if (granted) {
-             isHasVoiceAuth = YES;
-         }else{
-             isHasVoiceAuth = NO;
-             UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风\n设置>隐私>麦克风" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-             [alart show];
-         }
-     }];
-    return isHasVoiceAuth;
-}
-
-
-#pragma mark DWRecordButton录音按钮代理方法
-- (void)recordTouchDownAction:(DWRecordButton *)btn{
-    NSLog(@"开始录音");
-    if ([self getVoiceAVAuthorizationStatus]) {
-        if (!btn.selected) {
-            btn.selected = YES;
-            [btn setButtonStateWithRecording];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
-            _strRecordPath = [self getSaveRecordPath];
-            [[DWAudioRecorderManager shareManager] audioRecorderStartWithFilePath:_strRecordPath ];
-        }
-    }
-}
-- (void)recordTouchUpOutsideAction:(DWRecordButton *)btn{
-    if (isHasVoiceAuth) {
-        NSLog(@"取消录音");
-        [btn setButtonStateWithNormal];
-        [[DWAudioRecorderManager shareManager] audioRecorderCancel];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Canceled"];
-    }
-}
-- (void)recordTouchUpInsideAction:(DWRecordButton *)btn{
-    if (isHasVoiceAuth) {
-        NSLog(@"完成录音");
-        [btn setButtonStateWithNormal];
-        [[DWAudioRecorderManager shareManager] audioRecorderStop];
-    }
-}
-
-- (void)recordTouchDragInsideAction:(DWRecordButton *)btn{
-    //持续调用
-
-}
-- (void)recordTouchDragOutsideAction:(DWRecordButton *)btn{
-    //持续调用
-
-}
-//中间状态  从 TouchDragOutside ---> TouchDragInside
-- (void)recordTouchDragEnterAction:(DWRecordButton *)btn{
-    if (isHasVoiceAuth) {
-        if (btn.selected) {
-            NSLog(@"继续录音");
-            [btn setButtonStateWithRecording];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Continue"];
-        }
-    }
-}
-//中间状态  从 TouchDragInside ---> TouchDragOutside
-- (void)recordTouchDragExitAction:(DWRecordButton *)btn{
-    if (isHasVoiceAuth) {
-        if (btn.selected) {
-            NSLog(@"将要取消录音");
-            [btn setButtonStateWithCancel];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Move"];
-        }
-    }
-}
 
 #pragma mark - HPGrowingTextViewDelegate
 - (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height {
@@ -408,7 +325,6 @@
             self.inputGrowView.text = [NSString stringWithFormat:@"%@%@",_inputGrowView.text,description];
         }else{
             //发送贴图消息
-
         }
     }
 }
@@ -417,6 +333,7 @@
     NSArray *uuidArr = [self.atCache allAtUid:self.inputGrowView.text];
     self.onSendTextMessage(@{@"text":self.inputGrowView.text,@"IDArr":uuidArr});
     self.inputGrowView.text = @"";
+    [self.expressionView setupSendBtnCanSend:NO];
 }
 
 //删除Text
@@ -485,6 +402,9 @@
         NSRange newSelectRange = NSMakeRange(range.location, 0);
         [self.inputGrowView setText:newText];
         self.inputGrowView.selectedRange = newSelectRange;
+        if ((![self.inputGrowView.text length]) && !self.expressionView.hidden) {
+            [self.expressionView setupSendBtnCanSend:NO];
+        }
     }
 }
 //删除@的人
