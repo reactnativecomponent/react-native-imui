@@ -132,12 +132,12 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         bubbleContentSize = CGSize(width:  CGFloat(imgWidth), height: CGFloat(imgHeight))
         break
     case .text:
-        let tmpLabel = M80AttributedLabel()
-        tmpLabel.nim_setText(self.text())
+        let tmpLabel = YYLabel()
+        tmpLabel.setupYYText(self.text(), andUnunderlineColor: UIColor.white)
         tmpLabel.font = IMUITextMessageCell.inComingTextFont
+//        bubbleContentSize = tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
         bubbleContentSize = tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
         print("bubbleContentSize: \(bubbleContentSize)")
-//        bubbleContentSize = tmpLabel.sizeThatFits(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
         
 //      if isOutGoing {
 //        bubbleContentSize = self.text().sizeWithConstrainedWidth(with: IMUIMessageCellLayout.bubbleMaxWidth, font: IMUITextMessageCell.outGoingTextFont)

@@ -15,8 +15,10 @@
 @interface DWRecordButton (){
     BOOL isTouchOut;
     BOOL isHasVoiceAuth;
+    BOOL isBegin;//是否开始录音
 }
 @property (copy, nonatomic) NSString *strRecordPath;
+@property (strong, nonatomic) UILongPressGestureRecognizer *btnTap;
 @end
 
 
@@ -35,13 +37,13 @@
         self.layer.cornerRadius = 5.0f;
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
-        
+        self.btnTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(clickLongGest:)];
+        self.btnTap.cancelsTouchesInView = NO;
+        [self addGestureRecognizer:_btnTap];
 //        [self addTarget:self action:@selector(recordTouchDown) forControlEvents:UIControlEventTouchDown];
 //        [self addTarget:self action:@selector(recordTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
 //        [self addTarget:self action:@selector(recordTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
 //        [self addTarget:self action:@selector(recordTouchDragEnter) forControlEvents:UIControlEventTouchDragEnter];
-//        [self addTarget:self action:@selector(recordTouchDragInside) forControlEvents:UIControlEventTouchDragInside];
-//        [self addTarget:self action:@selector(recordTouchDragOutside) forControlEvents:UIControlEventTouchDragOutside];
 //        [self addTarget:self action:@selector(recordTouchDragExit) forControlEvents:UIControlEventTouchDragExit];
         
     }
@@ -80,6 +82,14 @@
     [self setTitle:strCancel forState:UIControlStateNormal];
 }
 
+//长按
+- (void)clickLongGest:(UILongPressGestureRecognizer *)gest{
+    if (gest.state == UIGestureRecognizerStateBegan){
+        isBegin = YES;
+        [self recordTouchDown];
+    }
+}
+
 #pragma mark -- 事件方法回调
 //开始录音
 - (void)recordTouchDown
@@ -88,9 +98,9 @@
     if ([self getVoiceAVAuthorizationStatus]) {
         isTouchOut = NO;
         if (!self.selected) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
             self.selected = YES;
             [self setButtonStateWithRecording];
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"RecordChangeNotification" object:@"Start"];
             _strRecordPath = [self getSaveRecordPath];
             [[DWAudioRecorderManager shareManager] audioRecorderStartWithFilePath:_strRecordPath ];
         }
@@ -135,36 +145,44 @@
 }
 
 #pragma mark  touch--
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self recordTouchDown];
+    NSLog(@"touchesBegan~~~~~~~~~~~~~");
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    if (touchPoint.y > 0) {//结束
-        [self recordTouchUpInside];
-    }else{//取消
-        [self recordTouchUpOutside];
+    NSLog(@"touchesEnded~~~~~~~~~~~~~");
+    if (isBegin) {
+        isBegin = NO;
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
+        if (touchPoint.y > 0) {//结束
+            [self recordTouchUpInside];
+        }else{//取消
+            [self recordTouchUpOutside];
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     NSLog(@"touchesMoved~~~~~~");
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    if ((touchPoint.y < 0) && (!isTouchOut)) {//移出按钮范围
-        isTouchOut = YES;
-        [self recordTouchDragExit];
-    }else if((touchPoint.y > 0) && isTouchOut){//进入按钮范围
-        isTouchOut = NO;
-        [self recordTouchDragEnter];
+    if (isBegin) {
+        UITouch *touch = [touches anyObject];
+        CGPoint touchPoint = [touch locationInView:self];
+        if ((touchPoint.y < 0) && (!isTouchOut)) {//移出按钮范围
+            isTouchOut = YES;
+            [self recordTouchDragExit];
+        }else if((touchPoint.y > 0) && isTouchOut){//进入按钮范围
+            isTouchOut = NO;
+            [self recordTouchDragEnter];
+        }
     }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{//取消录音
-    [self recordTouchUpOutside];
+    NSLog(@"touchesCancelled~~~~~~");
+    if (isBegin) {
+        [self recordTouchUpOutside];
+    }
 }
 
 //判断录音权限

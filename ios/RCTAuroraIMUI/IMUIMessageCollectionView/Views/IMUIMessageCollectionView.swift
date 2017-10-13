@@ -90,7 +90,6 @@ open class IMUIMessageCollectionView: UIView {
     
     self.messageCollectionView.isScrollEnabled = true
     NotificationCenter.default.addObserver(self, selector: #selector(clickStopPlayActivity(notification:)), name: NSNotification.Name(rawValue: "StopPlayActivity"), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(clickLinkTouch), name: NSNotification.Name(rawValue: "ClickTouchLinkNotification"), object: nil)
     self.cellGesture.addTarget(self, action: #selector(self.tapCollectionView))
     self.messageCollectionView.addGestureRecognizer(self.cellGesture)
   }
@@ -98,16 +97,7 @@ open class IMUIMessageCollectionView: UIView {
     func tapCollectionView(){//点击整个cell，隐藏键盘
         self.delegate?.messageCollectionView?(tapCellView: "")
     }
-    func clickLinkTouch(notifi: Notification){
-        let strTouch: String = notifi.object as! String
-        if strTouch == "begin" {
-            self.messageCollectionView.removeGestureRecognizer(self.cellGesture)
 
-        }else{
-            self.messageCollectionView.addGestureRecognizer(self.cellGesture)
-        }
-    }
-    
     
   open subscript(index: Int) -> IMUIMessageModelProtocol {
     return chatDataManager[index]

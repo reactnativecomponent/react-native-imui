@@ -289,9 +289,9 @@ open class RCTMessageModel: IMUIMessageModel {
   }
   
   static func calculateTextContentSize(text: String, isOutGoing: Bool) -> CGSize {
-    let tmpLabel = M80AttributedLabel()
+    let tmpLabel = YYLabel()
     tmpLabel.font = IMUITextMessageCell.inComingTextFont
-    tmpLabel.nim_setText(text)
+ tmpLabel.setupYYText(text, andUnunderlineColor: UIColor.white)
 //    return tmpLabel.sizeThatFits(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
     return tmpLabel.getTheLabelBubble(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
     

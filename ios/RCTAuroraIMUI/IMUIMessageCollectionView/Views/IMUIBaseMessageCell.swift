@@ -45,6 +45,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.contentView.addSubview(self.isPlayedView)
     self.cellGesture.addTarget(self, action: #selector(self.tapCellView))
     self.bubbleGesture.addTarget(self, action: #selector(self.tapBubbleView))
+    self.bubbleGesture.cancelsTouchesInView = false
     self.longPress.addTarget(self, action: #selector(self.longTapBubbleView(sender:)))
     self.bubbleView.isUserInteractionEnabled = true
     self.bubbleView.addGestureRecognizer(self.bubbleGesture)
@@ -68,7 +69,6 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     isPlayedView.layer.cornerRadius = 3
     
     self.setupSubViews()
-    NotificationCenter.default.addObserver(self, selector: #selector(clickLinkTouch), name: NSNotification.Name(rawValue: "ClickTouchLinkNotification"), object: nil)
 
   }
   
@@ -112,7 +112,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     let statusViewGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapSatusView))
     statusViewGesture.numberOfTapsRequired = 1
     self.statusView?.isUserInteractionEnabled = true
-    self.statusView?.addGestureRecognizer(statusViewGesture)
+//    self.statusView?.addGestureRecognizer(statusViewGesture)
   }
   
   func removeStatusView(viewCache: IMUIReuseViewCache) {
@@ -311,18 +311,6 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   func didDisAppearCell() {
   }
 
-    func clickLinkTouch(notifi: Notification){
-        let strTouch: String = notifi.object as! String
-        if strTouch == "begin" {
-            self.bubbleView.removeGestureRecognizer(self.bubbleGesture)
-            self.bubbleView.removeGestureRecognizer(self.longPress)
-            self.removeGestureRecognizer(self.cellGesture)
-        }else{
-            self.bubbleView.addGestureRecognizer(bubbleGesture)
-            self.bubbleView.addGestureRecognizer(longPress)
-            self.addGestureRecognizer(self.cellGesture)
-        }
-    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)

@@ -12,6 +12,8 @@ typedef enum : NSUInteger
 {
     NIMInputTokenTypeText,
     NIMInputTokenTypeEmoticon,
+    NIMInputTokenTypeUrl,
+    NIMInputTokenTypeNumber,
     
 } NIMInputTokenType;
 

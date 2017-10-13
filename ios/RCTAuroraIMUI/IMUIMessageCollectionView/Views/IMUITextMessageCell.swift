@@ -16,22 +16,18 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
   
     open static var outGoingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
   open static var inComingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
-  
-//  var textMessageLable = IMUITextView()
-    var textMessageLable = M80AttributedLabel()
+
+    var textMessageLable = YYLabel()
 
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.bubbleView.addSubview(textMessageLable)
     textMessageLable.numberOfLines = 0
-    textMessageLable.lineBreakMode = CTLineBreakMode.byWordWrapping
+    textMessageLable.lineBreakMode = NSLineBreakMode.byWordWrapping
     textMessageLable.backgroundColor = UIColor.clear
-    textMessageLable.underLineForLink = true
-    textMessageLable.autoDetectLinks = true
     textMessageLable.font = IMUITextMessageCell.inComingTextFont
-    NotificationCenter.default.addObserver(self, selector: #selector(clickOpenLink(notification:)), name: NSNotification.Name(rawValue: "OpenUrlNotification"), object: nil)
-
+    textMessageLable.isUserInteractionEnabled = true
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -49,46 +45,45 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     let layout = message.layout
     self.layoutToText(with: message.text(), isOutGoing: message.isOutGoing)
     if (layout.bubbleFrame.size.height/21) > 1 {
-        self.textMessageLable.textAlignment = CTTextAlignment.left
+        self.textMessageLable.textAlignment = NSTextAlignment.left
     }else{
-        self.textMessageLable.textAlignment = CTTextAlignment.center
+        self.textMessageLable.textAlignment = NSTextAlignment.center
     }
-
     let textSize = self.textMessageLable.getTheLabel(CGSize(width: IMUIMessageCellLayout.bubbleMaxWidth, height: CGFloat(MAXFLOAT)))
     let textX = layout.bubbleContentInset.left
     let textY = (layout.bubbleFrame.height - textSize.height)*0.5
     self.textMessageLable.frame = CGRect(origin: CGPoint(x:textX, y:textY), size: textSize)
-    
   }
-  
 
     
   func layoutToText(with text: String, isOutGoing: Bool) {
-//    textMessageLable.text = text
-    textMessageLable.nim_setText(text);
+
+    
     if isOutGoing {
+        self.textMessageLable.setupYYText(text, andUnunderlineColor: UIColor.init(red: 187/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1))
         textMessageLable.textColor = UIColor.white
-        textMessageLable.linkColor = UIColor.init(red: 187/255.0, green: 220/255.0, blue: 255/255.0, alpha: 1)
         
     } else {
+        self.textMessageLable.setupYYText(text, andUnunderlineColor: UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1))
         textMessageLable.textColor = UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        textMessageLable.linkColor = UIColor.init(red: 35/255, green: 141/255.0, blue: 250/255, alpha: 1)
       
     }
+    weak var weakSelf = self
+    self.textMessageLable.urLBlock = {(strUrl:String)->() in
+        weakSelf?.clickOpenLink(strUrl: strUrl)
+    }
+    self.textMessageLable.numBlock = {(strNum:String)->() in
+        print("numBlock:-----------\(strNum)")
+        let strNUm = "telprompt://"+strNum
+        UIApplication.shared.openURL(URL.init(string: strNUm)!)
+    }
+    
+    
   }
     
-    func clickOpenLink(notification: Notification){
-        print("clickOpenLink")
-        let dict = notification.object as! NSDictionary
-        let tmpLabel = dict.object(forKey: "label") as! M80AttributedLabel
-        if tmpLabel == self.textMessageLable {
-            let tmpUrl = dict.object(forKey: "url") as! String
-            self.delegate?.messageCollectionView?(openMessageBubbleUrl:tmpUrl )
-        }
+    func clickOpenLink(strUrl: String){
+        self.delegate?.messageCollectionView?(openMessageBubbleUrl:strUrl )
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 
 }
