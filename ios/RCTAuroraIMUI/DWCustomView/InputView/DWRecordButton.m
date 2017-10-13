@@ -24,6 +24,10 @@
 
 @implementation DWRecordButton
 
+- (void)dealloc{
+    [self removeGestureRecognizer:_btnTap];
+}
+
 - (instancetype)init
 {
     self = [super init];

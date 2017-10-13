@@ -74,8 +74,14 @@ open class IMUITextMessageCell: IMUIBaseMessageCell {
     }
     self.textMessageLable.numBlock = {(strNum:String)->() in
         print("numBlock:-----------\(strNum)")
-        let strNUm = "telprompt://"+strNum
-        UIApplication.shared.openURL(URL.init(string: strNUm)!)
+        let strNUm = URL.init(string: ("telprompt://"+strNum))
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(strNUm!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(strNUm!)
+        }
+        
+        
     }
     
     
