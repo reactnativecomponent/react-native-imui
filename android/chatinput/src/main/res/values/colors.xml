@@ -3,6 +3,8 @@
     <color name="white">#ffffff</color>
     <color name="line_bg">#a9a3a3</color>
     <color name="voice_re_bg">#dadada</color>
+    <color name="voice_re_bg_focused">#D6D7DC</color>
+    <color name="voice_re_bg_selected">#D6D7DC</color>
     <color name="voice_re_bg_default">#F7F7F7</color>
     <color name="voice_re_bg_pressed">#D6D7DC</color>
     <color name="chat_input_bg">#F7F7F7</color>
