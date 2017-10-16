@@ -70,7 +70,7 @@
                 android:layout_height="@dimen/imui_chat_input_width"
                 android:background="@drawable/voice_bg"
                 android:text="按住 说话"
-                android:visibility="invisible" />
+                android:visibility="visible" />
         </FrameLayout>
         <android.support.v4.widget.Space
             android:layout_width="@dimen/imui_chat_space"

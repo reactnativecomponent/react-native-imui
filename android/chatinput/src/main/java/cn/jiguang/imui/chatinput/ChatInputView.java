@@ -148,6 +148,7 @@ public class ChatInputView extends LinearLayout {
 
         mMenuContainer.setVisibility(GONE);
         actionLayout.setVisibility(GONE);
+        mChatVoice.setVisibility(INVISIBLE);
 
         mChatInput.addTextChangedListener(textWatcher);
 

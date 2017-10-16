@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import cn.jiguang.imui.chatinput.R;
 import cn.jiguang.imui.chatinput.listener.RecordVoiceListener;
 
 /**
@@ -36,13 +37,13 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
 
     private void onStartAudioRecord() {
         button.setText(text[1]);
-        button.setSelected(true);
+        button.setBackgroundResource(R.drawable.voice_bg_pressed);
         recordHelper.startRecording();
     }
 
     private void onEndAudioRecord(boolean cancel) {
         button.setText(text[0]);
-        button.setSelected(false);
+        button.setBackgroundResource(R.drawable.voice_bg_default);
 
         if (cancel) {
             recordHelper.cancelRecord();
@@ -59,7 +60,7 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
      * @param cancel
      */
     private void cancelAudioRecord(boolean cancel) {
-        button.setSelected(true);
+        button.setBackgroundResource(R.drawable.voice_bg_selected);
         updateTimerTip(cancel);
         recordHelper.setCancelAble(cancel);
     }
@@ -70,7 +71,7 @@ public class OnChatVoiceTouch implements View.OnTouchListener {
 
     public void reset(){
         button.setText(text[0]);
-        button.setSelected(false);
+        button.setBackgroundResource(R.drawable.voice_bg_default);
     }
     private boolean isCancelled(View view, MotionEvent event) {
         int[] location = new int[2];
