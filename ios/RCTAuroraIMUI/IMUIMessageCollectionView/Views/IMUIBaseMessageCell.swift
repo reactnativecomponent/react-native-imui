@@ -112,7 +112,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     let statusViewGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapSatusView))
     statusViewGesture.numberOfTapsRequired = 1
     self.statusView?.isUserInteractionEnabled = true
-//    self.statusView?.addGestureRecognizer(statusViewGesture)
+    self.statusView?.addGestureRecognizer(statusViewGesture)
   }
   
   func removeStatusView(viewCache: IMUIReuseViewCache) {
