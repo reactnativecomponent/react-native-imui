@@ -40,7 +40,7 @@
 @property (nonatomic) CGPoint arrowPoint;
 @property (nonatomic) CGRect boxFrame;
 @property (nonatomic) int pageIndex;
-@property (nonatomic) int selectedIndex;
+@property (nonatomic) NSInteger selectedIndex;
 
 @property (nonatomic) UIInterfaceOrientation lastInterfaceOrientation;
 

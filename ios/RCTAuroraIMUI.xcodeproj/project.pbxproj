@@ -144,17 +144,11 @@
 		623EA9A71EE55D0800EC43AE /* RCTAuroraIMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9A61EE55D0800EC43AE /* RCTAuroraIMUITests.m */; };
 		623EA9A91EE55D0800EC43AE /* RCTAuroraIMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		623EAA331EE55D4200EC43AE /* RCTMessageListViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */; };
-		624B828D1EE5710E006C3C03 /* imuiDemo-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9701EE55CB200EC43AE /* imuiDemo-Bridging-Header.h */; };
 		624B82901EE5710E006C3C03 /* MyMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9731EE55CB200EC43AE /* MyMessageModel.swift */; };
 		624B82911EE5710E006C3C03 /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9741EE55CB200EC43AE /* MyUser.swift */; };
-		624B82921EE5710E006C3C03 /* RCTSwiftBridgeModule.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9751EE55CB200EC43AE /* RCTSwiftBridgeModule.h */; };
-		624B82931EE5710E006C3C03 /* RCTAuroraIMUIModule.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9761EE55CB200EC43AE /* RCTAuroraIMUIModule.h */; };
 		624B82941EE5710E006C3C03 /* RCTAuroraIMUIModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */; };
-		624B82951EE5710E006C3C03 /* RCTAuroraIMUI-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9781EE55CB200EC43AE /* RCTAuroraIMUI-Bridging-Header.h */; };
-		624B829A1EE5710E006C3C03 /* RCTMessageListView.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA97E1EE55CB200EC43AE /* RCTMessageListView.h */; };
 		624B829B1EE5710E006C3C03 /* RCTMessageListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA97F1EE55CB200EC43AE /* RCTMessageListView.m */; };
 		624B829D1EE5710E006C3C03 /* RCTMessageListViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */; };
-		624B82D61EE5710E006C3C03 /* RCTAuroraIMUI.h in Sources */ = {isa = PBXBuildFile; fileRef = 623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */; };
 		624B82DB1EE57482006C3C03 /* RCTMessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623EA9801EE55CB200EC43AE /* RCTMessageListView.xib */; };
 		624B82DD1EE57653006C3C03 /* RCTAuroraIMUIModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */; };
 /* End PBXBuildFile section */
@@ -952,7 +946,6 @@
 				4E40B9671F67BC2400E2FE50 /* UIImage+DWImageColor.m in Sources */,
 				4E49AD981F34178000B50439 /* DWRecordButton.m in Sources */,
 				4E77A3C91F30840000098CAF /* IMUIVideoMessageCell.swift in Sources */,
-				624B828D1EE5710E006C3C03 /* imuiDemo-Bridging-Header.h in Sources */,
 				624B82901EE5710E006C3C03 /* MyMessageModel.swift in Sources */,
 				4E36B2C91F62964E009ECBAE /* DWOrigImageView.m in Sources */,
 				4E49AD9A1F34178000B50439 /* HPGrowingTextView.m in Sources */,
@@ -972,21 +965,18 @@
 				4E77A3C41F30840000098CAF /* IMUIMessageCollectionView.swift in Sources */,
 				4E1BA8851F39AB8400A15E62 /* NIMInputAtCache.m in Sources */,
 				4E40B95D1F67B90800E2FE50 /* DWActionSheetView.m in Sources */,
-				624B82921EE5710E006C3C03 /* RCTSwiftBridgeModule.h in Sources */,
 				4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */,
 				4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */,
 				4E77A3B31F30840000098CAF /* UIImageMessageListExtension.swift in Sources */,
 				4E77A3C01F30840000098CAF /* IMUIBaseMessageCell.swift in Sources */,
 				4E77A3AA1F30840000098CAF /* StringExtension.swift in Sources */,
 				4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */,
-				624B82931EE5710E006C3C03 /* RCTAuroraIMUIModule.h in Sources */,
 				4E49AE2B1F3476CC00B50439 /* NIMInputEmoticonManager.m in Sources */,
 				4E3B9B371F4BD4F400218A0D /* DWAudioRecorderManager.m in Sources */,
 				4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */,
 				624B82941EE5710E006C3C03 /* RCTAuroraIMUIModule.m in Sources */,
 				4E77A3BA1F30840000098CAF /* IMUIMessageCellProtocal.swift in Sources */,
 				4E77A3B91F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift in Sources */,
-				624B82951EE5710E006C3C03 /* RCTAuroraIMUI-Bridging-Header.h in Sources */,
 				4E77A3B01F30840000098CAF /* IMUIChatLayout.swift in Sources */,
 				4E49ADEB1F346B7500B50439 /* NIMInputEmoticonContainerView.m in Sources */,
 				4E77A3C61F30840000098CAF /* IMUIMessageStatusView.swift in Sources */,
@@ -1003,7 +993,6 @@
 				4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */,
 				4E77A3BC1F30840000098CAF /* IMUIMessageModelProtocol.swift in Sources */,
 				4E77A3C31F30840000098CAF /* IMUIMessageBubbleView.swift in Sources */,
-				624B829A1EE5710E006C3C03 /* RCTMessageListView.h in Sources */,
 				4E6573571F66940200D4BAA8 /* DWShowImageVC.m in Sources */,
 				4E49AD961F34178000B50439 /* DWInputBarControl.m in Sources */,
 				4E49AE271F34767100B50439 /* UIImage+NIM.m in Sources */,
@@ -1015,7 +1004,6 @@
 				4E77A3AB1F30840000098CAF /* UIColorExtension.swift in Sources */,
 				4E77A3C71F30840000098CAF /* IMUITextMessageCell.swift in Sources */,
 				624B829D1EE5710E006C3C03 /* RCTMessageListViewManager.m in Sources */,
-				624B82D61EE5710E006C3C03 /* RCTAuroraIMUI.h in Sources */,
 				4E77A3B11F30840000098CAF /* IMUIVideoFileLoader.swift in Sources */,
 				4E77A3B51F30840000098CAF /* IMUIMessageCellLayout.swift in Sources */,
 				4E49AE1B1F34760500B50439 /* NIMPageView.m in Sources */,
