@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +61,7 @@ import cn.jiguang.imui.utils.SessorUtil;
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 
 
-public class ReactMsgListManager extends ViewGroupManager<MessageList> implements LifecycleEventListener {
+public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> implements LifecycleEventListener {
 
     private static final String REACT_MESSAGE_LIST = "RCTMessageList";
     private static final String TAG = "RCTMessageList";
@@ -89,6 +92,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     private MsgListAdapter mAdapter;
     private ReactContext mContext;
     private MessageList msgList;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public String getName() {
@@ -98,7 +102,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     @SuppressLint("ClickableViewAccessibility")
     @SuppressWarnings("unchecked")
     @Override
-    protected MessageList createViewInstance(final ThemedReactContext reactContext) {
+    protected SwipeRefreshLayout createViewInstance(final ThemedReactContext reactContext) {
         Log.w(TAG, "createViewInstance");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(RCT_APPEND_MESSAGES_ACTION);
@@ -114,7 +118,32 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
 
+        swipeRefreshLayout = new SwipeRefreshLayout(reactContext);
         msgList = new MessageList(reactContext, null);
+        swipeRefreshLayout.addView(msgList);
+
+        final Handler handler = new Handler(){
+
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case 1:
+                        swipeRefreshLayout.setRefreshing(false);
+                        break;
+                }
+            }
+        };
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.GREEN,Color.YELLOW,Color.RED);
+//        swipeRefreshLayout.setEnabled(false);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
+                        ON_PULL_TO_REFRESH_EVENT, null);
+                handler.sendEmptyMessageDelayed(1,5000);
+            }
+        });
         // Use default layout
         MsgListAdapter.HoldersConfig holdersConfig = new MsgListAdapter.HoldersConfig();
         ImageLoader imageLoader = new ImageLoader() {
@@ -185,7 +214,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 }
                 WritableMap event = Arguments.createMap();
                 event.putMap("message", message.toWritableMap());
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_CLICK_EVENT, event);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_MSG_CLICK_EVENT, event);
             }
         });
 
@@ -195,7 +224,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 showMenu(reactContext, message);
 //                WritableMap event = Arguments.createMap();
 //                event.putMap("message", message.toWritableMap());
-//                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_MSG_LONG_CLICK_EVENT, event);
+//                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_MSG_LONG_CLICK_EVENT, event);
             }
         });
 
@@ -205,7 +234,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
 //                initPopuptWindow(reactContext.getCurrentActivity(), view, "", 1);
                 WritableMap event = Arguments.createMap();
                 event.putMap("message", message.toWritableMap());
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_AVATAR_CLICK_EVENT, event);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_AVATAR_CLICK_EVENT, event);
             }
         });
 
@@ -214,7 +243,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             public void onLinkClick(View view, String o) {
                 WritableMap event = Arguments.createMap();
                 event.putString("message", o);
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_LINK_CLICK_EVENT, event);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_LINK_CLICK_EVENT, event);
             }
         });
         mAdapter.setMsgResendListener(new MsgListAdapter.OnMsgResendListener<RCTMessage>() {
@@ -223,7 +252,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 WritableMap event = Arguments.createMap();
                 event.putMap("message", message.toWritableMap());
                 event.putString("opt", "resend");
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_STATUS_VIEW_CLICK_EVENT, event);
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_STATUS_VIEW_CLICK_EVENT, event);
             }
         });
 
@@ -232,7 +261,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(), ON_TOUCH_MSG_LIST_EVENT, null);
+                        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), ON_TOUCH_MSG_LIST_EVENT, null);
                         if (reactContext.getCurrentActivity() != null) {
                             InputMethodManager imm = (InputMethodManager) reactContext.getCurrentActivity()
                                     .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -252,21 +281,23 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
         mAdapter.setOnLoadMoreListener(new MsgListAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore(int page, int total) {
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
-                        ON_PULL_TO_REFRESH_EVENT, null);
+//                swipeRefreshLayout.setRefreshing(true);
             }
 
             @Override
             public void onAutoScroll(boolean autoScroll) {
                 WritableMap event = Arguments.createMap();
                 event.putBoolean("isAutoScroll", autoScroll);
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                         ON_CLICK_CHANGE_AUTO_SCROLL_EVENT, event);
             }
         });
-        return msgList;
+        return swipeRefreshLayout;
     }
 
+    int getId(){
+        return swipeRefreshLayout.getId();
+    }
     private PhotoViewPagerViewUtil.IPhotoLongClickListener longClickListener = new PhotoViewPagerViewUtil.IPhotoLongClickListener() {
         @Override
         public boolean onClick(final Dialog dialog, View v, final IMediaFile mediaFile) {
@@ -293,7 +324,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
 //                        Toast.makeText(mContext, finalCode, Toast.LENGTH_SHORT).show();
                         WritableMap event = Arguments.createMap();
                         event.putString("result", finalCode);
-                        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                                 ON_DECODE_QR_CODE_EVENT, event);
                     }
                 }
@@ -313,7 +344,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                     WritableMap event = Arguments.createMap();
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "copy");
-                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                             ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
@@ -324,7 +355,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                 WritableMap event = Arguments.createMap();
                 event.putMap("message", message.toWritableMap());
                 event.putString("opt", "delete");
-                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                         ON_STATUS_VIEW_CLICK_EVENT, event);
             }
         });
@@ -337,7 +368,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                     WritableMap event = Arguments.createMap();
                     event.putMap("message", message.toWritableMap());
                     event.putString("opt", "revoke");
-                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(msgList.getId(),
+                    reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                             ON_STATUS_VIEW_CLICK_EVENT, event);
                 }
             });
@@ -382,7 +413,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     }
 
     @ReactProp(name = "initList")
-    public void setInitList(MessageList messageList, ReadableArray messages) {
+    public void setInitList(SwipeRefreshLayout messageList, ReadableArray messages) {
 
         mAdapter.clear();
         if (messages != null && messages.size() > 0) {
@@ -396,91 +427,91 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     }
 
     @ReactProp(name = "sendBubble")
-    public void setSendBubble(MessageList messageList, ReadableMap map) {
+    public void setSendBubble(SwipeRefreshLayout messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
         if (resId != 0) {
-            messageList.setSendBubbleDrawable(resId);
+            msgList.setSendBubbleDrawable(resId);
         }
     }
 
     @ReactProp(name = "receiveBubble")
-    public void setReceiveBubble(MessageList messageList, ReadableMap map) {
+    public void setReceiveBubble(SwipeRefreshLayout messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
         if (resId != 0) {
-            messageList.setReceiveBubbleDrawable(resId);
+            msgList.setReceiveBubbleDrawable(resId);
         }
     }
 
     @ReactProp(name = "sendBubbleTextColor")
-    public void setSendBubbleTextColor(MessageList messageList, String color) {
+    public void setSendBubbleTextColor(SwipeRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
-        messageList.setSendBubbleTextColor(colorRes);
+        msgList.setSendBubbleTextColor(colorRes);
     }
 
     @ReactProp(name = "receiveBubbleTextColor")
-    public void setReceiveBubbleTextColor(MessageList messageList, String color) {
+    public void setReceiveBubbleTextColor(SwipeRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
-        messageList.setReceiveBubbleTextColor(colorRes);
+        msgList.setReceiveBubbleTextColor(colorRes);
     }
 
     @ReactProp(name = "sendBubbleTextSize")
-    public void setSendBubbleTextSize(MessageList messageList, int size) {
-        messageList.setSendBubbleTextSize(size);
+    public void setSendBubbleTextSize(SwipeRefreshLayout messageList, int size) {
+        msgList.setSendBubbleTextSize(size);
     }
 
     @ReactProp(name = "receiveBubbleTextSize")
-    public void setReceiveBubbleTextSize(MessageList messageList, int size) {
-        messageList.setReceiveBubbleTextSize(size);
+    public void setReceiveBubbleTextSize(SwipeRefreshLayout messageList, int size) {
+        msgList.setReceiveBubbleTextSize(size);
     }
 
     @ReactProp(name = "sendBubblePadding")
-    public void setSendBubblePadding(MessageList messageList, ReadableMap map) {
-        messageList.setSendBubblePaddingLeft(map.getInt("left"));
-        messageList.setSendBubblePaddingTop(map.getInt("top"));
-        messageList.setSendBubblePaddingRight(map.getInt("right"));
-        messageList.setSendBubblePaddingBottom(map.getInt("bottom"));
+    public void setSendBubblePadding(SwipeRefreshLayout messageList, ReadableMap map) {
+        msgList.setSendBubblePaddingLeft(map.getInt("left"));
+        msgList.setSendBubblePaddingTop(map.getInt("top"));
+        msgList.setSendBubblePaddingRight(map.getInt("right"));
+        msgList.setSendBubblePaddingBottom(map.getInt("bottom"));
     }
 
     @ReactProp(name = "receiveBubblePadding")
-    public void setReceiveBubblePaddingLeft(MessageList messageList, ReadableMap map) {
-        messageList.setReceiveBubblePaddingLeft(map.getInt("left"));
-        messageList.setReceiveBubblePaddingTop(map.getInt("top"));
-        messageList.setReceiveBubblePaddingRight(map.getInt("right"));
-        messageList.setReceiveBubblePaddingBottom(map.getInt("bottom"));
+    public void setReceiveBubblePaddingLeft(SwipeRefreshLayout messageList, ReadableMap map) {
+        msgList.setReceiveBubblePaddingLeft(map.getInt("left"));
+        msgList.setReceiveBubblePaddingTop(map.getInt("top"));
+        msgList.setReceiveBubblePaddingRight(map.getInt("right"));
+        msgList.setReceiveBubblePaddingBottom(map.getInt("bottom"));
     }
 
     @ReactProp(name = "dateTextSize")
-    public void setDateTextSize(MessageList messageList, int size) {
-        messageList.setDateTextSize(size);
+    public void setDateTextSize(SwipeRefreshLayout messageList, int size) {
+        msgList.setDateTextSize(size);
     }
 
     @ReactProp(name = "dateTextColor")
-    public void setDateTextColor(MessageList messageList, String color) {
+    public void setDateTextColor(SwipeRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
-        messageList.setDateTextColor(colorRes);
+        msgList.setDateTextColor(colorRes);
     }
 
     @ReactProp(name = "datePadding")
-    public void setDatePadding(MessageList messageList, int padding) {
-        messageList.setDatePadding(padding);
+    public void setDatePadding(SwipeRefreshLayout messageList, int padding) {
+        msgList.setDatePadding(padding);
     }
 
     @ReactProp(name = "avatarSize")
-    public void setAvatarWidth(MessageList messageList, ReadableMap map) {
-        messageList.setAvatarWidth(map.getInt("width"));
-        messageList.setAvatarHeight(map.getInt("height"));
+    public void setAvatarWidth(SwipeRefreshLayout messageList, ReadableMap map) {
+        msgList.setAvatarWidth(map.getInt("width"));
+        msgList.setAvatarHeight(map.getInt("height"));
     }
 
     /**
      * if showDisplayName equals 1, then show display name.
      *
-     * @param messageList       MessageList
+     * @param messageList       SwipeRefreshLayout
      * @param isShowDisplayName boolean
      */
     @ReactProp(name = "isShowDisplayName")
-    public void setShowDisplayName(MessageList messageList, boolean isShowDisplayName) {
+    public void setShowDisplayName(SwipeRefreshLayout messageList, boolean isShowDisplayName) {
         if (isShowDisplayName) {
-            messageList.setShowDisplayName(1);
+            msgList.setShowDisplayName(1);
         }
     }
 
@@ -524,6 +555,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
                     });
                 }
             } else if (intent.getAction().equals(RCT_INSERT_MESSAGES_ACTION)) {
+                swipeRefreshLayout.setRefreshing(false);
                 String[] messages = intent.getStringArrayExtra("messages");
                 List<RCTMessage> list = new ArrayList<>();
                 for (int i = messages.length - 1; i > -1; i--) {
@@ -569,7 +601,7 @@ public class ReactMsgListManager extends ViewGroupManager<MessageList> implement
     }
 
     @Override
-    public void onDropViewInstance(MessageList view) {
+    public void onDropViewInstance(SwipeRefreshLayout view) {
         super.onDropViewInstance(view);
         Log.w(TAG, "onDropViewInstance");
         try {
