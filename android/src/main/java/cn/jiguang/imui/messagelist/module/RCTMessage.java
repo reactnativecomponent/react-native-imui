@@ -89,6 +89,8 @@ public class RCTMessage implements IMessage {
                     return MessageType.SEND_LINK;
                 case MessageConstant.MsgType.CUSTON:
                     return MessageType.CUSTOM;
+                case MessageConstant.MsgType.CARD:
+                    return MessageType.SEND_CARD;
                 default:
                     return MessageType.CUSTOM;
             }
@@ -120,6 +122,8 @@ public class RCTMessage implements IMessage {
                     return MessageType.RECEIVE_LOCATION;
                 case MessageConstant.MsgType.LINK:
                     return MessageType.RECEIVE_LINK;
+                case MessageConstant.MsgType.CARD:
+                    return MessageType.RECEIVE_CARD;
                 case MessageConstant.MsgType.CUSTON:
                     return MessageType.CUSTOM;
                 default:

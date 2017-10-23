@@ -10,11 +10,12 @@ import java.util.Map;
 
 import cn.jiguang.imui.messagelist.module.RCTAccountNotice;
 import cn.jiguang.imui.messagelist.module.RCTBankTransfer;
-import cn.jiguang.imui.messagelist.module.RCTMember;
+import cn.jiguang.imui.messagelist.module.RCTCard;
 import cn.jiguang.imui.messagelist.module.RCTExtend;
 import cn.jiguang.imui.messagelist.module.RCTLink;
 import cn.jiguang.imui.messagelist.module.RCTLocation;
 import cn.jiguang.imui.messagelist.module.RCTMediaFile;
+import cn.jiguang.imui.messagelist.module.RCTMember;
 import cn.jiguang.imui.messagelist.module.RCTMessage;
 import cn.jiguang.imui.messagelist.module.RCTRedPacket;
 import cn.jiguang.imui.messagelist.module.RCTRedPacketOpen;
@@ -125,6 +126,15 @@ public class MessageUtil {
                     extend = new RCTRedPacketOpen(ext.getString(MessageConstant.RedPacketOpen.HAS_RED_PACKET),
                             ext.getString(MessageConstant.RedPacketOpen.SERIAL_NO), ext.getString(MessageConstant.RedPacketOpen.TIP_MSG),
                             ext.getString(MessageConstant.RedPacketOpen.SEND_ID), ext.getString(MessageConstant.RedPacketOpen.OPEN_ID));
+                }
+                break;
+
+            case SEND_CARD:
+            case RECEIVE_CARD:
+                if (message.hasKey(MessageConstant.Message.EXTEND)) {
+                    ext = message.getMap(MessageConstant.Message.EXTEND);
+                    extend = new RCTCard(ext.getString(MessageConstant.Card.type),ext.getString(MessageConstant.Card.name),
+                            ext.getString(MessageConstant.Card.imgPath),ext.getString(MessageConstant.Card.sessionId));
                 }
                 break;
             case CUSTOM:

@@ -44,6 +44,9 @@ public interface IMessage {
         SEND_ACCOUNT_NOTICE,
         RECEIVE_ACCOUNT_NOTICE,
 
+        SEND_CARD,
+        RECEIVE_CARD,
+
         RED_PACKET_OPEN,
         NOTIFICATION,
         TIP,

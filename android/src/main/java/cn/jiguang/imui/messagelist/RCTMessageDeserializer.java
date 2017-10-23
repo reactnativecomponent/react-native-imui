@@ -12,6 +12,7 @@ import java.util.Map;
 
 import cn.jiguang.imui.messagelist.module.RCTAccountNotice;
 import cn.jiguang.imui.messagelist.module.RCTBankTransfer;
+import cn.jiguang.imui.messagelist.module.RCTCard;
 import cn.jiguang.imui.messagelist.module.RCTExtend;
 import cn.jiguang.imui.messagelist.module.RCTLink;
 import cn.jiguang.imui.messagelist.module.RCTLocation;
@@ -20,7 +21,6 @@ import cn.jiguang.imui.messagelist.module.RCTMessage;
 import cn.jiguang.imui.messagelist.module.RCTRedPacket;
 import cn.jiguang.imui.messagelist.module.RCTRedPacketOpen;
 import cn.jiguang.imui.messagelist.module.RCTUser;
-
 
 
 public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
@@ -157,6 +157,14 @@ public class RCTMessageDeserializer implements JsonDeserializer<RCTMessage> {
                         ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
                         extend = new RCTRedPacketOpen(getGsonString(ext, MessageConstant.RedPacketOpen.HAS_RED_PACKET), getGsonString(ext, MessageConstant.RedPacketOpen.SERIAL_NO),
                                 getGsonString(ext, MessageConstant.RedPacketOpen.TIP_MSG), getGsonString(ext, MessageConstant.RedPacketOpen.SEND_ID), getGsonString(ext, MessageConstant.RedPacketOpen.OPEN_ID));
+                    }
+                    break;
+                case SEND_CARD:
+                case RECEIVE_CARD:
+                    if (jsonObject.has(MessageConstant.Message.EXTEND)) {
+                        ext = jsonObject.get(MessageConstant.Message.EXTEND).getAsJsonObject();
+                        extend = new RCTCard(getGsonString(ext, MessageConstant.Card.type),getGsonString(ext, MessageConstant.Card.name),
+                                getGsonString(ext, MessageConstant.Card.imgPath),getGsonString(ext, MessageConstant.Card.sessionId));
                     }
                     break;
                 default:
