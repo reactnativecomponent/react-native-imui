@@ -87,6 +87,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUIRedPacketOpenMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketOpenMessageCell.self.description())
     self.messageCollectionView.register(IMUIUnKnownMessageCell.self, forCellWithReuseIdentifier: IMUIUnKnownMessageCell.self.description())
     self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
+    self.messageCollectionView.register(IMUICardMessageCell.self, forCellWithReuseIdentifier: IMUICardMessageCell.self.description())
     
     self.messageCollectionView.isScrollEnabled = true
     NotificationCenter.default.addObserver(self, selector: #selector(clickStopPlayActivity(notification:)), name: NSNotification.Name(rawValue: "StopPlayActivity"), object: nil)
@@ -248,6 +249,11 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     case .redpacketOpen:
         cellIdentify = IMUIRedPacketOpenMessageCell.self.description()
         break
+        
+    case .card:
+        cellIdentify = IMUICardMessageCell.self.description()
+        break
+
     case .unknown:
         cellIdentify = IMUIUnKnownMessageCell.self.description()
         break

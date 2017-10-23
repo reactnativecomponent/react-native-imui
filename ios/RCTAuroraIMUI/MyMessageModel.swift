@@ -32,6 +32,7 @@ open class RCTMessageModel: IMUIMessageModel {
     static let kMsgTypeUrl = "url"
     static let kMsgTypeAccountNotifce = "account_notice"
     static let kMsgTypeRedpacketOpen = "redpacketOpen"
+    static let kMsgTypeCard = "card"
     static let kMsgTypeUnKnow = "unknown"
     
     
@@ -229,6 +230,9 @@ open class RCTMessageModel: IMUIMessageModel {
         }else if typeString == RCTMessageModel.kMsgTypeRedpacketOpen {
             msgType = .redpacketOpen
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
+      }else if typeString == RCTMessageModel.kMsgTypeCard{
+        msgType = .card
+        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else{
             msgType = .unknown
         }
@@ -356,6 +360,10 @@ open class RCTMessageModel: IMUIMessageModel {
         break
       case .redpacketOpen:
         messageDic.setValue(RCTMessageModel.kMsgTypeRedpacketOpen, forKey: RCTMessageModel.kMsgKeyMsgType)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
+        break
+      case .card:
+        messageDic.setValue(RCTMessageModel.kMsgTypeCard, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .unknown:

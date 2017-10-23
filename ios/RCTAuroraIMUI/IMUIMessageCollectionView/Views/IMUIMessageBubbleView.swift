@@ -19,6 +19,7 @@ enum IMUIMessageBubbleType {
   case url
   case account_notice
   case redpacketOpen
+    case card
     
 }
 
