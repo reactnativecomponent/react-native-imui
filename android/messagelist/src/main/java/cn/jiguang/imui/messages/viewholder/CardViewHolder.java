@@ -2,10 +2,12 @@ package cn.jiguang.imui.messages.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.jiguang.imui.BuildConfig;
 import cn.jiguang.imui.R;
 import cn.jiguang.imui.commons.models.ICard;
 import cn.jiguang.imui.commons.models.IMessage;
@@ -21,6 +23,7 @@ public class CardViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<M
     private TextView name;
     private TextView cardType;
     private TextView sessionId;
+    private View layoutTop;
 
     public CardViewHolder(RecyclerView.Adapter adapter, View itemView, boolean isSender) {
         super(adapter, itemView, isSender);
@@ -29,6 +32,7 @@ public class CardViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<M
         name = (TextView) itemView.findViewById(R.id.card_name);
         cardType = (TextView) itemView.findViewById(R.id.card_type);
         sessionId = (TextView) itemView.findViewById(R.id.card_id);
+        layoutTop = itemView.findViewById(R.id.layout_top);
     }
 
     @Override
@@ -43,7 +47,27 @@ public class CardViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<M
             cardType.setText(card.getCardType());
             sessionId.setText(card.getSessionId());
         }
-
+        layoutTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mMsgClickListener != null) {
+                    mMsgClickListener.onMessageClick(message);
+                }
+            }
+        });
+        layoutTop.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mMsgLongClickListener != null) {
+                    mMsgLongClickListener.onMessageLongClick(message);
+                } else {
+                    if (BuildConfig.DEBUG) {
+                        Log.w("MsgListAdapter", "Didn't set long click listener! Drop event.");
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     @Override

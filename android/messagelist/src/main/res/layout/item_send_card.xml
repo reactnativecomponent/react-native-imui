@@ -40,7 +40,6 @@
 
         <LinearLayout
             android:id="@+id/item_layout"
-            android:clickable="false"
             android:layout_marginRight="@dimen/aurora_avatar_padding"
             android:layout_centerVertical="true"
             android:layout_below="@id/aurora_tv_msgitem_display_name"

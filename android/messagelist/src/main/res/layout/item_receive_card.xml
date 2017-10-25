@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_marginTop="@dimen/aurora_message_padding_top"
             android:id="@+id/item_layout"
-            android:clickable="false"
             android:layout_marginLeft="@dimen/aurora_avatar_padding"
             android:layout_marginRight="@dimen/aurora_width_msg_avatar"
             android:layout_centerVertical="true"
