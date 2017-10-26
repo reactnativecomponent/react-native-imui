@@ -237,6 +237,8 @@ open class RCTMessageModel: IMUIMessageModel {
             msgType = .unknown
         }
         
+    }else{
+        msgType = .unknown
     }
     
     var msgStatus = IMUIMessageStatus.success
