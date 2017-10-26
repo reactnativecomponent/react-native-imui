@@ -45,7 +45,7 @@ public class CardViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<M
             }
             name.setText(card.getName());
             cardType.setText(card.getCardType());
-            sessionId.setText(card.getSessionId());
+//            sessionId.setText(card.getSessionId());
         }
         layoutTop.setOnClickListener(new View.OnClickListener() {
             @Override
