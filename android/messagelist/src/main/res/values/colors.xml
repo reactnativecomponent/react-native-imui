@@ -27,4 +27,5 @@
     <color name="red_packet_text">#ffe4bf</color>
     <color name="red_packet_tag">#999999</color>
     <color name="link_pressed">#dcd9d9</color>
+    <color name="link_card">#dcd9d9</color>
 </resources>

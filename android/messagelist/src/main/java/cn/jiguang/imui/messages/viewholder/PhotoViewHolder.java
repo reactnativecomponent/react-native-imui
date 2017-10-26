@@ -63,7 +63,7 @@ public class PhotoViewHolder<MESSAGE extends IMessage> extends AvatarViewHolder<
 
         mPhotoIv.setMinimumWidth(DisplayUtil.dp2px(style.mContext,100));
         mPhotoIv.setMinimumHeight(DisplayUtil.dp2px(style.mContext,100));
-        mPhotoIv.setScaleType(ImageView.ScaleType.FIT_END);
+//        mPhotoIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        if (mIsSender) {
 //            mPhotoIv.setBackground(style.getSendPhotoMsgBg());
 //        } else {

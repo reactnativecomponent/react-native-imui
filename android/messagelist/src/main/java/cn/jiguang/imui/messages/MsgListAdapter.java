@@ -27,6 +27,7 @@ import cn.jiguang.imui.commons.models.IMessage;
 import cn.jiguang.imui.messages.viewholder.AccountNoticeViewHolder;
 import cn.jiguang.imui.messages.viewholder.BankTransferViewHolder;
 import cn.jiguang.imui.messages.viewholder.BaseMessageViewHolder;
+import cn.jiguang.imui.messages.viewholder.CardViewHolder;
 import cn.jiguang.imui.messages.viewholder.CustonViewHolder;
 import cn.jiguang.imui.messages.viewholder.EventViewHolder;
 import cn.jiguang.imui.messages.viewholder.LinkViewHolder;
@@ -86,6 +87,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
 
     private final int TYPE_SEND_ACCOUNT_NOTICE = 22;
     private final int TYPE_RECEIVER_ACCOUNT_NOTICE = 23;
+
+    private final int TYPE_SEND_CARD = 24;
+    private final int TYPE_RECEIVER_CARD = 25;
 
     private Context mContext;
     private Activity mActivity;
@@ -234,6 +238,11 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
                 return getHolder(parent, mHolders.mSendAccountNoticeLayout, mHolders.mSendAccountNoticeHolder, true);
             case TYPE_RECEIVER_ACCOUNT_NOTICE:
                 return getHolder(parent, mHolders.mReceiveAccountNoticeLayout, mHolders.mReceiveAccountNoticeHolder, false);
+
+            case TYPE_SEND_CARD:
+                return getHolder(parent, mHolders.mSendCardLayout, mHolders.mSendCardHolder, true);
+            case TYPE_RECEIVER_CARD:
+                return getHolder(parent, mHolders.mReceiveCardLayout, mHolders.mReceiveCardHolder, false);
             case TYPE_SEND_LOCATION:
                 return getHolder(parent, mHolders.mSendLocationLayout, mHolders.mSendLocationHolder, true);
             case TYPE_RECEIVER_LOCATION:
@@ -297,6 +306,11 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
                     return TYPE_SEND_ACCOUNT_NOTICE;
                 case RECEIVE_ACCOUNT_NOTICE:
                     return TYPE_RECEIVER_ACCOUNT_NOTICE;
+
+                case SEND_CARD:
+                    return TYPE_SEND_CARD;
+                case RECEIVE_CARD:
+                    return TYPE_RECEIVER_CARD;
                 case SEND_LINK:
                     return TYPE_SEND_LINK;
                 case RECEIVE_LINK:
@@ -870,6 +884,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         private Class<? extends BaseMessageViewHolder<? extends IMessage>> mSendRedPacketHolder;
         private Class<? extends BaseMessageViewHolder<? extends IMessage>> mReceiveRedPacketHolder;
 
+        private Class<? extends BaseMessageViewHolder<? extends IMessage>> mSendCardHolder;
+        private Class<? extends BaseMessageViewHolder<? extends IMessage>> mReceiveCardHolder;
+
         private Class<? extends BaseMessageViewHolder<? extends IMessage>> mSendLocationHolder;
         private Class<? extends BaseMessageViewHolder<? extends IMessage>> mReceiveLocationHolder;
 
@@ -899,6 +916,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         private int mSendRedPacketLayout;
         private int mReceiveRedPacketLayout;
 
+        private int mSendCardLayout;
+        private int mReceiveCardLayout;
+
         private int mSendBankTransferLayout;
         private int mReceiveBankTransferLayout;
 
@@ -926,6 +946,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
 
             mSendRedPacketHolder = DefaultRedPacketViewHolder.class;
             mReceiveRedPacketHolder = DefaultRedPacketViewHolder.class;
+
+            mSendCardHolder = DefaultCardViewHolder.class;
+            mReceiveCardHolder = DefaultCardViewHolder.class;
 
             mSendBankTransferHolder = DefaultBankTransferViewHolder.class;
             mReceiveBankTransferHolder = DefaultBankTransferViewHolder.class;
@@ -957,6 +980,9 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
 
             mSendRedPacketLayout = R.layout.item_send_red_packet;
             mReceiveRedPacketLayout = R.layout.item_receive_red_packet;
+
+            mSendCardLayout = R.layout.item_send_card;
+            mReceiveCardLayout = R.layout.item_receive_card;
 
             mSendBankTransferLayout = R.layout.item_send_bank_transfer;
             mReceiveBankTransferLayout = R.layout.item_receive_bank_transfer;
@@ -1263,6 +1289,12 @@ public class MsgListAdapter<MESSAGE extends IMessage> extends RecyclerView.Adapt
         }
     }
 
+    private static class DefaultCardViewHolder extends CardViewHolder<IMessage>{
+
+        public DefaultCardViewHolder(RecyclerView.Adapter adapter, View itemView, boolean isSender) {
+            super(adapter, itemView, isSender);
+        }
+    }
     private static class DefaultRedPacketViewHolder extends RedPacketViewHolder<IMessage> {
 
         public DefaultRedPacketViewHolder(RecyclerView.Adapter adapter, View itemView, boolean isSender) {

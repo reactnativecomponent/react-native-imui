@@ -178,7 +178,11 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
                 if (reactContext == null || reactContext.getCurrentActivity() == null) {
                     return;
                 }
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if (reactContext.getCurrentActivity().isDestroyed()) {
+                        return;
+                    }
+                }
                 if (string != null) {
                     try {
                         RequestManager m = Glide.with(reactContext);
