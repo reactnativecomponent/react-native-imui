@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +42,11 @@ import com.google.gson.GsonBuilder;
 import com.popup.tool.PopupUtil;
 import com.popupmenu.NIMPopupMenu;
 import com.popupmenu.PopupMenuItem;
+import com.scwang.smartrefresh.header.WaterDropHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,7 +65,7 @@ import cn.jiguang.imui.utils.SessorUtil;
 import static cn.jiguang.imui.messagelist.MessageUtil.configMessage;
 
 
-public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> implements LifecycleEventListener {
+public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> implements LifecycleEventListener {
 
     private static final String REACT_MESSAGE_LIST = "RCTMessageList";
     private static final String TAG = "RCTMessageList";
@@ -92,8 +96,16 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     private MsgListAdapter mAdapter;
     private ReactContext mContext;
     private MessageList msgList;
-    private SwipeRefreshLayout swipeRefreshLayout;
-
+    private SmartRefreshLayout swipeRefreshLayout;
+    static {
+        ClassicsHeader.REFRESH_HEADER_PULLDOWN = "";
+        ClassicsHeader.REFRESH_HEADER_REFRESHING = "";
+        ClassicsHeader.REFRESH_HEADER_LOADING = "";
+        ClassicsHeader.REFRESH_HEADER_RELEASE = "";
+        ClassicsHeader.REFRESH_HEADER_FINISH = "";
+        ClassicsHeader.REFRESH_HEADER_FAILED = "";
+        ClassicsHeader.REFRESH_HEADER_LASTTIME = "";
+    }
     @Override
     public String getName() {
         return REACT_MESSAGE_LIST;
@@ -102,7 +114,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     @SuppressLint("ClickableViewAccessibility")
     @SuppressWarnings("unchecked")
     @Override
-    protected SwipeRefreshLayout createViewInstance(final ThemedReactContext reactContext) {
+    protected SmartRefreshLayout createViewInstance(final ThemedReactContext reactContext) {
         Log.w(TAG, "createViewInstance");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(RCT_APPEND_MESSAGES_ACTION);
@@ -118,7 +130,33 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
         SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
 
-        swipeRefreshLayout = new SwipeRefreshLayout(reactContext);
+        swipeRefreshLayout = new SmartRefreshLayout(reactContext){
+            private final Runnable measureAndLayout = new Runnable() {
+
+                int width = 0;
+                int height = 0;
+
+                @Override
+                public void run() {
+
+                    if (width == 0) {
+                        width = getWidth();
+                    }
+                    if (height == 0) {
+                        height = getHeight();
+                    }
+                    measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                            MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+                    layout(getLeft(), getTop(), getRight(), getBottom());
+                }
+            };
+
+            @Override
+            public void requestLayout() {
+                super.requestLayout();
+                post(measureAndLayout);
+            }
+        };
         msgList = new MessageList(reactContext, null);
         swipeRefreshLayout.addView(msgList);
 
@@ -128,17 +166,23 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case 1:
-                        swipeRefreshLayout.setRefreshing(false);
+                        swipeRefreshLayout.finishRefresh(true);
                         break;
                 }
             }
         };
-        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
-        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.GREEN,Color.YELLOW,Color.RED);
+//        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+//        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,Color.GREEN,Color.YELLOW,Color.RED);
 //        swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        swipeRefreshLayout.setRefreshStyle(SmartRefreshLayout.RefreshStyle.PINNED);
+        SmartRefreshLayout refreshLayout = swipeRefreshLayout;
+
+
+        WaterDropHeader header = new WaterDropHeader(reactContext);
+        refreshLayout.setRefreshHeader(header);
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout refreshlayout) {
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                         ON_PULL_TO_REFRESH_EVENT, null);
                 handler.sendEmptyMessageDelayed(1,5000);
@@ -417,7 +461,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "initList")
-    public void setInitList(SwipeRefreshLayout messageList, ReadableArray messages) {
+    public void setInitList(SmartRefreshLayout messageList, ReadableArray messages) {
 
         mAdapter.clear();
         if (messages != null && messages.size() > 0) {
@@ -431,7 +475,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "sendBubble")
-    public void setSendBubble(SwipeRefreshLayout messageList, ReadableMap map) {
+    public void setSendBubble(SmartRefreshLayout messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
         if (resId != 0) {
             msgList.setSendBubbleDrawable(resId);
@@ -439,7 +483,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "receiveBubble")
-    public void setReceiveBubble(SwipeRefreshLayout messageList, ReadableMap map) {
+    public void setReceiveBubble(SmartRefreshLayout messageList, ReadableMap map) {
         int resId = mContext.getResources().getIdentifier(map.getString("imageName"), "drawable", mContext.getPackageName());
         if (resId != 0) {
             msgList.setReceiveBubbleDrawable(resId);
@@ -447,29 +491,29 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "sendBubbleTextColor")
-    public void setSendBubbleTextColor(SwipeRefreshLayout messageList, String color) {
+    public void setSendBubbleTextColor(SmartRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
         msgList.setSendBubbleTextColor(colorRes);
     }
 
     @ReactProp(name = "receiveBubbleTextColor")
-    public void setReceiveBubbleTextColor(SwipeRefreshLayout messageList, String color) {
+    public void setReceiveBubbleTextColor(SmartRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
         msgList.setReceiveBubbleTextColor(colorRes);
     }
 
     @ReactProp(name = "sendBubbleTextSize")
-    public void setSendBubbleTextSize(SwipeRefreshLayout messageList, int size) {
+    public void setSendBubbleTextSize(SmartRefreshLayout messageList, int size) {
         msgList.setSendBubbleTextSize(size);
     }
 
     @ReactProp(name = "receiveBubbleTextSize")
-    public void setReceiveBubbleTextSize(SwipeRefreshLayout messageList, int size) {
+    public void setReceiveBubbleTextSize(SmartRefreshLayout messageList, int size) {
         msgList.setReceiveBubbleTextSize(size);
     }
 
     @ReactProp(name = "sendBubblePadding")
-    public void setSendBubblePadding(SwipeRefreshLayout messageList, ReadableMap map) {
+    public void setSendBubblePadding(SmartRefreshLayout messageList, ReadableMap map) {
         msgList.setSendBubblePaddingLeft(map.getInt("left"));
         msgList.setSendBubblePaddingTop(map.getInt("top"));
         msgList.setSendBubblePaddingRight(map.getInt("right"));
@@ -477,7 +521,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "receiveBubblePadding")
-    public void setReceiveBubblePaddingLeft(SwipeRefreshLayout messageList, ReadableMap map) {
+    public void setReceiveBubblePaddingLeft(SmartRefreshLayout messageList, ReadableMap map) {
         msgList.setReceiveBubblePaddingLeft(map.getInt("left"));
         msgList.setReceiveBubblePaddingTop(map.getInt("top"));
         msgList.setReceiveBubblePaddingRight(map.getInt("right"));
@@ -485,23 +529,23 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @ReactProp(name = "dateTextSize")
-    public void setDateTextSize(SwipeRefreshLayout messageList, int size) {
+    public void setDateTextSize(SmartRefreshLayout messageList, int size) {
         msgList.setDateTextSize(size);
     }
 
     @ReactProp(name = "dateTextColor")
-    public void setDateTextColor(SwipeRefreshLayout messageList, String color) {
+    public void setDateTextColor(SmartRefreshLayout messageList, String color) {
         int colorRes = Color.parseColor(color);
         msgList.setDateTextColor(colorRes);
     }
 
     @ReactProp(name = "datePadding")
-    public void setDatePadding(SwipeRefreshLayout messageList, int padding) {
+    public void setDatePadding(SmartRefreshLayout messageList, int padding) {
         msgList.setDatePadding(padding);
     }
 
     @ReactProp(name = "avatarSize")
-    public void setAvatarWidth(SwipeRefreshLayout messageList, ReadableMap map) {
+    public void setAvatarWidth(SmartRefreshLayout messageList, ReadableMap map) {
         msgList.setAvatarWidth(map.getInt("width"));
         msgList.setAvatarHeight(map.getInt("height"));
     }
@@ -509,11 +553,11 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     /**
      * if showDisplayName equals 1, then show display name.
      *
-     * @param messageList       SwipeRefreshLayout
+     * @param messageList       SmartRefreshLayout
      * @param isShowDisplayName boolean
      */
     @ReactProp(name = "isShowDisplayName")
-    public void setShowDisplayName(SwipeRefreshLayout messageList, boolean isShowDisplayName) {
+    public void setShowDisplayName(SmartRefreshLayout messageList, boolean isShowDisplayName) {
         if (isShowDisplayName) {
             msgList.setShowDisplayName(1);
         }
@@ -559,7 +603,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
                     });
                 }
             } else if (intent.getAction().equals(RCT_INSERT_MESSAGES_ACTION)) {
-                swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.finishRefresh(true);
                 String[] messages = intent.getStringArrayExtra("messages");
                 List<RCTMessage> list = new ArrayList<>();
                 for (int i = messages.length - 1; i > -1; i--) {
@@ -605,7 +649,7 @@ public class ReactMsgListManager extends ViewGroupManager<SwipeRefreshLayout> im
     }
 
     @Override
-    public void onDropViewInstance(SwipeRefreshLayout view) {
+    public void onDropViewInstance(SmartRefreshLayout view) {
         super.onDropViewInstance(view);
         Log.w(TAG, "onDropViewInstance");
         try {

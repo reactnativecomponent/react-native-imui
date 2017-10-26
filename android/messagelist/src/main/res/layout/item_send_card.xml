@@ -40,7 +40,6 @@
 
         <LinearLayout
             android:id="@+id/item_layout"
-            android:clickable="false"
             android:layout_marginRight="@dimen/aurora_avatar_padding"
             android:layout_centerVertical="true"
             android:layout_below="@id/aurora_tv_msgitem_display_name"
@@ -66,10 +65,10 @@
                     android:id="@+id/card_name"
                     android:layout_toRightOf="@+id/card_icon"
                     android:layout_marginTop="@dimen/red_packet_top"
+                    android:layout_centerVertical="true"
                     android:textSize="@dimen/red_packet_comments_size"
                     android:lines="1"
                     android:ellipsize="end"
-                    android:text="恭喜发财,大吉大利"
                     android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -78,8 +77,8 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/card_icon"
                     android:layout_below="@+id/card_name"
-                    android:text="领取红包"
                     android:textColor="@color/black"
+                    android:visibility="gone"
                     android:textSize="@dimen/red_packet_text_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
