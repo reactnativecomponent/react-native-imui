@@ -31,7 +31,7 @@
 
 
 //inputControll Notification
-#define LoadPagesNotification @"LoadPagesNotification" //加载表情
+
 #define RecordChangeNotification @"RecordChangeNotification"
 #define GetAtPersonNotification @"GetAtPersonNotification"
 

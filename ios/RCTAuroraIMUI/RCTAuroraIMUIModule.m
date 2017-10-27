@@ -74,7 +74,7 @@ RCT_EXPORT_METHOD(clickGetAtPerson:(NSDictionary *)person) {
 }
 
 RCT_EXPORT_METHOD(clickLoadEmotionPages) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:LoadPagesNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:LoadPagesNotification object:nil];//已弃用
 }
 
 

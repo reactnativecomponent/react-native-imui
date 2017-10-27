@@ -201,7 +201,6 @@
     _expressionView.delegate = self;
     [self addSubview:_expressionView];
     _expressionView.hidden = YES;
-    NIMInputEmoticonTabView *tab = _expressionView.tabView;
 
     
     self.functionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, screenW, menuViewH)];
