@@ -41,7 +41,7 @@ public class MessageList extends RecyclerView {
      * @param adapter   Adapter, extends MsgListAdapter.
      * @param <MESSAGE> Message model extends IMessage.
      */
-    public <MESSAGE extends IMessage> void setAdapter(MsgListAdapter<MESSAGE> adapter,int visibleThreshold) {
+    public <MESSAGE extends IMessage> void setAdapter(MsgListAdapter<MESSAGE> adapter, int visibleThreshold) {
 //        SimpleItemAnimator itemAnimator = new DefaultItemAnimator();
 //        itemAnimator.setSupportsChangeAnimations(false);
         setItemAnimator(null);
@@ -203,12 +203,8 @@ public class MessageList extends RecyclerView {
         @Override
         public void run() {
 
-            if (width == 0) {
-                width = getWidth();
-            }
-            if (height == 0) {
-                height = getHeight();
-            }
+            width = getWidth();
+            height = getHeight();
             measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
             layout(getLeft(), getTop(), getRight(), getBottom());

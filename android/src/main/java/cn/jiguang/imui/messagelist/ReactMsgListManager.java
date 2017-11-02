@@ -97,6 +97,7 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
     private ReactContext mContext;
     private MessageList msgList;
     private SmartRefreshLayout swipeRefreshLayout;
+
     static {
         ClassicsHeader.REFRESH_HEADER_PULLDOWN = "";
         ClassicsHeader.REFRESH_HEADER_REFRESHING = "";
@@ -106,6 +107,7 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
         ClassicsHeader.REFRESH_HEADER_FAILED = "";
         ClassicsHeader.REFRESH_HEADER_LASTTIME = "";
     }
+
     @Override
     public String getName() {
         return REACT_MESSAGE_LIST;
@@ -130,7 +132,7 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
         SessorUtil.getInstance(reactContext).register(true);
         mContext.registerReceiver(RCTMsgListReceiver, intentFilter);
 
-        swipeRefreshLayout = new SmartRefreshLayout(reactContext){
+        swipeRefreshLayout = new SmartRefreshLayout(reactContext) {
             private final Runnable measureAndLayout = new Runnable() {
 
                 int width = 0;
@@ -139,12 +141,8 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
                 @Override
                 public void run() {
 
-                    if (width == 0) {
-                        width = getWidth();
-                    }
-                    if (height == 0) {
-                        height = getHeight();
-                    }
+                    width = getWidth();
+                    height = getHeight();
                     measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                             MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
                     layout(getLeft(), getTop(), getRight(), getBottom());
@@ -157,14 +155,15 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
                 post(measureAndLayout);
             }
         };
-        msgList = new MessageList(reactContext, null);
+        Activity activity = reactContext.getCurrentActivity();
+        msgList = new MessageList(activity, null);
         swipeRefreshLayout.addView(msgList);
 
-        final Handler handler = new Handler(){
+        final Handler handler = new Handler() {
 
             @Override
             public void handleMessage(Message msg) {
-                switch (msg.what){
+                switch (msg.what) {
                     case 1:
                         swipeRefreshLayout.finishRefresh(true);
                         break;
@@ -185,7 +184,7 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
             public void onRefresh(RefreshLayout refreshlayout) {
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                         ON_PULL_TO_REFRESH_EVENT, null);
-                handler.sendEmptyMessageDelayed(1,5000);
+                handler.sendEmptyMessageDelayed(1, 5000);
             }
         });
         // Use default layout
@@ -343,9 +342,10 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
         return swipeRefreshLayout;
     }
 
-    int getId(){
+    int getId() {
         return swipeRefreshLayout.getId();
     }
+
     private PhotoViewPagerViewUtil.IPhotoLongClickListener longClickListener = new PhotoViewPagerViewUtil.IPhotoLongClickListener() {
         @Override
         public boolean onClick(final Dialog dialog, View v, final IMediaFile mediaFile) {
@@ -615,7 +615,8 @@ public class ReactMsgListManager extends ViewGroupManager<SmartRefreshLayout> im
                 mAdapter.addToEnd(list);
             } else if (intent.getAction().equals(RCT_SCROLL_TO_BOTTOM_ACTION)) {
                 Log.i("RCTMessageListManager", "Scroll to bottom");
-                msgList.smoothScrollToPosition(0);
+                if (msgList != null)
+                    msgList.smoothScrollToPosition(0);
 //                mAdapter.getLayoutManager().scrollToPosition(0);
             } else if (intent.getAction().equals(RCT_DELETE_MESSAGES_ACTION)) {
                 String[] messages = intent.getStringArrayExtra("messages");
