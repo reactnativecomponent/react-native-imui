@@ -223,12 +223,12 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
   
   func tapBubbleView() {
+    UIApplication.shared.keyWindow?.endEditing(true)
     if self.message?.type == .text {
-        self.delegate?.messageCollectionView?(tapCellView: "")
+//        self.delegate?.messageCollectionView?(tapCellView: "")
     }else if self.message?.type == .image {
         let strMsgID = (self.message?.msgId)! as NSString
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ShowOrigImageNotification"), object: strMsgID)
-        
 //        self.delegate?.messageCollectionView?(didTapImageMessageBubbleInCell:rect, model: self.message! )
         self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
         
@@ -238,7 +238,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
     
     func tapCellView(){//点击整个cell，隐藏键盘
-        self.delegate?.messageCollectionView?(tapCellView: "")
+//        self.delegate?.messageCollectionView?(tapCellView: "")
+        UIApplication.shared.keyWindow?.endEditing(true)
     }
     
     
