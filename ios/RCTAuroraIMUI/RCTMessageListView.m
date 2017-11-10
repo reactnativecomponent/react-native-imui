@@ -407,7 +407,6 @@
                         break;
                     }
                 }
-                
             }
             if (imgIndex > 0) {
                 UIWindow *win = [UIApplication sharedApplication].keyWindow;

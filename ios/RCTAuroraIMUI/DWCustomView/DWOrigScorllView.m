@@ -195,13 +195,10 @@
     NSMutableDictionary *tmpDict = self.imgArr[showIndex];
     NSString *strRect = [tmpDict objectForKey:@"rect"];
     NSNumber *isEditNum = [tmpDict objectForKey:@"isEdit"];
-    if (strRect.length) {
+    if ((strRect.length)&& (!isEditNum.boolValue)) {
         CGRect rect = CGRectFromString(strRect);
         CGFloat scale = rect.size.width/screenW;
         CGFloat tmpY = rect.origin.y - (screenH * scale - rect.size.height)*0.5;
-        if (isEditNum.boolValue) {
-            tmpY += 240;
-        }
         if ((tmpY > screenH) || (tmpY+rect.size.height <0)) {
             [UIView animateWithDuration:0.3 animations:^{
                 self.alpha = 0;
