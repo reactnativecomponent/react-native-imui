@@ -10,6 +10,7 @@
 
 #import "DWOrigImageView.h"
 #import "UIView+Extend.h"
+#import <Photos/Photos.h>
 //#import "DWContentScrollView.h"
 
 
@@ -93,7 +94,30 @@
 
 
 - (void)saveImage{
-    UIImageWriteToSavedPhotosAlbum(self.imgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    // 判断授权状态
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusNotDetermined) { // 用户还没有做出选择
+        // 弹框请求用户授权
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if (status == PHAuthorizationStatusAuthorized) { // 用户第一次同意了访问相册权限
+                UIImageWriteToSavedPhotosAlbum(self.imgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+            }
+        }];
+    } else if (status == PHAuthorizationStatusAuthorized) { // 用户允许当前应用访问相册
+        NSLog(@"用户允许当前应用访问相册");
+        UIImageWriteToSavedPhotosAlbum(self.imgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    } else if (status == PHAuthorizationStatusDenied) { // 用户拒绝当前应用访问相册
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的照片\n设置>隐私>照片" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alart show];
+        });
+        
+    } else if (status == PHAuthorizationStatusRestricted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"由于系统限制, 无法访问相册" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alart show];
+        });
+    }
 }
 
 
@@ -163,8 +187,6 @@
                     }
                 }
             }];
-            
-            
         }else{
             if (_contentScrollView.contentSize.width != view.width) {
                 if (view.height>screenH) {

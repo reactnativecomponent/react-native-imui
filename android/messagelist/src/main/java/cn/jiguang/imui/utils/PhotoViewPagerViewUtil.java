@@ -176,6 +176,9 @@ public class PhotoViewPagerViewUtil {
     }
 
     public static void saveImageToAlbum(String imagePath, Context context) {
+        if(TextUtils.isEmpty(imagePath)){
+            return;
+        }
         File imageFile = new File(imagePath);
         if (imageFile.exists()) {
             try {

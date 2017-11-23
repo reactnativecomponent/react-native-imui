@@ -194,7 +194,8 @@
 - (void)clickTapGest{
     NSMutableDictionary *tmpDict = self.imgArr[showIndex];
     NSString *strRect = [tmpDict objectForKey:@"rect"];
-    if (strRect.length) {
+    NSNumber *isEditNum = [tmpDict objectForKey:@"isEdit"];
+    if ((strRect.length)&& (!isEditNum.boolValue)) {
         CGRect rect = CGRectFromString(strRect);
         CGFloat scale = rect.size.width/screenW;
         CGFloat tmpY = rect.origin.y - (screenH * scale - rect.size.height)*0.5;

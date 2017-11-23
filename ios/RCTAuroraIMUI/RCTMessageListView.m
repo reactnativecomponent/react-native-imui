@@ -373,6 +373,7 @@
         NSInteger count = [[UIApplication sharedApplication] keyWindow].subviews.count;
         topView = [[UIApplication sharedApplication] keyWindow].subviews[count - 2];
     }
+    BOOL isEdit = (self.height >= screenH*0.7) ? NO : YES;
     NSMutableArray *rectArr = [NSMutableArray array];
     for (UIView *tmpView in self.messageList.messageCollectionView.subviews) {
         if ([tmpView isKindOfClass:[IMUIBaseMessageCell class]] ) {
@@ -401,10 +402,11 @@
                 for (NSMutableDictionary *tmpDict in rectArr) {
                     if ([msgID isEqualToString:[tmpDict objectForKey:@"msgId"]]) {
                         [imgDict setObject:[tmpDict objectForKey:@"rect"] forKey:@"rect"];
+                        NSNumber *number = [NSNumber numberWithBool:isEdit];
+                        [imgDict setObject:number forKey:@"isEdit"];
                         break;
                     }
                 }
-                
             }
             if (imgIndex > 0) {
                 UIWindow *win = [UIApplication sharedApplication].keyWindow;
