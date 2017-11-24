@@ -2,9 +2,7 @@
 
 import React from 'react';
 import ReactNative from 'react-native';
-
 var {
-  PropTypes,
   Component,
 } = React;
 
@@ -13,6 +11,7 @@ var {
   View,
   requireNativeComponent,
 } = ReactNative;
+import PropTypes from 'prop-types'
 
 export default class ChatInput extends Component {
 
