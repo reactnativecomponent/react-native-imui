@@ -109,7 +109,7 @@
     {
         _currentPage = page;
 //        [self reloadData];
-        [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(reloadData) withObject:nil afterDelay:0.2];
     }
 }
 
