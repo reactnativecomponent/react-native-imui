@@ -96,6 +96,7 @@
 		4E49AE2D1F3476E500B50439 /* NIMInputEmoticonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */; };
 		4E49AE311F3476F800B50439 /* NSString+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */; };
+		4E4A6D8F1FCC04C9004A169E /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */; };
 		4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */; };
 		4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */; };
 		4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */; };
@@ -277,6 +278,8 @@
 		4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonDefine.h; sourceTree = "<group>"; };
 		4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NIMKit.h"; sourceTree = "<group>"; };
 		4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NIMKit.m"; sourceTree = "<group>"; };
+		4E4A6D8E1FCC04B3004A169E /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageHeadCell.swift; sourceTree = "<group>"; };
 		4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILocationMessageCell.swift; sourceTree = "<group>"; };
 		4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketMessageCell.swift; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E4A6D8F1FCC04C9004A169E /* libRCTWebSocket.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +537,15 @@
 				4E49ADE91F346B7500B50439 /* NIMInputEmoticonContainerView.m */,
 			);
 			path = DWEmoticonView;
+			sourceTree = "<group>";
+		};
+		4E4A6D8C1FCC04B3004A169E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */,
+				4E4A6D8E1FCC04B3004A169E /* libRCTWebSocket.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4E77A3661F30840000098CAF /* IMUICommon */ = {
@@ -716,6 +729,7 @@
 				623EA96F1EE55CB200EC43AE /* RCTAuroraIMUI */,
 				623EA9A51EE55D0800EC43AE /* RCTAuroraIMUITests */,
 				626021F81ED96BA20038AB20 /* Products */,
+				4E4A6D8C1FCC04B3004A169E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

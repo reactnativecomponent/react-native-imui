@@ -147,7 +147,15 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
 //      }
       break
     case .voice:
-      bubbleContentSize = CGSize(width: 80, height: 40)
+        let strDuration:NSString = self.customDict.object(forKey: "duration") as! NSString
+        var widthF :CGFloat = 0
+        if strDuration.floatValue > 10 {
+            widthF = 40 + 10*8 + CGFloat(strDuration.floatValue - 10) * (screenW / 240)
+        }else{
+            widthF = 40 + CGFloat(strDuration.floatValue * 8)
+        }
+    
+      bubbleContentSize = CGSize(width: widthF, height: 40)
       break
     case .video:
       bubbleContentSize = CGSize(width: 120, height: 160)

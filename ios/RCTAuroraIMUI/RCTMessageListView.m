@@ -367,28 +367,29 @@
 
 
 - (void)clickShowOrigImgView:(NSNotification *)noti{
-    NSString *strMsgID = noti.object;
-    UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
-    if ([topView isKindOfClass:[DWRecoderCoveView class]]) {
-        NSInteger count = [[UIApplication sharedApplication] keyWindow].subviews.count;
-        topView = [[UIApplication sharedApplication] keyWindow].subviews[count - 2];
-    }
-    BOOL isEdit = (self.height >= screenH*0.7) ? NO : YES;
-    NSMutableArray *rectArr = [NSMutableArray array];
-    for (UIView *tmpView in self.messageList.messageCollectionView.subviews) {
-        if ([tmpView isKindOfClass:[IMUIBaseMessageCell class]] ) {
-            IMUIBaseMessageCell *cell = (IMUIBaseMessageCell *)tmpView;
-            if ([cell.cellType isEqualToString:@"image"]) {
-                CGPoint imgPoint = [topView convertPoint:CGPointMake(0, 0) fromView:cell.bubbleView];
-                CGSize imgSize = cell.bubbleView.frame.size;
-                NSMutableDictionary *rectDict = [NSMutableDictionary dictionary];
-                [rectDict setObject:cell.cellMsgId forKey:@"msgId"];
-                [rectDict setObject:NSStringFromCGRect(CGRectMake(imgPoint.x, imgPoint.y, imgSize.width, imgSize.height)) forKey:@"rect"];
-                [rectArr addObject:rectDict];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *strMsgID = noti.object;
+        UIView *topView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject];
+        if ([topView isKindOfClass:[DWRecoderCoveView class]]) {
+            NSInteger count = [[UIApplication sharedApplication] keyWindow].subviews.count;
+            topView = [[UIApplication sharedApplication] keyWindow].subviews[count - 2];
+        }
+        BOOL isEdit = (self.height >= screenH*0.7) ? NO : YES;
+        NSMutableArray *rectArr = [NSMutableArray array];
+        for (UIView *tmpView in self.messageList.messageCollectionView.subviews) {
+            if ([tmpView isKindOfClass:[IMUIBaseMessageCell class]] ) {
+                IMUIBaseMessageCell *cell = (IMUIBaseMessageCell *)tmpView;
+                if ([cell.cellType isEqualToString:@"image"]) {
+                    CGPoint imgPoint = [topView convertPoint:CGPointMake(0, 0) fromView:cell.bubbleView];
+                    CGSize imgSize = cell.bubbleView.frame.size;
+                    NSMutableDictionary *rectDict = [NSMutableDictionary dictionary];
+                    [rectDict setObject:cell.cellMsgId forKey:@"msgId"];
+                    [rectDict setObject:NSStringFromCGRect(CGRectMake(imgPoint.x, imgPoint.y, imgSize.width, imgSize.height)) forKey:@"rect"];
+                    [rectArr addObject:rectDict];
+                }
             }
         }
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
+        
         if (_imageArr.count) {
             NSInteger index = 0;
             NSInteger imgIndex = 0;
@@ -414,7 +415,6 @@
                 DWShowImageVC *vc = [[DWShowImageVC alloc]init];
                 vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 vc.imageArr = _imageArr;
-//                vc.backgroundImg = [self getScreenshots];
                 vc.index = imgIndex;
                 [rootVC presentViewController:vc animated:NO completion:nil];
             }
