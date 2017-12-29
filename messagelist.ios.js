@@ -11,6 +11,7 @@ var {
   StyleSheet,
   View,
   requireNativeComponent,
+    ViewPropTypes
 } = ReactNative;
 import PropTypes from 'prop-types'
 
@@ -151,7 +152,7 @@ MessageList.propTypes = {
   isShowDisplayName: PropTypes.bool,
   isShowIncommingDisplayName: PropTypes.bool,
   isShowOutgoingDisplayName: PropTypes.bool,
-  ...View.propTypes
+  ...ViewPropTypes
 };
 
 var RCTMessageList = requireNativeComponent('RCTMessageListView', MessageList);
