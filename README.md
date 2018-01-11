@@ -8,6 +8,11 @@
 ```
 npm install react-native-imui --save
 ```
+## link
+
+```
+react-naive link react-native-imui 
+```
  `settings.gradle` 中的引用路径：
 ```
 include ':app', ':react-native-imui'
@@ -67,8 +72,8 @@ dependencies {
 **status 必须为以下四个值之一: "send_succeed", "send_failed", "send_going", "download_failed"，如果没有定义这个属性， 默认值是 "send_succeed".**
 
  ```
-  message = {  // text message
-    msgId: "msgid",
+  message = {  // 文本
+    msgId: "msgid",
     status: "send_going",
     msgType: "text",
     isOutgoing: true,
@@ -82,34 +87,82 @@ message = {  // image message
     isOutGoing: true,
     progress: "progress string"
     mediaPath: "image path"
-    fromUser: {}
+    fromUser: {},
+    extend:{
+      displayName:"图片发送于2017-12-07 10:07",
+      imageHeight:"2848.000000",
+      imageWidth:"4288.000000",
+      thumbPath:"",
+      url:""
+    }
 }
 
-
-message = {  // voice message
-    msgId: "msgid",
+message = {  // 语音
+    msgId: "msgid",
     msgType: "voice",
     isOutGoing: true,
     duration: number, // 注意这个值有用户自己设置时长，单位秒
     mediaPath: "voice path"
-    fromUser: {}
+    fromUser: {},
+    extend:{
+      duration:"3"
+      isPlayed:false
+      url:""
+    }   
 }
 
-message = {  // video message
-    msgId: "msgid",
-    status: "send_failed",
-    msgType: "video",
+message = {  //红包消息
+    msgId: "msgid",
+    status: "",
+    msgType: "redpacket",
     isOutGoing: true,
-    druation: number
-    mediaPath: "voice path"
+    extend: {
+      comments:"",//祝福语
+      serialNo:"",//
+      type:""//红包类型
+    },
+    fromUser: {}
+}
+message = {  //红包领取消息
+    msgId: "msgid",
+    status: "",
+    msgType: "redpacketOpen",
+    isOutGoing: true,
+    extend: {
+     serialNo:""
+     tipMsg:""//红包通知
+    },
     fromUser: {}
 }
 
-message = {  // event message
-    msgId: "msgid",
-    msgType: "event",
-    text: "the event text"
+message = {  //转账消息
+    msgId: "msgid",
+    status: "",
+    msgType: "transfer",
+    isOutGoing: true,
+    extend: {
+     amount:"1"
+     comments:""
+     serialNo:""
+    },
+    fromUser: {}
 }
+
+message = {  //名片消息
+    msgId: "msgid",
+    status: "",
+    msgType: "card",
+    isOutGoing: true,
+    extend: {
+     imgPath:""//头像
+     name:""//昵称
+     sessionId:""//userId
+     type:""
+    },
+    fromUser: {}
+}
+
+
  ```
 
 -    `fromUser` 对象格式:

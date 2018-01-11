@@ -10,6 +10,7 @@ var {
   StyleSheet,
   View,
   requireNativeComponent,
+    ViewPropTypes
 } = ReactNative;
 import PropTypes from 'prop-types'
 
@@ -89,7 +90,7 @@ ChatInput.propTypes = {
   onShowKeyboard: PropTypes.func,
   onFeatureView: PropTypes.func,
   onEditTextChange: PropTypes.func,
-  ...View.propTypes
+  ...ViewPropTypes
 };
 
 var RCTChatInput = requireNativeComponent('RCTChatInput', ChatInput);

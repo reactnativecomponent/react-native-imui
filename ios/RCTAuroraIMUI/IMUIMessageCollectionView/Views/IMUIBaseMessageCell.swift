@@ -238,8 +238,8 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
   }
     
     func tapCellView(){//点击整个cell，隐藏键盘
-//        self.delegate?.messageCollectionView?(tapCellView: "")
-        UIApplication.shared.keyWindow?.endEditing(true)
+        self.delegate?.messageCollectionView?(tapCellView: "")
+//        UIApplication.shared.keyWindow?.endEditing(true)
     }
     
     

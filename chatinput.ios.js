@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, requireNativeComponent,NativeModules} from 'react-native';
+import {View, requireNativeComponent,NativeModules,ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types'
 
 export default class ChatInput extends Component {
@@ -64,7 +64,7 @@ export default class ChatInput extends Component {
     }
 }
 ChatInput.propTypes = {
-    ...View.propTypes,
+    ...ViewPropTypes,
     // menuViewH:PropTypes.number,
     defaultToolHeight:PropTypes.number,
     onFeatureView:PropTypes.func,
