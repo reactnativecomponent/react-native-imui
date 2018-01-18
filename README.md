@@ -11,7 +11,7 @@ npm install react-native-imui --save
 ## link
 
 ```
-react-naive link react-native-imui 
+react-native link react-native-imui 
 ```
  `settings.gradle` 中的引用路径：
 ```
