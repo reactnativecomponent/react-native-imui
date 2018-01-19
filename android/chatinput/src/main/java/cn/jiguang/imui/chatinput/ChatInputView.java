@@ -427,7 +427,7 @@ public class ChatInputView extends LinearLayout {
             }
             showInputMethod();
         }
-        dismissMenuLayout();
+        dismissMenuLayout(100);
     }
 
     private void hideInputMethod() {
@@ -455,18 +455,14 @@ public class ChatInputView extends LinearLayout {
 
     public void dismissMenuAndResetSoftMode() {
         mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        try {
 //            Thread.sleep(140);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismissMenuLayout();
-            }
-        }, 100);
+
+        dismissMenuLayout(1);
         showInputMethod();
 
         mChatInput.requestFocus();
@@ -488,8 +484,14 @@ public class ChatInputView extends LinearLayout {
         mShowSoftInput = false;
     }
 
-    public void dismissMenuLayout() {
-        mMenuContainer.setVisibility(INVISIBLE);
+    public void dismissMenuLayout(int t) {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMenuContainer.setVisibility(INVISIBLE);
+            }
+        }, t);
+
         if (showType == 1) {
             showType = 0;
             mEmojiBtn.setImageResource(R.drawable.nim_message_button_bottom_emoji_selector);

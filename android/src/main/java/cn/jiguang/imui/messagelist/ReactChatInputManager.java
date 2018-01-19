@@ -277,7 +277,7 @@ public class ReactChatInputManager extends ViewGroupManager<ChatInputView> {
     public void dismissMenuContainer(ChatInputView chatInputView, boolean isDismiss) {
         Log.w(TAG, "dismissMenuContainer: " + isDismiss);
         if (isDismiss) {
-            chatInputView.dismissMenuLayout();
+            chatInputView.dismissMenuLayout(1);
         }
     }
 
