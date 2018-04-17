@@ -198,8 +198,10 @@
              isHasVoiceAuth = YES;
          }else{
              isHasVoiceAuth = NO;
-             UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风\n设置>隐私>麦克风" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-             [alart show];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风\n设置>隐私>麦克风" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                 [alart show];
+             });
          }
      }];
     return isHasVoiceAuth;
