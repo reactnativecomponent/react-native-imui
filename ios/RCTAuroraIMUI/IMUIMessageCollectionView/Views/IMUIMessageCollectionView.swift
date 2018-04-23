@@ -86,6 +86,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUITransferMessageCell.self, forCellWithReuseIdentifier: IMUITransferMessageCell.self.description())
     self.messageCollectionView.register(IMUIRedPacketOpenMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketOpenMessageCell.self.description())
     self.messageCollectionView.register(IMUIUnKnownMessageCell.self, forCellWithReuseIdentifier: IMUIUnKnownMessageCell.self.description())
+    self.messageCollectionView.register(IMUICustomMessageContentCell.self, forCellWithReuseIdentifier: IMUICustomMessageContentCell.self.description())
     self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
     self.messageCollectionView.register(IMUICardMessageCell.self, forCellWithReuseIdentifier: IMUICardMessageCell.self.description())
     
@@ -256,6 +257,9 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
 
     case .unknown:
         cellIdentify = IMUIUnKnownMessageCell.self.description()
+        break
+    case .custom:
+        cellIdentify = IMUICustomMessageContentCell.self.description()
         break
         
     default:

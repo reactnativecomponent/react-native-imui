@@ -195,15 +195,28 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
         bubbleContentSize = CGSize(width: UIScreen.main.bounds.width, height: 40)
         isShowAvatar = false
         break
-        
+    case .custom:
+        var tmpWidth:Float = Float(screenW * 0.4);
+        var tmpHeight:Float = Float(screenW * 0.4);
+        let strWidth = self.customDict.object(forKey: "Width") as! NSString
+        let strHeight = self.customDict.object(forKey: "Height") as! NSString
+        if strWidth.floatValue > 0  {
+            tmpWidth = strWidth.floatValue
+        }
+        if strHeight.floatValue > 0  {
+            tmpHeight = strHeight.floatValue
+        }
+        bubbleContentSize = CGSize(width:  CGFloat(tmpWidth), height: CGFloat(tmpHeight))
+        break
     default:
+         bubbleContentSize = CGSize(width:  CGFloat(200), height: CGFloat(130))
       break
     }
     return bubbleContentSize
   }
     func heightWithFont(font : UIFont, fixedWidth : CGFloat, text : String) -> CGSize {
         
-        guard text.characters.count > 0 && fixedWidth > 0 else {
+        guard text.count > 0 && fixedWidth > 0 else {
             
             return CGSize.zero
         }

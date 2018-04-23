@@ -78,7 +78,5 @@ class IMUIVideoMessageCell: IMUIBaseMessageCell {
         }
       }
     }
-    
   }
-  
 }
