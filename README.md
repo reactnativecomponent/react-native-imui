@@ -60,7 +60,7 @@ dependencies {
 
 - ### iOS
   - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
-  - 把 `iOSResourcePacket` 目录`NIMKitEmoticon.bundle`拖到Xcode`Resources`目录下
+  - 把 `iOSResourcePacket` 目录`NIMKitEmoticon.bundle`拖到Xcode`Resources`目录下
   - 把 `iOSResourcePacket` 目录`IMGS`拖到Xcode`Images.xcassets`下
 
 ## 数据格式
