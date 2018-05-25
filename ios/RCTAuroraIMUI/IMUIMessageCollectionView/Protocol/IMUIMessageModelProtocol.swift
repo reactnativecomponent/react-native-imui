@@ -68,7 +68,7 @@ import UIKit
    * @return media file path
    */
   func mediaFilePath() -> String
-  
+
   /**
    * If message type is voice or video, get duration through this method.
    * @return duration of audio or video

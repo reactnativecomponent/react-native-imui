@@ -27,7 +27,7 @@
 #define kStopPlayVoice @"kStopPlayVoice"
 #define kRecordLongNotification @"RecordLongNotification"
 #define kRecordLevelNotification @"RecordLevelNotification"
-#define kShowOrigImageNotification @"ShowOrigImageNotification"
+
 
 
 //inputControll Notification

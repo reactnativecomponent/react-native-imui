@@ -232,6 +232,10 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
 //        self.delegate?.messageCollectionView?(didTapImageMessageBubbleInCell:rect, model: self.message! )
         self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
         
+    }else if self.message?.type == .video && message?.mediaFilePath() != "" {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PlayVideoNotification"), object: message?.mediaFilePath())
+        self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
+        
     }else{
         self.delegate?.messageCollectionView?(didTapMessageBubbleInCell: self, model: self.message!)
     }

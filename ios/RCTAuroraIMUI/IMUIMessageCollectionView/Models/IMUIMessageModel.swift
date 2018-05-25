@@ -113,7 +113,7 @@ open class IMUIMessageModel: NSObject, IMUIMessageModelProtocol {
   open func mediaFilePath() -> String {
     return ""
   }
-  
+    
   open func calculateBubbleContentSize() -> CGSize {
     var bubbleContentSize: CGSize!
     
