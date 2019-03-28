@@ -23,7 +23,7 @@
     ]
   ],
   "_from": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-  "_id": "react-native-imui@1.0.3",
+  "_id": "react-native-imui@1.0.8",
   "_inCache": true,
   "_location": "/react-native-imui",
   "_phantomChildren": {},
@@ -81,5 +81,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
