@@ -170,6 +170,7 @@
     _inputGrowView = [[HPGrowingTextView alloc]init];
     _inputGrowView.backgroundColor = toolBackColor;
     _inputGrowView.layer.cornerRadius = 5.0f;
+    _inputGrowView.layer.masksToBounds = YES;
     _inputGrowView.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0].CGColor;
     _inputGrowView.layer.borderWidth = 1;
 //    _inputGrowView.minNumberOfLines = 0.5;

@@ -15,6 +15,8 @@
 #import "DWOrigScorllView.h"
 #import "DWShowImageVC.h"
 #import "DWRecoderCoveView.h"
+#import "DWPlayVideoVC.h"
+
 #define screenW [UIScreen mainScreen].bounds.size.width
 #define screenH [UIScreen mainScreen].bounds.size.height
 
@@ -116,9 +118,10 @@
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLevelNotification:) name:kRecordLevelNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickRecordLongTimeNotification:) name:kRecordLongNotification object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickChangeHeight:) name:@"ChangeMessageListHeightNotification" object:nil];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:kShowOrigImageNotification object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickShowOrigImgView:) name:@"ShowOrigImageNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickScanOrigImgView:) name:@"DWOrigImageViewScanNotificatiom" object:nil];
       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickScrollEnabled:) name:@"clickScrollEnabled" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickPlayVideo:) name:@"PlayVideoNotification" object:nil];
       
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:NULL];
     
@@ -363,6 +366,18 @@
         }
         [_tmpMessageArr removeAllObjects];
     }
+}
+
+- (void)clickPlayVideo:(NSNotification *)noti{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *strPath = noti.object;
+        UIWindow *win = [UIApplication sharedApplication].keyWindow;
+        UIViewController *rootVC = win.rootViewController;
+        DWPlayVideoVC *vc = [[DWPlayVideoVC alloc]init];
+        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.strPath = strPath;
+        [rootVC presentViewController:vc animated:YES completion:nil];
+    });
 }
 
 

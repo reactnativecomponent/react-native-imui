@@ -128,8 +128,10 @@
     }else{
         msg = @"保存图片成功" ;
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:msg message:@"" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alert show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:msg message:@"" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    });
 }
 
 

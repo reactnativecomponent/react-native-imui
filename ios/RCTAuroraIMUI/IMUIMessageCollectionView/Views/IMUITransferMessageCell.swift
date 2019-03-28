@@ -48,7 +48,7 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
         
         let tmpDict = message.customDict
         let strContent = tmpDict.object(forKey: "comments") as! String
-        if strContent.characters.count > 0 {
+        if strContent.count > 0 {
             contentLable.text = strContent
         }else{
             contentLable.text = "飞马转账"
@@ -76,8 +76,7 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
     }
     
     func heightWithFont(font : UIFont, fixedWidth : CGFloat, text : String) -> CGSize {
-        
-        guard text.characters.count > 0 && fixedWidth > 0 else {
+        guard text.count > 0 && fixedWidth > 0 else {
             
             return CGSize.zero
         }

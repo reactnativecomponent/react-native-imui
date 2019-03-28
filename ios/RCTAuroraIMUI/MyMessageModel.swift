@@ -34,6 +34,7 @@ open class RCTMessageModel: IMUIMessageModel {
     static let kMsgTypeRedpacketOpen = "redpacketOpen"
     static let kMsgTypeCard = "card"
     static let kMsgTypeUnKnow = "unknown"
+    static let kMsgTypeCustom = "custom"
     
     
   static let kMsgKeyMsgId = "msgId"
@@ -54,7 +55,8 @@ open class RCTMessageModel: IMUIMessageModel {
   open var myTextMessage: String = ""
   
   var mediaPath: String = ""
-
+    var coverUrl: String = ""
+    var videoUrl: String = ""
   
   override open func mediaFilePath() -> String {
     return mediaPath
@@ -215,6 +217,7 @@ open class RCTMessageModel: IMUIMessageModel {
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else if typeString == RCTMessageModel.kMsgTypeVideo {
         msgType = .video
+        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else if typeString == RCTMessageModel.kMsgTypeLocation {
             msgType = .location
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
@@ -232,6 +235,9 @@ open class RCTMessageModel: IMUIMessageModel {
             customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else if typeString == RCTMessageModel.kMsgTypeCard{
         msgType = .card
+        customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
+      }else if typeString == RCTMessageModel.kMsgTypeCustom{
+        msgType = .custom
         customDict = messageDic.object(forKey: RCTMessageModel.kMsgKeyExtend) as! NSMutableDictionary
       }else{
             msgType = .unknown
@@ -335,6 +341,7 @@ open class RCTMessageModel: IMUIMessageModel {
         messageDic.setValue(RCTMessageModel.kMsgTypeVideo, forKey: RCTMessageModel.kMsgKeyMsgType)
         messageDic.setValue(self.mediaPath, forKey: RCTMessageModel.kMsgKeyMediaFilePath)
         messageDic.setValue(self.duration, forKey: RCTMessageModel.kMsgKeyDuration)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
       case .location:
         messageDic.setValue(RCTMessageModel.kMsgTypeLocation, forKey: RCTMessageModel.kMsgKeyMsgType)
@@ -370,6 +377,10 @@ open class RCTMessageModel: IMUIMessageModel {
         break
       case .unknown:
         messageDic.setValue(RCTMessageModel.kMsgTypeUnKnow, forKey: RCTMessageModel.kMsgKeyMsgType)
+        break
+      case .custom:
+        messageDic.setValue(RCTMessageModel.kMsgTypeCustom, forKey: RCTMessageModel.kMsgKeyMsgType)
+        messageDic.setValue(self.customDict, forKey: RCTMessageModel.kMsgKeyExtend)
         break
         
       default:
