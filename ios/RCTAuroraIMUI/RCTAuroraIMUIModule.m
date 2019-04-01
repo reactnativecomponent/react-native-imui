@@ -72,9 +72,9 @@ RCT_EXPORT_METHOD(clickRecordTime:(NSInteger )time) {
 RCT_EXPORT_METHOD(clickGetAtPerson:(NSDictionary *)person) {
     [[NSNotificationCenter defaultCenter] postNotificationName:GetAtPersonNotification object:person];
 }
-
+// 此方式没有作用
 RCT_EXPORT_METHOD(clickLoadEmotionPages) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:LoadPagesNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:LoadPagesNotification object:nil];
 }
 
 

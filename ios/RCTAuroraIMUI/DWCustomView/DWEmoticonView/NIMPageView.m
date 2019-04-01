@@ -42,9 +42,12 @@
 - (void)clickLoadPages{
     if (!_isLoaded) {
         _isLoaded = YES;
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self reloadData];
         });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self reloadData];
+//        });
     }
 }
 

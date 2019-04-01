@@ -85,7 +85,11 @@ const CGFloat InputLineBoarder = .5f;
     NSInteger index = [self.tabs indexOfObject:sender];
     [self selectTabIndex:index];
     if ([self.delegate respondsToSelector:@selector(tabView:didSelectTabIndex:)]) {
-        [self.delegate tabView:self didSelectTabIndex:index];
+        
+//        [self.delegate tabView:self didSelectTabIndex:index];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate tabView:self didSelectTabIndex:index];
+        });
     }
 }
 

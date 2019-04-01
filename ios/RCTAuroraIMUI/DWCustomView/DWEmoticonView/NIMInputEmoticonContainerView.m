@@ -43,7 +43,10 @@ NSInteger NIMCustomPageViewHeight    = 159;
 - (void)loadConfig{
     self.backgroundColor = [UIColor clearColor];
     [self loadUIComponents];
-    [self reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self reloadData];
+    });
+//    [self reloadData];
 }
 
 
