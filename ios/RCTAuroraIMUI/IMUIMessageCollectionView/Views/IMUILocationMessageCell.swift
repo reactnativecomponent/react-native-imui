@@ -19,7 +19,7 @@ class IMUILocationMessageCell: IMUIBaseMessageCell {
         super.init(frame: frame)
         subContentView.backgroundColor = UIColor.white
         imageView.image = UIImage.init(named: "location")
-        imageView.contentMode = UIViewContentMode.scaleToFill
+        imageView.contentMode = UIView.ContentMode.scaleToFill
         titleLable.textColor = UIColor.black
         titleLable.font = UIFont.systemFont(ofSize: (screenW * 13 / 375))
         titleLable.numberOfLines = 0
@@ -58,7 +58,7 @@ class IMUILocationMessageCell: IMUIBaseMessageCell {
         }
         
         let size = CGSize(width:fixedWidth, height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size
     }

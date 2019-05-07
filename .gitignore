@@ -5,3 +5,5 @@ android/.idea/
 .DS_Store
 .idea/
 *.iml
+ios/RCTAuroraIMUI.xcodeproj/project.xcworkspace/xcuserdata/VisonMac.xcuserdatad/UserInterfaceState.xcuserstate
+ios/RCTAuroraIMUI.xcodeproj/xcuserdata/VisonMac.xcuserdatad/xcschemes/xcschememanagement.plist

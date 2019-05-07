@@ -16,44 +16,44 @@ import UIKit
  */
 open class IMUIMessageCellLayout: NSObject, IMUIMessageCellLayoutProtocal {
 
-  public static var avatarSize: CGSize = CGSize(width: 40, height: 40)//js那边可以设置
+  @objc public static var avatarSize: CGSize = CGSize(width: 40, height: 40)//js那边可以设置
   
-  public static var avatarOffsetToCell: UIOffset = UIOffset(horizontal: 0, vertical: 10)
+  @objc public static var avatarOffsetToCell: UIOffset = UIOffset(horizontal: 0, vertical: 10)
   
-  public static var timeLabelFrame: CGRect = CGRect.zero
+  @objc public static var timeLabelFrame: CGRect = CGRect.zero
   
-  public static var nameLabelSize: CGSize = CGSize(width: 200, height: 18)
+  @objc public static var nameLabelSize: CGSize = CGSize(width: 200, height: 18)
   
-  public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
+  @objc public static var nameLabelOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
   
-  public static var bubbleOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
+  @objc public static var bubbleOffsetToAvatar: UIOffset = UIOffset(horizontal: 4 , vertical: 0)
   
-  public static var cellWidth: CGFloat = 0
+  @objc public static var cellWidth: CGFloat = 0
   
-  public static var cellContentInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom:
+  @objc public static var cellContentInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom:
     5, right: 10)
   
-  public static var statusViewSize: CGSize = CGSize(width: 30, height: 30)
+  @objc public static var statusViewSize: CGSize = CGSize(width: 30, height: 30)
     
-    public static var durationLabelSize: CGSize = CGSize(width: 50, height: 25)
+  @objc public static var durationLabelSize: CGSize = CGSize(width: 50, height: 25)
   
-  public static var statusViewOffsetToBubble: UIOffset = UIOffset(horizontal: 12, vertical: 0)
+  @objc public static var statusViewOffsetToBubble: UIOffset = UIOffset(horizontal: 12, vertical: 0)
   
 //  public static var bubbleMaxWidth: CGFloat = 180.0
-  public static var bubbleMaxWidth: CGFloat = UIScreen.main.bounds.width*0.55
-  public static var isNeedShowInComingName = true
-  public static var isNeedShowOutGoingName = false
+  @objc public static var bubbleMaxWidth: CGFloat = UIScreen.main.bounds.width*0.55
+  @objc public static var isNeedShowInComingName = true
+  @objc public static var isNeedShowOutGoingName = false
   
 //  public static var isNeedShowInComingAvatar = true
 //  public static var isNeedShowOutGoingAvatar = true
   
-  public static var nameLabelTextColor: UIColor = UIColor(netHex: 0x7587A8)
-  public static var nameLabelTextFont: UIFont = UIFont.systemFont(ofSize: 12)
+  @objc public static var nameLabelTextColor: UIColor = UIColor(netHex: 0x7587A8)
+  @objc public static var nameLabelTextFont: UIFont = UIFont.systemFont(ofSize: 12)
   
-  public static var timeStringColor: UIColor = UIColor(netHex: 0x90A6C4)
-  public static var timeStringFont: UIFont = UIFont.systemFont(ofSize: 12)
+  @objc public static var timeStringColor: UIColor = UIColor(netHex: 0x90A6C4)
+  @objc public static var timeStringFont: UIFont = UIFont.systemFont(ofSize: 12)
   
-  public init(isOutGoingMessage: Bool,
+  @objc public init(isOutGoingMessage: Bool,
                  isNeedShowTime: Bool,
               bubbleContentSize: CGSize,
             bubbleContentInsets: UIEdgeInsets,

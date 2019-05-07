@@ -10,12 +10,12 @@ import UIKit
 
 open class IMUITextMessageCell: IMUIBaseMessageCell {
 
-  open static var outGoingTextColor = UIColor(netHex: 0x7587A8)
-  open static var inComingTextColor = UIColor.white
-  open static let screenW = UIScreen.main.bounds.size.width
+  @objc public static var outGoingTextColor = UIColor(netHex: 0x7587A8)
+  @objc public static var inComingTextColor = UIColor.white
+public static let screenW = UIScreen.main.bounds.size.width
   
-    open static var outGoingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
-  open static var inComingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
+  @objc  public static var outGoingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
+  @objc public static var inComingTextFont = screenW<375 ? UIFont.systemFont(ofSize:15) : UIFont.systemFont(ofSize: (screenW * 16 / 375))
 
     var textMessageLable = YYLabel()
 

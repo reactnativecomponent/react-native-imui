@@ -61,7 +61,7 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
             let tmpArr = rangesOf(searchString: "发送朋友验证", inString: strTitle)
             let tmpR:NSRange = tmpArr.lastObject as! NSRange
             locationIndex = tmpR.location
-            attString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: tmpR)
+            attString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: tmpR)
         }
         self.titleLable.attributedText = attString
 
@@ -74,7 +74,7 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
         }
         
         let size = CGSize(width:maxWidth, height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size
     }
@@ -91,7 +91,7 @@ class IMUINotificationMessageCell: IMUIBaseMessageCell {
         return results
     }
     
-    func clickTapValidation(sender : UITapGestureRecognizer){
+    @objc func clickTapValidation(sender : UITapGestureRecognizer){
         let touchPoint = sender.location(in: self.titleLable)
         let path:CGMutablePath = CGMutablePath()
         path.addRect(CGRect(x:0, y:0, width:self.titleLable.frame.size.width, height:self.titleLable.frame.size.height+10))

@@ -62,19 +62,19 @@ open class RCTMessageModel: IMUIMessageModel {
     return mediaPath
   }
 
-  static open var outgoingBubbleImage: UIImage = {
+  @objc static public var outgoingBubbleImage: UIImage = {
     var bubbleImg = UIImage.imuiImage(with: "outGoing_bubble")
-    bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsetsMake(24, 10, 9, 15), resizingMode: .tile)
+    bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 10, bottom: 9, right: 15), resizingMode: .tile)
     return bubbleImg!
   }()
   
-  static open var incommingBubbleImage: UIImage = {
+  @objc static public var incommingBubbleImage: UIImage = {
     var bubbleImg = UIImage.imuiImage(with: "inComing_bubble")
-    bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsetsMake(24, 15, 9, 10), resizingMode: .tile)
+    bubbleImg = bubbleImg?.resizableImage(withCapInsets: UIEdgeInsets(top: 24, left: 15, bottom: 9, right: 10), resizingMode: .tile)
     return bubbleImg!
   }()
   //时间戳转时间
-   static func timeStampToString(timeStamp:String)->String {
+  @objc static func timeStampToString(timeStamp:String)->String {
         
         let string = NSString(string: timeStamp)
         let timeSta:TimeInterval = string.doubleValue
@@ -119,7 +119,7 @@ open class RCTMessageModel: IMUIMessageModel {
         return result
     }
     
-    static func getPeriodOfTime(hour:Int, minute:Int)->String{
+  @objc  static func getPeriodOfTime(hour:Int, minute:Int)->String{
         let totalMin = hour * 60 + minute
         var showPeriodOfTime = ""
         if (totalMin > 0) && (totalMin <= 5*60){
@@ -137,13 +137,13 @@ open class RCTMessageModel: IMUIMessageModel {
         return showPeriodOfTime
     }
     
-    static func weekdayStr(dayOfWeek:Int)->String{
+   @objc static func weekdayStr(dayOfWeek:Int)->String{
         let daysOfWeekDict:Dictionary<Int,String> = [1:"星期日", 2:"星期一", 3:"星期二", 4:"星期三", 5:"星期四", 6:"星期五", 7:"星期六"];
         return daysOfWeekDict[dayOfWeek]!
     }
     
     
-  override open var resizableBubbleImage: UIImage {
+  @objc override open var resizableBubbleImage: UIImage {
     // return defoult message bubble
     if isOutGoing {
       return RCTMessageModel.outgoingBubbleImage
@@ -152,7 +152,7 @@ open class RCTMessageModel: IMUIMessageModel {
     }
   }
   
-    public init(msgId: String, messageStatus: IMUIMessageStatus, fromUser: RCTUser, isOutGoing: Bool, time: String, status: IMUIMessageStatus, type: IMUIMessageType, text: String, mediaPath: String, layout: IMUIMessageCellLayoutProtocal?,customDict: NSMutableDictionary, timeStamp:String) {
+ @objc public init(msgId: String, messageStatus: IMUIMessageStatus, fromUser: RCTUser, isOutGoing: Bool, time: String, status: IMUIMessageStatus, type: IMUIMessageType, text: String, mediaPath: String, layout: IMUIMessageCellLayoutProtocal?,customDict: NSMutableDictionary, timeStamp:String) {
     
     self.myTextMessage = text
     self.mediaPath = mediaPath
@@ -160,7 +160,7 @@ open class RCTMessageModel: IMUIMessageModel {
     super.init(msgId: msgId, messageStatus: messageStatus, fromUser: fromUser, isOutGoing: isOutGoing, time: time, status: status, type: type, cellLayout: layout ,customDict: customDict, timeStamp: timeStamp)
   }
   
-  public convenience init(messageDic: NSMutableDictionary) {
+  @objc public convenience init(messageDic: NSMutableDictionary) {
     
     let msgId = messageDic.object(forKey: RCTMessageModel.kMsgKeyMsgId) as! String
     let msgTypeString = messageDic.object(forKey: RCTMessageModel.kMsgKeyMsgType) as? String
@@ -300,7 +300,7 @@ open class RCTMessageModel: IMUIMessageModel {
     return self.myTextMessage
   }
   
-  static func calculateTextContentSize(text: String, isOutGoing: Bool) -> CGSize {
+  @objc static func calculateTextContentSize(text: String, isOutGoing: Bool) -> CGSize {
     let tmpLabel = YYLabel()
     tmpLabel.font = IMUITextMessageCell.inComingTextFont
  tmpLabel.setupYYText(text, andUnunderlineColor: UIColor.white)
@@ -314,7 +314,7 @@ open class RCTMessageModel: IMUIMessageModel {
 //    }
   }
   
-  public var messageDictionary: NSMutableDictionary {
+   @objc public var messageDictionary: NSMutableDictionary {
     get {
       
       var messageDic = NSMutableDictionary()
@@ -423,13 +423,13 @@ open class RCTMessageModel: IMUIMessageModel {
 
 
 //MARK - IMUIMessageCellLayoutProtocal
-open class MyMessageCellLayout: IMUIMessageCellLayout {
+public class MyMessageCellLayout: IMUIMessageCellLayout {
 
-  open static var outgoingPadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 14)
-  open static var incommingPadding = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 8)
+ @objc public static var outgoingPadding = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 14)
+ @objc public static var incommingPadding = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 8)
 
   
-  override init(isOutGoingMessage: Bool, isNeedShowTime: Bool, bubbleContentSize: CGSize, bubbleContentInsets: UIEdgeInsets, showAvatar: Bool) {
+    override init(isOutGoingMessage: Bool, isNeedShowTime: Bool, bubbleContentSize: CGSize, bubbleContentInsets: UIEdgeInsets, showAvatar: Bool) {
     
     super.init(isOutGoingMessage: isOutGoingMessage, isNeedShowTime: isNeedShowTime, bubbleContentSize: bubbleContentSize, bubbleContentInsets: bubbleContentInsets,showAvatar:showAvatar)
   }

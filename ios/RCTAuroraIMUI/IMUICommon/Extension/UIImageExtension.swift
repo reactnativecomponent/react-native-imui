@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 public extension UIImage {
-  
-  var jpegRepresentationData: Data! {
-    return UIImageJPEGRepresentation(self, 1.0)    // QUALITY min = 0 / max = 1
-  }
-  
-  var pngRepresentationData: Data! {
-    return UIImagePNGRepresentation(self)
-  }
+    
+    var jpegRepresentationData: Data! {
+        return self.jpegData(compressionQuality: 1.0)     // QUALITY min = 0 / max = 1
+    }
+    
+    var pngRepresentationData: Data! {
+        return self.pngData()
+    }
 }

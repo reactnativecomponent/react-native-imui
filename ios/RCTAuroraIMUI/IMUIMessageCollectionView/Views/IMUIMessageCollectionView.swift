@@ -33,7 +33,7 @@ open class IMUIMessageCollectionView: UIView {
   // React Native Property <----
   
   var chatDataManager = IMUIChatDataManager()
-  open weak var delegate: IMUIMessageMessageCollectionViewDelegate?
+  @objc open weak var delegate: IMUIMessageMessageCollectionViewDelegate?
   
   open override func awakeFromNib() {
     super.awakeFromNib()
@@ -42,7 +42,7 @@ open class IMUIMessageCollectionView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     let bundle = Bundle.imuiBundle()
-    view = bundle.loadNibNamed("IMUIMessageCollectionView", owner: self, options: nil)?.first as! UIView
+    view = bundle.loadNibNamed("IMUIMessageCollectionView", owner: self, options: nil)?.first as? UIView
     
     self.addSubview(view)
     view.frame = self.bounds
@@ -55,7 +55,7 @@ open class IMUIMessageCollectionView: UIView {
     super.init(coder: aDecoder)
     
     let bundle = Bundle.imuiBundle()
-    view = bundle.loadNibNamed("IMUIMessageCollectionView", owner: self, options: nil)?.first as! UIView
+    view = bundle.loadNibNamed("IMUIMessageCollectionView", owner: self, options: nil)?.first as? UIView
     
     self.addSubview(view)
     view.frame = self.bounds
@@ -87,7 +87,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.register(IMUIRedPacketOpenMessageCell.self, forCellWithReuseIdentifier: IMUIRedPacketOpenMessageCell.self.description())
     self.messageCollectionView.register(IMUIUnKnownMessageCell.self, forCellWithReuseIdentifier: IMUIUnKnownMessageCell.self.description())
     self.messageCollectionView.register(IMUICustomMessageContentCell.self, forCellWithReuseIdentifier: IMUICustomMessageContentCell.self.description())
-    self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView")
+    self.messageCollectionView.register(IMUIBaseMessageHeadCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headView")
     self.messageCollectionView.register(IMUICardMessageCell.self, forCellWithReuseIdentifier: IMUICardMessageCell.self.description())
     
     self.messageCollectionView.isScrollEnabled = true
@@ -96,7 +96,7 @@ open class IMUIMessageCollectionView: UIView {
     self.messageCollectionView.addGestureRecognizer(self.cellGesture)
   }
   
-    func tapCollectionView(){//点击整个cell，隐藏键盘
+    @objc func tapCollectionView(){//点击整个cell，隐藏键盘
         self.delegate?.messageCollectionView?(tapCellView: "")
     }
 
@@ -113,7 +113,7 @@ open class IMUIMessageCollectionView: UIView {
     return chatDataManager.count
   }
   
-  open func scrollToBottom(with animated: Bool) {
+  @objc open func scrollToBottom(with animated: Bool) {
     if chatDataManager.count == 0 { return }
     let endIndex = IndexPath(item: chatDataManager.endIndex - 1, section: 0)
     self.messageCollectionView.scrollToItem(at: endIndex, at: .bottom, animated: animated)
@@ -125,13 +125,13 @@ open class IMUIMessageCollectionView: UIView {
     }
   
     
-  open func appendMessage(with message: IMUIMessageModel) {
+  @objc open func appendMessage(with message: IMUIMessageModel) {
     self.chatDataManager.appendMessage(with: message)
     self.messageCollectionView.reloadData()
 //    self.scrollToBottom(with: true)
   }
     
-    open func fristAppendMessages(with messages: Array<IMUIMessageModel>) {
+    @objc open func fristAppendMessages(with messages: Array<IMUIMessageModel>) {
         for message in messages{
             self.chatDataManager.appendMessage(with: message)
         }
@@ -141,23 +141,23 @@ open class IMUIMessageCollectionView: UIView {
     }
     
 
-    open func deleteMessage(with messageId: String) {
+    @objc open func deleteMessage(with messageId: String) {
         self.chatDataManager.deleteMessage(with: messageId)
         self.messageCollectionView.reloadData()
 //        self.scrollToBottom(with: true)
     }
-    open func cleanAllMessages() {
+   @objc open func cleanAllMessages() {
         self.chatDataManager.cleanCache()
         self.messageCollectionView.reloadData()
     }
   
-  open func insertMessage(with message: IMUIMessageModel) {
+  @objc open func insertMessage(with message: IMUIMessageModel) {
     self.chatDataManager.insertMessage(with: message)
     isInsert = true
     self.messageCollectionView.reloadData()
   }
   
-  open func insertMessages(with messages:[IMUIMessageModel]) {
+  @objc open func insertMessages(with messages:[IMUIMessageModel]) {
 
     self.chatDataManager.insertMessages(with: messages)
     self.messageCollectionView.reloadData()
@@ -170,7 +170,7 @@ open class IMUIMessageCollectionView: UIView {
 
   }
   
-  open func updateMessage(with message:IMUIMessageModel) {
+  @objc open func updateMessage(with message:IMUIMessageModel) {
     self.chatDataManager.updateMessage(with: message)
     if let index = chatDataManager.index(of: message) {
       let indexPath = IndexPath(item: index, section: 0)
@@ -182,7 +182,7 @@ open class IMUIMessageCollectionView: UIView {
     }
     
     //通知方法
-    func clickStopPlayActivity(notification: Notification){
+    @objc func clickStopPlayActivity(notification: Notification){
         DispatchQueue.main.async(execute: {
             self.headView.stopActView()
         })
@@ -190,7 +190,7 @@ open class IMUIMessageCollectionView: UIView {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
   
   public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -201,15 +201,14 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     collectionView.collectionViewLayout.invalidateLayout()
     return 1
   }
+      
+   public  func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: messageCollectionView.imui_width, height: chatDataManager[indexPath.item].layout.cellHeight)
+    }
   
-  func collectionView(_ collectionView: UICollectionView,
-                      layout collectionViewLayout: UICollectionViewLayout,
-                      sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-//    return CGSize(width: messageCollectionView.imui_width, height: chatDataManager[indexPath.item].layout.cellHeight)
-    return CGSize(width: messageCollectionView.imui_width, height: chatDataManager[indexPath.item].layout.cellHeight)
-  }
-  
-  func collectionView(_ collectionView: UICollectionView,
+  public func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       referenceSizeForFooterInSection section: Int) -> CGSize {
     return CGSize.zero
@@ -298,7 +297,7 @@ extension IMUIMessageCollectionView: UICollectionViewDelegate, UICollectionViewD
     }
 
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headView", for: indexPath) as! IMUIBaseMessageHeadCell
+        let headCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headView", for: indexPath) as! IMUIBaseMessageHeadCell
         self.headView = headCell
         return headCell
     }

@@ -16,7 +16,7 @@ open class IMUIBaseMessageHeadCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
-        actView = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        actView = UIActivityIndicatorView.init(style: UIActivityIndicatorView.Style.gray)
         actView.hidesWhenStopped = true
         self.addSubview(self.actView)
         self.setupSubViews()

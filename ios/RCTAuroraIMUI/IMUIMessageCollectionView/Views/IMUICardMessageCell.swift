@@ -21,7 +21,7 @@ class IMUICardMessageCell: IMUIBaseMessageCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backView.backgroundColor = UIColor.white
-        iconImg.contentMode = UIViewContentMode.scaleAspectFill
+        iconImg.contentMode = UIView.ContentMode.scaleAspectFill
         nameLable.textColor = UIColor.black
         nameLable.font = UIFont.systemFont(ofSize: (screenW * 18 / 375))
         lineView.backgroundColor = UIColor.init(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1.0)
@@ -80,7 +80,7 @@ class IMUICardMessageCell: IMUIBaseMessageCell {
             return CGSize.zero
         }
         let size = CGSize(width:fixedWidth, height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size
     }

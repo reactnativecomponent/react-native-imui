@@ -15,7 +15,7 @@ enum IMUIMessageCellType {
 }
 
 open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,MenuPopOverViewDelegate,UIAlertViewDelegate {
-   public var bubbleView: IMUIMessageBubbleView
+  @objc public var bubbleView: IMUIMessageBubbleView
   lazy var avatarImage = MyCacheImageView()
     lazy var timeBackView = UIView()
   lazy var timeLabel = UILabel()
@@ -23,10 +23,10 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     lazy var durationLabel = UILabel()
     lazy var isPlayedView = UIView() //录音是否播放过
   weak var statusView: UIView?
-    public var cellType:String?
-    public var cellMsgId:String?
+   @objc public var cellType:String?
+   @objc public var cellMsgId:String?
     
-  weak var delegate: IMUIMessageMessageCollectionViewDelegate?
+  @objc weak var delegate: IMUIMessageMessageCollectionViewDelegate?
   var message: IMUIMessageModelProtocol?
     var cellGesture = UITapGestureRecognizer.init()
    var bubbleGesture = UITapGestureRecognizer.init()
@@ -43,6 +43,13 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.contentView.addSubview(self.nameLabel)
     self.contentView.addSubview(self.durationLabel)
     self.contentView.addSubview(self.isPlayedView)
+//    let bubbleGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapBubbleView))
+//    let longPressBubbleGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longTapBubbleView))
+//    bubbleGesture.numberOfTapsRequired = 1
+//    self.bubbleView.isUserInteractionEnabled = true
+//    self.bubbleView.addGestureRecognizer(bubbleGesture)
+//    self.bubbleView.addGestureRecognizer(longPressBubbleGesture)
+    
     self.cellGesture.addTarget(self, action: #selector(self.tapCellView))
     self.bubbleGesture.addTarget(self, action: #selector(self.tapBubbleView))
     self.bubbleGesture.cancelsTouchesInView = false
@@ -102,6 +109,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.addGestureForStatusView()
     self.nameLabel.textColor = UIColor.init(red: 157/255.0, green: 157/255.0, blue: 158/255.0, alpha: 1)
     self.statusView!.frame = layout.statusViewFrame
+    
   }
   
   func addGestureForStatusView() {
@@ -211,7 +219,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
             return 0
         }
         let size = CGSize(width:CGFloat(MAXFLOAT), height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size.width+10
     }
@@ -222,7 +230,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     self.delegate = delegate
   }
   
-  func tapBubbleView() {
+  @objc func tapBubbleView() {
     UIApplication.shared.keyWindow?.endEditing(true)
     if self.message?.type == .text {
 //        self.delegate?.messageCollectionView?(tapCellView: "")
@@ -241,16 +249,16 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     }
   }
     
-    func tapCellView(){//点击整个cell，隐藏键盘
+   @objc func tapCellView(){//点击整个cell，隐藏键盘
         self.delegate?.messageCollectionView?(tapCellView: "")
 //        UIApplication.shared.keyWindow?.endEditing(true)
     }
     
     
     
-  func longTapBubbleView(sender : UILongPressGestureRecognizer) {
+  @objc func longTapBubbleView(sender : UILongPressGestureRecognizer) {
 
-    if sender.state == UIGestureRecognizerState.began && self.message?.messageStatus != .sending{
+    if sender.state == UIGestureRecognizer.State.began && self.message?.messageStatus != .sending{
         if self.message?.type == .notification || self.message?.type == .redpacketOpen || self.message?.type == .unknown {
             return
         }
@@ -285,13 +293,13 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "kClickLongTouchShowMenuNotification"), object: obj)
     }
     
-  func tapHeaderImage() {
+  @objc func tapHeaderImage() {
     self.delegate?.messageCollectionView?(didTapHeaderImageInCell: self, model: self.message!)
   }
   //长按头像
-    func longTapAvatarPress(sender : UILongPressGestureRecognizer){
+   @objc func longTapAvatarPress(sender : UILongPressGestureRecognizer){
         if !(self.message?.isOutGoing)! {
-            if sender.state == UIGestureRecognizerState.began{
+            if sender.state == UIGestureRecognizer.State.began{
                 self.delegate?.messageCollectionView?(longTapAvatarPressWithModel: self.message!)
                
             }
@@ -299,7 +307,7 @@ open class IMUIBaseMessageCell: UICollectionViewCell, IMUIMessageCellProtocal,Me
     }
     
     
-  func tapSatusView() {
+  @objc func tapSatusView() {
     self.delegate?.messageCollectionView?(didTapStatusViewInCell: self, model: self.message!)
 //    let alter = UIAlertView.init(title: "重发该消息？", message: "", delegate: self, cancelButtonTitle: "取消", otherButtonTitles: "确定")
 //    alter.show()

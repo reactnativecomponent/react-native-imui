@@ -38,10 +38,10 @@ class IMUIChatDataManager: NSObject {
   }
   
   func index(of message: IMUIMessageModelProtocol) -> Int? {
-    return allMsgidArr.index(of: message.msgId)
+    return allMsgidArr.firstIndex(of: message.msgId)
   }
     
-  open func appendMessage(with message: IMUIMessageModelProtocol) {
+  @objc open func appendMessage(with message: IMUIMessageModelProtocol) {
     if self.allMessageDic[message.msgId] == nil{
         self.allMsgidArr.append(message.msgId)
         
@@ -51,7 +51,7 @@ class IMUIChatDataManager: NSObject {
   }
     
     open func deleteMessage(with msgID: String) {
-        let index = self.allMsgidArr.index(of: msgID)
+        let index = self.allMsgidArr.firstIndex(of: msgID)
         if index != nil {
             self.allMsgidArr.remove(at: index!)
             self.allMessageDic.removeValue(forKey: msgID)

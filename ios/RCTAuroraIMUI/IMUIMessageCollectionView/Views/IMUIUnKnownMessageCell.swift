@@ -21,7 +21,7 @@ class IMUIUnKnownMessageCell: IMUIBaseMessageCell {
         titleLable.font = UIFont.systemFont(ofSize: (screenW * 14 / 375))
         titleLable.textAlignment = NSTextAlignment.center
         updateBtn.backgroundColor = UIColor.clear
-        updateBtn.addTarget(self, action: #selector(self.clickTapUpdateBtn), for: UIControlEvents.touchUpInside)
+        updateBtn.addTarget(self, action: #selector(self.clickTapUpdateBtn), for: UIControl.Event.touchUpInside)
         contView.backgroundColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 0.7)
         contView.layer.cornerRadius = 5
         contView.clipsToBounds = true
@@ -42,7 +42,7 @@ class IMUIUnKnownMessageCell: IMUIBaseMessageCell {
         super.layoutSubviews()
     }
     
-    func clickTapUpdateBtn() {
+    @objc func clickTapUpdateBtn() {
         
         let url:URL = URL.init(string: "https://itunes.apple.com/cn/app/%E9%A3%9E%E9%A9%AC%E9%92%B1%E5%8C%85/id1172713122?mt=8")!
         UIApplication.shared.openURL(url)
@@ -62,7 +62,7 @@ class IMUIUnKnownMessageCell: IMUIBaseMessageCell {
         let btnX = strBlueW * CGFloat(blueRange.location) + margin*0.5
         let btnW = strBlueW * 4;
         self.updateBtn.frame = CGRect(origin: CGPoint(x:btnX, y:0), size: CGSize(width:btnW, height:contentH))
-        attString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: blueRange)
+        attString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.init(red: 35/255.0, green: 141/255.0, blue: 250/255.0, alpha: 1), range: blueRange)
     
         self.titleLable.attributedText = attString
         let contentX = (layout.bubbleFrame.size.width - titleW )*0.5
@@ -80,7 +80,7 @@ class IMUIUnKnownMessageCell: IMUIBaseMessageCell {
         }
         
         let size = CGSize(width:maxWidth, height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size.width + self.margin
     }

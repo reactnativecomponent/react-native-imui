@@ -17,7 +17,7 @@ public extension String {
   
   func sizeWithConstrainedWidth(with width: CGFloat, font: UIFont) -> CGSize {
     let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-    let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+    let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
     var tmpWidth = boundingBox.width
     if tmpWidth<30{
         tmpWidth = 30

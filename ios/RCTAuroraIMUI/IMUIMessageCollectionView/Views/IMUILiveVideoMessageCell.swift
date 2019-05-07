@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IMUILiveVideoMessageCell: IMUIBaseMessageCell {
+public class IMUILiveVideoMessageCell: IMUIBaseMessageCell {
 
 
   var videoView = UIView()
@@ -23,7 +23,7 @@ class IMUILiveVideoMessageCell: IMUIBaseMessageCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func layoutSubviews() {
+    override public func layoutSubviews() {
     super.layoutSubviews()
   }
   
@@ -35,7 +35,9 @@ class IMUILiveVideoMessageCell: IMUIBaseMessageCell {
     super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
     self.layoutVideo(with: message.mediaFilePath())
     let layout = message.layout as! IMUIMessageCellLayout
-    self.videoView.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), layout.bubbleContentInset)
+    let inset = layout.bubbleContentInset
+    self.videoView.frame = CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size).inset(by: UIEdgeInsets.init(top: inset.top, left: inset.left, bottom: inset.bottom, right: inset.right))
+    
   }
   
   func layoutVideo(with videoPath: String) {

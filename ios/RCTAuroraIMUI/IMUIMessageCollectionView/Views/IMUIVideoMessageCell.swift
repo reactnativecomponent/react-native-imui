@@ -24,7 +24,7 @@ class IMUIVideoMessageCell: IMUIBaseMessageCell {
         tmpLayer.fillColor = UIColor.clear.cgColor
         tmpLayer.lineWidth = 1.5
         tmpLayer.strokeEnd = 0.9
-        tmpLayer.lineCap = kCALineCapRound
+        tmpLayer.lineCap = CAShapeLayerLineCap.round
         tmpLayer.bounds = CGRect.init(x: 0, y: 0, width: 56.0, height: 56.0)
         tmpLayer.anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
         return tmpLayer
@@ -65,7 +65,8 @@ class IMUIVideoMessageCell: IMUIBaseMessageCell {
     self.videoView.setImageURL(strCoverUrl)
 
     let layout = message.layout
-    self.videoView.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), layout.bubbleContentInset)
+    let inset = layout.bubbleContentInset
+    self.videoView.frame = CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size).inset(by: UIEdgeInsets.init(top: inset.top, left: inset.left, bottom: inset.bottom, right: inset.right))
     self.circleLayer.removeAllAnimations()
     if message.mediaFilePath() == "" {
         self.playBtn.isHidden = true

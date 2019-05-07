@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IMUIVoiceMessageCell: IMUIBaseMessageCell {
+public class IMUIVoiceMessageCell: IMUIBaseMessageCell {
 
   fileprivate var voiceImg = UIImageView()
     var cellMsgID = ""
@@ -31,7 +31,7 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-   func clickPlayVoice() {
+  @objc func clickPlayVoice() {
         if isMediaActivity {
           do {
             self.isMediaActivity = false
@@ -40,7 +40,8 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
             let voiceData = try Data(contentsOf: URL(fileURLWithPath: (self.mediaFilePath)))
             var imgTime = 0.0
             var imgIndex = 0
-            IMUIAudioPlayerHelper.sharedInstance.playAudioWithData(voiceData, progressCallback: { (currendTime, duration) in
+            IMUIAudioPlayerHelper.sharedInstance.playAudioWithData((self.message?.msgId)!,voiceData,
+           { (id,power,currendTime, duration) in
                 if (currendTime - imgTime) > 0.3 {
                     imgTime = currendTime
                     imgIndex = imgIndex + 1
@@ -51,9 +52,15 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
                     self.voiceImg.image = UIImage.imuiImage(with: strImg)
                 }
                 
-            },finishCallBack: {
-                self.isMediaActivity = true
-                self.layoutToVoice(isOutGoing:self.isOutGoing)
+            },{ id in
+            if self.message?.msgId == id {
+                self.isMediaActivity = false
+                self.resetVoiceImage()
+                }} ,{id in
+                if self.message?.msgId == id {
+                    self.isMediaActivity = false
+                    self.resetVoiceImage()
+                }
             })
           } catch {
                 print("load voice file fail")
@@ -66,13 +73,19 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
             self.layoutToVoice(isOutGoing:isOutGoing)
         }
   }
-    
-    func clickStopVoice(notification: NSNotification){
+    func resetVoiceImage() {
+        if (message?.isOutGoing)! {
+            self.voiceImg.image = UIImage.imuiImage(with: "outgoing_voice_3")
+        } else {
+            self.voiceImg.image = UIImage.imuiImage(with: "incoming_voice_3")
+        }
+    }
+   @objc func clickStopVoice(notification: NSNotification){
         UIDevice.current.isProximityMonitoringEnabled = false
         IMUIAudioPlayerHelper.sharedInstance.stopAudio()
     }
   
-  override func presentCell(with message: IMUIMessageModelProtocol, viewCache: IMUIReuseViewCache, delegate: IMUIMessageMessageCollectionViewDelegate?) {
+   override func presentCell(with message: IMUIMessageModelProtocol, viewCache: IMUIReuseViewCache, delegate: IMUIMessageMessageCollectionViewDelegate?) {
     super.presentCell(with: message, viewCache: viewCache, delegate: delegate)
     self.isMediaActivity = true // TODO: add playRecording
     self.layoutToVoice(isOutGoing: message.isOutGoing)
@@ -81,7 +94,7 @@ class IMUIVoiceMessageCell: IMUIBaseMessageCell {
     mediaFilePath = message.mediaFilePath()
   }
     
-    func clickTapVoiceView(notification: NSNotification)  {
+   @objc func clickTapVoiceView(notification: NSNotification)  {
         DispatchQueue.main.sync {
             let notiMsgID:String = notification.object as! String
             if  self.cellMsgID == notiMsgID {

@@ -881,6 +881,7 @@
 					623EA9981EE55D0800EC43AE = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = RL64Y54S9V;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					623EA9A01EE55D0800EC43AE = {
@@ -895,6 +896,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 626021ED1ED96BA20038AB20;
@@ -1113,7 +1115,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1139,7 +1141,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

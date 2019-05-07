@@ -19,7 +19,7 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundImg.image = UIImage.init(named: "transfer")
-        backgroundImg.contentMode = UIViewContentMode.scaleToFill
+        backgroundImg.contentMode = UIView.ContentMode.scaleToFill
         contentLable.textColor = UIColor.white
         contentLable.font = UIFont.systemFont(ofSize: (screenW * 16 / 375))
         amountLabel.textColor = UIColor.white
@@ -56,8 +56,9 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
         let strAmount = tmpDict.object(forKey: "amount") as! String
         let strTmpAmount = String(format: "%0.2f",Float(strAmount)!)
         amountLabel.text = strTmpAmount + " 元"
-        
-        self.backgroundImg.frame = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size), layout.bubbleContentInset)
+        let inset = layout.bubbleContentInset
+        self.backgroundImg.frame = CGRect(origin: CGPoint.zero, size: layout.bubbleFrame.size).inset(by: UIEdgeInsets.init(top: inset.top, left: inset.left, bottom: inset.bottom, right: inset.right))
+
         let contentX = layout.bubbleFrame.size.width * 0.26
         let contentW = layout.bubbleFrame.size.width * 0.7
         
@@ -82,7 +83,7 @@ class IMUITransferMessageCell: IMUIBaseMessageCell {
         }
         
         let size = CGSize(width:fixedWidth, height:CGFloat(MAXFLOAT))
-        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSFontAttributeName : font], context:nil)
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font : font], context:nil)
         
         return rect.size
     }
