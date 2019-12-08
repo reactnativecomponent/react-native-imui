@@ -1,6 +1,6 @@
 package cn.jiguang.imui.chatinput.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.text.NumberFormat;
 

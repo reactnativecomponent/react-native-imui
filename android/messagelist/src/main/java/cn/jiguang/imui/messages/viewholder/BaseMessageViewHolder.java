@@ -2,7 +2,7 @@ package cn.jiguang.imui.messages.viewholder;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import cn.jiguang.imui.commons.ImageLoader;
