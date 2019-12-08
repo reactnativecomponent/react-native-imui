@@ -9,7 +9,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.v4.widget.Space;
+import androidx.legacy.widget.Space;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextUtils;
