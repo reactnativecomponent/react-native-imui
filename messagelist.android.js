@@ -2,21 +2,10 @@
 
 import React from 'react';
 import ReactNative from 'react-native';
+const {requireNativeComponent, ViewPropTypes} = ReactNative;
+import PropTypes from 'prop-types';
 
-var {
-  Component,
-} = React;
-
-var {
-  StyleSheet,
-  View,
-  requireNativeComponent,
-    ViewPropTypes
-} = ReactNative;
-import PropTypes from 'prop-types'
-
-export default class MessageList extends Component {
-
+export default class MessageList extends React.Component {
   constructor(props) {
     super(props);
     this._onLinkClick = this._onLinkClick.bind(this);
@@ -29,45 +18,48 @@ export default class MessageList extends Component {
     this._onPullToRefresh = this._onPullToRefresh.bind(this);
   }
 
-  _onMsgClick(event: Event) {
+  _onMsgClick(event) {
     if (!this.props.onMsgClick) {
       return;
     }
     this.props.onMsgClick(event.nativeEvent.message);
   }
-  _onLinkClick(event: Event) {
+  _onLinkClick(event) {
     if (!this.props.onLinkClick) {
       return;
     }
     this.props.onLinkClick(event.nativeEvent.message);
   }
-  _onClickChangeAutoScroll(event: Event) {
+  _onClickChangeAutoScroll(event) {
     if (!this.props.onClickChangeAutoScroll) {
       return;
     }
     this.props.onClickChangeAutoScroll(event.nativeEvent.isAutoScroll);
   }
 
-  _onAvatarClick(event: Event) {
+  _onAvatarClick(event) {
     if (!this.props.onAvatarClick) {
       return;
     }
     this.props.onAvatarClick(event.nativeEvent.message);
   }
 
-  _onStatusViewClick(event: Event) {
+  _onStatusViewClick(event) {
     if (!this.props.onStatusViewClick) {
       return;
     }
-    this.props.onStatusViewClick(event.nativeEvent.message,event.nativeEvent.opt);
+    this.props.onStatusViewClick(
+      event.nativeEvent.message,
+      event.nativeEvent.opt,
+    );
   }
 
-    _onClickScanImageView(event:Event){
-        if(!this.props.onClickScanImageView){
-            return;
-        }
-        this.props.onClickScanImageView(event.nativeEvent);
+  _onClickScanImageView(event) {
+    if (!this.props.onClickScanImageView) {
+      return;
     }
+    this.props.onClickScanImageView(event.nativeEvent);
+  }
   _onTouchMsgList() {
     if (!this.props.onTouchMsgList) {
       return;
@@ -84,20 +76,19 @@ export default class MessageList extends Component {
 
   render() {
     return (
-      <RCTMessageList 
-          {...this.props}
-          onLinkClick={this._onLinkClick}
-          onMsgClick={this._onMsgClick}
-          onAvatarClick={this._onAvatarClick}
-          onClickChangeAutoScroll={this._onClickChangeAutoScroll}
-          onStatusViewClick={this._onStatusViewClick}
-          onTouchMsgList={this._onTouchMsgList}
-          onClickScanImageView={this._onClickScanImageView}
-          onPullToRefresh={this._onPullToRefresh}
-        />
+      <RCTMessageList
+        {...this.props}
+        onLinkClick={this._onLinkClick}
+        onMsgClick={this._onMsgClick}
+        onAvatarClick={this._onAvatarClick}
+        onClickChangeAutoScroll={this._onClickChangeAutoScroll}
+        onStatusViewClick={this._onStatusViewClick}
+        onTouchMsgList={this._onTouchMsgList}
+        onClickScanImageView={this._onClickScanImageView}
+        onPullToRefresh={this._onPullToRefresh}
+      />
     );
   }
-
 }
 
 MessageList.propTypes = {
@@ -108,7 +99,7 @@ MessageList.propTypes = {
   onAvatarClick: PropTypes.func,
   onStatusViewClick: PropTypes.func,
   onTouchMsgList: PropTypes.func,
-    onClickScanImageView:PropTypes.func,
+  onClickScanImageView: PropTypes.func,
   onPullToRefresh: PropTypes.func,
 
   sendBubble: PropTypes.object,
@@ -124,11 +115,7 @@ MessageList.propTypes = {
   datePadding: PropTypes.number,
   avatarSize: PropTypes.object,
   isShowDisplayName: PropTypes.bool,
-  ...ViewPropTypes
+  ...ViewPropTypes,
 };
 
-var RCTMessageList = requireNativeComponent('RCTMessageList', MessageList);
-
-var styles = StyleSheet.create({
-
-});
+const RCTMessageList = requireNativeComponent('RCTMessageList', MessageList);

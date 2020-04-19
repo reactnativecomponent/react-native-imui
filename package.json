@@ -1,85 +1,20 @@
+
 {
-  "_args": [
-    [
-      {
-        "raw": "react-native-imui@git+https://github.com/reactnativecomponent/react-native-imui.git",
-        "scope": null,
-        "escapedName": "react-native-imui",
-        "name": "react-native-imui",
-        "rawSpec": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-        "spec": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-        "type": "hosted",
-        "hosted": {
-          "type": "github",
-          "ssh": "git@github.com:reactnativecomponent/react-native-imui.git",
-          "sshUrl": "git+ssh://git@github.com/reactnativecomponent/react-native-imui.git",
-          "httpsUrl": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-          "gitUrl": "git://github.com/reactnativecomponent/react-native-imui.git",
-          "shortcut": "github:reactnativecomponent/react-native-imui",
-          "directUrl": "https://raw.githubusercontent.com/reactnativecomponent/react-native-imui/master/package.json"
-        }
-      },
-      "/Users/dowin/KinoooProject/CompanyApp/react-native-wallet"
-    ]
-  ],
-  "_from": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-  "_id": "react-native-imui@1.0.9",
-  "_inCache": true,
-  "_location": "/react-native-imui",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "react-native-imui@git+https://github.com/reactnativecomponent/react-native-imui.git",
-    "scope": null,
-    "escapedName": "react-native-imui",
-    "name": "react-native-imui",
-    "rawSpec": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-    "spec": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-    "type": "hosted",
-    "hosted": {
-      "type": "github",
-      "ssh": "git@github.com:reactnativecomponent/react-native-imui.git",
-      "sshUrl": "git+ssh://git@github.com/reactnativecomponent/react-native-imui.git",
-      "httpsUrl": "git+https://github.com/reactnativecomponent/react-native-imui.git",
-      "gitUrl": "git://github.com/reactnativecomponent/react-native-imui.git",
-      "shortcut": "github:reactnativecomponent/react-native-imui",
-      "directUrl": "https://raw.githubusercontent.com/reactnativecomponent/react-native-imui/master/package.json"
-    }
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "git+https://github.com/reactnativecomponent/react-native-imui.git#8615656d916352a430e4a6312b4357ac5d6b04f6",
-  "_shasum": "335e972a8a57c354ee30da9d8466d91d7e4a12aa",
-  "_shrinkwrap": null,
-  "_spec": "react-native-imui@git+https://github.com/reactnativecomponent/react-native-imui.git",
-  "_where": "/Users/dowin/KinoooProject/CompanyApp/react-native-wallet",
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/reactnativecomponent/react-native-imui/issues"
-  },
-  "dependencies": {},
-  "description": "react-native im ui",
-  "devDependencies": {},
-  "gitHead": "8615656d916352a430e4a6312b4357ac5d6b04f6",
-  "homepage": "https://github.com/reactnativecomponent/react-native-imui#readme",
+  "name": "react-native-imui",
+  "version": "3.0.0",
+  "description": "ReactNative 原生聊天UI",
+  "main": "index.js",
   "keywords": [
     "react-native"
   ],
+  "repository" :
+  { "type" : "git",
+    "url" : "https://github.com/reactnativecomponent/react-native-imui.git"
+  },
+  "author": "",
   "license": "",
-  "main": "index.js",
-  "name": "react-native-imui",
-  "optionalDependencies": {},
   "peerDependencies": {
-    "react-native": ">=0.47.0"
-  },
-  "readme": "# ReactNative IMUI\n项目fork自 jpush 的 [Aurora IMUI](https://github.com/jpush/aurora-imui/tree/master/ReactNative)\n\n## 使用\n参考[demo](https://github.com/reactnativecomponent/react-native-chat-demo)\n## 安装\n\n```\nnpm install react-native-imui --save\n```\n `settings.gradle` 中的引用路径：\n```\ninclude ':app', ':react-native-imui'\nproject(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')\ninclude ':react-native-imui:chatinput'\ninclude ':react-native-imui:messagelist'\ninclude ':react-native-imui:popuptool'\ninclude ':react-native-imui:emoji'\ninclude ':react-native-imui:photoViewPagerview'\ninclude ':react-native-imui:photoViewPagerview:photodraweeview'\n```\n\n然后在 app 的 `build.gradle`中引用：\n\n```\ndependencies {\n    compile project(':react-native-imui')\n}\n```\n\n**注意事项（Android）：我们使用了 support v4, v7 25.3.1 版本，因此需要将你的 build.gradle 中 buildToolsVersion 及 compiledSdkVersion 改为 25 以上。可以参考 demo 的配置。**\n\n## 配置\n\n- ### Android\n\n  - 引入 Package:\n\n  > MainApplication.java\n\n  ```\n  import cn.jiguang.imui.messagelist.ReactIMUIPackage;\n  ...\n\n  @Override\n  protected List<ReactPackage> getPackages() {\n      return Arrays.<ReactPackage>asList(\n          new MainReactPackage(),\n          new ReactIMUIPackage()\n      );\n  }\n  ```\n\n\n\n- ### iOS\n  - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework\n  - 把 `iOSResourcePacket` 目录`NIMKitEmoticon.bundle`拖到Xcode`Resources`目录下\n  - 把 `iOSResourcePacket` 目录`IMGS`拖到Xcode`Images.xcassets`下\n\n## 数据格式\n\n使用 MessageList，你需要定义 `message` 对象和 `fromUser` 对象。\n\n- `message` 对象格式:\n\n**status 必须为以下四个值之一: \"send_succeed\", \"send_failed\", \"send_going\", \"download_failed\"，如果没有定义这个属性， 默认值是 \"send_succeed\".**\n\n ```\n  message = {  // text message\n    msgId: \"msgid\",\n    status: \"send_going\",\n    msgType: \"text\",\n    isOutgoing: true,\n    text: \"text\"\n    fromUser: {}\n}\n\nmessage = {  // image message\n    msgId: \"msgid\",\n    msgType: \"image\",\n    isOutGoing: true,\n    progress: \"progress string\"\n    mediaPath: \"image path\"\n    fromUser: {}\n}\n\n\nmessage = {  // voice message\n    msgId: \"msgid\",\n    msgType: \"voice\",\n    isOutGoing: true,\n    duration: number, // 注意这个值有用户自己设置时长，单位秒\n    mediaPath: \"voice path\"\n    fromUser: {}\n}\n\nmessage = {  // video message\n    msgId: \"msgid\",\n    status: \"send_failed\",\n    msgType: \"video\",\n    isOutGoing: true,\n    druation: number\n    mediaPath: \"voice path\"\n    fromUser: {}\n}\n\nmessage = {  // event message\n    msgId: \"msgid\",\n    msgType: \"event\",\n    text: \"the event text\"\n}\n ```\n\n-    `fromUser` 对象格式:\n\n  ```\n  fromUser = {\n    userId: \"\"\n    displayName: \"\"\n    avatarPath: \"avatar image path\"\n  }\n  ```\n\n",
-  "readmeFilename": "README.md",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reactnativecomponent/react-native-imui.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "1.1.0"
+    "react-native": ">=0.60.0"
+
+  }
 }

@@ -2,20 +2,12 @@
 
 import React from 'react';
 import ReactNative from 'react-native';
-var {
-  Component,
-} = React;
+const {Component} = React;
 
-var {
-  StyleSheet,
-  View,
-  requireNativeComponent,
-    ViewPropTypes
-} = ReactNative;
-import PropTypes from 'prop-types'
+const {requireNativeComponent, ViewPropTypes} = ReactNative;
+import PropTypes from 'prop-types';
 
 export default class ChatInput extends Component {
-
   constructor(props) {
     super(props);
     this._onSendText = this._onSendText.bind(this);
@@ -26,40 +18,49 @@ export default class ChatInput extends Component {
     this._onEditTextChange = this._onEditTextChange.bind(this);
   }
 
-  _onSendText(event: Event) {
+  _onSendText(event) {
     if (!this.props.onSendText) {
       return;
     }
-    this.props.onSendText(event.nativeEvent.text,event.nativeEvent.ids);
+    this.props.onSendText(event.nativeEvent.text, event.nativeEvent.ids);
   }
 
-  _onSendVideo(event: Event) {
+  _onSendVideo(event) {
     if (!this.props.onSendVideo) {
       return;
     }
     this.props.onSendVideo(event.nativeEvent.mediaPath);
   }
 
-  _onSendVoice(event: Event) {
+  _onSendVoice(event) {
     if (!this.props.onSendVoice) {
       return;
     }
-    this.props.onSendVoice(event.nativeEvent.mediaPath, event.nativeEvent.duration);
+    this.props.onSendVoice(
+      event.nativeEvent.mediaPath,
+      event.nativeEvent.duration,
+    );
   }
 
-  _onShowKeyboard(event:Event) {
+  _onShowKeyboard(event) {
     if (!this.props.onShowKeyboard) {
       return;
     }
-    this.props.onShowKeyboard(event.nativeEvent.inputHeight,event.nativeEvent.showType);
+    this.props.onShowKeyboard(
+      event.nativeEvent.inputHeight,
+      event.nativeEvent.showType,
+    );
   }
-  _onFeatureView(event:Event) {
-      if (!this.props.onFeatureView) {
-        return;
-      }
-      this.props.onFeatureView(event.nativeEvent.inputHeight,event.nativeEvent.showType);
+  _onFeatureView(event) {
+    if (!this.props.onFeatureView) {
+      return;
+    }
+    this.props.onFeatureView(
+      event.nativeEvent.inputHeight,
+      event.nativeEvent.showType,
+    );
   }
-  _onEditTextChange(event: Event) {
+  _onEditTextChange(event) {
     if (!this.props.onEditTextChange) {
       return;
     }
@@ -68,18 +69,17 @@ export default class ChatInput extends Component {
 
   render() {
     return (
-      <RCTChatInput 
-          {...this.props} 
-          onSendText={this._onSendText}
-          onSendVideo={this._onSendVideo}
-          onSendVoice={this._onSendVoice}
-          onShowKeyboard={this._onShowKeyboard}
-          onFeatureView={this._onFeatureView}
-          onEditTextChange={this._onEditTextChange}
+      <RCTChatInput
+        {...this.props}
+        onSendText={this._onSendText}
+        onSendVideo={this._onSendVideo}
+        onSendVoice={this._onSendVoice}
+        onShowKeyboard={this._onShowKeyboard}
+        onFeatureView={this._onFeatureView}
+        onEditTextChange={this._onEditTextChange}
       />
     );
   }
-
 }
 
 ChatInput.propTypes = {
@@ -90,7 +90,7 @@ ChatInput.propTypes = {
   onShowKeyboard: PropTypes.func,
   onFeatureView: PropTypes.func,
   onEditTextChange: PropTypes.func,
-  ...ViewPropTypes
+  ...ViewPropTypes,
 };
 
 var RCTChatInput = requireNativeComponent('RCTChatInput', ChatInput);
