@@ -6,57 +6,10 @@
 ## 安装
 
 ```
-npm install react-native-imui --save
+npm install react-native-imui --save 或者 yarn add react-native-imui
 ```
-## link
-
-```
-react-native link react-native-imui 
-```
- `settings.gradle` 中的引用路径：
-```
-include ':app', ':react-native-imui'
-project(':react-native-imui').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-imui/android')
-include ':react-native-imui:chatinput'
-include ':react-native-imui:messagelist'
-include ':react-native-imui:popuptool'
-include ':react-native-imui:emoji'
-include ':react-native-imui:photoViewPagerview'
-include ':react-native-imui:photoViewPagerview:photodraweeview'
-```
-
-然后在 app 的 `build.gradle`中引用：
-
-```
-dependencies {
-    compile project(':react-native-imui')
-}
-```
-
-**注意事项（Android）：我们使用了 support v4, v7 25.3.1 版本，因此需要将你的 build.gradle 中 buildToolsVersion 及 compiledSdkVersion 改为 25 以上。可以参考 demo 的配置。**
 
 ## 配置
-
-- ### Android
-
-  - 引入 Package:
-
-  > MainApplication.java
-
-  ```
-  import cn.jiguang.imui.messagelist.ReactIMUIPackage;
-  ...
-
-  @Override
-  protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new ReactIMUIPackage()
-      );
-  }
-  ```
-
-
 
 - ### iOS
   - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
