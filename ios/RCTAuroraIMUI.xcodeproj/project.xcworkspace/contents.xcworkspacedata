@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/HuminiOS/Desktop/workproject/aurora-imui/ReactNative/ios/RCTAuroraIMUI.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -3,839 +3,804 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E1BA8841F39AB8400A15E62 /* NIMInputAtCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */; };
-		4E1BA8851F39AB8400A15E62 /* NIMInputAtCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */; };
-		4E2678931F905E33007F3996 /* NIMInputEmoticonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678701F905C2F007F3996 /* NIMInputEmoticonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678941F905E90007F3996 /* NSAttributedString+YYText.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26787E1F905C2F007F3996 /* NSAttributedString+YYText.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678951F905E90007F3996 /* YYTextAsyncLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678861F905C2F007F3996 /* YYTextAsyncLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678961F905E90007F3996 /* YYTextUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26788A1F905C2F007F3996 /* YYTextUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678971F905E90007F3996 /* YYTextWeakProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26788C1F905C2F007F3996 /* YYTextWeakProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678981F905E90007F3996 /* YYLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26788E1F905C2F007F3996 /* YYLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678991F905F1C007F3996 /* YYTextAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678751F905C2F007F3996 /* YYTextAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789A1F905F1C007F3996 /* YYTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678771F905C2F007F3996 /* YYTextParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789B1F905F3E007F3996 /* YYTextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678681F905C2F007F3996 /* YYTextLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789C1F905F51007F3996 /* YYTextRubyAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678791F905C2F007F3996 /* YYTextRubyAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789D1F905F8C007F3996 /* YYText.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678901F905C2F007F3996 /* YYText.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789E1F905FB3007F3996 /* YYTextDebugOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678601F905C2F007F3996 /* YYTextDebugOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E26789F1F905FB3007F3996 /* YYTextInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E2678641F905C2F007F3996 /* YYTextInput.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678A01F905FB3007F3996 /* YYTextLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E26786A1F905C2F007F3996 /* YYTextLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E2678A11F9061B5007F3996 /* YYTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26785F1F905C2F007F3996 /* YYTextContainerView.m */; };
-		4E2678A21F9061B5007F3996 /* YYTextDebugOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678611F905C2F007F3996 /* YYTextDebugOption.m */; };
-		4E2678A31F9061B5007F3996 /* YYTextEffectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678631F905C2F007F3996 /* YYTextEffectWindow.m */; };
-		4E2678A41F9061B5007F3996 /* YYTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678651F905C2F007F3996 /* YYTextInput.m */; };
-		4E2678A51F9061B5007F3996 /* YYTextKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678671F905C2F007F3996 /* YYTextKeyboardManager.m */; };
-		4E2678A61F9061B5007F3996 /* YYTextLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678691F905C2F007F3996 /* YYTextLayout.m */; };
-		4E2678A71F9061B5007F3996 /* YYTextLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26786B1F905C2F007F3996 /* YYTextLine.m */; };
-		4E2678A81F9061B5007F3996 /* YYTextMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26786D1F905C2F007F3996 /* YYTextMagnifier.m */; };
-		4E2678A91F9061B5007F3996 /* YYTextSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26786F1F905C2F007F3996 /* YYTextSelectionView.m */; };
-		4E2678AA1F9061B5007F3996 /* NIMInputEmoticonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678711F905C2F007F3996 /* NIMInputEmoticonParser.m */; };
-		4E2678AB1F9061B5007F3996 /* YYTextArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678741F905C2F007F3996 /* YYTextArchiver.m */; };
-		4E2678AC1F9061B5007F3996 /* YYTextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678761F905C2F007F3996 /* YYTextAttribute.m */; };
-		4E2678AD1F9061B5007F3996 /* YYTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678781F905C2F007F3996 /* YYTextParser.m */; };
-		4E2678AE1F9061B5007F3996 /* YYTextRubyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26787A1F905C2F007F3996 /* YYTextRubyAnnotation.m */; };
-		4E2678AF1F9061B5007F3996 /* YYTextRunDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26787C1F905C2F007F3996 /* YYTextRunDelegate.m */; };
-		4E2678B01F9061B5007F3996 /* NSAttributedString+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26787F1F905C2F007F3996 /* NSAttributedString+YYText.m */; };
-		4E2678B11F9061B5007F3996 /* NSParagraphStyle+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678811F905C2F007F3996 /* NSParagraphStyle+YYText.m */; };
-		4E2678B21F9061B5007F3996 /* UIPasteboard+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678831F905C2F007F3996 /* UIPasteboard+YYText.m */; };
-		4E2678B31F9061B5007F3996 /* UIView+YYText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678851F905C2F007F3996 /* UIView+YYText.m */; };
-		4E2678B41F9061B5007F3996 /* YYTextAsyncLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678871F905C2F007F3996 /* YYTextAsyncLayer.m */; };
-		4E2678B51F9061B5007F3996 /* YYTextTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678891F905C2F007F3996 /* YYTextTransaction.m */; };
-		4E2678B61F9061B5007F3996 /* YYTextUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26788B1F905C2F007F3996 /* YYTextUtilities.m */; };
-		4E2678B71F9061B5007F3996 /* YYTextWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26788D1F905C2F007F3996 /* YYTextWeakProxy.m */; };
-		4E2678B81F9061B5007F3996 /* YYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26788F1F905C2F007F3996 /* YYLabel.m */; };
-		4E2678B91F9061B5007F3996 /* YYTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2678921F905C2F007F3996 /* YYTextView.m */; };
-		4E31CB2D1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */; };
-		4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */; };
-		4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */; };
-		4E34C33D1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */; };
-		4E36B2C41F629613009ECBAE /* DWOrigScorllView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */; };
-		4E36B2C51F629613009ECBAE /* DWOrigScorllView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */; };
-		4E36B2C81F62964E009ECBAE /* DWOrigImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */; };
-		4E36B2C91F62964E009ECBAE /* DWOrigImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */; };
-		4E3B9B361F4BD4F400218A0D /* DWAudioRecorderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E3B9B341F4BD4F400218A0D /* DWAudioRecorderManager.h */; };
-		4E3B9B371F4BD4F400218A0D /* DWAudioRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B9B351F4BD4F400218A0D /* DWAudioRecorderManager.m */; };
-		4E40B95C1F67B90800E2FE50 /* DWActionSheetView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B95A1F67B90800E2FE50 /* DWActionSheetView.h */; };
-		4E40B95D1F67B90800E2FE50 /* DWActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B95B1F67B90800E2FE50 /* DWActionSheetView.m */; };
-		4E40B9661F67BC2400E2FE50 /* UIImage+DWImageColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B9641F67BC2400E2FE50 /* UIImage+DWImageColor.h */; };
-		4E40B9671F67BC2400E2FE50 /* UIImage+DWImageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B9651F67BC2400E2FE50 /* UIImage+DWImageColor.m */; };
-		4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E40B9741F67CFBB00E2FE50 /* DWRecoderCoveView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E40B9771F67CFBB00E2FE50 /* DWRecoderCoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40B9751F67CFBB00E2FE50 /* DWRecoderCoveView.m */; };
-		4E49AD851F34176100B50439 /* RNCustomInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD811F34176100B50439 /* RNCustomInputView.h */; };
-		4E49AD861F34176100B50439 /* RNCustomInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD821F34176100B50439 /* RNCustomInputView.m */; };
-		4E49AD871F34176100B50439 /* RNRecordTipsView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD831F34176100B50439 /* RNRecordTipsView.h */; };
-		4E49AD881F34176100B50439 /* RNRecordTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD841F34176100B50439 /* RNRecordTipsView.m */; };
-		4E49AD951F34178000B50439 /* DWInputBarControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD8A1F34178000B50439 /* DWInputBarControl.h */; };
-		4E49AD961F34178000B50439 /* DWInputBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD8B1F34178000B50439 /* DWInputBarControl.m */; };
-		4E49AD971F34178000B50439 /* DWRecordButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD8C1F34178000B50439 /* DWRecordButton.h */; };
-		4E49AD981F34178000B50439 /* DWRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD8D1F34178000B50439 /* DWRecordButton.m */; };
-		4E49AD991F34178000B50439 /* HPGrowingTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD8E1F34178000B50439 /* HPGrowingTextView.h */; };
-		4E49AD9A1F34178000B50439 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD8F1F34178000B50439 /* HPGrowingTextView.m */; };
-		4E49AD9B1F34178000B50439 /* HPTextViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD901F34178000B50439 /* HPTextViewInternal.h */; };
-		4E49AD9C1F34178000B50439 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD911F34178000B50439 /* HPTextViewInternal.m */; };
-		4E49AD9D1F34178000B50439 /* UIView+Extend.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AD931F34178000B50439 /* UIView+Extend.h */; };
-		4E49AD9E1F34178000B50439 /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD941F34178000B50439 /* UIView+Extend.m */; };
-		4E49AD9F1F34179A00B50439 /* RNCustomInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AD821F34176100B50439 /* RNCustomInputView.m */; };
-		4E49ADD61F341BB400B50439 /* MyCacheImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49ADD41F341BB400B50439 /* MyCacheImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E49ADD71F341BB400B50439 /* MyCacheImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49ADD51F341BB400B50439 /* MyCacheImageView.m */; };
-		4E49ADEA1F346B7500B50439 /* NIMInputEmoticonContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49ADE81F346B7500B50439 /* NIMInputEmoticonContainerView.h */; };
-		4E49ADEB1F346B7500B50439 /* NIMInputEmoticonContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49ADE91F346B7500B50439 /* NIMInputEmoticonContainerView.m */; };
-		4E49AE1A1F34760500B50439 /* NIMPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE181F34760500B50439 /* NIMPageView.h */; };
-		4E49AE1B1F34760500B50439 /* NIMPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE191F34760500B50439 /* NIMPageView.m */; };
-		4E49AE1E1F34762200B50439 /* NIMInputEmoticonButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE1C1F34762200B50439 /* NIMInputEmoticonButton.h */; };
-		4E49AE1F1F34762200B50439 /* NIMInputEmoticonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE1D1F34762200B50439 /* NIMInputEmoticonButton.m */; };
-		4E49AE221F34764100B50439 /* NIMInputEmoticonTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE201F34764100B50439 /* NIMInputEmoticonTabView.h */; };
-		4E49AE231F34764100B50439 /* NIMInputEmoticonTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE211F34764100B50439 /* NIMInputEmoticonTabView.m */; };
-		4E49AE261F34767100B50439 /* UIImage+NIM.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE241F34767100B50439 /* UIImage+NIM.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E49AE271F34767100B50439 /* UIImage+NIM.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE251F34767100B50439 /* UIImage+NIM.m */; };
-		4E49AE2A1F3476CC00B50439 /* NIMInputEmoticonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE281F3476CC00B50439 /* NIMInputEmoticonManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E49AE2B1F3476CC00B50439 /* NIMInputEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE291F3476CC00B50439 /* NIMInputEmoticonManager.m */; };
-		4E49AE2D1F3476E500B50439 /* NIMInputEmoticonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */; };
-		4E49AE311F3476F800B50439 /* NSString+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */; };
-		4E4A6D8F1FCC04C9004A169E /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */; };
-		4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */; };
-		4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */; };
-		4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */; };
-		4E6573561F66940200D4BAA8 /* DWShowImageVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6573541F66940200D4BAA8 /* DWShowImageVC.h */; };
-		4E6573571F66940200D4BAA8 /* DWShowImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6573551F66940200D4BAA8 /* DWShowImageVC.m */; };
-		4E6804BF20B512000024DAFC /* DWPlayVideoVC.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6804BD20B512000024DAFC /* DWPlayVideoVC.h */; };
-		4E6804C020B512000024DAFC /* DWPlayVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6804BE20B512000024DAFC /* DWPlayVideoVC.m */; };
-		4E77A3A51F30840000098CAF /* IMUIAudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */; };
-		4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36A1F30840000098CAF /* CGRectExtension.swift */; };
-		4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36B1F30840000098CAF /* CIImageExtension.swift */; };
-		4E77A3A81F30840000098CAF /* CMSampleBufferExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36C1F30840000098CAF /* CMSampleBufferExtension.swift */; };
-		4E77A3A91F30840000098CAF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36D1F30840000098CAF /* DateExtension.swift */; };
-		4E77A3AA1F30840000098CAF /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36E1F30840000098CAF /* StringExtension.swift */; };
-		4E77A3AB1F30840000098CAF /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A36F1F30840000098CAF /* UIColorExtension.swift */; };
-		4E77A3AC1F30840000098CAF /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3701F30840000098CAF /* UIImageExtension.swift */; };
-		4E77A3AD1F30840000098CAF /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3711F30840000098CAF /* UIViewExtension.swift */; };
-		4E77A3AE1F30840000098CAF /* IMUIAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4E77A3741F30840000098CAF /* IMUIAssets.bundle */; };
-		4E77A3AF1F30840000098CAF /* IMUIChatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3761F30840000098CAF /* IMUIChatDataManager.swift */; };
-		4E77A3B01F30840000098CAF /* IMUIChatLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3771F30840000098CAF /* IMUIChatLayout.swift */; };
-		4E77A3B11F30840000098CAF /* IMUIVideoFileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3781F30840000098CAF /* IMUIVideoFileLoader.swift */; };
-		4E77A3B21F30840000098CAF /* BundleMessageListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A37A1F30840000098CAF /* BundleMessageListExtension.swift */; };
-		4E77A3B31F30840000098CAF /* UIImageMessageListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A37B1F30840000098CAF /* UIImageMessageListExtension.swift */; };
-		4E77A3B41F30840000098CAF /* IMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E77A37C1F30840000098CAF /* IMUI.h */; };
-		4E77A3B51F30840000098CAF /* IMUIMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A37E1F30840000098CAF /* IMUIMessageCellLayout.swift */; };
-		4E77A3B61F30840000098CAF /* IMUIMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3801F30840000098CAF /* IMUIMessageModel.swift */; };
-		4E77A3B71F30840000098CAF /* IMUIReuseViewCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3811F30840000098CAF /* IMUIReuseViewCache.swift */; };
-		4E77A3B81F30840000098CAF /* IMUIViewCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3821F30840000098CAF /* IMUIViewCache.swift */; };
-		4E77A3B91F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3841F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift */; };
-		4E77A3BA1F30840000098CAF /* IMUIMessageCellProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3851F30840000098CAF /* IMUIMessageCellProtocal.swift */; };
-		4E77A3BB1F30840000098CAF /* IMUIMessageMessageCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3861F30840000098CAF /* IMUIMessageMessageCollectionViewDelegate.swift */; };
-		4E77A3BC1F30840000098CAF /* IMUIMessageModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3871F30840000098CAF /* IMUIMessageModelProtocol.swift */; };
-		4E77A3BD1F30840000098CAF /* IMUIMessageStatusViewProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3881F30840000098CAF /* IMUIMessageStatusViewProtocal.swift */; };
-		4E77A3BE1F30840000098CAF /* IMUIUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3891F30840000098CAF /* IMUIUserProtocol.swift */; };
-		4E77A3C01F30840000098CAF /* IMUIBaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A38C1F30840000098CAF /* IMUIBaseMessageCell.swift */; };
-		4E77A3C11F30840000098CAF /* IMUIImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A38D1F30840000098CAF /* IMUIImageMessageCell.swift */; };
-		4E77A3C21F30840000098CAF /* IMUILiveVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A38E1F30840000098CAF /* IMUILiveVideoMessageCell.swift */; };
-		4E77A3C31F30840000098CAF /* IMUIMessageBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A38F1F30840000098CAF /* IMUIMessageBubbleView.swift */; };
-		4E77A3C41F30840000098CAF /* IMUIMessageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3901F30840000098CAF /* IMUIMessageCollectionView.swift */; };
-		4E77A3C51F30840000098CAF /* IMUIMessageCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E77A3911F30840000098CAF /* IMUIMessageCollectionView.xib */; };
-		4E77A3C61F30840000098CAF /* IMUIMessageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3921F30840000098CAF /* IMUIMessageStatusView.swift */; };
-		4E77A3C71F30840000098CAF /* IMUITextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3931F30840000098CAF /* IMUITextMessageCell.swift */; };
-		4E77A3C81F30840000098CAF /* IMUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3941F30840000098CAF /* IMUITextView.swift */; };
-		4E77A3C91F30840000098CAF /* IMUIVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */; };
-		4E77A3CA1F30840000098CAF /* IMUIVoiceMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */; };
-		4E9CE01C1F9DDB1E005FC8A7 /* IMUICardMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9CE01B1F9DDB1E005FC8A7 /* IMUICardMessageCell.swift */; };
-		4EC4F96D1F46F0B1000C5CA6 /* MenuPopOverView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4EC4F96E1F46F0B1000C5CA6 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */; };
-		4ED53D7C224A2BEF00F2C687 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED53D7B224A2BEF00F2C687 /* JavaScriptCore.framework */; };
-		4EDCA75C2089809A00B6DB55 /* IMUICustomMessageContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCA75B2089809A00B6DB55 /* IMUICustomMessageContentCell.swift */; };
-		623EA9A21EE55D0800EC43AE /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */; };
-		623EA9A71EE55D0800EC43AE /* RCTAuroraIMUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9A61EE55D0800EC43AE /* RCTAuroraIMUITests.m */; };
-		623EA9A91EE55D0800EC43AE /* RCTAuroraIMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		623EAA331EE55D4200EC43AE /* RCTMessageListViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */; };
-		624B82901EE5710E006C3C03 /* MyMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9731EE55CB200EC43AE /* MyMessageModel.swift */; };
-		624B82911EE5710E006C3C03 /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9741EE55CB200EC43AE /* MyUser.swift */; };
-		624B82941EE5710E006C3C03 /* RCTAuroraIMUIModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */; };
-		624B829B1EE5710E006C3C03 /* RCTMessageListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA97F1EE55CB200EC43AE /* RCTMessageListView.m */; };
-		624B829D1EE5710E006C3C03 /* RCTMessageListViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */; };
-		624B82DB1EE57482006C3C03 /* RCTMessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 623EA9801EE55CB200EC43AE /* RCTMessageListView.xib */; };
-		624B82DD1EE57653006C3C03 /* RCTAuroraIMUIModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */; };
+		8D34C2637C2370CE9AE6D410 /* libPods-RCTAuroraIMUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEB1FF3BEF7BD2586671906 /* libPods-RCTAuroraIMUI.a */; };
+		C4027C032536A6ED00D90893 /* RCTMessageListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4027C022536A6ED00D90893 /* RCTMessageListView.xib */; };
+		C4027C062536A72800D90893 /* IMUIMessageCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4027C052536A72800D90893 /* IMUIMessageCollectionView.xib */; };
+		C434B7DE253588E700B92717 /* DWText.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7AC253588E700B92717 /* DWText.h */; };
+		C434B7DF253588E700B92717 /* DWTextEffectWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7AD253588E700B92717 /* DWTextEffectWindow.m */; };
+		C434B7E0253588E700B92717 /* DWTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7AE253588E700B92717 /* DWTextView.m */; };
+		C434B7E1253588E700B92717 /* DWTextLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7AF253588E700B92717 /* DWTextLayout.h */; };
+		C434B7E2253588E700B92717 /* DWTextMagnifier.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B0253588E700B92717 /* DWTextMagnifier.m */; };
+		C434B7E3253588E700B92717 /* DWTextRunDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B1253588E700B92717 /* DWTextRunDelegate.m */; };
+		C434B7E4253588E700B92717 /* DWTextKeyboardManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7B2253588E700B92717 /* DWTextKeyboardManager.h */; };
+		C434B7E5253588E700B92717 /* DWTextLine.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7B3253588E700B92717 /* DWTextLine.h */; };
+		C434B7E6253588E700B92717 /* DWTextAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7B4253588E700B92717 /* DWTextAttribute.h */; };
+		C434B7E7253588E700B92717 /* DWTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B5253588E700B92717 /* DWTextInput.m */; };
+		C434B7E8253588E700B92717 /* DWTextSelectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7B6253588E700B92717 /* DWTextSelectionView.h */; };
+		C434B7E9253588E700B92717 /* DWTextRubyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B7253588E700B92717 /* DWTextRubyAnnotation.m */; };
+		C434B7EA253588E700B92717 /* DWTextArchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B8253588E700B92717 /* DWTextArchiver.m */; };
+		C434B7EB253588E700B92717 /* DWTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7B9253588E700B92717 /* DWTextParser.m */; };
+		C434B7EC253588E700B92717 /* DWLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7BA253588E700B92717 /* DWLabel.m */; };
+		C434B7ED253588E700B92717 /* DWTextDebugOption.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7BB253588E700B92717 /* DWTextDebugOption.h */; };
+		C434B7EE253588E700B92717 /* DWTextContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7BC253588E700B92717 /* DWTextContainerView.m */; };
+		C434B7EF253588E700B92717 /* DWTextMagnifier.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7BD253588E700B92717 /* DWTextMagnifier.h */; };
+		C434B7F0253588E700B92717 /* DWTextLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7BE253588E700B92717 /* DWTextLayout.m */; };
+		C434B7F1253588E700B92717 /* DWTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7BF253588E700B92717 /* DWTextView.h */; };
+		C434B7F2253588E700B92717 /* DWTextEffectWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C0253588E700B92717 /* DWTextEffectWindow.h */; };
+		C434B7F3253588E700B92717 /* DWTextAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7C1253588E700B92717 /* DWTextAttribute.m */; };
+		C434B7F4253588E700B92717 /* DWTextLine.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7C2253588E700B92717 /* DWTextLine.m */; };
+		C434B7F5253588E700B92717 /* DWTextKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7C3253588E700B92717 /* DWTextKeyboardManager.m */; };
+		C434B7F6253588E700B92717 /* DWTextRunDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C4253588E700B92717 /* DWTextRunDelegate.h */; };
+		C434B7F7253588E700B92717 /* DWTextArchiver.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C5253588E700B92717 /* DWTextArchiver.h */; };
+		C434B7F8253588E700B92717 /* DWTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C6253588E700B92717 /* DWTextParser.h */; };
+		C434B7F9253588E700B92717 /* DWTextRubyAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C7253588E700B92717 /* DWTextRubyAnnotation.h */; };
+		C434B7FA253588E700B92717 /* DWTextSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7C8253588E700B92717 /* DWTextSelectionView.m */; };
+		C434B7FB253588E700B92717 /* DWTextInput.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7C9253588E700B92717 /* DWTextInput.h */; };
+		C434B7FC253588E700B92717 /* DWTextContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7CA253588E700B92717 /* DWTextContainerView.h */; };
+		C434B7FD253588E700B92717 /* DWLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7CB253588E700B92717 /* DWLabel.h */; };
+		C434B7FE253588E700B92717 /* DWTextDebugOption.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7CC253588E700B92717 /* DWTextDebugOption.m */; };
+		C434B7FF253588E700B92717 /* DWTextAsyncLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7CE253588E700B92717 /* DWTextAsyncLayer.m */; };
+		C434B800253588E700B92717 /* DWTextUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7CF253588E700B92717 /* DWTextUtilities.m */; };
+		C434B801253588E700B92717 /* UIView+DWText.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D0253588E700B92717 /* UIView+DWText.h */; };
+		C434B802253588E700B92717 /* NSAttributedString+DWText.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7D1253588E700B92717 /* NSAttributedString+DWText.m */; };
+		C434B803253588E700B92717 /* DWTextTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D2253588E700B92717 /* DWTextTransaction.h */; };
+		C434B804253588E700B92717 /* NSParagraphStyle+DWText.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7D3253588E700B92717 /* NSParagraphStyle+DWText.m */; };
+		C434B805253588E700B92717 /* UIPasteboard+DWText.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7D4253588E700B92717 /* UIPasteboard+DWText.m */; };
+		C434B806253588E700B92717 /* DWTextWeakProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D5253588E700B92717 /* DWTextWeakProxy.h */; };
+		C434B807253588E700B92717 /* DWTextAsyncLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D6253588E700B92717 /* DWTextAsyncLayer.h */; };
+		C434B808253588E700B92717 /* DWTextUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D7253588E700B92717 /* DWTextUtilities.h */; };
+		C434B809253588E700B92717 /* NSParagraphStyle+DWText.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7D8253588E700B92717 /* NSParagraphStyle+DWText.h */; };
+		C434B80A253588E700B92717 /* DWTextTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7D9253588E700B92717 /* DWTextTransaction.m */; };
+		C434B80B253588E700B92717 /* NSAttributedString+DWText.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7DA253588E700B92717 /* NSAttributedString+DWText.h */; };
+		C434B80C253588E700B92717 /* UIView+DWText.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7DB253588E700B92717 /* UIView+DWText.m */; };
+		C434B80D253588E700B92717 /* DWTextWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C434B7DC253588E700B92717 /* DWTextWeakProxy.m */; };
+		C434B80E253588E700B92717 /* UIPasteboard+DWText.h in Headers */ = {isa = PBXBuildFile; fileRef = C434B7DD253588E700B92717 /* UIPasteboard+DWText.h */; };
+		C498124C253553EB008B2B61 /* RCTAuroraIMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C498124A253553EB008B2B61 /* RCTAuroraIMUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49812D62535544F008B2B61 /* NIMInputAtCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812552535544F008B2B61 /* NIMInputAtCache.h */; };
+		C49812D72535544F008B2B61 /* HPTextViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812562535544F008B2B61 /* HPTextViewInternal.h */; };
+		C49812D82535544F008B2B61 /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812582535544F008B2B61 /* UIView+Extend.m */; };
+		C49812D92535544F008B2B61 /* UIImage+DWImageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812592535544F008B2B61 /* UIImage+DWImageColor.m */; };
+		C49812DA2535544F008B2B61 /* UIView+Extend.h in Headers */ = {isa = PBXBuildFile; fileRef = C498125A2535544F008B2B61 /* UIView+Extend.h */; };
+		C49812DB2535544F008B2B61 /* UIImage+DWImageColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C498125B2535544F008B2B61 /* UIImage+DWImageColor.h */; };
+		C49812DC2535544F008B2B61 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C498125C2535544F008B2B61 /* HPGrowingTextView.m */; };
+		C49812DD2535544F008B2B61 /* DWAudioRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C498125D2535544F008B2B61 /* DWAudioRecorderManager.m */; };
+		C49812DE2535544F008B2B61 /* DWInputBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C498125E2535544F008B2B61 /* DWInputBarControl.m */; };
+		C49812DF2535544F008B2B61 /* DWRecordButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C498125F2535544F008B2B61 /* DWRecordButton.h */; };
+		C49812E02535544F008B2B61 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812602535544F008B2B61 /* HPTextViewInternal.m */; };
+		C49812E12535544F008B2B61 /* NIMInputAtCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812612535544F008B2B61 /* NIMInputAtCache.m */; };
+		C49812E22535544F008B2B61 /* HPGrowingTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812622535544F008B2B61 /* HPGrowingTextView.h */; };
+		C49812E32535544F008B2B61 /* DWRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812632535544F008B2B61 /* DWRecordButton.m */; };
+		C49812E42535544F008B2B61 /* DWInputBarControl.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812642535544F008B2B61 /* DWInputBarControl.h */; };
+		C49812E52535544F008B2B61 /* DWAudioRecorderManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812652535544F008B2B61 /* DWAudioRecorderManager.h */; };
+		C49812E62535544F008B2B61 /* NIMInputEmoticonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812672535544F008B2B61 /* NIMInputEmoticonParser.m */; };
+		C49812E72535544F008B2B61 /* NIMPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812682535544F008B2B61 /* NIMPageView.h */; };
+		C49812E82535544F008B2B61 /* NIMInputEmoticonManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812692535544F008B2B61 /* NIMInputEmoticonManager.h */; };
+		C49812E92535544F008B2B61 /* UIImage+NIM.m in Sources */ = {isa = PBXBuildFile; fileRef = C498126A2535544F008B2B61 /* UIImage+NIM.m */; };
+		C49812EA2535544F008B2B61 /* NIMInputEmoticonTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = C498126B2535544F008B2B61 /* NIMInputEmoticonTabView.m */; };
+		C49812EB2535544F008B2B61 /* NIMInputEmoticonButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C498126C2535544F008B2B61 /* NIMInputEmoticonButton.h */; };
+		C49812EC2535544F008B2B61 /* NIMInputEmoticonContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = C498126D2535544F008B2B61 /* NIMInputEmoticonContainerView.h */; };
+		C49812ED2535544F008B2B61 /* NSString+NIMKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C498126E2535544F008B2B61 /* NSString+NIMKit.m */; };
+		C49812EE2535544F008B2B61 /* NIMInputEmoticonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C498126F2535544F008B2B61 /* NIMInputEmoticonManager.m */; };
+		C49812EF2535544F008B2B61 /* NIMPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812702535544F008B2B61 /* NIMPageView.m */; };
+		C49812F02535544F008B2B61 /* NIMInputEmoticonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812712535544F008B2B61 /* NIMInputEmoticonParser.h */; };
+		C49812F12535544F008B2B61 /* NIMInputEmoticonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812722535544F008B2B61 /* NIMInputEmoticonDefine.h */; };
+		C49812F22535544F008B2B61 /* NSString+NIMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812732535544F008B2B61 /* NSString+NIMKit.h */; };
+		C49812F32535544F008B2B61 /* NIMInputEmoticonContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812742535544F008B2B61 /* NIMInputEmoticonContainerView.m */; };
+		C49812F42535544F008B2B61 /* NIMInputEmoticonButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812752535544F008B2B61 /* NIMInputEmoticonButton.m */; };
+		C49812F52535544F008B2B61 /* NIMInputEmoticonTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812762535544F008B2B61 /* NIMInputEmoticonTabView.h */; };
+		C49812F62535544F008B2B61 /* UIImage+NIM.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812772535544F008B2B61 /* UIImage+NIM.h */; };
+		C49812F72535544F008B2B61 /* MyMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812792535544F008B2B61 /* MyMessageModel.swift */; };
+		C49812F82535544F008B2B61 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498127C2535544F008B2B61 /* UIColorExtension.swift */; };
+		C49812F92535544F008B2B61 /* CMSampleBufferExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498127D2535544F008B2B61 /* CMSampleBufferExtension.swift */; };
+		C49812FA2535544F008B2B61 /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498127E2535544F008B2B61 /* CIImageExtension.swift */; };
+		C49812FB2535544F008B2B61 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498127F2535544F008B2B61 /* UIViewExtension.swift */; };
+		C49812FC2535544F008B2B61 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812802535544F008B2B61 /* CGRectExtension.swift */; };
+		C49812FD2535544F008B2B61 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812812535544F008B2B61 /* StringExtension.swift */; };
+		C49812FE2535544F008B2B61 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812822535544F008B2B61 /* UIImageExtension.swift */; };
+		C49812FF2535544F008B2B61 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812832535544F008B2B61 /* DateExtension.swift */; };
+		C49813002535544F008B2B61 /* IMUIAudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812852535544F008B2B61 /* IMUIAudioPlayerHelper.swift */; };
+		C49813012535544F008B2B61 /* MyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812862535544F008B2B61 /* MyUser.swift */; };
+		C49813022535544F008B2B61 /* IMUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812882535544F008B2B61 /* IMUI.h */; };
+		C49813032535544F008B2B61 /* BundleMessageListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498128A2535544F008B2B61 /* BundleMessageListExtension.swift */; };
+		C49813042535544F008B2B61 /* UIImageMessageListExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498128B2535544F008B2B61 /* UIImageMessageListExtension.swift */; };
+		C49813052535544F008B2B61 /* IMUIMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498128D2535544F008B2B61 /* IMUIMessageCellLayout.swift */; };
+		C49813062535544F008B2B61 /* IMUIMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498128F2535544F008B2B61 /* IMUIMessageModel.swift */; };
+		C49813072535544F008B2B61 /* IMUIViewCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812902535544F008B2B61 /* IMUIViewCache.swift */; };
+		C49813082535544F008B2B61 /* IMUIReuseViewCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812912535544F008B2B61 /* IMUIReuseViewCache.swift */; };
+		C49813092535544F008B2B61 /* IMUIUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812932535544F008B2B61 /* IMUIUserProtocol.swift */; };
+		C498130A2535544F008B2B61 /* IMUIMessageMessageCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812942535544F008B2B61 /* IMUIMessageMessageCollectionViewDelegate.swift */; };
+		C498130B2535544F008B2B61 /* IMUIMessageStatusViewProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812952535544F008B2B61 /* IMUIMessageStatusViewProtocal.swift */; };
+		C498130C2535544F008B2B61 /* IMUIMessageCellProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812962535544F008B2B61 /* IMUIMessageCellProtocal.swift */; };
+		C498130D2535544F008B2B61 /* IMUIMessageCellLayoutProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812972535544F008B2B61 /* IMUIMessageCellLayoutProtocal.swift */; };
+		C498130E2535544F008B2B61 /* IMUIMessageModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812982535544F008B2B61 /* IMUIMessageModelProtocol.swift */; };
+		C498130F2535544F008B2B61 /* IMUIChatDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498129A2535544F008B2B61 /* IMUIChatDataManager.swift */; };
+		C49813102535544F008B2B61 /* IMUIVideoFileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498129B2535544F008B2B61 /* IMUIVideoFileLoader.swift */; };
+		C49813112535544F008B2B61 /* IMUIChatLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498129C2535544F008B2B61 /* IMUIChatLayout.swift */; };
+		C49813122535544F008B2B61 /* IMUIMessageStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498129E2535544F008B2B61 /* IMUIMessageStatusView.swift */; };
+		C49813132535544F008B2B61 /* IMUIMessageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C498129F2535544F008B2B61 /* IMUIMessageCollectionView.swift */; };
+		C49813142535544F008B2B61 /* IMUICustomMessageContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A02535544F008B2B61 /* IMUICustomMessageContentCell.swift */; };
+		C49813152535544F008B2B61 /* IMUILocationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A12535544F008B2B61 /* IMUILocationMessageCell.swift */; };
+		C49813162535544F008B2B61 /* IMUIMessageBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A22535544F008B2B61 /* IMUIMessageBubbleView.swift */; };
+		C49813172535544F008B2B61 /* IMUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A32535544F008B2B61 /* IMUITextView.swift */; };
+		C49813182535544F008B2B61 /* IMUIBaseMessageHeadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A42535544F008B2B61 /* IMUIBaseMessageHeadCell.swift */; };
+		C49813192535544F008B2B61 /* IMUIRedPacketMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A52535544F008B2B61 /* IMUIRedPacketMessageCell.swift */; };
+		C498131A2535544F008B2B61 /* IMUICardMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A62535544F008B2B61 /* IMUICardMessageCell.swift */; };
+		C498131B2535544F008B2B61 /* IMUIVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A72535544F008B2B61 /* IMUIVideoMessageCell.swift */; };
+		C498131D2535544F008B2B61 /* IMUITextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812A92535544F008B2B61 /* IMUITextMessageCell.swift */; };
+		C498131E2535544F008B2B61 /* IMUIImageMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AA2535544F008B2B61 /* IMUIImageMessageCell.swift */; };
+		C498131F2535544F008B2B61 /* IMUIVoiceMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AB2535544F008B2B61 /* IMUIVoiceMessageCell.swift */; };
+		C49813202535544F008B2B61 /* IMUITransferMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AC2535544F008B2B61 /* IMUITransferMessageCell.swift */; };
+		C49813212535544F008B2B61 /* IMUIUnKnownMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AD2535544F008B2B61 /* IMUIUnKnownMessageCell.swift */; };
+		C49813222535544F008B2B61 /* IMUIRedPacketOpenMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AE2535544F008B2B61 /* IMUIRedPacketOpenMessageCell.swift */; };
+		C49813232535544F008B2B61 /* IMUIBaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812AF2535544F008B2B61 /* IMUIBaseMessageCell.swift */; };
+		C49813242535544F008B2B61 /* IMUILiveVideoMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812B02535544F008B2B61 /* IMUILiveVideoMessageCell.swift */; };
+		C49813252535544F008B2B61 /* IMUINotificationMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49812B12535544F008B2B61 /* IMUINotificationMessageCell.swift */; };
+		C49813282535544F008B2B61 /* RCTMessageListViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812B62535544F008B2B61 /* RCTMessageListViewManager.m */; };
+		C49813292535544F008B2B61 /* RCTMessageListView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812B72535544F008B2B61 /* RCTMessageListView.m */; };
+		C498132A2535544F008B2B61 /* RCTAuroraIMUIModule.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812B82535544F008B2B61 /* RCTAuroraIMUIModule.m */; };
+		C498132B2535544F008B2B61 /* RCTMessageListView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812B92535544F008B2B61 /* RCTMessageListView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C498132C2535544F008B2B61 /* RCTAuroraIMUIModule.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812BA2535544F008B2B61 /* RCTAuroraIMUIModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C498132D2535544F008B2B61 /* DWPlayVideoVC.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812BC2535544F008B2B61 /* DWPlayVideoVC.h */; };
+		C498132E2535544F008B2B61 /* DWShowImageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812BD2535544F008B2B61 /* DWShowImageVC.m */; };
+		C498132F2535544F008B2B61 /* DWPlayVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812BE2535544F008B2B61 /* DWPlayVideoVC.m */; };
+		C49813302535544F008B2B61 /* DWShowImageVC.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812BF2535544F008B2B61 /* DWShowImageVC.h */; };
+		C49813312535544F008B2B61 /* DWOrigImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812C12535544F008B2B61 /* DWOrigImageView.m */; };
+		C49813322535544F008B2B61 /* DWOrigImgView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812C22535544F008B2B61 /* DWOrigImgView.h */; };
+		C49813342535544F008B2B61 /* RNCustomInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812C42535544F008B2B61 /* RNCustomInputView.m */; };
+		C49813352535544F008B2B61 /* DWActionSheetView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812C52535544F008B2B61 /* DWActionSheetView.h */; };
+		C49813372535544F008B2B61 /* DWRecoderCoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812C72535544F008B2B61 /* DWRecoderCoveView.m */; };
+		C49813382535544F008B2B61 /* DWOrigScorllView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812C82535544F008B2B61 /* DWOrigScorllView.h */; };
+		C49813392535544F008B2B61 /* RNRecordTipsView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812C92535544F008B2B61 /* RNRecordTipsView.h */; };
+		C498133A2535544F008B2B61 /* DWOrigImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812CA2535544F008B2B61 /* DWOrigImgView.m */; };
+		C498133B2535544F008B2B61 /* DWOrigImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812CB2535544F008B2B61 /* DWOrigImageView.h */; };
+		C498133D2535544F008B2B61 /* DWRecoderCoveView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812CD2535544F008B2B61 /* DWRecoderCoveView.h */; };
+		C498133F2535544F008B2B61 /* DWActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812CF2535544F008B2B61 /* DWActionSheetView.m */; };
+		C49813402535544F008B2B61 /* RNCustomInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812D02535544F008B2B61 /* RNCustomInputView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49813412535544F008B2B61 /* RNRecordTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812D12535544F008B2B61 /* RNRecordTipsView.m */; };
+		C49813422535544F008B2B61 /* DWOrigScorllView.m in Sources */ = {isa = PBXBuildFile; fileRef = C49812D22535544F008B2B61 /* DWOrigScorllView.m */; };
+		C49813432535544F008B2B61 /* OCBridgingHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = C49812D42535544F008B2B61 /* OCBridgingHeader.h */; };
+		C4981362253557AF008B2B61 /* MenuPopOverView.h in Headers */ = {isa = PBXBuildFile; fileRef = C498135E253557AE008B2B61 /* MenuPopOverView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4981363253557AF008B2B61 /* MyCacheImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = C498135F253557AE008B2B61 /* MyCacheImageView.h */; };
+		C4981364253557AF008B2B61 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4981360253557AF008B2B61 /* MenuPopOverView.m */; };
+		C4981365253557AF008B2B61 /* MyCacheImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4981361253557AF008B2B61 /* MyCacheImageView.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		623EA9A31EE55D0800EC43AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 626021EE1ED96BA20038AB20 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 623EA9981EE55D0800EC43AE;
-			remoteInfo = RCTAuroraIMUI;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6239E6621EDDB1F700B9AC9C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputAtCache.h; sourceTree = "<group>"; };
-		4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputAtCache.m; sourceTree = "<group>"; };
-		4E26785E1F905C2F007F3996 /* YYTextContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextContainerView.h; sourceTree = "<group>"; };
-		4E26785F1F905C2F007F3996 /* YYTextContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextContainerView.m; sourceTree = "<group>"; };
-		4E2678601F905C2F007F3996 /* YYTextDebugOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextDebugOption.h; sourceTree = "<group>"; };
-		4E2678611F905C2F007F3996 /* YYTextDebugOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextDebugOption.m; sourceTree = "<group>"; };
-		4E2678621F905C2F007F3996 /* YYTextEffectWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextEffectWindow.h; sourceTree = "<group>"; };
-		4E2678631F905C2F007F3996 /* YYTextEffectWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextEffectWindow.m; sourceTree = "<group>"; };
-		4E2678641F905C2F007F3996 /* YYTextInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextInput.h; sourceTree = "<group>"; };
-		4E2678651F905C2F007F3996 /* YYTextInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextInput.m; sourceTree = "<group>"; };
-		4E2678661F905C2F007F3996 /* YYTextKeyboardManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextKeyboardManager.h; sourceTree = "<group>"; };
-		4E2678671F905C2F007F3996 /* YYTextKeyboardManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextKeyboardManager.m; sourceTree = "<group>"; };
-		4E2678681F905C2F007F3996 /* YYTextLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextLayout.h; sourceTree = "<group>"; };
-		4E2678691F905C2F007F3996 /* YYTextLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextLayout.m; sourceTree = "<group>"; };
-		4E26786A1F905C2F007F3996 /* YYTextLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextLine.h; sourceTree = "<group>"; };
-		4E26786B1F905C2F007F3996 /* YYTextLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextLine.m; sourceTree = "<group>"; };
-		4E26786C1F905C2F007F3996 /* YYTextMagnifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextMagnifier.h; sourceTree = "<group>"; };
-		4E26786D1F905C2F007F3996 /* YYTextMagnifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextMagnifier.m; sourceTree = "<group>"; };
-		4E26786E1F905C2F007F3996 /* YYTextSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextSelectionView.h; sourceTree = "<group>"; };
-		4E26786F1F905C2F007F3996 /* YYTextSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextSelectionView.m; sourceTree = "<group>"; };
-		4E2678701F905C2F007F3996 /* NIMInputEmoticonParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonParser.h; sourceTree = "<group>"; };
-		4E2678711F905C2F007F3996 /* NIMInputEmoticonParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonParser.m; sourceTree = "<group>"; };
-		4E2678731F905C2F007F3996 /* YYTextArchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextArchiver.h; sourceTree = "<group>"; };
-		4E2678741F905C2F007F3996 /* YYTextArchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextArchiver.m; sourceTree = "<group>"; };
-		4E2678751F905C2F007F3996 /* YYTextAttribute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextAttribute.h; sourceTree = "<group>"; };
-		4E2678761F905C2F007F3996 /* YYTextAttribute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextAttribute.m; sourceTree = "<group>"; };
-		4E2678771F905C2F007F3996 /* YYTextParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextParser.h; sourceTree = "<group>"; };
-		4E2678781F905C2F007F3996 /* YYTextParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextParser.m; sourceTree = "<group>"; };
-		4E2678791F905C2F007F3996 /* YYTextRubyAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextRubyAnnotation.h; sourceTree = "<group>"; };
-		4E26787A1F905C2F007F3996 /* YYTextRubyAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextRubyAnnotation.m; sourceTree = "<group>"; };
-		4E26787B1F905C2F007F3996 /* YYTextRunDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextRunDelegate.h; sourceTree = "<group>"; };
-		4E26787C1F905C2F007F3996 /* YYTextRunDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextRunDelegate.m; sourceTree = "<group>"; };
-		4E26787E1F905C2F007F3996 /* NSAttributedString+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+YYText.h"; sourceTree = "<group>"; };
-		4E26787F1F905C2F007F3996 /* NSAttributedString+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+YYText.m"; sourceTree = "<group>"; };
-		4E2678801F905C2F007F3996 /* NSParagraphStyle+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+YYText.h"; sourceTree = "<group>"; };
-		4E2678811F905C2F007F3996 /* NSParagraphStyle+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+YYText.m"; sourceTree = "<group>"; };
-		4E2678821F905C2F007F3996 /* UIPasteboard+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIPasteboard+YYText.h"; sourceTree = "<group>"; };
-		4E2678831F905C2F007F3996 /* UIPasteboard+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIPasteboard+YYText.m"; sourceTree = "<group>"; };
-		4E2678841F905C2F007F3996 /* UIView+YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+YYText.h"; sourceTree = "<group>"; };
-		4E2678851F905C2F007F3996 /* UIView+YYText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+YYText.m"; sourceTree = "<group>"; };
-		4E2678861F905C2F007F3996 /* YYTextAsyncLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextAsyncLayer.h; sourceTree = "<group>"; };
-		4E2678871F905C2F007F3996 /* YYTextAsyncLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextAsyncLayer.m; sourceTree = "<group>"; };
-		4E2678881F905C2F007F3996 /* YYTextTransaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextTransaction.h; sourceTree = "<group>"; };
-		4E2678891F905C2F007F3996 /* YYTextTransaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextTransaction.m; sourceTree = "<group>"; };
-		4E26788A1F905C2F007F3996 /* YYTextUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextUtilities.h; sourceTree = "<group>"; };
-		4E26788B1F905C2F007F3996 /* YYTextUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextUtilities.m; sourceTree = "<group>"; };
-		4E26788C1F905C2F007F3996 /* YYTextWeakProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextWeakProxy.h; sourceTree = "<group>"; };
-		4E26788D1F905C2F007F3996 /* YYTextWeakProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextWeakProxy.m; sourceTree = "<group>"; };
-		4E26788E1F905C2F007F3996 /* YYLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYLabel.h; sourceTree = "<group>"; };
-		4E26788F1F905C2F007F3996 /* YYLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYLabel.m; sourceTree = "<group>"; };
-		4E2678901F905C2F007F3996 /* YYText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYText.h; sourceTree = "<group>"; };
-		4E2678911F905C2F007F3996 /* YYTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYTextView.h; sourceTree = "<group>"; };
-		4E2678921F905C2F007F3996 /* YYTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYTextView.m; sourceTree = "<group>"; };
-		4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIUnKnownMessageCell.swift; sourceTree = "<group>"; };
-		4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITransferMessageCell.swift; sourceTree = "<group>"; };
-		4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUINotificationMessageCell.swift; sourceTree = "<group>"; };
-		4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketOpenMessageCell.swift; sourceTree = "<group>"; };
-		4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigScorllView.m; sourceTree = "<group>"; };
-		4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigScorllView.h; sourceTree = "<group>"; };
-		4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImageView.h; sourceTree = "<group>"; };
-		4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImageView.m; sourceTree = "<group>"; };
-		4E3B9B341F4BD4F400218A0D /* DWAudioRecorderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWAudioRecorderManager.h; sourceTree = "<group>"; };
-		4E3B9B351F4BD4F400218A0D /* DWAudioRecorderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWAudioRecorderManager.m; sourceTree = "<group>"; };
-		4E40B95A1F67B90800E2FE50 /* DWActionSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWActionSheetView.h; sourceTree = "<group>"; };
-		4E40B95B1F67B90800E2FE50 /* DWActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWActionSheetView.m; sourceTree = "<group>"; };
-		4E40B9641F67BC2400E2FE50 /* UIImage+DWImageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DWImageColor.h"; sourceTree = "<group>"; };
-		4E40B9651F67BC2400E2FE50 /* UIImage+DWImageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DWImageColor.m"; sourceTree = "<group>"; };
-		4E40B9741F67CFBB00E2FE50 /* DWRecoderCoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRecoderCoveView.h; sourceTree = "<group>"; };
-		4E40B9751F67CFBB00E2FE50 /* DWRecoderCoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRecoderCoveView.m; sourceTree = "<group>"; };
-		4E49AD811F34176100B50439 /* RNCustomInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCustomInputView.h; sourceTree = "<group>"; };
-		4E49AD821F34176100B50439 /* RNCustomInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCustomInputView.m; sourceTree = "<group>"; };
-		4E49AD831F34176100B50439 /* RNRecordTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNRecordTipsView.h; sourceTree = "<group>"; };
-		4E49AD841F34176100B50439 /* RNRecordTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNRecordTipsView.m; sourceTree = "<group>"; };
-		4E49AD8A1F34178000B50439 /* DWInputBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWInputBarControl.h; sourceTree = "<group>"; };
-		4E49AD8B1F34178000B50439 /* DWInputBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWInputBarControl.m; sourceTree = "<group>"; };
-		4E49AD8C1F34178000B50439 /* DWRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRecordButton.h; sourceTree = "<group>"; };
-		4E49AD8D1F34178000B50439 /* DWRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRecordButton.m; sourceTree = "<group>"; };
-		4E49AD8E1F34178000B50439 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
-		4E49AD8F1F34178000B50439 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
-		4E49AD901F34178000B50439 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
-		4E49AD911F34178000B50439 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
-		4E49AD931F34178000B50439 /* UIView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extend.h"; sourceTree = "<group>"; };
-		4E49AD941F34178000B50439 /* UIView+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extend.m"; sourceTree = "<group>"; };
-		4E49ADD41F341BB400B50439 /* MyCacheImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCacheImageView.h; sourceTree = "<group>"; };
-		4E49ADD51F341BB400B50439 /* MyCacheImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCacheImageView.m; sourceTree = "<group>"; };
-		4E49ADE81F346B7500B50439 /* NIMInputEmoticonContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonContainerView.h; sourceTree = "<group>"; };
-		4E49ADE91F346B7500B50439 /* NIMInputEmoticonContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonContainerView.m; sourceTree = "<group>"; };
-		4E49AE181F34760500B50439 /* NIMPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMPageView.h; sourceTree = "<group>"; };
-		4E49AE191F34760500B50439 /* NIMPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMPageView.m; sourceTree = "<group>"; };
-		4E49AE1C1F34762200B50439 /* NIMInputEmoticonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonButton.h; sourceTree = "<group>"; };
-		4E49AE1D1F34762200B50439 /* NIMInputEmoticonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonButton.m; sourceTree = "<group>"; };
-		4E49AE201F34764100B50439 /* NIMInputEmoticonTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonTabView.h; sourceTree = "<group>"; };
-		4E49AE211F34764100B50439 /* NIMInputEmoticonTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonTabView.m; sourceTree = "<group>"; };
-		4E49AE241F34767100B50439 /* UIImage+NIM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NIM.h"; sourceTree = "<group>"; };
-		4E49AE251F34767100B50439 /* UIImage+NIM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NIM.m"; sourceTree = "<group>"; };
-		4E49AE281F3476CC00B50439 /* NIMInputEmoticonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonManager.h; sourceTree = "<group>"; };
-		4E49AE291F3476CC00B50439 /* NIMInputEmoticonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonManager.m; sourceTree = "<group>"; };
-		4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonDefine.h; sourceTree = "<group>"; };
-		4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NIMKit.h"; sourceTree = "<group>"; };
-		4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NIMKit.m"; sourceTree = "<group>"; };
-		4E4A6D8E1FCC04B3004A169E /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageHeadCell.swift; sourceTree = "<group>"; };
-		4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILocationMessageCell.swift; sourceTree = "<group>"; };
-		4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketMessageCell.swift; sourceTree = "<group>"; };
-		4E6573541F66940200D4BAA8 /* DWShowImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWShowImageVC.h; sourceTree = "<group>"; };
-		4E6573551F66940200D4BAA8 /* DWShowImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWShowImageVC.m; sourceTree = "<group>"; };
-		4E6804BD20B512000024DAFC /* DWPlayVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DWPlayVideoVC.h; sourceTree = "<group>"; };
-		4E6804BE20B512000024DAFC /* DWPlayVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DWPlayVideoVC.m; sourceTree = "<group>"; };
-		4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIAudioPlayerHelper.swift; sourceTree = "<group>"; };
-		4E77A36A1F30840000098CAF /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
-		4E77A36B1F30840000098CAF /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
-		4E77A36C1F30840000098CAF /* CMSampleBufferExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMSampleBufferExtension.swift; sourceTree = "<group>"; };
-		4E77A36D1F30840000098CAF /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		4E77A36E1F30840000098CAF /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		4E77A36F1F30840000098CAF /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		4E77A3701F30840000098CAF /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		4E77A3711F30840000098CAF /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		4E77A3741F30840000098CAF /* IMUIAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IMUIAssets.bundle; sourceTree = "<group>"; };
-		4E77A3761F30840000098CAF /* IMUIChatDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIChatDataManager.swift; sourceTree = "<group>"; };
-		4E77A3771F30840000098CAF /* IMUIChatLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIChatLayout.swift; sourceTree = "<group>"; };
-		4E77A3781F30840000098CAF /* IMUIVideoFileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoFileLoader.swift; sourceTree = "<group>"; };
-		4E77A37A1F30840000098CAF /* BundleMessageListExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMessageListExtension.swift; sourceTree = "<group>"; };
-		4E77A37B1F30840000098CAF /* UIImageMessageListExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageMessageListExtension.swift; sourceTree = "<group>"; };
-		4E77A37C1F30840000098CAF /* IMUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMUI.h; sourceTree = "<group>"; };
-		4E77A37E1F30840000098CAF /* IMUIMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellLayout.swift; sourceTree = "<group>"; };
-		4E77A3801F30840000098CAF /* IMUIMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageModel.swift; sourceTree = "<group>"; };
-		4E77A3811F30840000098CAF /* IMUIReuseViewCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIReuseViewCache.swift; sourceTree = "<group>"; };
-		4E77A3821F30840000098CAF /* IMUIViewCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIViewCache.swift; sourceTree = "<group>"; };
-		4E77A3841F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellLayoutProtocal.swift; sourceTree = "<group>"; };
-		4E77A3851F30840000098CAF /* IMUIMessageCellProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellProtocal.swift; sourceTree = "<group>"; };
-		4E77A3861F30840000098CAF /* IMUIMessageMessageCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageMessageCollectionViewDelegate.swift; sourceTree = "<group>"; };
-		4E77A3871F30840000098CAF /* IMUIMessageModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageModelProtocol.swift; sourceTree = "<group>"; };
-		4E77A3881F30840000098CAF /* IMUIMessageStatusViewProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageStatusViewProtocal.swift; sourceTree = "<group>"; };
-		4E77A3891F30840000098CAF /* IMUIUserProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIUserProtocol.swift; sourceTree = "<group>"; };
-		4E77A38C1F30840000098CAF /* IMUIBaseMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageCell.swift; sourceTree = "<group>"; };
-		4E77A38D1F30840000098CAF /* IMUIImageMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIImageMessageCell.swift; sourceTree = "<group>"; };
-		4E77A38E1F30840000098CAF /* IMUILiveVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILiveVideoMessageCell.swift; sourceTree = "<group>"; };
-		4E77A38F1F30840000098CAF /* IMUIMessageBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageBubbleView.swift; sourceTree = "<group>"; };
-		4E77A3901F30840000098CAF /* IMUIMessageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCollectionView.swift; sourceTree = "<group>"; };
-		4E77A3911F30840000098CAF /* IMUIMessageCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMUIMessageCollectionView.xib; sourceTree = "<group>"; };
-		4E77A3921F30840000098CAF /* IMUIMessageStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageStatusView.swift; sourceTree = "<group>"; };
-		4E77A3931F30840000098CAF /* IMUITextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextMessageCell.swift; sourceTree = "<group>"; };
-		4E77A3941F30840000098CAF /* IMUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextView.swift; sourceTree = "<group>"; };
-		4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoMessageCell.swift; sourceTree = "<group>"; };
-		4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVoiceMessageCell.swift; sourceTree = "<group>"; };
-		4E9CE01B1F9DDB1E005FC8A7 /* IMUICardMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMUICardMessageCell.swift; sourceTree = "<group>"; };
-		4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopOverView.h; sourceTree = "<group>"; };
-		4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopOverView.m; sourceTree = "<group>"; };
-		4ED53D7B224A2BEF00F2C687 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		4EDCA75B2089809A00B6DB55 /* IMUICustomMessageContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMUICustomMessageContentCell.swift; sourceTree = "<group>"; };
-		6239E6641EDDB1F700B9AC9C /* libAuroraIMUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAuroraIMUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		623EA9701EE55CB200EC43AE /* imuiDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "imuiDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		623EA9721EE55CB200EC43AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		623EA9731EE55CB200EC43AE /* MyMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageModel.swift; sourceTree = "<group>"; };
-		623EA9741EE55CB200EC43AE /* MyUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
-		623EA9751EE55CB200EC43AE /* RCTSwiftBridgeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTSwiftBridgeModule.h; sourceTree = "<group>"; };
-		623EA9761EE55CB200EC43AE /* RCTAuroraIMUIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAuroraIMUIModule.h; sourceTree = "<group>"; };
-		623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAuroraIMUIModule.m; sourceTree = "<group>"; };
-		623EA9781EE55CB200EC43AE /* RCTAuroraIMUI-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTAuroraIMUI-Bridging-Header.h"; sourceTree = "<group>"; };
-		623EA97E1EE55CB200EC43AE /* RCTMessageListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMessageListView.h; sourceTree = "<group>"; };
-		623EA97F1EE55CB200EC43AE /* RCTMessageListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMessageListView.m; sourceTree = "<group>"; };
-		623EA9801EE55CB200EC43AE /* RCTMessageListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCTMessageListView.xib; sourceTree = "<group>"; };
-		623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMessageListViewManager.m; sourceTree = "<group>"; };
-		623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RCTAuroraIMUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAuroraIMUI.h; sourceTree = "<group>"; };
-		623EA9A11EE55D0800EC43AE /* RCTAuroraIMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RCTAuroraIMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		623EA9A61EE55D0800EC43AE /* RCTAuroraIMUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAuroraIMUITests.m; sourceTree = "<group>"; };
-		623EA9A81EE55D0800EC43AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3666DCC7238404DCD7B9D5FE /* Pods-RCTAuroraIMUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCTAuroraIMUI.release.xcconfig"; path = "../../../ios/Pods/Target Support Files/Pods-RCTAuroraIMUI/Pods-RCTAuroraIMUI.release.xcconfig"; sourceTree = "<group>"; };
+		6ADCA3590CE27D3398E86EE3 /* Pods-RCTAuroraIMUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RCTAuroraIMUI.debug.xcconfig"; path = "../../../ios/Pods/Target Support Files/Pods-RCTAuroraIMUI/Pods-RCTAuroraIMUI.debug.xcconfig"; sourceTree = "<group>"; };
+		9EEB1FF3BEF7BD2586671906 /* libPods-RCTAuroraIMUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RCTAuroraIMUI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4027C022536A6ED00D90893 /* RCTMessageListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCTMessageListView.xib; sourceTree = "<group>"; };
+		C4027C052536A72800D90893 /* IMUIMessageCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IMUIMessageCollectionView.xib; sourceTree = "<group>"; };
+		C434B7AC253588E700B92717 /* DWText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWText.h; sourceTree = "<group>"; };
+		C434B7AD253588E700B92717 /* DWTextEffectWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextEffectWindow.m; sourceTree = "<group>"; };
+		C434B7AE253588E700B92717 /* DWTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextView.m; sourceTree = "<group>"; };
+		C434B7AF253588E700B92717 /* DWTextLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextLayout.h; sourceTree = "<group>"; };
+		C434B7B0253588E700B92717 /* DWTextMagnifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextMagnifier.m; sourceTree = "<group>"; };
+		C434B7B1253588E700B92717 /* DWTextRunDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextRunDelegate.m; sourceTree = "<group>"; };
+		C434B7B2253588E700B92717 /* DWTextKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextKeyboardManager.h; sourceTree = "<group>"; };
+		C434B7B3253588E700B92717 /* DWTextLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextLine.h; sourceTree = "<group>"; };
+		C434B7B4253588E700B92717 /* DWTextAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextAttribute.h; sourceTree = "<group>"; };
+		C434B7B5253588E700B92717 /* DWTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextInput.m; sourceTree = "<group>"; };
+		C434B7B6253588E700B92717 /* DWTextSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextSelectionView.h; sourceTree = "<group>"; };
+		C434B7B7253588E700B92717 /* DWTextRubyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextRubyAnnotation.m; sourceTree = "<group>"; };
+		C434B7B8253588E700B92717 /* DWTextArchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextArchiver.m; sourceTree = "<group>"; };
+		C434B7B9253588E700B92717 /* DWTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextParser.m; sourceTree = "<group>"; };
+		C434B7BA253588E700B92717 /* DWLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWLabel.m; sourceTree = "<group>"; };
+		C434B7BB253588E700B92717 /* DWTextDebugOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextDebugOption.h; sourceTree = "<group>"; };
+		C434B7BC253588E700B92717 /* DWTextContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextContainerView.m; sourceTree = "<group>"; };
+		C434B7BD253588E700B92717 /* DWTextMagnifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextMagnifier.h; sourceTree = "<group>"; };
+		C434B7BE253588E700B92717 /* DWTextLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextLayout.m; sourceTree = "<group>"; };
+		C434B7BF253588E700B92717 /* DWTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextView.h; sourceTree = "<group>"; };
+		C434B7C0253588E700B92717 /* DWTextEffectWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextEffectWindow.h; sourceTree = "<group>"; };
+		C434B7C1253588E700B92717 /* DWTextAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextAttribute.m; sourceTree = "<group>"; };
+		C434B7C2253588E700B92717 /* DWTextLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextLine.m; sourceTree = "<group>"; };
+		C434B7C3253588E700B92717 /* DWTextKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextKeyboardManager.m; sourceTree = "<group>"; };
+		C434B7C4253588E700B92717 /* DWTextRunDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextRunDelegate.h; sourceTree = "<group>"; };
+		C434B7C5253588E700B92717 /* DWTextArchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextArchiver.h; sourceTree = "<group>"; };
+		C434B7C6253588E700B92717 /* DWTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextParser.h; sourceTree = "<group>"; };
+		C434B7C7253588E700B92717 /* DWTextRubyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextRubyAnnotation.h; sourceTree = "<group>"; };
+		C434B7C8253588E700B92717 /* DWTextSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextSelectionView.m; sourceTree = "<group>"; };
+		C434B7C9253588E700B92717 /* DWTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextInput.h; sourceTree = "<group>"; };
+		C434B7CA253588E700B92717 /* DWTextContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextContainerView.h; sourceTree = "<group>"; };
+		C434B7CB253588E700B92717 /* DWLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWLabel.h; sourceTree = "<group>"; };
+		C434B7CC253588E700B92717 /* DWTextDebugOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextDebugOption.m; sourceTree = "<group>"; };
+		C434B7CE253588E700B92717 /* DWTextAsyncLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextAsyncLayer.m; sourceTree = "<group>"; };
+		C434B7CF253588E700B92717 /* DWTextUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextUtilities.m; sourceTree = "<group>"; };
+		C434B7D0253588E700B92717 /* UIView+DWText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DWText.h"; sourceTree = "<group>"; };
+		C434B7D1253588E700B92717 /* NSAttributedString+DWText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+DWText.m"; sourceTree = "<group>"; };
+		C434B7D2253588E700B92717 /* DWTextTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextTransaction.h; sourceTree = "<group>"; };
+		C434B7D3253588E700B92717 /* NSParagraphStyle+DWText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+DWText.m"; sourceTree = "<group>"; };
+		C434B7D4253588E700B92717 /* UIPasteboard+DWText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPasteboard+DWText.m"; sourceTree = "<group>"; };
+		C434B7D5253588E700B92717 /* DWTextWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextWeakProxy.h; sourceTree = "<group>"; };
+		C434B7D6253588E700B92717 /* DWTextAsyncLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextAsyncLayer.h; sourceTree = "<group>"; };
+		C434B7D7253588E700B92717 /* DWTextUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTextUtilities.h; sourceTree = "<group>"; };
+		C434B7D8253588E700B92717 /* NSParagraphStyle+DWText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+DWText.h"; sourceTree = "<group>"; };
+		C434B7D9253588E700B92717 /* DWTextTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextTransaction.m; sourceTree = "<group>"; };
+		C434B7DA253588E700B92717 /* NSAttributedString+DWText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+DWText.h"; sourceTree = "<group>"; };
+		C434B7DB253588E700B92717 /* UIView+DWText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DWText.m"; sourceTree = "<group>"; };
+		C434B7DC253588E700B92717 /* DWTextWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTextWeakProxy.m; sourceTree = "<group>"; };
+		C434B7DD253588E700B92717 /* UIPasteboard+DWText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPasteboard+DWText.h"; sourceTree = "<group>"; };
+		C4981247253553EB008B2B61 /* RCTAuroraIMUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RCTAuroraIMUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C498124A253553EB008B2B61 /* RCTAuroraIMUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAuroraIMUI.h; sourceTree = "<group>"; };
+		C498124B253553EB008B2B61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C49812552535544F008B2B61 /* NIMInputAtCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputAtCache.h; sourceTree = "<group>"; };
+		C49812562535544F008B2B61 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
+		C49812582535544F008B2B61 /* UIView+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extend.m"; sourceTree = "<group>"; };
+		C49812592535544F008B2B61 /* UIImage+DWImageColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DWImageColor.m"; sourceTree = "<group>"; };
+		C498125A2535544F008B2B61 /* UIView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extend.h"; sourceTree = "<group>"; };
+		C498125B2535544F008B2B61 /* UIImage+DWImageColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DWImageColor.h"; sourceTree = "<group>"; };
+		C498125C2535544F008B2B61 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
+		C498125D2535544F008B2B61 /* DWAudioRecorderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWAudioRecorderManager.m; sourceTree = "<group>"; };
+		C498125E2535544F008B2B61 /* DWInputBarControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWInputBarControl.m; sourceTree = "<group>"; };
+		C498125F2535544F008B2B61 /* DWRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRecordButton.h; sourceTree = "<group>"; };
+		C49812602535544F008B2B61 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		C49812612535544F008B2B61 /* NIMInputAtCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputAtCache.m; sourceTree = "<group>"; };
+		C49812622535544F008B2B61 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
+		C49812632535544F008B2B61 /* DWRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRecordButton.m; sourceTree = "<group>"; };
+		C49812642535544F008B2B61 /* DWInputBarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWInputBarControl.h; sourceTree = "<group>"; };
+		C49812652535544F008B2B61 /* DWAudioRecorderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWAudioRecorderManager.h; sourceTree = "<group>"; };
+		C49812672535544F008B2B61 /* NIMInputEmoticonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonParser.m; sourceTree = "<group>"; };
+		C49812682535544F008B2B61 /* NIMPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMPageView.h; sourceTree = "<group>"; };
+		C49812692535544F008B2B61 /* NIMInputEmoticonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonManager.h; sourceTree = "<group>"; };
+		C498126A2535544F008B2B61 /* UIImage+NIM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NIM.m"; sourceTree = "<group>"; };
+		C498126B2535544F008B2B61 /* NIMInputEmoticonTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonTabView.m; sourceTree = "<group>"; };
+		C498126C2535544F008B2B61 /* NIMInputEmoticonButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonButton.h; sourceTree = "<group>"; };
+		C498126D2535544F008B2B61 /* NIMInputEmoticonContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonContainerView.h; sourceTree = "<group>"; };
+		C498126E2535544F008B2B61 /* NSString+NIMKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NIMKit.m"; sourceTree = "<group>"; };
+		C498126F2535544F008B2B61 /* NIMInputEmoticonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonManager.m; sourceTree = "<group>"; };
+		C49812702535544F008B2B61 /* NIMPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMPageView.m; sourceTree = "<group>"; };
+		C49812712535544F008B2B61 /* NIMInputEmoticonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonParser.h; sourceTree = "<group>"; };
+		C49812722535544F008B2B61 /* NIMInputEmoticonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonDefine.h; sourceTree = "<group>"; };
+		C49812732535544F008B2B61 /* NSString+NIMKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NIMKit.h"; sourceTree = "<group>"; };
+		C49812742535544F008B2B61 /* NIMInputEmoticonContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonContainerView.m; sourceTree = "<group>"; };
+		C49812752535544F008B2B61 /* NIMInputEmoticonButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIMInputEmoticonButton.m; sourceTree = "<group>"; };
+		C49812762535544F008B2B61 /* NIMInputEmoticonTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIMInputEmoticonTabView.h; sourceTree = "<group>"; };
+		C49812772535544F008B2B61 /* UIImage+NIM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NIM.h"; sourceTree = "<group>"; };
+		C49812792535544F008B2B61 /* MyMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageModel.swift; sourceTree = "<group>"; };
+		C498127C2535544F008B2B61 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		C498127D2535544F008B2B61 /* CMSampleBufferExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMSampleBufferExtension.swift; sourceTree = "<group>"; };
+		C498127E2535544F008B2B61 /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
+		C498127F2535544F008B2B61 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		C49812802535544F008B2B61 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
+		C49812812535544F008B2B61 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C49812822535544F008B2B61 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		C49812832535544F008B2B61 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		C49812852535544F008B2B61 /* IMUIAudioPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIAudioPlayerHelper.swift; sourceTree = "<group>"; };
+		C49812862535544F008B2B61 /* MyUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyUser.swift; sourceTree = "<group>"; };
+		C49812882535544F008B2B61 /* IMUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMUI.h; sourceTree = "<group>"; };
+		C498128A2535544F008B2B61 /* BundleMessageListExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleMessageListExtension.swift; sourceTree = "<group>"; };
+		C498128B2535544F008B2B61 /* UIImageMessageListExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageMessageListExtension.swift; sourceTree = "<group>"; };
+		C498128D2535544F008B2B61 /* IMUIMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellLayout.swift; sourceTree = "<group>"; };
+		C498128F2535544F008B2B61 /* IMUIMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageModel.swift; sourceTree = "<group>"; };
+		C49812902535544F008B2B61 /* IMUIViewCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIViewCache.swift; sourceTree = "<group>"; };
+		C49812912535544F008B2B61 /* IMUIReuseViewCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIReuseViewCache.swift; sourceTree = "<group>"; };
+		C49812932535544F008B2B61 /* IMUIUserProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIUserProtocol.swift; sourceTree = "<group>"; };
+		C49812942535544F008B2B61 /* IMUIMessageMessageCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageMessageCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		C49812952535544F008B2B61 /* IMUIMessageStatusViewProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageStatusViewProtocal.swift; sourceTree = "<group>"; };
+		C49812962535544F008B2B61 /* IMUIMessageCellProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellProtocal.swift; sourceTree = "<group>"; };
+		C49812972535544F008B2B61 /* IMUIMessageCellLayoutProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCellLayoutProtocal.swift; sourceTree = "<group>"; };
+		C49812982535544F008B2B61 /* IMUIMessageModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageModelProtocol.swift; sourceTree = "<group>"; };
+		C498129A2535544F008B2B61 /* IMUIChatDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIChatDataManager.swift; sourceTree = "<group>"; };
+		C498129B2535544F008B2B61 /* IMUIVideoFileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoFileLoader.swift; sourceTree = "<group>"; };
+		C498129C2535544F008B2B61 /* IMUIChatLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIChatLayout.swift; sourceTree = "<group>"; };
+		C498129E2535544F008B2B61 /* IMUIMessageStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageStatusView.swift; sourceTree = "<group>"; };
+		C498129F2535544F008B2B61 /* IMUIMessageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageCollectionView.swift; sourceTree = "<group>"; };
+		C49812A02535544F008B2B61 /* IMUICustomMessageContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUICustomMessageContentCell.swift; sourceTree = "<group>"; };
+		C49812A12535544F008B2B61 /* IMUILocationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILocationMessageCell.swift; sourceTree = "<group>"; };
+		C49812A22535544F008B2B61 /* IMUIMessageBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIMessageBubbleView.swift; sourceTree = "<group>"; };
+		C49812A32535544F008B2B61 /* IMUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextView.swift; sourceTree = "<group>"; };
+		C49812A42535544F008B2B61 /* IMUIBaseMessageHeadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageHeadCell.swift; sourceTree = "<group>"; };
+		C49812A52535544F008B2B61 /* IMUIRedPacketMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketMessageCell.swift; sourceTree = "<group>"; };
+		C49812A62535544F008B2B61 /* IMUICardMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUICardMessageCell.swift; sourceTree = "<group>"; };
+		C49812A72535544F008B2B61 /* IMUIVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVideoMessageCell.swift; sourceTree = "<group>"; };
+		C49812A92535544F008B2B61 /* IMUITextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITextMessageCell.swift; sourceTree = "<group>"; };
+		C49812AA2535544F008B2B61 /* IMUIImageMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIImageMessageCell.swift; sourceTree = "<group>"; };
+		C49812AB2535544F008B2B61 /* IMUIVoiceMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIVoiceMessageCell.swift; sourceTree = "<group>"; };
+		C49812AC2535544F008B2B61 /* IMUITransferMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUITransferMessageCell.swift; sourceTree = "<group>"; };
+		C49812AD2535544F008B2B61 /* IMUIUnKnownMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIUnKnownMessageCell.swift; sourceTree = "<group>"; };
+		C49812AE2535544F008B2B61 /* IMUIRedPacketOpenMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIRedPacketOpenMessageCell.swift; sourceTree = "<group>"; };
+		C49812AF2535544F008B2B61 /* IMUIBaseMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUIBaseMessageCell.swift; sourceTree = "<group>"; };
+		C49812B02535544F008B2B61 /* IMUILiveVideoMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUILiveVideoMessageCell.swift; sourceTree = "<group>"; };
+		C49812B12535544F008B2B61 /* IMUINotificationMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMUINotificationMessageCell.swift; sourceTree = "<group>"; };
+		C49812B62535544F008B2B61 /* RCTMessageListViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMessageListViewManager.m; sourceTree = "<group>"; };
+		C49812B72535544F008B2B61 /* RCTMessageListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTMessageListView.m; sourceTree = "<group>"; };
+		C49812B82535544F008B2B61 /* RCTAuroraIMUIModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAuroraIMUIModule.m; sourceTree = "<group>"; };
+		C49812B92535544F008B2B61 /* RCTMessageListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTMessageListView.h; sourceTree = "<group>"; };
+		C49812BA2535544F008B2B61 /* RCTAuroraIMUIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAuroraIMUIModule.h; sourceTree = "<group>"; };
+		C49812BC2535544F008B2B61 /* DWPlayVideoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWPlayVideoVC.h; sourceTree = "<group>"; };
+		C49812BD2535544F008B2B61 /* DWShowImageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWShowImageVC.m; sourceTree = "<group>"; };
+		C49812BE2535544F008B2B61 /* DWPlayVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWPlayVideoVC.m; sourceTree = "<group>"; };
+		C49812BF2535544F008B2B61 /* DWShowImageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWShowImageVC.h; sourceTree = "<group>"; };
+		C49812C12535544F008B2B61 /* DWOrigImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImageView.m; sourceTree = "<group>"; };
+		C49812C22535544F008B2B61 /* DWOrigImgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImgView.h; sourceTree = "<group>"; };
+		C49812C42535544F008B2B61 /* RNCustomInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCustomInputView.m; sourceTree = "<group>"; };
+		C49812C52535544F008B2B61 /* DWActionSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWActionSheetView.h; sourceTree = "<group>"; };
+		C49812C72535544F008B2B61 /* DWRecoderCoveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWRecoderCoveView.m; sourceTree = "<group>"; };
+		C49812C82535544F008B2B61 /* DWOrigScorllView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigScorllView.h; sourceTree = "<group>"; };
+		C49812C92535544F008B2B61 /* RNRecordTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNRecordTipsView.h; sourceTree = "<group>"; };
+		C49812CA2535544F008B2B61 /* DWOrigImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigImgView.m; sourceTree = "<group>"; };
+		C49812CB2535544F008B2B61 /* DWOrigImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWOrigImageView.h; sourceTree = "<group>"; };
+		C49812CD2535544F008B2B61 /* DWRecoderCoveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWRecoderCoveView.h; sourceTree = "<group>"; };
+		C49812CF2535544F008B2B61 /* DWActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWActionSheetView.m; sourceTree = "<group>"; };
+		C49812D02535544F008B2B61 /* RNCustomInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCustomInputView.h; sourceTree = "<group>"; };
+		C49812D12535544F008B2B61 /* RNRecordTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNRecordTipsView.m; sourceTree = "<group>"; };
+		C49812D22535544F008B2B61 /* DWOrigScorllView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWOrigScorllView.m; sourceTree = "<group>"; };
+		C49812D42535544F008B2B61 /* OCBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCBridgingHeader.h; sourceTree = "<group>"; };
+		C49812D52535544F008B2B61 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		C498135E253557AE008B2B61 /* MenuPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopOverView.h; sourceTree = "<group>"; };
+		C498135F253557AE008B2B61 /* MyCacheImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCacheImageView.h; sourceTree = "<group>"; };
+		C4981360253557AF008B2B61 /* MenuPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopOverView.m; sourceTree = "<group>"; };
+		C4981361253557AF008B2B61 /* MyCacheImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCacheImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6239E6611EDDB1F700B9AC9C /* Frameworks */ = {
+		C4981244253553EB008B2B61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623EA9951EE55D0800EC43AE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4ED53D7C224A2BEF00F2C687 /* JavaScriptCore.framework in Frameworks */,
-				4E4A6D8F1FCC04C9004A169E /* libRCTWebSocket.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623EA99E1EE55D0800EC43AE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				623EA9A21EE55D0800EC43AE /* RCTAuroraIMUI.framework in Frameworks */,
+				8D34C2637C2370CE9AE6D410 /* libPods-RCTAuroraIMUI.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E26785C1F905C2F007F3996 /* DWYYLabel */ = {
+		24471291E9853917537B7AE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4E26785D1F905C2F007F3996 /* Component */,
-				4E2678701F905C2F007F3996 /* NIMInputEmoticonParser.h */,
-				4E2678711F905C2F007F3996 /* NIMInputEmoticonParser.m */,
-				4E2678721F905C2F007F3996 /* String */,
-				4E26787D1F905C2F007F3996 /* Utility */,
-				4E26788E1F905C2F007F3996 /* YYLabel.h */,
-				4E26788F1F905C2F007F3996 /* YYLabel.m */,
-				4E2678901F905C2F007F3996 /* YYText.h */,
-				4E2678911F905C2F007F3996 /* YYTextView.h */,
-				4E2678921F905C2F007F3996 /* YYTextView.m */,
-			);
-			path = DWYYLabel;
-			sourceTree = "<group>";
-		};
-		4E26785D1F905C2F007F3996 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				4E26785E1F905C2F007F3996 /* YYTextContainerView.h */,
-				4E26785F1F905C2F007F3996 /* YYTextContainerView.m */,
-				4E2678601F905C2F007F3996 /* YYTextDebugOption.h */,
-				4E2678611F905C2F007F3996 /* YYTextDebugOption.m */,
-				4E2678621F905C2F007F3996 /* YYTextEffectWindow.h */,
-				4E2678631F905C2F007F3996 /* YYTextEffectWindow.m */,
-				4E2678641F905C2F007F3996 /* YYTextInput.h */,
-				4E2678651F905C2F007F3996 /* YYTextInput.m */,
-				4E2678661F905C2F007F3996 /* YYTextKeyboardManager.h */,
-				4E2678671F905C2F007F3996 /* YYTextKeyboardManager.m */,
-				4E2678681F905C2F007F3996 /* YYTextLayout.h */,
-				4E2678691F905C2F007F3996 /* YYTextLayout.m */,
-				4E26786A1F905C2F007F3996 /* YYTextLine.h */,
-				4E26786B1F905C2F007F3996 /* YYTextLine.m */,
-				4E26786C1F905C2F007F3996 /* YYTextMagnifier.h */,
-				4E26786D1F905C2F007F3996 /* YYTextMagnifier.m */,
-				4E26786E1F905C2F007F3996 /* YYTextSelectionView.h */,
-				4E26786F1F905C2F007F3996 /* YYTextSelectionView.m */,
-			);
-			path = Component;
-			sourceTree = "<group>";
-		};
-		4E2678721F905C2F007F3996 /* String */ = {
-			isa = PBXGroup;
-			children = (
-				4E2678731F905C2F007F3996 /* YYTextArchiver.h */,
-				4E2678741F905C2F007F3996 /* YYTextArchiver.m */,
-				4E2678751F905C2F007F3996 /* YYTextAttribute.h */,
-				4E2678761F905C2F007F3996 /* YYTextAttribute.m */,
-				4E2678771F905C2F007F3996 /* YYTextParser.h */,
-				4E2678781F905C2F007F3996 /* YYTextParser.m */,
-				4E2678791F905C2F007F3996 /* YYTextRubyAnnotation.h */,
-				4E26787A1F905C2F007F3996 /* YYTextRubyAnnotation.m */,
-				4E26787B1F905C2F007F3996 /* YYTextRunDelegate.h */,
-				4E26787C1F905C2F007F3996 /* YYTextRunDelegate.m */,
-			);
-			path = String;
-			sourceTree = "<group>";
-		};
-		4E26787D1F905C2F007F3996 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				4E26787E1F905C2F007F3996 /* NSAttributedString+YYText.h */,
-				4E26787F1F905C2F007F3996 /* NSAttributedString+YYText.m */,
-				4E2678801F905C2F007F3996 /* NSParagraphStyle+YYText.h */,
-				4E2678811F905C2F007F3996 /* NSParagraphStyle+YYText.m */,
-				4E2678821F905C2F007F3996 /* UIPasteboard+YYText.h */,
-				4E2678831F905C2F007F3996 /* UIPasteboard+YYText.m */,
-				4E2678841F905C2F007F3996 /* UIView+YYText.h */,
-				4E2678851F905C2F007F3996 /* UIView+YYText.m */,
-				4E2678861F905C2F007F3996 /* YYTextAsyncLayer.h */,
-				4E2678871F905C2F007F3996 /* YYTextAsyncLayer.m */,
-				4E2678881F905C2F007F3996 /* YYTextTransaction.h */,
-				4E2678891F905C2F007F3996 /* YYTextTransaction.m */,
-				4E26788A1F905C2F007F3996 /* YYTextUtilities.h */,
-				4E26788B1F905C2F007F3996 /* YYTextUtilities.m */,
-				4E26788C1F905C2F007F3996 /* YYTextWeakProxy.h */,
-				4E26788D1F905C2F007F3996 /* YYTextWeakProxy.m */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
-		4E40B9551F67B78400E2FE50 /* DWMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				4E40B95A1F67B90800E2FE50 /* DWActionSheetView.h */,
-				4E40B95B1F67B90800E2FE50 /* DWActionSheetView.m */,
-			);
-			path = DWMenuView;
-			sourceTree = "<group>";
-		};
-		4E49AD801F34176100B50439 /* DWCustomView */ = {
-			isa = PBXGroup;
-			children = (
-				4E40B9551F67B78400E2FE50 /* DWMenuView */,
-				4E36B2C31F629613009ECBAE /* DWOrigScorllView.h */,
-				4E36B2C21F629613009ECBAE /* DWOrigScorllView.m */,
-				4E36B2C61F62964E009ECBAE /* DWOrigImageView.h */,
-				4E36B2C71F62964E009ECBAE /* DWOrigImageView.m */,
-				4E40B9741F67CFBB00E2FE50 /* DWRecoderCoveView.h */,
-				4E40B9751F67CFBB00E2FE50 /* DWRecoderCoveView.m */,
-				4E49ADE71F346B7500B50439 /* DWEmoticonView */,
-				4E49ADD41F341BB400B50439 /* MyCacheImageView.h */,
-				4E49ADD51F341BB400B50439 /* MyCacheImageView.m */,
-				4E49AD891F34178000B50439 /* InputView */,
-				4E49AD811F34176100B50439 /* RNCustomInputView.h */,
-				4E49AD821F34176100B50439 /* RNCustomInputView.m */,
-				4E49AD831F34176100B50439 /* RNRecordTipsView.h */,
-				4E49AD841F34176100B50439 /* RNRecordTipsView.m */,
-			);
-			path = DWCustomView;
-			sourceTree = "<group>";
-		};
-		4E49AD891F34178000B50439 /* InputView */ = {
-			isa = PBXGroup;
-			children = (
-				4E3B9B341F4BD4F400218A0D /* DWAudioRecorderManager.h */,
-				4E3B9B351F4BD4F400218A0D /* DWAudioRecorderManager.m */,
-				4E1BA8821F39AB8400A15E62 /* NIMInputAtCache.h */,
-				4E1BA8831F39AB8400A15E62 /* NIMInputAtCache.m */,
-				4E49AD8A1F34178000B50439 /* DWInputBarControl.h */,
-				4E49AD8B1F34178000B50439 /* DWInputBarControl.m */,
-				4E49AD8C1F34178000B50439 /* DWRecordButton.h */,
-				4E49AD8D1F34178000B50439 /* DWRecordButton.m */,
-				4E49AD8E1F34178000B50439 /* HPGrowingTextView.h */,
-				4E49AD8F1F34178000B50439 /* HPGrowingTextView.m */,
-				4E49AD901F34178000B50439 /* HPTextViewInternal.h */,
-				4E49AD911F34178000B50439 /* HPTextViewInternal.m */,
-				4E49AD921F34178000B50439 /* UIView+Extend */,
-			);
-			path = InputView;
-			sourceTree = "<group>";
-		};
-		4E49AD921F34178000B50439 /* UIView+Extend */ = {
-			isa = PBXGroup;
-			children = (
-				4E49AD931F34178000B50439 /* UIView+Extend.h */,
-				4E49AD941F34178000B50439 /* UIView+Extend.m */,
-				4E40B9641F67BC2400E2FE50 /* UIImage+DWImageColor.h */,
-				4E40B9651F67BC2400E2FE50 /* UIImage+DWImageColor.m */,
-			);
-			path = "UIView+Extend";
-			sourceTree = "<group>";
-		};
-		4E49ADE71F346B7500B50439 /* DWEmoticonView */ = {
-			isa = PBXGroup;
-			children = (
-				4EC4F96A1F46F0B1000C5CA6 /* MenuPopOverView */,
-				4E49AE2E1F3476F800B50439 /* NSString+NIMKit.h */,
-				4E49AE2F1F3476F800B50439 /* NSString+NIMKit.m */,
-				4E49AE2C1F3476E500B50439 /* NIMInputEmoticonDefine.h */,
-				4E49AE281F3476CC00B50439 /* NIMInputEmoticonManager.h */,
-				4E49AE291F3476CC00B50439 /* NIMInputEmoticonManager.m */,
-				4E49AE241F34767100B50439 /* UIImage+NIM.h */,
-				4E49AE251F34767100B50439 /* UIImage+NIM.m */,
-				4E49AE201F34764100B50439 /* NIMInputEmoticonTabView.h */,
-				4E49AE211F34764100B50439 /* NIMInputEmoticonTabView.m */,
-				4E49AE1C1F34762200B50439 /* NIMInputEmoticonButton.h */,
-				4E49AE1D1F34762200B50439 /* NIMInputEmoticonButton.m */,
-				4E49AE181F34760500B50439 /* NIMPageView.h */,
-				4E49AE191F34760500B50439 /* NIMPageView.m */,
-				4E49ADE81F346B7500B50439 /* NIMInputEmoticonContainerView.h */,
-				4E49ADE91F346B7500B50439 /* NIMInputEmoticonContainerView.m */,
-			);
-			path = DWEmoticonView;
-			sourceTree = "<group>";
-		};
-		4E4A6D8C1FCC04B3004A169E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4ED53D7B224A2BEF00F2C687 /* JavaScriptCore.framework */,
-				4E4A6D901FCC04C9004A169E /* libRCTWebSocket.a */,
-				4E4A6D8E1FCC04B3004A169E /* libRCTWebSocket.a */,
+				9EEB1FF3BEF7BD2586671906 /* libPods-RCTAuroraIMUI.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4E77A3661F30840000098CAF /* IMUICommon */ = {
+		6A29FEA888D7E3041E6B142C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4E77A3671F30840000098CAF /* Controllers */,
-				4E77A3691F30840000098CAF /* Extension */,
+				6ADCA3590CE27D3398E86EE3 /* Pods-RCTAuroraIMUI.debug.xcconfig */,
+				3666DCC7238404DCD7B9D5FE /* Pods-RCTAuroraIMUI.release.xcconfig */,
 			);
-			path = IMUICommon;
+			name = Pods;
+			path = ../Pods;
 			sourceTree = "<group>";
 		};
-		4E77A3671F30840000098CAF /* Controllers */ = {
+		C434B7AB253588E700B92717 /* DWLabel */ = {
 			isa = PBXGroup;
 			children = (
-				4E77A3681F30840000098CAF /* IMUIAudioPlayerHelper.swift */,
+				C434B7AC253588E700B92717 /* DWText.h */,
+				C434B7AD253588E700B92717 /* DWTextEffectWindow.m */,
+				C434B7AE253588E700B92717 /* DWTextView.m */,
+				C434B7AF253588E700B92717 /* DWTextLayout.h */,
+				C434B7B0253588E700B92717 /* DWTextMagnifier.m */,
+				C434B7B1253588E700B92717 /* DWTextRunDelegate.m */,
+				C434B7B2253588E700B92717 /* DWTextKeyboardManager.h */,
+				C434B7B3253588E700B92717 /* DWTextLine.h */,
+				C434B7B4253588E700B92717 /* DWTextAttribute.h */,
+				C434B7B5253588E700B92717 /* DWTextInput.m */,
+				C434B7B6253588E700B92717 /* DWTextSelectionView.h */,
+				C434B7B7253588E700B92717 /* DWTextRubyAnnotation.m */,
+				C434B7B8253588E700B92717 /* DWTextArchiver.m */,
+				C434B7B9253588E700B92717 /* DWTextParser.m */,
+				C434B7BA253588E700B92717 /* DWLabel.m */,
+				C434B7BB253588E700B92717 /* DWTextDebugOption.h */,
+				C434B7BC253588E700B92717 /* DWTextContainerView.m */,
+				C434B7BD253588E700B92717 /* DWTextMagnifier.h */,
+				C434B7BE253588E700B92717 /* DWTextLayout.m */,
+				C434B7BF253588E700B92717 /* DWTextView.h */,
+				C434B7C0253588E700B92717 /* DWTextEffectWindow.h */,
+				C434B7C1253588E700B92717 /* DWTextAttribute.m */,
+				C434B7C2253588E700B92717 /* DWTextLine.m */,
+				C434B7C3253588E700B92717 /* DWTextKeyboardManager.m */,
+				C434B7C4253588E700B92717 /* DWTextRunDelegate.h */,
+				C434B7C5253588E700B92717 /* DWTextArchiver.h */,
+				C434B7C6253588E700B92717 /* DWTextParser.h */,
+				C434B7C7253588E700B92717 /* DWTextRubyAnnotation.h */,
+				C434B7C8253588E700B92717 /* DWTextSelectionView.m */,
+				C434B7C9253588E700B92717 /* DWTextInput.h */,
+				C434B7CA253588E700B92717 /* DWTextContainerView.h */,
+				C434B7CB253588E700B92717 /* DWLabel.h */,
+				C434B7CC253588E700B92717 /* DWTextDebugOption.m */,
+				C434B7CD253588E700B92717 /* Utility */,
 			);
-			path = Controllers;
+			path = DWLabel;
 			sourceTree = "<group>";
 		};
-		4E77A3691F30840000098CAF /* Extension */ = {
+		C434B7CD253588E700B92717 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				4E77A36A1F30840000098CAF /* CGRectExtension.swift */,
-				4E77A36B1F30840000098CAF /* CIImageExtension.swift */,
-				4E77A36C1F30840000098CAF /* CMSampleBufferExtension.swift */,
-				4E77A36D1F30840000098CAF /* DateExtension.swift */,
-				4E77A36E1F30840000098CAF /* StringExtension.swift */,
-				4E77A36F1F30840000098CAF /* UIColorExtension.swift */,
-				4E77A3701F30840000098CAF /* UIImageExtension.swift */,
-				4E77A3711F30840000098CAF /* UIViewExtension.swift */,
+				C434B7CE253588E700B92717 /* DWTextAsyncLayer.m */,
+				C434B7CF253588E700B92717 /* DWTextUtilities.m */,
+				C434B7D0253588E700B92717 /* UIView+DWText.h */,
+				C434B7D1253588E700B92717 /* NSAttributedString+DWText.m */,
+				C434B7D2253588E700B92717 /* DWTextTransaction.h */,
+				C434B7D3253588E700B92717 /* NSParagraphStyle+DWText.m */,
+				C434B7D4253588E700B92717 /* UIPasteboard+DWText.m */,
+				C434B7D5253588E700B92717 /* DWTextWeakProxy.h */,
+				C434B7D6253588E700B92717 /* DWTextAsyncLayer.h */,
+				C434B7D7253588E700B92717 /* DWTextUtilities.h */,
+				C434B7D8253588E700B92717 /* NSParagraphStyle+DWText.h */,
+				C434B7D9253588E700B92717 /* DWTextTransaction.m */,
+				C434B7DA253588E700B92717 /* NSAttributedString+DWText.h */,
+				C434B7DB253588E700B92717 /* UIView+DWText.m */,
+				C434B7DC253588E700B92717 /* DWTextWeakProxy.m */,
+				C434B7DD253588E700B92717 /* UIPasteboard+DWText.h */,
 			);
-			path = Extension;
+			path = Utility;
 			sourceTree = "<group>";
 		};
-		4E77A3721F30840000098CAF /* IMUIMessageCollectionView */ = {
+		C498123D253553EA008B2B61 = {
 			isa = PBXGroup;
 			children = (
-				4E26785C1F905C2F007F3996 /* DWYYLabel */,
-				4E77A3731F30840000098CAF /* Assets */,
-				4E77A3751F30840000098CAF /* Controllers */,
-				4E77A3791F30840000098CAF /* Extension */,
-				4E77A37C1F30840000098CAF /* IMUI.h */,
-				4E77A37D1F30840000098CAF /* Layout */,
-				4E77A37F1F30840000098CAF /* Models */,
-				4E77A3831F30840000098CAF /* Protocol */,
-				4E77A38A1F30840000098CAF /* Views */,
+				C4981249253553EB008B2B61 /* RCTAuroraIMUI */,
+				C4981248253553EB008B2B61 /* Products */,
+				6A29FEA888D7E3041E6B142C /* Pods */,
+				24471291E9853917537B7AE0 /* Frameworks */,
 			);
-			path = IMUIMessageCollectionView;
 			sourceTree = "<group>";
 		};
-		4E77A3731F30840000098CAF /* Assets */ = {
+		C4981248253553EB008B2B61 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E77A3741F30840000098CAF /* IMUIAssets.bundle */,
+				C4981247253553EB008B2B61 /* RCTAuroraIMUI.framework */,
 			);
-			path = Assets;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		4E77A3751F30840000098CAF /* Controllers */ = {
+		C4981249253553EB008B2B61 /* RCTAuroraIMUI */ = {
 			isa = PBXGroup;
 			children = (
-				4E77A3761F30840000098CAF /* IMUIChatDataManager.swift */,
-				4E77A3771F30840000098CAF /* IMUIChatLayout.swift */,
-				4E77A3781F30840000098CAF /* IMUIVideoFileLoader.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		4E77A3791F30840000098CAF /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				4E77A37A1F30840000098CAF /* BundleMessageListExtension.swift */,
-				4E77A37B1F30840000098CAF /* UIImageMessageListExtension.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		4E77A37D1F30840000098CAF /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				4E77A37E1F30840000098CAF /* IMUIMessageCellLayout.swift */,
-			);
-			path = Layout;
-			sourceTree = "<group>";
-		};
-		4E77A37F1F30840000098CAF /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4E77A3801F30840000098CAF /* IMUIMessageModel.swift */,
-				4E77A3811F30840000098CAF /* IMUIReuseViewCache.swift */,
-				4E77A3821F30840000098CAF /* IMUIViewCache.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		4E77A3831F30840000098CAF /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				4E77A3841F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift */,
-				4E77A3851F30840000098CAF /* IMUIMessageCellProtocal.swift */,
-				4E77A3861F30840000098CAF /* IMUIMessageMessageCollectionViewDelegate.swift */,
-				4E77A3871F30840000098CAF /* IMUIMessageModelProtocol.swift */,
-				4E77A3881F30840000098CAF /* IMUIMessageStatusViewProtocal.swift */,
-				4E77A3891F30840000098CAF /* IMUIUserProtocol.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		4E77A38A1F30840000098CAF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4E77A38C1F30840000098CAF /* IMUIBaseMessageCell.swift */,
-				4E4EB39F1F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift */,
-				4E77A38D1F30840000098CAF /* IMUIImageMessageCell.swift */,
-				4E77A38E1F30840000098CAF /* IMUILiveVideoMessageCell.swift */,
-				4E77A38F1F30840000098CAF /* IMUIMessageBubbleView.swift */,
-				4E77A3901F30840000098CAF /* IMUIMessageCollectionView.swift */,
-				4E77A3911F30840000098CAF /* IMUIMessageCollectionView.xib */,
-				4E77A3921F30840000098CAF /* IMUIMessageStatusView.swift */,
-				4E77A3931F30840000098CAF /* IMUITextMessageCell.swift */,
-				4E77A3941F30840000098CAF /* IMUITextView.swift */,
-				4E77A3951F30840000098CAF /* IMUIVideoMessageCell.swift */,
-				4E77A3961F30840000098CAF /* IMUIVoiceMessageCell.swift */,
-				4E5274CD1F3C0925005FB9B9 /* IMUILocationMessageCell.swift */,
-				4E34C33A1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift */,
-				4E5274D11F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift */,
-				4E9CE01B1F9DDB1E005FC8A7 /* IMUICardMessageCell.swift */,
-				4E34C3381F3D45CA00AF4B73 /* IMUITransferMessageCell.swift */,
-				4E34C33C1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift */,
-				4E31CB2C1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift */,
-				4EDCA75B2089809A00B6DB55 /* IMUICustomMessageContentCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		4EC4F96A1F46F0B1000C5CA6 /* MenuPopOverView */ = {
-			isa = PBXGroup;
-			children = (
-				4EC4F96B1F46F0B1000C5CA6 /* MenuPopOverView.h */,
-				4EC4F96C1F46F0B1000C5CA6 /* MenuPopOverView.m */,
-			);
-			path = MenuPopOverView;
-			sourceTree = "<group>";
-		};
-		623EA96F1EE55CB200EC43AE /* RCTAuroraIMUI */ = {
-			isa = PBXGroup;
-			children = (
-				4E49AD801F34176100B50439 /* DWCustomView */,
-				4E77A3661F30840000098CAF /* IMUICommon */,
-				4E77A3721F30840000098CAF /* IMUIMessageCollectionView */,
-				623EA9701EE55CB200EC43AE /* imuiDemo-Bridging-Header.h */,
-				623EA9721EE55CB200EC43AE /* Info.plist */,
-				623EA9731EE55CB200EC43AE /* MyMessageModel.swift */,
-				623EA9741EE55CB200EC43AE /* MyUser.swift */,
-				623EA9751EE55CB200EC43AE /* RCTSwiftBridgeModule.h */,
-				623EA9761EE55CB200EC43AE /* RCTAuroraIMUIModule.h */,
-				623EA9771EE55CB200EC43AE /* RCTAuroraIMUIModule.m */,
-				623EA9781EE55CB200EC43AE /* RCTAuroraIMUI-Bridging-Header.h */,
-				623EA97E1EE55CB200EC43AE /* RCTMessageListView.h */,
-				623EA97F1EE55CB200EC43AE /* RCTMessageListView.m */,
-				4E6573541F66940200D4BAA8 /* DWShowImageVC.h */,
-				4E6573551F66940200D4BAA8 /* DWShowImageVC.m */,
-				4E6804BD20B512000024DAFC /* DWPlayVideoVC.h */,
-				4E6804BE20B512000024DAFC /* DWPlayVideoVC.m */,
-				623EA9801EE55CB200EC43AE /* RCTMessageListView.xib */,
-				623EA9811EE55CB200EC43AE /* RCTMessageListViewManager.m */,
-				623EA99B1EE55D0800EC43AE /* RCTAuroraIMUI.h */,
+				C49812532535544F008B2B61 /* Classes */,
+				C49812D32535544F008B2B61 /* Core */,
+				C498124B253553EB008B2B61 /* Info.plist */,
+				C498124A253553EB008B2B61 /* RCTAuroraIMUI.h */,
 			);
 			path = RCTAuroraIMUI;
 			sourceTree = "<group>";
 		};
-		623EA9A51EE55D0800EC43AE /* RCTAuroraIMUITests */ = {
+		C49812532535544F008B2B61 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				623EA9A61EE55D0800EC43AE /* RCTAuroraIMUITests.m */,
-				623EA9A81EE55D0800EC43AE /* Info.plist */,
+				C49812542535544F008B2B61 /* InputView */,
+				C49812662535544F008B2B61 /* DWEmoticonView */,
+				C49812782535544F008B2B61 /* SwiftFiles */,
+				C49812B42535544F008B2B61 /* RCT */,
+				C49812BB2535544F008B2B61 /* Controller */,
+				C49812C02535544F008B2B61 /* DWCustomView */,
 			);
-			path = RCTAuroraIMUITests;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		626021ED1ED96BA20038AB20 = {
+		C49812542535544F008B2B61 /* InputView */ = {
 			isa = PBXGroup;
 			children = (
-				623EA96F1EE55CB200EC43AE /* RCTAuroraIMUI */,
-				623EA9A51EE55D0800EC43AE /* RCTAuroraIMUITests */,
-				626021F81ED96BA20038AB20 /* Products */,
-				4E4A6D8C1FCC04B3004A169E /* Frameworks */,
+				C49812652535544F008B2B61 /* DWAudioRecorderManager.h */,
+				C498125D2535544F008B2B61 /* DWAudioRecorderManager.m */,
+				C49812642535544F008B2B61 /* DWInputBarControl.h */,
+				C498125E2535544F008B2B61 /* DWInputBarControl.m */,
+				C498125F2535544F008B2B61 /* DWRecordButton.h */,
+				C49812632535544F008B2B61 /* DWRecordButton.m */,
+				C49812622535544F008B2B61 /* HPGrowingTextView.h */,
+				C498125C2535544F008B2B61 /* HPGrowingTextView.m */,
+				C49812562535544F008B2B61 /* HPTextViewInternal.h */,
+				C49812602535544F008B2B61 /* HPTextViewInternal.m */,
+				C49812552535544F008B2B61 /* NIMInputAtCache.h */,
+				C49812612535544F008B2B61 /* NIMInputAtCache.m */,
+				C49812572535544F008B2B61 /* UIView+Extend */,
 			);
+			path = InputView;
 			sourceTree = "<group>";
 		};
-		626021F81ED96BA20038AB20 /* Products */ = {
+		C49812572535544F008B2B61 /* UIView+Extend */ = {
 			isa = PBXGroup;
 			children = (
-				6239E6641EDDB1F700B9AC9C /* libAuroraIMUI.a */,
-				623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */,
-				623EA9A11EE55D0800EC43AE /* RCTAuroraIMUITests.xctest */,
+				C498125B2535544F008B2B61 /* UIImage+DWImageColor.h */,
+				C49812592535544F008B2B61 /* UIImage+DWImageColor.m */,
+				C498125A2535544F008B2B61 /* UIView+Extend.h */,
+				C49812582535544F008B2B61 /* UIView+Extend.m */,
 			);
-			name = Products;
+			path = "UIView+Extend";
+			sourceTree = "<group>";
+		};
+		C49812662535544F008B2B61 /* DWEmoticonView */ = {
+			isa = PBXGroup;
+			children = (
+				C498126C2535544F008B2B61 /* NIMInputEmoticonButton.h */,
+				C49812752535544F008B2B61 /* NIMInputEmoticonButton.m */,
+				C498126D2535544F008B2B61 /* NIMInputEmoticonContainerView.h */,
+				C49812742535544F008B2B61 /* NIMInputEmoticonContainerView.m */,
+				C49812722535544F008B2B61 /* NIMInputEmoticonDefine.h */,
+				C49812692535544F008B2B61 /* NIMInputEmoticonManager.h */,
+				C498126F2535544F008B2B61 /* NIMInputEmoticonManager.m */,
+				C49812712535544F008B2B61 /* NIMInputEmoticonParser.h */,
+				C49812672535544F008B2B61 /* NIMInputEmoticonParser.m */,
+				C49812762535544F008B2B61 /* NIMInputEmoticonTabView.h */,
+				C498126B2535544F008B2B61 /* NIMInputEmoticonTabView.m */,
+				C49812682535544F008B2B61 /* NIMPageView.h */,
+				C49812702535544F008B2B61 /* NIMPageView.m */,
+				C49812732535544F008B2B61 /* NSString+NIMKit.h */,
+				C498126E2535544F008B2B61 /* NSString+NIMKit.m */,
+				C49812772535544F008B2B61 /* UIImage+NIM.h */,
+				C498126A2535544F008B2B61 /* UIImage+NIM.m */,
+			);
+			path = DWEmoticonView;
+			sourceTree = "<group>";
+		};
+		C49812782535544F008B2B61 /* SwiftFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C49812792535544F008B2B61 /* MyMessageModel.swift */,
+				C498127A2535544F008B2B61 /* IMUICommon */,
+				C49812862535544F008B2B61 /* MyUser.swift */,
+				C49812872535544F008B2B61 /* IMUIMessageCollectionView */,
+			);
+			path = SwiftFiles;
+			sourceTree = "<group>";
+		};
+		C498127A2535544F008B2B61 /* IMUICommon */ = {
+			isa = PBXGroup;
+			children = (
+				C498127B2535544F008B2B61 /* Extension */,
+				C49812842535544F008B2B61 /* Controllers */,
+			);
+			path = IMUICommon;
+			sourceTree = "<group>";
+		};
+		C498127B2535544F008B2B61 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C498127C2535544F008B2B61 /* UIColorExtension.swift */,
+				C498127D2535544F008B2B61 /* CMSampleBufferExtension.swift */,
+				C498127E2535544F008B2B61 /* CIImageExtension.swift */,
+				C498127F2535544F008B2B61 /* UIViewExtension.swift */,
+				C49812802535544F008B2B61 /* CGRectExtension.swift */,
+				C49812812535544F008B2B61 /* StringExtension.swift */,
+				C49812822535544F008B2B61 /* UIImageExtension.swift */,
+				C49812832535544F008B2B61 /* DateExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C49812842535544F008B2B61 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C49812852535544F008B2B61 /* IMUIAudioPlayerHelper.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C49812872535544F008B2B61 /* IMUIMessageCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				C49812882535544F008B2B61 /* IMUI.h */,
+				C49812892535544F008B2B61 /* Extension */,
+				C498128C2535544F008B2B61 /* Layout */,
+				C498128E2535544F008B2B61 /* Models */,
+				C49812922535544F008B2B61 /* Protocol */,
+				C49812992535544F008B2B61 /* Controllers */,
+				C498129D2535544F008B2B61 /* Views */,
+			);
+			path = IMUIMessageCollectionView;
+			sourceTree = "<group>";
+		};
+		C49812892535544F008B2B61 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C498128A2535544F008B2B61 /* BundleMessageListExtension.swift */,
+				C498128B2535544F008B2B61 /* UIImageMessageListExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C498128C2535544F008B2B61 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				C498128D2535544F008B2B61 /* IMUIMessageCellLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		C498128E2535544F008B2B61 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C498128F2535544F008B2B61 /* IMUIMessageModel.swift */,
+				C49812902535544F008B2B61 /* IMUIViewCache.swift */,
+				C49812912535544F008B2B61 /* IMUIReuseViewCache.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C49812922535544F008B2B61 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C49812932535544F008B2B61 /* IMUIUserProtocol.swift */,
+				C49812942535544F008B2B61 /* IMUIMessageMessageCollectionViewDelegate.swift */,
+				C49812952535544F008B2B61 /* IMUIMessageStatusViewProtocal.swift */,
+				C49812962535544F008B2B61 /* IMUIMessageCellProtocal.swift */,
+				C49812972535544F008B2B61 /* IMUIMessageCellLayoutProtocal.swift */,
+				C49812982535544F008B2B61 /* IMUIMessageModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C49812992535544F008B2B61 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C498129A2535544F008B2B61 /* IMUIChatDataManager.swift */,
+				C498129B2535544F008B2B61 /* IMUIVideoFileLoader.swift */,
+				C498129C2535544F008B2B61 /* IMUIChatLayout.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C498129D2535544F008B2B61 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C4027C052536A72800D90893 /* IMUIMessageCollectionView.xib */,
+				C498129E2535544F008B2B61 /* IMUIMessageStatusView.swift */,
+				C498129F2535544F008B2B61 /* IMUIMessageCollectionView.swift */,
+				C49812A02535544F008B2B61 /* IMUICustomMessageContentCell.swift */,
+				C49812A12535544F008B2B61 /* IMUILocationMessageCell.swift */,
+				C49812A22535544F008B2B61 /* IMUIMessageBubbleView.swift */,
+				C49812A32535544F008B2B61 /* IMUITextView.swift */,
+				C49812A42535544F008B2B61 /* IMUIBaseMessageHeadCell.swift */,
+				C49812A52535544F008B2B61 /* IMUIRedPacketMessageCell.swift */,
+				C49812A62535544F008B2B61 /* IMUICardMessageCell.swift */,
+				C49812A72535544F008B2B61 /* IMUIVideoMessageCell.swift */,
+				C49812A92535544F008B2B61 /* IMUITextMessageCell.swift */,
+				C49812AA2535544F008B2B61 /* IMUIImageMessageCell.swift */,
+				C49812AB2535544F008B2B61 /* IMUIVoiceMessageCell.swift */,
+				C49812AC2535544F008B2B61 /* IMUITransferMessageCell.swift */,
+				C49812AD2535544F008B2B61 /* IMUIUnKnownMessageCell.swift */,
+				C49812AE2535544F008B2B61 /* IMUIRedPacketOpenMessageCell.swift */,
+				C49812AF2535544F008B2B61 /* IMUIBaseMessageCell.swift */,
+				C49812B02535544F008B2B61 /* IMUILiveVideoMessageCell.swift */,
+				C49812B12535544F008B2B61 /* IMUINotificationMessageCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C49812B42535544F008B2B61 /* RCT */ = {
+			isa = PBXGroup;
+			children = (
+				C4027C022536A6ED00D90893 /* RCTMessageListView.xib */,
+				C49812B62535544F008B2B61 /* RCTMessageListViewManager.m */,
+				C49812B72535544F008B2B61 /* RCTMessageListView.m */,
+				C49812B82535544F008B2B61 /* RCTAuroraIMUIModule.m */,
+				C49812B92535544F008B2B61 /* RCTMessageListView.h */,
+				C49812BA2535544F008B2B61 /* RCTAuroraIMUIModule.h */,
+			);
+			path = RCT;
+			sourceTree = "<group>";
+		};
+		C49812BB2535544F008B2B61 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C49812BC2535544F008B2B61 /* DWPlayVideoVC.h */,
+				C49812BE2535544F008B2B61 /* DWPlayVideoVC.m */,
+				C49812BF2535544F008B2B61 /* DWShowImageVC.h */,
+				C49812BD2535544F008B2B61 /* DWShowImageVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C49812C02535544F008B2B61 /* DWCustomView */ = {
+			isa = PBXGroup;
+			children = (
+				C49812C52535544F008B2B61 /* DWActionSheetView.h */,
+				C49812CF2535544F008B2B61 /* DWActionSheetView.m */,
+				C49812CB2535544F008B2B61 /* DWOrigImageView.h */,
+				C49812C12535544F008B2B61 /* DWOrigImageView.m */,
+				C49812C22535544F008B2B61 /* DWOrigImgView.h */,
+				C49812CA2535544F008B2B61 /* DWOrigImgView.m */,
+				C49812C82535544F008B2B61 /* DWOrigScorllView.h */,
+				C49812D22535544F008B2B61 /* DWOrigScorllView.m */,
+				C49812CD2535544F008B2B61 /* DWRecoderCoveView.h */,
+				C49812C72535544F008B2B61 /* DWRecoderCoveView.m */,
+				C49812D02535544F008B2B61 /* RNCustomInputView.h */,
+				C49812C42535544F008B2B61 /* RNCustomInputView.m */,
+				C49812C92535544F008B2B61 /* RNRecordTipsView.h */,
+				C49812D12535544F008B2B61 /* RNRecordTipsView.m */,
+			);
+			path = DWCustomView;
+			sourceTree = "<group>";
+		};
+		C49812D32535544F008B2B61 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C434B7AB253588E700B92717 /* DWLabel */,
+				C498135E253557AE008B2B61 /* MenuPopOverView.h */,
+				C4981360253557AF008B2B61 /* MenuPopOverView.m */,
+				C498135F253557AE008B2B61 /* MyCacheImageView.h */,
+				C4981361253557AF008B2B61 /* MyCacheImageView.m */,
+				C49812D42535544F008B2B61 /* OCBridgingHeader.h */,
+				C49812D52535544F008B2B61 /* module.modulemap */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		623EA9961EE55D0800EC43AE /* Headers */ = {
+		C4981242253553EB008B2B61 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E3B9B361F4BD4F400218A0D /* DWAudioRecorderManager.h in Headers */,
-				4E36B2C51F629613009ECBAE /* DWOrigScorllView.h in Headers */,
-				4E49AE2D1F3476E500B50439 /* NIMInputEmoticonDefine.h in Headers */,
-				4E77A3B41F30840000098CAF /* IMUI.h in Headers */,
-				4E49AE2A1F3476CC00B50439 /* NIMInputEmoticonManager.h in Headers */,
-				4E40B9761F67CFBB00E2FE50 /* DWRecoderCoveView.h in Headers */,
-				4E2678941F905E90007F3996 /* NSAttributedString+YYText.h in Headers */,
-				4E2678951F905E90007F3996 /* YYTextAsyncLayer.h in Headers */,
-				4E2678961F905E90007F3996 /* YYTextUtilities.h in Headers */,
-				4E2678971F905E90007F3996 /* YYTextWeakProxy.h in Headers */,
-				4E2678981F905E90007F3996 /* YYLabel.h in Headers */,
-				4E2678931F905E33007F3996 /* NIMInputEmoticonParser.h in Headers */,
-				4E49AE261F34767100B50439 /* UIImage+NIM.h in Headers */,
-				4E26789C1F905F51007F3996 /* YYTextRubyAnnotation.h in Headers */,
-				4E26789B1F905F3E007F3996 /* YYTextLayout.h in Headers */,
-				4E2678991F905F1C007F3996 /* YYTextAttribute.h in Headers */,
-				4E26789A1F905F1C007F3996 /* YYTextParser.h in Headers */,
-				4E26789D1F905F8C007F3996 /* YYText.h in Headers */,
-				4E26789E1F905FB3007F3996 /* YYTextDebugOption.h in Headers */,
-				4E26789F1F905FB3007F3996 /* YYTextInput.h in Headers */,
-				4E2678A01F905FB3007F3996 /* YYTextLine.h in Headers */,
-				4EC4F96D1F46F0B1000C5CA6 /* MenuPopOverView.h in Headers */,
-				4E49AE301F3476F800B50439 /* NSString+NIMKit.h in Headers */,
-				4E49ADD61F341BB400B50439 /* MyCacheImageView.h in Headers */,
-				4E49AE1E1F34762200B50439 /* NIMInputEmoticonButton.h in Headers */,
-				4E36B2C81F62964E009ECBAE /* DWOrigImageView.h in Headers */,
-				4E6804BF20B512000024DAFC /* DWPlayVideoVC.h in Headers */,
-				4E49AD9D1F34178000B50439 /* UIView+Extend.h in Headers */,
-				4E49AD991F34178000B50439 /* HPGrowingTextView.h in Headers */,
-				623EA9A91EE55D0800EC43AE /* RCTAuroraIMUI.h in Headers */,
-				4E49ADEA1F346B7500B50439 /* NIMInputEmoticonContainerView.h in Headers */,
-				4E49AD971F34178000B50439 /* DWRecordButton.h in Headers */,
-				4E49AE221F34764100B50439 /* NIMInputEmoticonTabView.h in Headers */,
-				4E40B95C1F67B90800E2FE50 /* DWActionSheetView.h in Headers */,
-				4E49AD871F34176100B50439 /* RNRecordTipsView.h in Headers */,
-				4E1BA8841F39AB8400A15E62 /* NIMInputAtCache.h in Headers */,
-				4E49AD851F34176100B50439 /* RNCustomInputView.h in Headers */,
-				4E49AE1A1F34760500B50439 /* NIMPageView.h in Headers */,
-				4E6573561F66940200D4BAA8 /* DWShowImageVC.h in Headers */,
-				4E49AD951F34178000B50439 /* DWInputBarControl.h in Headers */,
-				4E40B9661F67BC2400E2FE50 /* UIImage+DWImageColor.h in Headers */,
-				4E49AD9B1F34178000B50439 /* HPTextViewInternal.h in Headers */,
+				C49813402535544F008B2B61 /* RNCustomInputView.h in Headers */,
+				C4981363253557AF008B2B61 /* MyCacheImageView.h in Headers */,
+				C498132C2535544F008B2B61 /* RCTAuroraIMUIModule.h in Headers */,
+				C49813322535544F008B2B61 /* DWOrigImgView.h in Headers */,
+				C4981362253557AF008B2B61 /* MenuPopOverView.h in Headers */,
+				C434B7F1253588E700B92717 /* DWTextView.h in Headers */,
+				C434B80E253588E700B92717 /* UIPasteboard+DWText.h in Headers */,
+				C434B7E8253588E700B92717 /* DWTextSelectionView.h in Headers */,
+				C434B7DE253588E700B92717 /* DWText.h in Headers */,
+				C434B7F2253588E700B92717 /* DWTextEffectWindow.h in Headers */,
+				C49812EB2535544F008B2B61 /* NIMInputEmoticonButton.h in Headers */,
+				C49812E52535544F008B2B61 /* DWAudioRecorderManager.h in Headers */,
+				C49812D62535544F008B2B61 /* NIMInputAtCache.h in Headers */,
+				C434B7E5253588E700B92717 /* DWTextLine.h in Headers */,
+				C434B7FB253588E700B92717 /* DWTextInput.h in Headers */,
+				C49812E22535544F008B2B61 /* HPGrowingTextView.h in Headers */,
+				C49813302535544F008B2B61 /* DWShowImageVC.h in Headers */,
+				C49812E42535544F008B2B61 /* DWInputBarControl.h in Headers */,
+				C434B7E6253588E700B92717 /* DWTextAttribute.h in Headers */,
+				C434B801253588E700B92717 /* UIView+DWText.h in Headers */,
+				C434B807253588E700B92717 /* DWTextAsyncLayer.h in Headers */,
+				C434B7F7253588E700B92717 /* DWTextArchiver.h in Headers */,
+				C434B7E4253588E700B92717 /* DWTextKeyboardManager.h in Headers */,
+				C434B809253588E700B92717 /* NSParagraphStyle+DWText.h in Headers */,
+				C49812DA2535544F008B2B61 /* UIView+Extend.h in Headers */,
+				C49812F22535544F008B2B61 /* NSString+NIMKit.h in Headers */,
+				C49813022535544F008B2B61 /* IMUI.h in Headers */,
+				C434B803253588E700B92717 /* DWTextTransaction.h in Headers */,
+				C434B80B253588E700B92717 /* NSAttributedString+DWText.h in Headers */,
+				C49812E82535544F008B2B61 /* NIMInputEmoticonManager.h in Headers */,
+				C434B7F8253588E700B92717 /* DWTextParser.h in Headers */,
+				C49812EC2535544F008B2B61 /* NIMInputEmoticonContainerView.h in Headers */,
+				C49812F62535544F008B2B61 /* UIImage+NIM.h in Headers */,
+				C434B7F9253588E700B92717 /* DWTextRubyAnnotation.h in Headers */,
+				C434B7ED253588E700B92717 /* DWTextDebugOption.h in Headers */,
+				C498133B2535544F008B2B61 /* DWOrigImageView.h in Headers */,
+				C49812E72535544F008B2B61 /* NIMPageView.h in Headers */,
+				C49812F52535544F008B2B61 /* NIMInputEmoticonTabView.h in Headers */,
+				C49812F02535544F008B2B61 /* NIMInputEmoticonParser.h in Headers */,
+				C49812DF2535544F008B2B61 /* DWRecordButton.h in Headers */,
+				C498124C253553EB008B2B61 /* RCTAuroraIMUI.h in Headers */,
+				C434B7FC253588E700B92717 /* DWTextContainerView.h in Headers */,
+				C49812D72535544F008B2B61 /* HPTextViewInternal.h in Headers */,
+				C49812DB2535544F008B2B61 /* UIImage+DWImageColor.h in Headers */,
+				C434B7F6253588E700B92717 /* DWTextRunDelegate.h in Headers */,
+				C434B7FD253588E700B92717 /* DWLabel.h in Headers */,
+				C434B7E1253588E700B92717 /* DWTextLayout.h in Headers */,
+				C49813432535544F008B2B61 /* OCBridgingHeader.h in Headers */,
+				C49813392535544F008B2B61 /* RNRecordTipsView.h in Headers */,
+				C49813352535544F008B2B61 /* DWActionSheetView.h in Headers */,
+				C434B806253588E700B92717 /* DWTextWeakProxy.h in Headers */,
+				C49812F12535544F008B2B61 /* NIMInputEmoticonDefine.h in Headers */,
+				C498133D2535544F008B2B61 /* DWRecoderCoveView.h in Headers */,
+				C434B808253588E700B92717 /* DWTextUtilities.h in Headers */,
+				C49813382535544F008B2B61 /* DWOrigScorllView.h in Headers */,
+				C498132D2535544F008B2B61 /* DWPlayVideoVC.h in Headers */,
+				C498132B2535544F008B2B61 /* RCTMessageListView.h in Headers */,
+				C434B7EF253588E700B92717 /* DWTextMagnifier.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6239E6631EDDB1F700B9AC9C /* AuroraIMUI */ = {
+		C4981246253553EB008B2B61 /* RCTAuroraIMUI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6239E66A1EDDB1F700B9AC9C /* Build configuration list for PBXNativeTarget "AuroraIMUI" */;
+			buildConfigurationList = C498124F253553EB008B2B61 /* Build configuration list for PBXNativeTarget "RCTAuroraIMUI" */;
 			buildPhases = (
-				6239E6601EDDB1F700B9AC9C /* Sources */,
-				6239E6611EDDB1F700B9AC9C /* Frameworks */,
-				6239E6621EDDB1F700B9AC9C /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AuroraIMUI;
-			productName = AuroraIMUI;
-			productReference = 6239E6641EDDB1F700B9AC9C /* libAuroraIMUI.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		623EA9981EE55D0800EC43AE /* RCTAuroraIMUI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 623EA9AA1EE55D0800EC43AE /* Build configuration list for PBXNativeTarget "RCTAuroraIMUI" */;
-			buildPhases = (
-				623EA9941EE55D0800EC43AE /* Sources */,
-				623EA9951EE55D0800EC43AE /* Frameworks */,
-				623EA9961EE55D0800EC43AE /* Headers */,
-				623EA9971EE55D0800EC43AE /* Resources */,
+				94683A2691F0910CB7237AF4 /* [CP] Check Pods Manifest.lock */,
+				C4981242253553EB008B2B61 /* Headers */,
+				C4981243253553EB008B2B61 /* Sources */,
+				C4981244253553EB008B2B61 /* Frameworks */,
+				C4981245253553EB008B2B61 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -843,361 +808,226 @@
 			);
 			name = RCTAuroraIMUI;
 			productName = RCTAuroraIMUI;
-			productReference = 623EA9991EE55D0800EC43AE /* RCTAuroraIMUI.framework */;
+			productReference = C4981247253553EB008B2B61 /* RCTAuroraIMUI.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		623EA9A01EE55D0800EC43AE /* RCTAuroraIMUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 623EA9AD1EE55D0800EC43AE /* Build configuration list for PBXNativeTarget "RCTAuroraIMUITests" */;
-			buildPhases = (
-				623EA99D1EE55D0800EC43AE /* Sources */,
-				623EA99E1EE55D0800EC43AE /* Frameworks */,
-				623EA99F1EE55D0800EC43AE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				623EA9A41EE55D0800EC43AE /* PBXTargetDependency */,
-			);
-			name = RCTAuroraIMUITests;
-			productName = RCTAuroraIMUITests;
-			productReference = 623EA9A11EE55D0800EC43AE /* RCTAuroraIMUITests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		626021EE1ED96BA20038AB20 /* Project object */ = {
+		C498123E253553EA008B2B61 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = HXHG;
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					6239E6631EDDB1F700B9AC9C = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = RL64Y54S9V;
-						ProvisioningStyle = Automatic;
-					};
-					623EA9981EE55D0800EC43AE = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = RL64Y54S9V;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-					};
-					623EA9A01EE55D0800EC43AE = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = RL64Y54S9V;
-						ProvisioningStyle = Automatic;
+					C4981246253553EB008B2B61 = {
+						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
-			buildConfigurationList = 626021F11ED96BA20038AB20 /* Build configuration list for PBXProject "RCTAuroraIMUI" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			buildConfigurationList = C4981241253553EA008B2B61 /* Build configuration list for PBXProject "RCTAuroraIMUI" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
-			mainGroup = 626021ED1ED96BA20038AB20;
-			productRefGroup = 626021F81ED96BA20038AB20 /* Products */;
+			mainGroup = C498123D253553EA008B2B61;
+			productRefGroup = C4981248253553EB008B2B61 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6239E6631EDDB1F700B9AC9C /* AuroraIMUI */,
-				623EA9981EE55D0800EC43AE /* RCTAuroraIMUI */,
-				623EA9A01EE55D0800EC43AE /* RCTAuroraIMUITests */,
+				C4981246253553EB008B2B61 /* RCTAuroraIMUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		623EA9971EE55D0800EC43AE /* Resources */ = {
+		C4981245253553EB008B2B61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E77A3AE1F30840000098CAF /* IMUIAssets.bundle in Resources */,
-				4E77A3C51F30840000098CAF /* IMUIMessageCollectionView.xib in Resources */,
-				624B82DB1EE57482006C3C03 /* RCTMessageListView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623EA99F1EE55D0800EC43AE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				C4027C062536A72800D90893 /* IMUIMessageCollectionView.xib in Resources */,
+				C4027C032536A6ED00D90893 /* RCTMessageListView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		94683A2691F0910CB7237AF4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RCTAuroraIMUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		6239E6601EDDB1F700B9AC9C /* Sources */ = {
+		C4981243253553EB008B2B61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E49AD9F1F34179A00B50439 /* RNCustomInputView.m in Sources */,
-				624B82DD1EE57653006C3C03 /* RCTAuroraIMUIModule.m in Sources */,
-				623EAA331EE55D4200EC43AE /* RCTMessageListViewManager.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623EA9941EE55D0800EC43AE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E2678A11F9061B5007F3996 /* YYTextContainerView.m in Sources */,
-				4E2678A21F9061B5007F3996 /* YYTextDebugOption.m in Sources */,
-				4E2678A31F9061B5007F3996 /* YYTextEffectWindow.m in Sources */,
-				4E2678A41F9061B5007F3996 /* YYTextInput.m in Sources */,
-				4E2678A51F9061B5007F3996 /* YYTextKeyboardManager.m in Sources */,
-				4E2678A61F9061B5007F3996 /* YYTextLayout.m in Sources */,
-				4E2678A71F9061B5007F3996 /* YYTextLine.m in Sources */,
-				4E2678A81F9061B5007F3996 /* YYTextMagnifier.m in Sources */,
-				4E2678A91F9061B5007F3996 /* YYTextSelectionView.m in Sources */,
-				4E2678AA1F9061B5007F3996 /* NIMInputEmoticonParser.m in Sources */,
-				4E2678AB1F9061B5007F3996 /* YYTextArchiver.m in Sources */,
-				4E2678AC1F9061B5007F3996 /* YYTextAttribute.m in Sources */,
-				4E2678AD1F9061B5007F3996 /* YYTextParser.m in Sources */,
-				4E2678AE1F9061B5007F3996 /* YYTextRubyAnnotation.m in Sources */,
-				4E2678AF1F9061B5007F3996 /* YYTextRunDelegate.m in Sources */,
-				4E2678B01F9061B5007F3996 /* NSAttributedString+YYText.m in Sources */,
-				4E2678B11F9061B5007F3996 /* NSParagraphStyle+YYText.m in Sources */,
-				4E2678B21F9061B5007F3996 /* UIPasteboard+YYText.m in Sources */,
-				4E2678B31F9061B5007F3996 /* UIView+YYText.m in Sources */,
-				4E2678B41F9061B5007F3996 /* YYTextAsyncLayer.m in Sources */,
-				4E2678B51F9061B5007F3996 /* YYTextTransaction.m in Sources */,
-				4E2678B61F9061B5007F3996 /* YYTextUtilities.m in Sources */,
-				4E2678B71F9061B5007F3996 /* YYTextWeakProxy.m in Sources */,
-				4E2678B81F9061B5007F3996 /* YYLabel.m in Sources */,
-				4E2678B91F9061B5007F3996 /* YYTextView.m in Sources */,
-				4E77A3A81F30840000098CAF /* CMSampleBufferExtension.swift in Sources */,
-				4E77A3C81F30840000098CAF /* IMUITextView.swift in Sources */,
-				4E77A3A91F30840000098CAF /* DateExtension.swift in Sources */,
-				4E77A3AC1F30840000098CAF /* UIImageExtension.swift in Sources */,
-				4E77A3CA1F30840000098CAF /* IMUIVoiceMessageCell.swift in Sources */,
-				4E40B9671F67BC2400E2FE50 /* UIImage+DWImageColor.m in Sources */,
-				4E49AD981F34178000B50439 /* DWRecordButton.m in Sources */,
-				4E77A3C91F30840000098CAF /* IMUIVideoMessageCell.swift in Sources */,
-				624B82901EE5710E006C3C03 /* MyMessageModel.swift in Sources */,
-				4E36B2C91F62964E009ECBAE /* DWOrigImageView.m in Sources */,
-				4E49AD9A1F34178000B50439 /* HPGrowingTextView.m in Sources */,
-				4E77A3B21F30840000098CAF /* BundleMessageListExtension.swift in Sources */,
-				4E40B9771F67CFBB00E2FE50 /* DWRecoderCoveView.m in Sources */,
-				4E49AE311F3476F800B50439 /* NSString+NIMKit.m in Sources */,
-				4E77A3B81F30840000098CAF /* IMUIViewCache.swift in Sources */,
-				4E77A3C21F30840000098CAF /* IMUILiveVideoMessageCell.swift in Sources */,
-				4EC4F96E1F46F0B1000C5CA6 /* MenuPopOverView.m in Sources */,
-				4E34C33D1F3DA73900AF4B73 /* IMUIRedPacketOpenMessageCell.swift in Sources */,
-				4E77A3AD1F30840000098CAF /* UIViewExtension.swift in Sources */,
-				624B82911EE5710E006C3C03 /* MyUser.swift in Sources */,
-				4EDCA75C2089809A00B6DB55 /* IMUICustomMessageContentCell.swift in Sources */,
-				4E77A3BD1F30840000098CAF /* IMUIMessageStatusViewProtocal.swift in Sources */,
-				4E31CB2D1F5E8ED6007C3096 /* IMUIUnKnownMessageCell.swift in Sources */,
-				4E5274D21F3C5CE2005FB9B9 /* IMUIRedPacketMessageCell.swift in Sources */,
-				4E49AD881F34176100B50439 /* RNRecordTipsView.m in Sources */,
-				4E77A3C41F30840000098CAF /* IMUIMessageCollectionView.swift in Sources */,
-				4E1BA8851F39AB8400A15E62 /* NIMInputAtCache.m in Sources */,
-				4E40B95D1F67B90800E2FE50 /* DWActionSheetView.m in Sources */,
-				4E34C33B1F3D8AB600AF4B73 /* IMUINotificationMessageCell.swift in Sources */,
-				4E77A3A71F30840000098CAF /* CIImageExtension.swift in Sources */,
-				4E77A3B31F30840000098CAF /* UIImageMessageListExtension.swift in Sources */,
-				4E77A3C01F30840000098CAF /* IMUIBaseMessageCell.swift in Sources */,
-				4E77A3AA1F30840000098CAF /* StringExtension.swift in Sources */,
-				4E77A3A61F30840000098CAF /* CGRectExtension.swift in Sources */,
-				4E49AE2B1F3476CC00B50439 /* NIMInputEmoticonManager.m in Sources */,
-				4E3B9B371F4BD4F400218A0D /* DWAudioRecorderManager.m in Sources */,
-				4E34C3391F3D45CA00AF4B73 /* IMUITransferMessageCell.swift in Sources */,
-				624B82941EE5710E006C3C03 /* RCTAuroraIMUIModule.m in Sources */,
-				4E77A3BA1F30840000098CAF /* IMUIMessageCellProtocal.swift in Sources */,
-				4E77A3B91F30840000098CAF /* IMUIMessageCellLayoutProtocal.swift in Sources */,
-				4E77A3B01F30840000098CAF /* IMUIChatLayout.swift in Sources */,
-				4E49ADEB1F346B7500B50439 /* NIMInputEmoticonContainerView.m in Sources */,
-				4E77A3C61F30840000098CAF /* IMUIMessageStatusView.swift in Sources */,
-				4E77A3BB1F30840000098CAF /* IMUIMessageMessageCollectionViewDelegate.swift in Sources */,
-				4E49AE1F1F34762200B50439 /* NIMInputEmoticonButton.m in Sources */,
-				4E49AD861F34176100B50439 /* RNCustomInputView.m in Sources */,
-				4E49AD9E1F34178000B50439 /* UIView+Extend.m in Sources */,
-				4E9CE01C1F9DDB1E005FC8A7 /* IMUICardMessageCell.swift in Sources */,
-				4E77A3A51F30840000098CAF /* IMUIAudioPlayerHelper.swift in Sources */,
-				4E77A3C11F30840000098CAF /* IMUIImageMessageCell.swift in Sources */,
-				4E49ADD71F341BB400B50439 /* MyCacheImageView.m in Sources */,
-				4E77A3B61F30840000098CAF /* IMUIMessageModel.swift in Sources */,
-				4E77A3BE1F30840000098CAF /* IMUIUserProtocol.swift in Sources */,
-				4E49AE231F34764100B50439 /* NIMInputEmoticonTabView.m in Sources */,
-				4E4EB3A01F5112F6009A5AF8 /* IMUIBaseMessageHeadCell.swift in Sources */,
-				4E77A3BC1F30840000098CAF /* IMUIMessageModelProtocol.swift in Sources */,
-				4E77A3C31F30840000098CAF /* IMUIMessageBubbleView.swift in Sources */,
-				4E6573571F66940200D4BAA8 /* DWShowImageVC.m in Sources */,
-				4E49AD961F34178000B50439 /* DWInputBarControl.m in Sources */,
-				4E49AE271F34767100B50439 /* UIImage+NIM.m in Sources */,
-				4E6804C020B512000024DAFC /* DWPlayVideoVC.m in Sources */,
-				4E5274CE1F3C0925005FB9B9 /* IMUILocationMessageCell.swift in Sources */,
-				4E77A3AF1F30840000098CAF /* IMUIChatDataManager.swift in Sources */,
-				624B829B1EE5710E006C3C03 /* RCTMessageListView.m in Sources */,
-				4E49AD9C1F34178000B50439 /* HPTextViewInternal.m in Sources */,
-				4E77A3B71F30840000098CAF /* IMUIReuseViewCache.swift in Sources */,
-				4E77A3AB1F30840000098CAF /* UIColorExtension.swift in Sources */,
-				4E77A3C71F30840000098CAF /* IMUITextMessageCell.swift in Sources */,
-				624B829D1EE5710E006C3C03 /* RCTMessageListViewManager.m in Sources */,
-				4E77A3B11F30840000098CAF /* IMUIVideoFileLoader.swift in Sources */,
-				4E77A3B51F30840000098CAF /* IMUIMessageCellLayout.swift in Sources */,
-				4E49AE1B1F34760500B50439 /* NIMPageView.m in Sources */,
-				4E36B2C41F629613009ECBAE /* DWOrigScorllView.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623EA99D1EE55D0800EC43AE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				623EA9A71EE55D0800EC43AE /* RCTAuroraIMUITests.m in Sources */,
+				C49812F92535544F008B2B61 /* CMSampleBufferExtension.swift in Sources */,
+				C434B7E2253588E700B92717 /* DWTextMagnifier.m in Sources */,
+				C434B7EE253588E700B92717 /* DWTextContainerView.m in Sources */,
+				C49813172535544F008B2B61 /* IMUITextView.swift in Sources */,
+				C434B80A253588E700B92717 /* DWTextTransaction.m in Sources */,
+				C49812E12535544F008B2B61 /* NIMInputAtCache.m in Sources */,
+				C49813132535544F008B2B61 /* IMUIMessageCollectionView.swift in Sources */,
+				C434B7FA253588E700B92717 /* DWTextSelectionView.m in Sources */,
+				C49812F42535544F008B2B61 /* NIMInputEmoticonButton.m in Sources */,
+				C49813252535544F008B2B61 /* IMUINotificationMessageCell.swift in Sources */,
+				C49812F32535544F008B2B61 /* NIMInputEmoticonContainerView.m in Sources */,
+				C49812E32535544F008B2B61 /* DWRecordButton.m in Sources */,
+				C498130F2535544F008B2B61 /* IMUIChatDataManager.swift in Sources */,
+				C49812E02535544F008B2B61 /* HPTextViewInternal.m in Sources */,
+				C498130A2535544F008B2B61 /* IMUIMessageMessageCollectionViewDelegate.swift in Sources */,
+				C498130C2535544F008B2B61 /* IMUIMessageCellProtocal.swift in Sources */,
+				C49813032535544F008B2B61 /* BundleMessageListExtension.swift in Sources */,
+				C49813312535544F008B2B61 /* DWOrigImageView.m in Sources */,
+				C49812F82535544F008B2B61 /* UIColorExtension.swift in Sources */,
+				C49813122535544F008B2B61 /* IMUIMessageStatusView.swift in Sources */,
+				C49812DC2535544F008B2B61 /* HPGrowingTextView.m in Sources */,
+				C434B7DF253588E700B92717 /* DWTextEffectWindow.m in Sources */,
+				C49813232535544F008B2B61 /* IMUIBaseMessageCell.swift in Sources */,
+				C434B7EC253588E700B92717 /* DWLabel.m in Sources */,
+				C49813182535544F008B2B61 /* IMUIBaseMessageHeadCell.swift in Sources */,
+				C49813422535544F008B2B61 /* DWOrigScorllView.m in Sources */,
+				C434B802253588E700B92717 /* NSAttributedString+DWText.m in Sources */,
+				C434B7EB253588E700B92717 /* DWTextParser.m in Sources */,
+				C49812DD2535544F008B2B61 /* DWAudioRecorderManager.m in Sources */,
+				C434B7E7253588E700B92717 /* DWTextInput.m in Sources */,
+				C434B80D253588E700B92717 /* DWTextWeakProxy.m in Sources */,
+				C49812EE2535544F008B2B61 /* NIMInputEmoticonManager.m in Sources */,
+				C498130D2535544F008B2B61 /* IMUIMessageCellLayoutProtocal.swift in Sources */,
+				C49813042535544F008B2B61 /* UIImageMessageListExtension.swift in Sources */,
+				C49812D92535544F008B2B61 /* UIImage+DWImageColor.m in Sources */,
+				C49813102535544F008B2B61 /* IMUIVideoFileLoader.swift in Sources */,
+				C434B7F3253588E700B92717 /* DWTextAttribute.m in Sources */,
+				C49812FF2535544F008B2B61 /* DateExtension.swift in Sources */,
+				C49812D82535544F008B2B61 /* UIView+Extend.m in Sources */,
+				C49812E62535544F008B2B61 /* NIMInputEmoticonParser.m in Sources */,
+				C49812F72535544F008B2B61 /* MyMessageModel.swift in Sources */,
+				C434B804253588E700B92717 /* NSParagraphStyle+DWText.m in Sources */,
+				C434B800253588E700B92717 /* DWTextUtilities.m in Sources */,
+				C434B7EA253588E700B92717 /* DWTextArchiver.m in Sources */,
+				C49813412535544F008B2B61 /* RNRecordTipsView.m in Sources */,
+				C498133A2535544F008B2B61 /* DWOrigImgView.m in Sources */,
+				C49813072535544F008B2B61 /* IMUIViewCache.swift in Sources */,
+				C4981364253557AF008B2B61 /* MenuPopOverView.m in Sources */,
+				C498132A2535544F008B2B61 /* RCTAuroraIMUIModule.m in Sources */,
+				C49812EA2535544F008B2B61 /* NIMInputEmoticonTabView.m in Sources */,
+				C49813012535544F008B2B61 /* MyUser.swift in Sources */,
+				C434B7FE253588E700B92717 /* DWTextDebugOption.m in Sources */,
+				C434B7E9253588E700B92717 /* DWTextRubyAnnotation.m in Sources */,
+				C498131F2535544F008B2B61 /* IMUIVoiceMessageCell.swift in Sources */,
+				C49813202535544F008B2B61 /* IMUITransferMessageCell.swift in Sources */,
+				C498131B2535544F008B2B61 /* IMUIVideoMessageCell.swift in Sources */,
+				C49812EF2535544F008B2B61 /* NIMPageView.m in Sources */,
+				C49813062535544F008B2B61 /* IMUIMessageModel.swift in Sources */,
+				C49813282535544F008B2B61 /* RCTMessageListViewManager.m in Sources */,
+				C4981365253557AF008B2B61 /* MyCacheImageView.m in Sources */,
+				C49812E92535544F008B2B61 /* UIImage+NIM.m in Sources */,
+				C434B7F4253588E700B92717 /* DWTextLine.m in Sources */,
+				C49813342535544F008B2B61 /* RNCustomInputView.m in Sources */,
+				C498130E2535544F008B2B61 /* IMUIMessageModelProtocol.swift in Sources */,
+				C498133F2535544F008B2B61 /* DWActionSheetView.m in Sources */,
+				C49812FA2535544F008B2B61 /* CIImageExtension.swift in Sources */,
+				C49813222535544F008B2B61 /* IMUIRedPacketOpenMessageCell.swift in Sources */,
+				C49813092535544F008B2B61 /* IMUIUserProtocol.swift in Sources */,
+				C498131A2535544F008B2B61 /* IMUICardMessageCell.swift in Sources */,
+				C434B7F5253588E700B92717 /* DWTextKeyboardManager.m in Sources */,
+				C49813212535544F008B2B61 /* IMUIUnKnownMessageCell.swift in Sources */,
+				C49813192535544F008B2B61 /* IMUIRedPacketMessageCell.swift in Sources */,
+				C498131D2535544F008B2B61 /* IMUITextMessageCell.swift in Sources */,
+				C498132E2535544F008B2B61 /* DWShowImageVC.m in Sources */,
+				C49813372535544F008B2B61 /* DWRecoderCoveView.m in Sources */,
+				C434B7E0253588E700B92717 /* DWTextView.m in Sources */,
+				C498131E2535544F008B2B61 /* IMUIImageMessageCell.swift in Sources */,
+				C49812FB2535544F008B2B61 /* UIViewExtension.swift in Sources */,
+				C49813152535544F008B2B61 /* IMUILocationMessageCell.swift in Sources */,
+				C434B7F0253588E700B92717 /* DWTextLayout.m in Sources */,
+				C49812DE2535544F008B2B61 /* DWInputBarControl.m in Sources */,
+				C434B80C253588E700B92717 /* UIView+DWText.m in Sources */,
+				C49813292535544F008B2B61 /* RCTMessageListView.m in Sources */,
+				C498132F2535544F008B2B61 /* DWPlayVideoVC.m in Sources */,
+				C49813162535544F008B2B61 /* IMUIMessageBubbleView.swift in Sources */,
+				C49813242535544F008B2B61 /* IMUILiveVideoMessageCell.swift in Sources */,
+				C49812ED2535544F008B2B61 /* NSString+NIMKit.m in Sources */,
+				C49812FD2535544F008B2B61 /* StringExtension.swift in Sources */,
+				C434B805253588E700B92717 /* UIPasteboard+DWText.m in Sources */,
+				C434B7FF253588E700B92717 /* DWTextAsyncLayer.m in Sources */,
+				C49813112535544F008B2B61 /* IMUIChatLayout.swift in Sources */,
+				C498130B2535544F008B2B61 /* IMUIMessageStatusViewProtocal.swift in Sources */,
+				C49813002535544F008B2B61 /* IMUIAudioPlayerHelper.swift in Sources */,
+				C49812FC2535544F008B2B61 /* CGRectExtension.swift in Sources */,
+				C49813142535544F008B2B61 /* IMUICustomMessageContentCell.swift in Sources */,
+				C49813082535544F008B2B61 /* IMUIReuseViewCache.swift in Sources */,
+				C49812FE2535544F008B2B61 /* UIImageExtension.swift in Sources */,
+				C434B7E3253588E700B92717 /* DWTextRunDelegate.m in Sources */,
+				C49813052535544F008B2B61 /* IMUIMessageCellLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		623EA9A41EE55D0800EC43AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 623EA9981EE55D0800EC43AE /* RCTAuroraIMUI */;
-			targetProxy = 623EA9A31EE55D0800EC43AE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		6239E66B1EDDB1F700B9AC9C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				ENABLE_BITCODE = YES;
-				HEADER_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		6239E66C1EDDB1F700B9AC9C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				ENABLE_BITCODE = YES;
-				HEADER_SEARCH_PATHS = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		623EA9AB1EE55D0800EC43AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public/**";
-				INFOPLIST_FILE = RCTAuroraIMUI/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-lReact",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-			};
-			name = Debug;
-		};
-		623EA9AC1EE55D0800EC43AE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../ios/Pods/Headers/Public/**";
-				INFOPLIST_FILE = RCTAuroraIMUI/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-lReact",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUI;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-			};
-			name = Release;
-		};
-		623EA9AE1EE55D0800EC43AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				INFOPLIST_FILE = RCTAuroraIMUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		623EA9AF1EE55D0800EC43AE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
-				INFOPLIST_FILE = RCTAuroraIMUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = HXHG.RCTAuroraIMUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		626022091ED96BA20038AB20 /* Debug */ = {
+		C498124D253553EB008B2B61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1211,47 +1041,55 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		6260220A1ED96BA20038AB20 /* Release */ = {
+		C498124E253553EB008B2B61 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1259,58 +1097,96 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
+		C4981250253553EB008B2B61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6ADCA3590CE27D3398E86EE3 /* Pods-RCTAuroraIMUI.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = RCTAuroraIMUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ysf.AuroraIMUI.RCTAuroraIMUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/RCTAuroraIMUI/Core/";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4981251253553EB008B2B61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3666DCC7238404DCD7B9D5FE /* Pods-RCTAuroraIMUI.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = RCTAuroraIMUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ysf.AuroraIMUI.RCTAuroraIMUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/RCTAuroraIMUI/Core/";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6239E66A1EDDB1F700B9AC9C /* Build configuration list for PBXNativeTarget "AuroraIMUI" */ = {
+		C4981241253553EA008B2B61 /* Build configuration list for PBXProject "RCTAuroraIMUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6239E66B1EDDB1F700B9AC9C /* Debug */,
-				6239E66C1EDDB1F700B9AC9C /* Release */,
+				C498124D253553EB008B2B61 /* Debug */,
+				C498124E253553EB008B2B61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		623EA9AA1EE55D0800EC43AE /* Build configuration list for PBXNativeTarget "RCTAuroraIMUI" */ = {
+		C498124F253553EB008B2B61 /* Build configuration list for PBXNativeTarget "RCTAuroraIMUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				623EA9AB1EE55D0800EC43AE /* Debug */,
-				623EA9AC1EE55D0800EC43AE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		623EA9AD1EE55D0800EC43AE /* Build configuration list for PBXNativeTarget "RCTAuroraIMUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				623EA9AE1EE55D0800EC43AE /* Debug */,
-				623EA9AF1EE55D0800EC43AE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		626021F11ED96BA20038AB20 /* Build configuration list for PBXProject "RCTAuroraIMUI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				626022091ED96BA20038AB20 /* Debug */,
-				6260220A1ED96BA20038AB20 /* Release */,
+				C4981250253553EB008B2B61 /* Debug */,
+				C4981251253553EB008B2B61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 626021EE1ED96BA20038AB20 /* Project object */;
+	rootObject = C498123E253553EA008B2B61 /* Project object */;
 }

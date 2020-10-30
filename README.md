@@ -12,9 +12,23 @@ npm install react-native-imui --save 或者 yarn add react-native-imui
 ## 配置
 
 - ### iOS
-  - Find PROJECT -> TARGETS -> General -> Embedded Binaries  and add RCTAuroraIMUI.framework
-  - 把 `iOSResourcePacket` 目录`NIMKitEmoticon.bundle`拖到Xcode`Resources`目录下
-  - 把 `iOSResourcePacket` 目录`IMGS`拖到Xcode`Images.xcassets`下
+  - 当前版本支持RN>=0.60
+  - RCTAuroraIMUI.framework依赖于SDWebImage，请在项目的Podfile文件中添加pod 'SDWebImage'
+  -现已将代码打包成RCTAuroraIMUI.framework放在react-native-imui/iOSResourcePacket/Framework/目录下，其中分别有支持模拟器+真机的（测试的时候用），也有仅支持真机的（打包上架appstore的时候用）。
+  ##### 方式一、最简单的使用方式
+  - 把`react-native-imui/iOSResourcePacket/Framework/`目录下，你所需要用到的`RCTAuroraIMUI.framework`文件拖拽到Xcode项目的`Framework`目录里面。
+  - 把`react-native-imui/iOSResourcePacket/AuroraIMUI.bundle`拖拽到Xcode项目的`Resources`目录里面。
+  - 
+  - 把 PROJECT -> TARGETS -> General -> Frameworks,Libraries,and Embedded Content中的`RCTAuroraIMUI.framework`的Embed改成`Embed & Sign`。
+  ##### 方式二、导入项目的方式
+  - 把`react-native-imui/iOSResourcePacket/AuroraIMUI.bundle`拖拽到Xcode项目的`Resources`目录里面。
+  - 在项目的Podfile文件的最下面中添加：
+  target 'RCTAuroraIMUI' do
+    project '../node_modules/react-native-imui/ios/RCTAuroraIMUI'
+  end
+  - 注意project路径是否正确
+  - 在终端cd到Podfile文件夹下，pod install后，重新打开项目便会多了一个RCTAuroraIMUI的project在项目里面，编译它之后，可以在你原来的项目的PROJECT -> TARGETS -> General -> Frameworks,Libraries,and Embedded Content中添加`RCTAuroraIMUI.framework`
+
 
 ## 数据格式
 
